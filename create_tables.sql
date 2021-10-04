@@ -11,7 +11,7 @@ CREATE TABLE users(
   role VARCHAR,
   status VARCHAR,
   date_of_validation TIMESTAMP,
-  CHECK (role IN ('lector', 'annotator', 'validator', 'administrator')),
+  CHECK (role IN ('reader', 'annotator', 'validator', 'administrator')),
   CHECK (status IN ('waiting', 'validated')),
   PRIMARY KEY (email)
 );
