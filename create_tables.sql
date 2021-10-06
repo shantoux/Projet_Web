@@ -21,6 +21,8 @@ CREATE TABLE genome(
   PRIMARY KEY (genome_id)
 );
 
+coucou essai
+
 CREATE TABLE gene(
   gene_id VARCHAR,
   genome_id VARCHAR,
