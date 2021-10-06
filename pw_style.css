@@ -3,6 +3,12 @@ body
   background-color: lightgray;
 }
 
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+
 #menu
 {
   padding: 20px 0px 0px 30px;
