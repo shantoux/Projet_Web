@@ -9,7 +9,7 @@
   <body>
     <div id="menu">
       Welcome to our brand new website login page!<br>
-      Spoiler: nothing is working yet.
+      Everything will be up and runing soon.
     </div>
 
     <div id="element1">
