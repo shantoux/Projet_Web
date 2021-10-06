@@ -1,0 +1,19 @@
+body
+{
+  background-color: lightgray;
+}
+
+#menu
+{
+  padding: 20px 0px 0px 30px;
+  height: 100px;
+  width: auto;
+  font-weight: bold;
+  text-align: center;
+}
+
+#element1
+{
+  text-align:center;
+  width: 33%;
+}
