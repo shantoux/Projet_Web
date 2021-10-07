@@ -1,3 +1,5 @@
+<!-- Page web accessible après authentification -->
+
 <!DOCTYPE html>
 <html>
   <body>
