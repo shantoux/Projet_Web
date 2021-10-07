@@ -13,7 +13,7 @@
     </div>
 
     <div id="element1">
-      <form action="TRUC TRUC.php" method="post">
+      <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
         <table class="center">
           <tr>
             <td> Login : </td>
@@ -24,12 +24,30 @@
             <td> <input type="password" name="pass"> </td>
           </tr>
           <tr>
-            <td colspan=2> <input type ="submit" value="Log in"> </td>
+            <td colspan=2> <input type ="submit" value="Log in" name = "submit"> </td>
           </tr>
         </table>
 
       </form>
     </div>
-  </body>
 
+
+  
+
+<?php
+//essai connexion postgres
+//*pg_connect(string $connection_string, int $connect_type = ?): resource;
+//syntaxe connexion conditionnelle :
+$essai_name = "username";
+$essai_password  = "password";
+if(isset($_POST['submit'])){
+  if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
+    echo '<meta http-equiv="refresh" content="0;url=site_2.php" />';
+  }
+  else{
+    echo "Utilisateur ou mot de passe erronés";
+  }
+}
+?>
+  </body>
 </html>
