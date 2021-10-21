@@ -1,0 +1,15 @@
+<!-- brouillon pour benji qui code sans puvoir voir ce qu'il fait :_) -->
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="topnav">
+        <a class="active" href="#search">New search</a>
+        <a href="#annotation_main">Annotate sequence</a>
+        <a href="#validation_main">Validate annotation</a>
+        <a href="#sequence_atribution_main">Attribute annotation</a>
+        <a href="#about">About</a>
+    </div>
+</body>
+</html>
+
