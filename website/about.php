@@ -5,7 +5,7 @@
 
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sequence attribution </title>
+    <title>About </title>
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
@@ -31,6 +31,7 @@
           }
         ?>
         <a class="active" href="about.php">About</a>
+        <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
   </body>
 </html>

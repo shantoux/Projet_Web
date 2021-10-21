@@ -31,6 +31,7 @@
           }
         ?>
         <a href="about.php">About</a>
+        <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
   </body>
 </html>
