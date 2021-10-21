@@ -1,0 +1,49 @@
+@startuml Diagram
+
+
+class GENOME << (G,green) >>
+class USERS << (U,red) >>
+class GENE <<(g,green) >>
+
+abstract GENOME{
+    genome_id{PK}
+}
+
+abstract USERS{
+    email {PK}
+  pw
+  first_name
+  last_name
+  phone
+  role
+  status
+  date_of_validation
+}
+
+abstract GENE{
+    gene_id {PK}
+  size
+  chromosome
+  localization
+  type
+  prot_seq
+  gene_seq
+}
+
+(USERS, GENE) .. ANNOTATIONS
+
+abstract ANNOTATIONS{
+  gene_biotype 
+  transcript_biotype 
+  gene_symbol 
+  description
+  status 
+  comments 
+  date_of_validation
+}
+
+
+USERS "1" -- "*" ANNOTATIONS : valide
+USERS "1" -- "*" ANNOTATIONS : écrit
+GENE "*" -- "1" GENOME : appartient à
+@enduml
