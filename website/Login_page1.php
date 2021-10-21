@@ -12,7 +12,7 @@
       Everything will be up and runing soon.
     </div>
 
-    <div id="login_form">
+    <div id="element1">
       <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
         <table class="center">
           <tr>

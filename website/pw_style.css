@@ -29,6 +29,11 @@ body {
   text-align: center;
 }
 
+.heighttext{
+  padding: 20px 0px 10px 0px;
+  line-height: 50px;
+}
+
 /* Style of navigation top bar */
 .topnav {
   overflow: hidden;
