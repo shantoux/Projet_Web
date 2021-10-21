@@ -18,7 +18,7 @@
 
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a class="active" href="#search">New search</a>
+        <a class="active" href="./search_1.php">New search</a>
         <?php
           if (in_array($role, array_slice($roles, 0), true)) {
             echo "<a href=\"#annotation_main\">Annotate sequence</a>";
