@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Website_title</title>
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
@@ -31,8 +31,22 @@
       </form>
     </div>
 
-
-
+    <?php
+    $essai_name = "username";
+    $essai_password  = "password";
+    if(isset($_POST['submit'])){
+      if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
+        echo '<meta http-equiv="refresh" content="0;url=login_page2.php" />';
+      }
+      else{
+        echo "<div class=\"alert\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Utilisateur ou mot de passe erroné.
+        </div>";
+      }
+    }
+    ?>
 
 <?php
 //essai connexion postgres
@@ -42,7 +56,7 @@ $essai_name = "username";
 $essai_password  = "password";
 if(isset($_POST['submit'])){
   if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-    echo '<meta http-equiv="refresh" content="0;url=site_2.php" />';
+    echo '<meta http-equiv="refresh" content="0;url=login_page2.php" />';
   }
   else{
     echo "Utilisateur ou mot de passe erronés";

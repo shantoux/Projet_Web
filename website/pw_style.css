@@ -54,6 +54,34 @@ body {
   color: white;
 }
 
+/* The alert message box */
+.alert {
+  margin-left: 350px;
+  margin-right: 350px;
+  padding: 20px;
+  background-color: red; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
 /* Brouillon de Soundous pour l'affichage des tableaux de résultats de recherche */
 
 *{
