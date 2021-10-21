@@ -1,4 +1,4 @@
-<!-- Page web accessible après authentification -->
+<!-- Page web de recherche de séquences, accès automatique après authentification authentification -->
 
 <!DOCTYPE html>
 <html>
@@ -10,11 +10,26 @@
   </head>
 
   <body>
+    <?php
+      # TODO: un-hardcode the user role, check in database for the actual role
+      $role = "administrator";
+      $roles = array("annotator", "validator", "administrator");
+    ?>
+
+    <!-- display menu options depending of the user's role -->
     <div class="topnav">
         <a class="active" href="#search">New search</a>
-        <a href="#annotation_main">Annotate sequence</a>
-        <a href="#validation_main">Validate annotation</a>
-        <a href="#sequence_atribution_main">Attribute annotation</a>
+        <?php
+          if (in_array($role, array_slice($roles, 0), true)) {
+            echo "<a href=\"#annotation_main\">Annotate sequence</a>";
+          }
+          if (in_array($role, array_slice($roles, 1), true)) {
+            echo "<a href=\"#validation_main\">Validate annotation</a>";
+          }
+          if (in_array($role, array_slice($roles, 2), true)) {
+            echo "<a href=\"#sequence_atribution_main\">Attribute annotation</a>";
+          }
+        ?>
         <a href="#about">About</a>
     </div>
 
@@ -22,6 +37,6 @@
       <span class="closebtn"
       onclick="this.parentElement.style.display='none';">&times;</span>
       Authentification réussie :)
-    </div>";
+    </div>
   </body>
 </html>
