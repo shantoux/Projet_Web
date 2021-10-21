@@ -38,7 +38,7 @@
     <!-- Display info box for successful login -->
     <?php
       if (end($url_array) == "Login_page1.php") {
-        echo "<div class=\"alert_good\">
+        echo "<br> <div class=\"alert_good\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
           Authentification successful :)
@@ -46,6 +46,45 @@
       }
     ?>
 
-    
+    <br>
+    <div id="element1">
+      <form action="database_search_result.php" method = "post">
+        <table class="center">
+          <tr>
+            <td> Nucleotides sequence: </td>
+            <td> <input type="text" name="nucl_sequence"> </td>
+          </tr>
+          <tr>
+            <td> Peptides sequence: </td>
+            <td> <input type="text" name="pep_sequence"> </td>
+          </tr>
+          <tr>
+            <td> Genes names: </td>
+            <td> <input type="text" name="genes"> </td>
+          </tr>
+          <tr>
+            <td> Transcripts names: </td>
+            <td> <input type="text" name="transcripts"> </td>
+          </tr>
+          <tr>
+            <td> Description: </td>
+            <td> <textarea cols="29" rows="5" name="description"></textarea> </td>
+          </tr>
+          <tr>
+            <td> Type of search: </td>
+            <td align="left"> <input type="radio" id="genome" name="search_type" required> <label for="genome">Genome</label> </td>
+          <tr>
+            <td></td>
+            <td align="left"> <input type="radio" id="gene_prot" name="search_type" required> <label for="gene_prot">Gene / Proteine</label> </td>
+
+          </tr>
+          <tr>
+            <td colspan=2> <br> <br> <input type ="submit" value="Search!" name = "submit"> </td>
+          </tr>
+        </table>
+
+      </form>
+    </div>
+
   </body>
 </html>
