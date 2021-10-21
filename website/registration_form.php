@@ -1,15 +1,16 @@
 <html>
 
-  <head> <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8">
     <title>Registration form</title>
-    <link rel="stylesheet" type="text/css" href="./pw_style.css">
+    <link rel="stylesheet" type="text/css" href="pw_style.css" /s>
   </head>
 
 <body>
   <div id="menu">
     Please register so you can join in on the fun !
   </div>
-  
+
 <div id="element1">
 <form>
   <table class="center">

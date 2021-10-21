@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html>
 
-  <head> <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Navigation </title>
-    <link rel="stylesheet"  href="pw_style.css">
+    <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
   <body>

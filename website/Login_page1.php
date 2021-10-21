@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Website_title</title>
-    <link rel="stylesheet" type="text/css" href="./pw_style.css">
+    <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
   <body>
@@ -32,7 +32,7 @@
     </div>
 
 
-  
+
 
 <?php
 //essai connexion postgres
