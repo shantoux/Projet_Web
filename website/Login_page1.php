@@ -38,7 +38,7 @@
     $essai_password  = "password";
     if(isset($_POST['submit'])){
       if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-        echo '<meta http-equiv="refresh" content="0;url=login_page2.php" />';
+        echo '<meta http-equiv="refresh" content="0;url=search_1.php" />';
       }
       else{
         echo "<div class=\"alert_bad\">
@@ -58,7 +58,7 @@ $essai_name = "username";
 $essai_password  = "password";
 if(isset($_POST['submit'])){
   if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-    echo '<meta http-equiv="refresh" content="0;url=login_page2.php" />';
+    echo '<meta http-equiv="refresh" content="0;url=search_1.php" />';
   }
   else{
     echo "Utilisateur ou mot de passe erronés";
