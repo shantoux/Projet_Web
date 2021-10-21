@@ -38,13 +38,13 @@
     $essai_password  = "password";
     if(isset($_POST['submit'])){
       if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-        echo '<meta http-equiv="refresh" content="0;url=search_1.php" />';
+        echo '<script>location.href="search_1.php"</script>';
       }
       else{
         echo "<div class=\"alert_bad\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Utilisateur ou mot de passe erroné.
+          Wrong username or password.
         </div>";
       }
     }
@@ -58,7 +58,7 @@ $essai_name = "username";
 $essai_password  = "password";
 if(isset($_POST['submit'])){
   if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-    echo '<meta http-equiv="refresh" content="0;url=search_1.php" />';
+    echo '<script>location.href="search_1.php"</script>';
   }
   else{
     echo "Utilisateur ou mot de passe erronés";

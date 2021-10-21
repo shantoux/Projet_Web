@@ -14,6 +14,7 @@
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
       $roles = array("annotator", "validator", "administrator");
+      $url_array = preg_split("#/#", $_SERVER['HTTP_REFERER']);
     ?>
 
     <!-- display menu options depending of the user's role -->
@@ -34,11 +35,14 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
     
-    <!-- TODO: only display this info box if the user just looged in (and not if he comes back from another page of the website) -->
-    <div class="alert_good">
-      <span class="closebtn"
-      onclick="this.parentElement.style.display='none';">&times;</span>
-      Authentification réussie :)
-    </div>
+    <?php
+      if (end($url_array) == "Login_page1.php") {
+        echo "<div class=\"alert_good\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Authentification successful :)
+        </div>";
+      }
+    ?>
   </body>
 </html>
