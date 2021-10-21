@@ -35,6 +35,7 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
     
+    <!-- Display info box for successful login -->
     <?php
       if (end($url_array) == "Login_page1.php") {
         echo "<div class=\"alert_good\">
@@ -44,5 +45,7 @@
         </div>";
       }
     ?>
+
+    
   </body>
 </html>

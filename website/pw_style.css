@@ -74,8 +74,9 @@ body {
 
 /* The alert message box */
 .alert_bad {
-  margin-left: 350px;
-  margin-right: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
   padding: 20px;
   background-color: red; /* Red */
   color: white;
@@ -85,8 +86,9 @@ body {
 }
 
 .alert_good {
-  margin-left: 350px;
-  margin-right: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
   padding: 20px;
   background-color: green; /* Red */
   color: white;
