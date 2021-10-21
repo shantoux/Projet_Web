@@ -2,6 +2,12 @@
 
 <!DOCTYPE html>
 <html>
+
+  <head> <meta charset="UTF-8">
+    <title>Navigation </title>
+    <link rel="stylesheet"  href="pw_style.css">
+  </head>
+
   <body>
     <div class="topnav">
         <a class="active" href="#search">New search</a>
@@ -10,6 +16,5 @@
         <a href="#sequence_atribution_main">Attribute annotation</a>
         <a href="#about">About</a>
     </div>
-</body>
+  </body>
 </html>
-
