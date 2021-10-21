@@ -54,6 +54,24 @@ body {
   color: white;
 }
 
+.topnav a.disc {
+  float: right;
+  color: #bdbdbd;
+  background-color: rgb(19, 19, 19);
+  text-align: center;
+  padding: 6px 8px;
+  text-decoration: none;
+  font-size: 17px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.topnav a.disc:hover {
+  background-color: white;
+  color: black;
+}
+
 /* The alert message box */
 .alert_bad {
   margin-left: 350px;

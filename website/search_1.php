@@ -31,6 +31,7 @@
           }
         ?>
         <a href="about.php">About</a>
+        <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
     
     <!-- TODO: only display this info box if the user just looged in (and not if he comes back from another page of the website) -->
