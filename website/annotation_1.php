@@ -30,7 +30,7 @@
             echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
           }
         ?>
-        <a href="#about">About</a>
+        <a href="about.php">About</a>
     </div>
   </body>
 </html>

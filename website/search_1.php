@@ -30,9 +30,10 @@
             echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
           }
         ?>
-        <a href="#about">About</a>
+        <a href="about.php">About</a>
     </div>
-
+    
+    <!-- TODO: only display this info box if the user just looged in (and not if he comes back from another page of the website) -->
     <div class="alert_good">
       <span class="closebtn"
       onclick="this.parentElement.style.display='none';">&times;</span>
