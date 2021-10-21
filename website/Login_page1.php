@@ -31,6 +31,8 @@
       </form>
     </div>
 
+<!-- Le popup ci-dessous doit ensuite intégrer la connexion à la DB pour checker l'Utilisateur -->
+
     <?php
     $essai_name = "username";
     $essai_password  = "password";
@@ -39,7 +41,7 @@
         echo '<meta http-equiv="refresh" content="0;url=login_page2.php" />';
       }
       else{
-        echo "<div class=\"alert\">
+        echo "<div class=\"alert_bad\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
           Utilisateur ou mot de passe erroné.

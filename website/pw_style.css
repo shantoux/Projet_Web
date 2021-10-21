@@ -55,13 +55,25 @@ body {
 }
 
 /* The alert message box */
-.alert {
+.alert_bad {
   margin-left: 350px;
   margin-right: 350px;
   padding: 20px;
   background-color: red; /* Red */
   color: white;
   margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.alert_good {
+  margin-left: 350px;
+  margin-right: 350px;
+  padding: 20px;
+  background-color: green; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 15px;
   text-align: center;
 }
 
