@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Website_title</title>
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
@@ -31,8 +31,24 @@
       </form>
     </div>
 
+<!-- Le popup ci-dessous doit ensuite intégrer la connexion à la DB pour checker l'Utilisateur -->
 
-
+    <?php
+    $essai_name = "username";
+    $essai_password  = "password";
+    if(isset($_POST['submit'])){
+      if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
+        echo '<script>location.href="search_1.php"</script>';
+      }
+      else{
+        echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Wrong username or password.
+        </div>";
+      }
+    }
+    ?>
 
 <?php
 //essai connexion postgres
@@ -42,7 +58,7 @@ $essai_name = "username";
 $essai_password  = "password";
 if(isset($_POST['submit'])){
   if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-    echo '<meta http-equiv="refresh" content="0;url=site_2.php" />';
+    echo '<script>location.href="search_1.php"</script>';
   }
   else{
     echo "Utilisateur ou mot de passe erronés";
