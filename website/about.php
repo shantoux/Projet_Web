@@ -33,5 +33,19 @@
         <a class="active" href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
+
+    <br>
+    <div id="shanti">
+      Shanti
+    </div>
+
+    <div id="soun">
+      Soundous
+    </div>
+
+    <div id="ben">
+      Benjamin
+    </div>
+  </dl>
   </body>
 </html>
