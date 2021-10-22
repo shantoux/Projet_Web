@@ -7,6 +7,10 @@
   </head>
 
 <body>
+  <!-- display menu option -->
+  <div class="topnav">
+        <a href="Login_page1.php">Back to login screen</a>
+    </div>
   
   <div id="menu">
     Please register so you can join in on the fun !
