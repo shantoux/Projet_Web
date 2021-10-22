@@ -37,5 +37,7 @@
     <div id="pagetitle">
       Genome information
     </div>
+
+    
   </body>
 </html>

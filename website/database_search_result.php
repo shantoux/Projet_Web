@@ -54,8 +54,6 @@
             <td><?php echo "<a href=\"./genome_info.php\">Genome example1</a>"; ?>
             </td>
 
-            <!--clickable : sends you to genome info page-->
-
             <td>Escherichia coli </td>
             <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCG
 GGCTGA</td>
