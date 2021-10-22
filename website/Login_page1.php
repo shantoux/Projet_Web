@@ -55,7 +55,7 @@
 
 <?php
 //essai connexion postgres
-$db = pg_connect("host=localhost port=5432 dbname=shanti_psql username = shanti") or die ("Connection échoué");
+//$db = pg_connect("host=localhost port=5432 dbname=shanti_psql username = shanti") or die ("Connection échoué");
 //syntaxe connexion conditionnelle :
 $essai_name = "username";
 $essai_password  = "password";
