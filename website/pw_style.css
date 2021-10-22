@@ -224,8 +224,16 @@ body {
   white-space: normal;
 
 }
-
 .table_type3{
+  border: solid 1px #DDEEEE;
+  margin:auto;
+  background-color: #E9F2F2;
+  border-collapse:separate;
+  white-space: normal;
+  width: auto;
+  max-width: 100%;
   table-layout: auto;
-  width: 100%;
-}
+  text-align:left;
+  border-spacing: 0 15px;
+
+  }
