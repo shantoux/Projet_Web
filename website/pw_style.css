@@ -179,6 +179,14 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
   column-width: auto;
 
 }
+.table_soun thead th.type2{
+  text-align:left;
+  background-color: #ccdee5;
+  width:auto;
+  padding: 10px 10px;
+  column-width: auto;
+
+}
 
 .table_soun tbody td{
   border-right: 1px solid black;
@@ -195,6 +203,6 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
 }
 
 .table_soun tbody td:last-child{
-  width:70%;
+  width:10%;
 
 }

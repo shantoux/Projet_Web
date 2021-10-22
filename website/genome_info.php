@@ -38,6 +38,37 @@
       Genome information
     </div>
 
-    
+    <div class="center">
+      <table class="table_soun">
+        <thead>
+          <tr>
+            <th colspan=2 class="type2">Genome's name : Ecoli</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+          <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+          <td>
+            Annotated<br>
+            By [annotator]<br>
+            on 17-11-2021
+          </td>
+        </tr>
+
+        <tr>
+          <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+          <td>
+            Annotated<br>
+            By [annotator]<br>
+            on 17-11-2021
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
   </body>
 </html>
