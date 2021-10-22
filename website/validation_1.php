@@ -37,15 +37,15 @@
     <div id="pagetitle">
       Annotations waiting for validation
     </div>
-    <div class = "table_soun">
-      <table>
+    <div class = "center">
+      <table class = "table_soun">
         <thead>
             <tr>
                 <th>Submission date</th>
                 <th>Sequences</th>
                 <th>Annotator</th>
-                <th>Comments</th>
                 <th>Action</th>
+                <th>Comments</th>
             </tr>
             </thead>
 
@@ -53,11 +53,9 @@
             <tr>
                 <td>29-04-2020 </td>
                 <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+                <!--clickable : sends you to annotation page-->
                 <td>Bob</td>
-                <td>
-                  <input type="text" name="comments"><br>
-                  <input type="submit" name="save">
-                </td>
+
                 <td>
                   <input type="checkbox" id="Validate" name="validate">
                   <label for="validate">Validate</label>
@@ -65,9 +63,15 @@
                   <input type="checkbox" id="Delete" name="delete">
                   <label for="delete">Delete</label>
                 </td>
+
+                <td>
+                  <input type="text" name="comments"><br>
+                  <input type="submit" name="save">
+                </td>
+
             </tr>
 
-            <tbody>
+          </tbody>
       </table>
     </div>
   </body>

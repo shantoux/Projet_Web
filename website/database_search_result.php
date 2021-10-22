@@ -31,17 +31,15 @@
   </div>
   <br>
 
-  <div id="element1">
+  <div id="pagetitle">
     Search results
   </div>
 
   Genome's type : [insert type protein or nucleotides]<br>
-  <h2>Results</h2>
+  <div id="element1">Results</div>
 
-<!--<div class="table-wrapper">
-  <table class="ft-table">-->
-  <div class = "table_soun">
-    <table>
+  <div class = "center">
+    <table class = "table_soun">
 
     <thead>
         <tr>
@@ -54,6 +52,7 @@
         <tbody>
         <tr>
             <td>Genome example1 </td>
+            <!--clickable : sends you to genome info page-->
             <td>Escherichia coli </td>
             <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCG
 GGCTGA</td>
