@@ -155,12 +155,9 @@ body {
   font-family:Times;
 }
 
-/* Brouillon de Soundous pour l'affichage des tableaux de résultats de recherche */
 /* Table Styles */
 
-.table_soun{
-/*j'ai mis Soun au cas où vous aviez faits des css pour des tables aussi,
-mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
+.table_type1{
   border: solid 1px #DDEEEE;
   margin:10px 50px 10px;
   background-color: #E9F2F2;
@@ -171,7 +168,7 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
   table-layout: auto;
 
   }
-.table_soun thead th{
+.table_type1 thead th{
   text-align:center;
   background-color: #ccdee5;
   width:auto;
@@ -179,16 +176,8 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
   column-width: auto;
 
 }
-.table_soun thead th.type2{
-  text-align:left;
-  background-color: #ccdee5;
-  width:auto;
-  padding: 10px 10px;
-  column-width: auto;
 
-}
-
-.table_soun tbody td{
+.table_type1 tbody td{
   border-right: 1px solid black;
   text-align:center;
   color:black;
@@ -197,12 +186,41 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
 
 }
 
-.table_soun tbody td:first-child{
+.table_type1 tbody td:first-child{
   width:10%;
 
 }
 
-.table_soun tbody td:last-child{
-  width:10%;
+.table_type1 tbody td:last-child{
+  width:70%;
+
+}
+
+.table_type2{
+  border: solid 1px #DDEEEE;
+  margin:10px 50px 10px;
+  background-color: #E9F2F2;
+  border-collapse:separate;
+  white-space: normal;
+  width: auto;
+  max-width: 100%;
+  table-layout: auto;
+
+  }
+.table_type2 thead th{
+  text-align:left;
+  background-color: #ccdee5;
+  width:auto;
+  padding: 10px 10px;
+  column-width: auto;
+
+}
+
+.table_type2 tbody td{
+  border-right: 1px solid black;
+  text-align:center;
+  color:black;
+  width:auto;
+  white-space: normal;
 
 }

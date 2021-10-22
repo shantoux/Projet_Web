@@ -39,16 +39,22 @@
     </div>
 
     <div class="center">
-      <table class="table_soun">
+      <table class="table_type2">
         <thead>
           <tr>
-            <th colspan=2 class="type2">Genome's name : Ecoli</th>
+            <th colspan=3 class="type2">Genome's name : Ecoli</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
-          <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+            <td>
+              box
+              <input type="checkbox" id="Select" name="select">
+            </td>
+          <td>
+            ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA
+          </td>
           <td>
             Annotated<br>
             By [annotator]<br>
@@ -69,6 +75,10 @@
       </table>
     </div>
 
+    Extract: <input type="text" name="extract" value=""></input>
+    <a href="path_to_file" download="name_file">
+         <button type="button">Download</button>
+         </a>
 
   </body>
 </html>
