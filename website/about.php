@@ -33,5 +33,9 @@
         <a class="active" href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
+
+    Benjamin Vacus<br>
+    Sandra Pijeaud <br>
+    Soundous Bella Baci <br>
   </body>
 </html>
