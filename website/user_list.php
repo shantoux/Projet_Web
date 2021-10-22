@@ -35,7 +35,7 @@
     </div>
 
     <h2 id="pagetitle">
-      Users's list
+      Users' list
     </h2>
 
     <form></form>
