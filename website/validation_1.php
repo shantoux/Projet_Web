@@ -35,7 +35,7 @@
     </div>
 
     <div id="pagetitle">
-      Pending annotations
+      Annotations waiting for validation
     </div>
     <div class = "table_soun">
       <table>
