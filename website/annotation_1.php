@@ -37,7 +37,8 @@
     <h2>Sequences annotation</h2>
     <br> Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
     <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
-          
+    <br> <br>
+    
     <div class = "table_soun">
       <table>
         <thead>
@@ -52,17 +53,10 @@
             <tr>
                 <td>29-04-2020 </td>
                 <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
-                <td>Bob</td>
                 <td>
-                  <input type="text" name="comments"><br>
-                  <input type="submit" name="save">
-                </td>
-                <td>
-                  <input type="checkbox" id="Validate" name="validate">
-                  <label for="validate">Validate</label>
-                  <br>
-                  <input type="checkbox" id="Delete" name="delete">
-                  <label for="delete">Delete</label>
+                  <form action="./annotation_2.php">
+                    <button type="submit">Annotate</button>
+                  </form>
                 </td>
             </tr>
 
