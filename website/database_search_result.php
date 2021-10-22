@@ -36,10 +36,12 @@
   </div>
 
   Genome's type : [insert type protein or nucleotides]<br>
-  <h2>Results:</h2>
+  <h2>Results</h2>
 
-<div class="table-wrapper">
-  <table class="ft-table">
+<!--<div class="table-wrapper">
+  <table class="ft-table">-->
+  <div class = "table_soun">
+    <table>
 
     <thead>
         <tr>
@@ -48,6 +50,32 @@
             <th>Sequences</th>
         </tr>
         </thead>
+
+        <tbody>
+        <tr>
+            <td>Genome example1 </td>
+            <td>Escherichia coli </td>
+            <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCG
+GGCTGA</td>
+        </tr>
+        <tr>
+            <td>Genome example2</td>
+            <td>Escherichia coli</td>
+            <td>GTGTTCTACAGAGAGAAGCGTAGAGCAATAGGCTGTATTTTGAGAAAGCTGTGTGAGTGG
+AAAAGTGTACGGATTCTGGAAGCTGAATGCTGTGCAGATCATATCCATATGCTTGTGGAG
+ATCCCGCCCAAAATGAGCGTATCAGGCTTTATGGGATATCTGAAAGGGAAAAGCAGTCTG
+ATGCCTTACGAGCAGTTTGGTGATTTGAAATTCAAATACAGGAACAGGGAGTTCTGGTGC
+AGAGGGTATTACGTCGATACGGTGGGTAAGAACACGGCGAAGATACAGGATTACATAAAG
+CACCAGCTTGAAGAGGATAAAATGGGAGAGCAGTTATCGATTCCCTATCCGGGCAGCCCG
+TTTACGGGCCGTAAGTAA</td>
+        </tr>
+        <tr>
+            <td>Genome example3</td>
+            <td>Escherichia coli</td>
+            <td>ATGC</td>
+        </tr>
+
+        <tbody>
 
   </table>
 </div>
