@@ -57,7 +57,6 @@
       <img src="./images/benjamin.jpeg" alt="Benjamin Vacus" style="width:228px;height:408px;">
       <br>Benjamin
     </div>
-  </dl>
->>>>>>> b4304b7835c96c0b8e7cd204ddbec08171787d80
+    
   </body>
 </html>
