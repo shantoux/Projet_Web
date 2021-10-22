@@ -54,7 +54,12 @@
             <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
             <td>
               Genome type : <input type="text" name="genome_type"><br>
-              Biotype : <input type="text" name="genome_type"><br>
+              Gene Biotype : <input type="text" name="gene_biotype"><br>
+              Transcript Biotype : <input type="text" name="transcript_biotype"><br>
+              Gene symbol : <input type="text" name="gene_symbol"><br>
+              Description : <input type="text" name="gene_description"><br>
+
+
             </td>
           </tr>
         <tbody>
