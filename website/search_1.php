@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
-  <body>
+  <body class="center">
     <?php
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
@@ -46,7 +46,10 @@
       }
     ?>
 
-    <br>
+    <h2> Search our database </h2>
+    <br> Search for a gene / proteine sequence, or for a whole genome.
+
+    <br> <br> <br>
     <div id="element1">
       <form action="database_search_result.php" method = "post">
         <table class="center">
