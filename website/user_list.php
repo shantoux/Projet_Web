@@ -1,15 +1,15 @@
-<!-- Web page to get information about genome -->
+<!-- Web page to display, validate, delete users -->
 
 <!DOCTYPE html>
 <html>
 
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Genome information </title>
+    <title>Users list </title>
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
-  <body>
+  <body class="center">
     <?php
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
@@ -34,55 +34,43 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
 
-    <div id="pagetitle">
-      Genome information
-    </div>
+    <h2 id="pagetitle">
+      Users' list
+    </h2>
 
-    <div class="center">
-      <table class="table_type2">
+    <form></form>
+
+    <div id = "element1">
+      <table class = "center">
         <thead>
           <tr>
-            <th colspan=3 class="type2">Genome's name : Ecoli</th>
+            <th>User email</th>
+            <th>Role</th>
+            <th>Last connexion</th>
+            <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
+            <td>bob@gmail.com </td>
+            <td>annotator </td>
+            <td>22/10/2021 18:46</td>
             <td>
-              extract
-              <input type="checkbox" id="Select" name="select">
+              <input type="checkbox" id="Validate" name="validate">
+              <label for="validate">Validate</label>
+              <br>
+              <input type="checkbox" id="Delete" name="delete">
+              <label for="delete">Delete</label>
             </td>
-          <td>
-            ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA
-          </td>
-          <td>
-            Annotated<br>
-            By [annotator]<br>
-            on 17-11-2021
-          </td>
-        </tr>
+            <td>
+              <input type="submit" name="save" value="save">
+            </td>
+          </tr>
 
-        <tr>
-          <td>
-            extract
-            <input type="checkbox" id="Select" name="select">
-          </td>
-          <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
-          <td>
-            Annotated<br>
-            By [annotator]<br>
-            on 17-11-2021
-          </td>
-        </tr>
-
-        </tbody>
+        <tbody>
       </table>
     </div>
-
-    Extract: 
-    <a href="path_to_file" download="name_file">
-         <button type="button">Download</button>
-         </a>
-
+    </form>
   </body>
 </html>

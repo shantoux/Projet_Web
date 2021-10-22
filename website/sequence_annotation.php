@@ -21,7 +21,7 @@
         <a href="./search_1.php">New search</a>
         <?php
           if (in_array($role, array_slice($roles, 0), true)) {
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+            echo "<a class=\"active\" href=\"./annotation_1.php\">Annotate sequence</a>";
           }
           if (in_array($role, array_slice($roles, 1), true)) {
             echo "<a href=\"./validation_1.php\">Validate annotation</a>";
