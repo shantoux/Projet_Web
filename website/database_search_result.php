@@ -51,14 +51,19 @@
 
         <tbody>
         <tr>
-            <td>Genome example1 </td>
+            <td><?php echo "<a href=\"./genome_info.php\">Genome example1</a>"; ?>
+            </td>
+
             <!--clickable : sends you to genome info page-->
+
             <td>Escherichia coli </td>
             <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCG
 GGCTGA</td>
         </tr>
         <tr>
-            <td>Genome example2</td>
+            <td>
+              <?php echo "<a href=\"./genome_info.php\">Genome example2</a>"; ?>
+            </td>
             <td>Escherichia coli</td>
             <td>GTGTTCTACAGAGAGAAGCGTAGAGCAATAGGCTGTATTTTGAGAAAGCTGTGTGAGTGG
 AAAAGTGTACGGATTCTGGAAGCTGAATGCTGTGCAGATCATATCCATATGCTTGTGGAG
@@ -69,7 +74,9 @@ CACCAGCTTGAAGAGGATAAAATGGGAGAGCAGTTATCGATTCCCTATCCGGGCAGCCCG
 TTTACGGGCCGTAAGTAA</td>
         </tr>
         <tr>
-            <td>Genome example3</td>
+            <td>
+              <?php echo "<a href=\"./genome_info.php\">Genome example3</a>"; ?>
+            </td>
             <td>Escherichia coli</td>
             <td>ATGC</td>
         </tr>
