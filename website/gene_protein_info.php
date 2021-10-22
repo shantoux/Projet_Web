@@ -24,7 +24,7 @@
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
           }
           if (in_array($role, array_slice($roles, 1), true)) {
-            echo "<a class=\"active\" href=\"./validation_1.php\">Validate annotation</a>";
+            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
           }
           if (in_array($role, array_slice($roles, 2), true)) {
             echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
