@@ -33,7 +33,7 @@
         <a class="active" href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
-
+    
     <h2>The Web Programming Project</h2>
 
     This project conducted by passionnate <strong>AMI2B students</strong> from Université Paris-Saclay aims at providing every bioinformatics specialist with a <strong>brand new tool</strong> to investigate the meaning and structure of his sequences of interest.
@@ -44,12 +44,12 @@
     <!-- Personnal informations about website developers /!\ attention il faut s'assumer !!-->
     <br>
     <div id="shanti">
-      <img src="./images/shanti.jpg" alt="Shanti Pjd" style="width:360px;height:490px;">
+      <img src="./images/shanti.jpg" alt="Sandra Pijeaud" style="width:360px;height:490px;">
       <br>Shanti
     </div>
 
     <div id="soun">
-      <img src="./images/soundous.jpg" alt="Soundous BellaBaci" style="width:400px;height:400px;">
+      <img src="./images/soundous.jpg" alt="Soundous Bella Baci" style="width:400px;height:400px;">
       <br>Soundous
     </div>
 
@@ -58,5 +58,6 @@
       <br>Benjamin
     </div>
   </dl>
+>>>>>>> b4304b7835c96c0b8e7cd204ddbec08171787d80
   </body>
 </html>
