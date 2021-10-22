@@ -2,7 +2,6 @@ body {
   background-color: #FAF9F6;
 }
 
-
 .center {
   margin-left: auto;
   margin-right: auto;
@@ -117,6 +116,28 @@ body {
 /* When moving the mouse over the close button */
 .closebtn:hover {
   color: black;
+}
+
+/* About page layout */
+#shanti
+{
+  text-align: center;
+  float: left;
+  width: 33%;
+}
+
+#soun
+{
+  text-align: center;
+  float: left;
+  width: 32%;
+}
+
+#ben
+{
+  text-align: center;
+  float: left;
+  width: 33%;
 }
 
 /* Brouillon de Soundous pour l'affichage des tableaux de résultats de recherche */
