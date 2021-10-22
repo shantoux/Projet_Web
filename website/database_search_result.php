@@ -31,17 +31,15 @@
   </div>
   <br>
 
-  <div id="element1">
+  <div id="pagetitle">
     Search results
   </div>
 
   Genome's type : [insert type protein or nucleotides]<br>
-  <h2>Results</h2>
+  <div id="element1">Results</div>
 
-<!--<div class="table-wrapper">
-  <table class="ft-table">-->
-  <div class = "table_soun">
-    <table>
+  <div class = "center">
+    <table class = "table_soun">
 
     <thead>
         <tr>
@@ -53,13 +51,19 @@
 
         <tbody>
         <tr>
-            <td>Genome example1 </td>
+            <td><?php echo "<a href=\"./genome_info.php\">Genome example1</a>"; ?>
+            </td>
+
+            <!--clickable : sends you to genome info page-->
+
             <td>Escherichia coli </td>
             <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCG
 GGCTGA</td>
         </tr>
         <tr>
-            <td>Genome example2</td>
+            <td>
+              <?php echo "<a href=\"./genome_info.php\">Genome example2</a>"; ?>
+            </td>
             <td>Escherichia coli</td>
             <td>GTGTTCTACAGAGAGAAGCGTAGAGCAATAGGCTGTATTTTGAGAAAGCTGTGTGAGTGG
 AAAAGTGTACGGATTCTGGAAGCTGAATGCTGTGCAGATCATATCCATATGCTTGTGGAG
@@ -70,7 +74,9 @@ CACCAGCTTGAAGAGGATAAAATGGGAGAGCAGTTATCGATTCCCTATCCGGGCAGCCCG
 TTTACGGGCCGTAAGTAA</td>
         </tr>
         <tr>
-            <td>Genome example3</td>
+            <td>
+              <?php echo "<a href=\"./genome_info.php\">Genome example3</a>"; ?>
+            </td>
             <td>Escherichia coli</td>
             <td>ATGC</td>
         </tr>

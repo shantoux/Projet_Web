@@ -36,6 +36,7 @@
 
     <h2 id="pagetitle">
       Annotations waiting for validation
+<<<<<<< HEAD
     </h2>
 
     <div class = "table_soun">
@@ -69,6 +70,44 @@
           </tr>
 
         <tbody>
+=======
+    </div>
+    <div class = "center">
+      <table class = "table_soun">
+        <thead>
+            <tr>
+                <th>Submission date</th>
+                <th>Sequences</th>
+                <th>Annotator</th>
+                <th>Action</th>
+                <th>Comments</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>29-04-2020 </td>
+                <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+                <!--clickable : sends you to annotation page-->
+                <td>Bob</td>
+
+                <td>
+                  <input type="checkbox" id="Validate" name="validate">
+                  <label for="validate">Validate</label>
+                  <br>
+                  <input type="checkbox" id="Delete" name="delete">
+                  <label for="delete">Delete</label>
+                </td>
+
+                <td>
+                  <input type="text" name="comments"><br>
+                  <input type="submit" name="save">
+                </td>
+
+            </tr>
+
+          </tbody>
+>>>>>>> 251fd077cdc56a6a2b162b57063e39ef3c28d761
       </table>
     </div>
   </body>

@@ -140,8 +140,6 @@ body {
   width: 33%;
 }
 
-/* Brouillon de Soundous pour l'affichage des tableaux de résultats de recherche */
-
 /*Page title*/
 
 #pagetitle{
@@ -152,6 +150,7 @@ body {
   font-family:Times;
 }
 
+/* Brouillon de Soundous pour l'affichage des tableaux de résultats de recherche */
 /* Table Styles */
 
 .table_soun{
@@ -185,7 +184,7 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
 
 }
 
-/*.table_soun tbody td:first-child{
+.table_soun tbody td:first-child{
   width:10%;
 
 }
@@ -193,4 +192,4 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
 .table_soun tbody td:last-child{
   width:70%;
 
-}*/
+}
