@@ -224,3 +224,8 @@ body {
   white-space: normal;
 
 }
+
+.table_type3{
+  table-layout: auto;
+  width: 100%;
+}
