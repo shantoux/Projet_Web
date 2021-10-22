@@ -212,7 +212,7 @@ body {
   background-color: #ccdee5;
   width:auto;
   padding: 10px 10px;
-  column-width: auto;
+  column-width: 100%;
 
 }
 

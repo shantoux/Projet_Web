@@ -49,7 +49,7 @@
         <tbody>
           <tr>
             <td>
-              box
+              extract
               <input type="checkbox" id="Select" name="select">
             </td>
           <td>
@@ -63,6 +63,10 @@
         </tr>
 
         <tr>
+          <td>
+            extract
+            <input type="checkbox" id="Select" name="select">
+          </td>
           <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
           <td>
             Annotated<br>
@@ -75,7 +79,7 @@
       </table>
     </div>
 
-    Extract: <input type="text" name="extract" value=""></input>
+    Extract: 
     <a href="path_to_file" download="name_file">
          <button type="button">Download</button>
          </a>
