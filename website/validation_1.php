@@ -34,6 +34,41 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
 
-    <table
+    <div id="pagetitle">
+      Annotations waiting for validation
+    </div>
+    <div class = "table_soun">
+      <table>
+        <thead>
+            <tr>
+                <th>Submission date</th>
+                <th>Sequences</th>
+                <th>Annotator</th>
+                <th>Comments</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>29-04-2020 </td>
+                <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+                <td>Bob</td>
+                <td>
+                  <input type="text" name="comments"><br>
+                  <input type="submit" name="save">
+                </td>
+                <td>
+                  <input type="checkbox" id="Validate" name="validate">
+                  <label for="validate">Validate</label>
+                  <br>
+                  <input type="checkbox" id="Delete" name="delete">
+                  <label for="delete">Delete</label>
+                </td>
+            </tr>
+
+            <tbody>
+      </table>
+    </div>
   </body>
 </html>

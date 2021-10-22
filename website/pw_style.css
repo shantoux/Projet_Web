@@ -142,13 +142,14 @@ body {
 
 /* Brouillon de Soundous pour l'affichage des tableaux de résultats de recherche */
 
-h2{
-    text-align: center;
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: black;
-    padding: 30px 0;
+/*Page title*/
+
+#pagetitle{
+  color:#4F8E8D;
+  font-weight:bold;
+  text-align: center;
+  font-size:30px;
+  font-family:Times;
 }
 
 /* Table Styles */
@@ -159,10 +160,11 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
   border: solid 1px #DDEEEE;
   margin:10px 50px 10px;
   background-color: #E9F2F2;
-  border-collapse:collapse;
+  border-collapse:separate;
   white-space: normal;
   width: auto;
   max-width: 100%;
+  table-layout: auto;
 
   }
 .table_soun thead th{
@@ -179,10 +181,11 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
   text-align:center;
   color:black;
   width:auto;
+  white-space: normal;
 
 }
 
-.table_soun tbody td:first-child{
+/*.table_soun tbody td:first-child{
   width:10%;
 
 }
@@ -190,4 +193,4 @@ mais on peut enlever soun et modifier là dessus si c'est pas le cas*/
 .table_soun tbody td:last-child{
   width:70%;
 
-}
+}*/
