@@ -71,7 +71,7 @@
             <td> <textarea cols="29" rows="5" name="description"></textarea> </td>
           </tr>
           <tr>
-            <td> Type of search: </td>
+            <td> Type of search:<span style="color:red;">*</span></td>
             <td align="left"> <input type="radio" id="genome" name="search_type" required> <label for="genome">Genome</label> </td>
           <tr>
             <td></td>
@@ -80,6 +80,9 @@
           </tr>
           <tr>
             <td colspan=2> <br> <br> <input type ="submit" value="Search!" name = "submit"> </td>
+          </tr>
+          <tr>
+            <td colspan=2> <br> <br> <span style="color:grey; font-size: 70%"> Fields with a </span><span style="color:red;; font-size: 70%">*</span><span style="color:grey; font-size: 70%"> are required.</span></td>
           </tr>
         </table>
 

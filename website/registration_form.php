@@ -7,6 +7,7 @@
   </head>
 
 <body>
+  
   <div id="menu">
     Please register so you can join in on the fun !
   </div>

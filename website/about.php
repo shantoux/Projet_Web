@@ -34,8 +34,24 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
 
+<<<<<<< HEAD
     Benjamin Vacus<br>
     Sandra Pijeaud <br>
     Soundous Bella Baci <br>
+=======
+    <br>
+    <div id="shanti">
+      Shanti
+    </div>
+
+    <div id="soun">
+      Soundous
+    </div>
+
+    <div id="ben">
+      Benjamin
+    </div>
+  </dl>
+>>>>>>> b4304b7835c96c0b8e7cd204ddbec08171787d80
   </body>
 </html>
