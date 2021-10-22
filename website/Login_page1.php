@@ -30,6 +30,8 @@
         </table>
 
       </form>
+
+      <br> <br> <span class="small_text">Not already registered? <a href="./registration_form.php">Click here</a> to submit a new account.</span>
     </div>
 
 <!-- Le popup ci-dessous doit ensuite intégrer la connexion à la DB pour checker l'Utilisateur -->
