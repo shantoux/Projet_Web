@@ -6,7 +6,8 @@
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
-  <body>
+  <body class="center">
+    <h1> Welcome to the Symposium on Biology and Sequences </h1>
     <div id="menu">
       Welcome to our brand new website login page!<br>
       Everything will be up and runing soon.
