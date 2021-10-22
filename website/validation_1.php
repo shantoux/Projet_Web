@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
-  <body>
+  <body class="center">
     <?php
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
@@ -34,44 +34,41 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
 
-    <div id="pagetitle">
+    <h2 id="pagetitle">
       Annotations waiting for validation
-    </div>
-    <div class = "center">
-      <table class = "table_soun">
+    </h2>
+
+    <div class = "table_soun">
+      <table>
         <thead>
-            <tr>
-                <th>Submission date</th>
-                <th>Sequences</th>
-                <th>Annotator</th>
-                <th>Action</th>
-                <th>Comments</th>
-            </tr>
-            </thead>
+          <tr>
+            <th>Submission date</th>
+            <th>Sequences</th>
+            <th>Annotator</th>
+            <th>Comments</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-            <tbody>
-            <tr>
-                <td>29-04-2020 </td>
-                <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
-                <!--clickable : sends you to annotation page-->
-                <td>Bob</td>
+        <tbody>
+          <tr>
+            <td>29-04-2020 </td>
+            <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+            <td>Bob</td>
+            <td>
+              <input type="text" name="comments"><br>
+              <input type="submit" name="save">
+            </td>
+            <td>
+              <input type="checkbox" id="Validate" name="validate">
+              <label for="validate">Validate</label>
+              <br>
+              <input type="checkbox" id="Delete" name="delete">
+              <label for="delete">Delete</label>
+            </td>
+          </tr>
 
-                <td>
-                  <input type="checkbox" id="Validate" name="validate">
-                  <label for="validate">Validate</label>
-                  <br>
-                  <input type="checkbox" id="Delete" name="delete">
-                  <label for="delete">Delete</label>
-                </td>
-
-                <td>
-                  <input type="text" name="comments"><br>
-                  <input type="submit" name="save">
-                </td>
-
-            </tr>
-
-          </tbody>
+        <tbody>
       </table>
     </div>
   </body>

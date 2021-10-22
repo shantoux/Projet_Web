@@ -7,6 +7,10 @@
   </head>
 
 <body>
+  <!-- display menu option -->
+  <div class="topnav">
+        <a href="Login_page1.php">Back to login screen</a>
+    </div>
   
   <div id="menu">
     Please register so you can join in on the fun !
@@ -51,7 +55,7 @@
     </td>
     </tr>
     <tr>
-      <td colspan=2> <input type ="submit" value="Log in" name = "submit"> </td>
+      <td colspan=2> <input type ="submit" value="Submit" name = "submit"> </td>
     </tr>
 
   </table>

@@ -33,5 +33,36 @@
         <a href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
+    
+    <h2>Sequences annotation</h2>
+    <br> Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
+    <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
+    <br> <br>
+    
+    <div class = "table_soun">
+      <table>
+        <thead>
+            <tr>
+                <th>Assignation date</th>
+                <th>Sequences</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>29-04-2020 </td>
+                <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+                <td>
+                  <form action="./annotation_2.php">
+                    <button type="submit">Annotate</button>
+                  </form>
+                </td>
+            </tr>
+
+            <tbody>
+      </table>
+    </div>
+
   </body>
 </html>

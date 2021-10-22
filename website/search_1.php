@@ -84,10 +84,8 @@
           <tr>
             <td colspan=2> <br> <br> <input type ="submit" value="Search!" name = "submit"> </td>
           </tr>
-          <tr>
-            <td colspan=2> <br> <br> <span style="color:grey; font-size: 70%"> Fields with a </span><span style="color:red;; font-size: 70%">*</span><span style="color:grey; font-size: 70%"> are required.</span></td>
-          </tr>
         </table>
+        <br> <span class="small_text"> Fields with a <span style="color:red">*</span> are required.</span>
 
       </form>
     </div>
