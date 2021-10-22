@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
-  <body>
+  <body class="center">
     <?php
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
