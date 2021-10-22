@@ -33,5 +33,37 @@
         <a href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
+
+    <div id="pagetitle">
+      Sequences to attribute
+    </div>
+
+    <div class = "center">
+      <table class="table_type1">
+        <thead>
+          <tr>
+            <th>Sequences</th>
+            <th>Genome</th>
+            <th>Annotator</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
+            <td> Ecoli</td>
+            <td>
+              <select name="annotator">
+                <option value="annotator"> Bob </option>
+                <option value="annotator"> Bobby </option>
+              </select>
+
+              <input type="submit" value="Choose">
+            </td>
+          </tr>
+
+        <tbody>
+      </table>
+    </div>
   </body>
 </html>

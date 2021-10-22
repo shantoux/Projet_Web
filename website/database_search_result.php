@@ -39,7 +39,7 @@
   <div id="element1">Results</div>
 
   <div class = "center">
-    <table class = "table_soun">
+    <table class = "table_type1">
 
     <thead>
         <tr>

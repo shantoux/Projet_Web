@@ -33,7 +33,7 @@
         <a class="active" href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
-    
+
 
     <h2>The Web Programming Project</h2>
 
@@ -58,10 +58,6 @@
       <img src="./images/benjamin.jpeg" alt="Benjamin Vacus" style="width:228px;height:408px;">
       <br>Benjamin
     </div>
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 7f0bc1a22cbe0c8772764a6422e781641ee4195e
   </body>
 </html>
