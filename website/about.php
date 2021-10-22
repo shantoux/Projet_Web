@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
 
-  <body>
+  <body class="center">
     <?php
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
@@ -33,19 +33,37 @@
         <a class="active" href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
+    
+    <h2>The Web Programming Project</h2>
 
+<<<<<<< HEAD
+=======
+    This project conducted by passionnate <strong>AMI2B students</strong> from Université Paris-Saclay aims at providing every bioinformatics specialist with a <strong>brand new tool</strong> to investigate the meaning and structure of his sequences of interest.
+    <br> Based on the best modern existing databases, this tool is reviewed and improved by its own members, thus making it the ideal database to stick to the global scientific consensus in each field.
+
+    <h2>Learn more about us!</h2>
+
+    <!-- Personnal informations about website developers /!\ attention il faut s'assumer !!-->
+>>>>>>> c6eb75b263c8d391ab2f2179dba238e49b2acbe1
     <br>
     <div id="shanti">
-      Shanti
+      <img src="./images/shanti.jpg" alt="Sandra Pijeaud" style="width:360px;height:490px;">
+      <br>Shanti
     </div>
 
     <div id="soun">
-      Soundous
+      <img src="./images/soundous.jpg" alt="Soundous Bella Baci" style="width:400px;height:400px;">
+      <br>Soundous
     </div>
 
     <div id="ben">
-      Benjamin
+      <img src="./images/benjamin.jpeg" alt="Benjamin Vacus" style="width:228px;height:408px;">
+      <br>Benjamin
     </div>
+<<<<<<< HEAD
   </dl>
+=======
+    
+>>>>>>> c6eb75b263c8d391ab2f2179dba238e49b2acbe1
   </body>
 </html>

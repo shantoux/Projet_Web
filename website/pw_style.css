@@ -2,7 +2,6 @@ body {
   background-color: #FAF9F6;
 }
 
-
 .center {
   margin-left: auto;
   margin-right: auto;
@@ -119,6 +118,7 @@ body {
   color: black;
 }
 
+<<<<<<< HEAD
 /*Page title*/
 
 #pagetitle{
@@ -127,6 +127,28 @@ body {
   text-align: center;
   font-size:40px;
   font-family:Graublau Sans Pro;
+=======
+/* About page layout */
+#shanti
+{
+  text-align: center;
+  float: left;
+  width: 33%;
+}
+
+#soun
+{
+  text-align: center;
+  float: left;
+  width: 32%;
+}
+
+#ben
+{
+  text-align: center;
+  float: left;
+  width: 33%;
+>>>>>>> c6eb75b263c8d391ab2f2179dba238e49b2acbe1
 }
 
 /* Brouillon de Soundous pour l'affichage des tableaux de résultats de recherche */
