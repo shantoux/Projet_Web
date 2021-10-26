@@ -22,7 +22,7 @@
         if (in_array($role, array_slice($roles, 1), true)) {
           echo "<a href=\"./validation_1.php\">Validate annotation</a>";
         }
-        if (in_array($role, array_slice($roles, 2), true)) {
+        if (in_array($role, array_slice($roles, 1), true)) {
           echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
         }
       ?>
