@@ -38,8 +38,24 @@
       Annotations waiting for validation
     </h2>
 
-    <div class = "table_soun">
+    <!-- Table to display annotations waiting for validation -->
+
+    <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
+    <?php
+      $annotations = array();
+      array_push($annotations, array("29-04-2020", "ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA", "Bob"));
+      array_push($annotations, array("15-04-2020", "AAATTAGCCCTAGCT", "Bobby"));
+    ?>
+
+    <div class = "table_type1">
       <table>
+        <colgroup>
+          <col style="width: 13%">
+          <col style="width: 40%">
+          <col style="width: 10%">
+          <col style="width: 15%">
+          <col style="width: auto">
+        </colgroup>
         <thead>
           <tr>
             <th>Submission date</th>
@@ -51,23 +67,30 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>29-04-2020 </td>
-            <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
-            <td>Bob</td>
-            <td>
-              <input type="text" name="comments"><br>
-              <input type="submit" name="save">
-            </td>
-            <td>
-              <input type="checkbox" id="Validate" name="validate">
-              <label for="validate">Validate</label>
-              <br>
-              <input type="checkbox" id="Delete" name="delete">
-              <label for="delete">Delete</label>
-            </td>
-          </tr>
-
+          <?php
+            # Print a new line for each available annotation.
+            foreach ($annotations as $annotation) {
+              echo "<tr>";
+              # Annotation submission date
+              echo "<td>" . $annotation[0] . "</td>";
+              # Annotation sequence (cut)
+              echo "<td>" . substr($annotation[1], 0, 50);
+              if (strlen($annotation[1]) > 50) {
+                echo "...";
+              }
+              echo "</td>";
+              # Annotator
+              echo "<td>" . $annotation[2] . "</td>";
+              # Comment for validation or refusal
+              echo "<td> <input type=\"text\" name=\"comments\"> </td>";
+              # Validate / Refuse annotation
+              echo "<td>";
+              echo "<input type=\"submit\" value=\"Validate\" name=\"validate\">  ";
+              echo "<input type=\"submit\" value=\"Refuse\" name=\"refuse\">";
+              echo "</td>";
+              echo "</tr>";
+            }
+          ?>
         <tbody>
       </table>
     </div>
