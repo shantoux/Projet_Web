@@ -46,8 +46,8 @@
       }
     ?>
 
-    <h2> Search our database </h2>
-    <br> Search for a gene / proteine sequence, or for a whole genome.
+    <h2 id="pagetitle"> Search our database </h2>
+    Search for a gene / proteine sequence, or for a whole genome.
 
     <br> <br> <br>
     <div id="element1">

@@ -35,7 +35,7 @@
     </div>
 
 
-    <h2>The Web Programming Project</h2>
+    <h2  id="pagetitle">The Web Programming Project</h2>
 
     This project conducted by passionnate <strong>AMI2B students</strong> from Université Paris-Saclay aims at providing every bioinformatics specialist with a <strong>brand new tool</strong> to investigate the meaning and structure of his sequences of interest.
     <br> Based on the best modern existing databases, this tool is reviewed and improved by its own members, thus making it the ideal database to stick to the global scientific consensus in each field.

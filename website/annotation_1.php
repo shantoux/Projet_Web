@@ -34,8 +34,8 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
     
-    <h2>Sequences annotation</h2>
-    <br> Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
+    <h2 id="pagetitle"> Sequences annotation </h2>
+    Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
     <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
     <br> <br>
 

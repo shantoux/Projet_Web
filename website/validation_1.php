@@ -34,9 +34,7 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
 
-    <h2 id="pagetitle">
-      Annotations waiting for validation
-    </h2>
+    <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
     <!-- Table to display annotations waiting for validation -->
 
@@ -51,9 +49,10 @@
       <table>
         <colgroup>
           <col style="width: 13%">
-          <col style="width: 40%">
+          <col style="width: 25%">
           <col style="width: 10%">
           <col style="width: 15%">
+          <col style="width: 18%">
           <col style="width: auto">
         </colgroup>
         <thead>
@@ -62,7 +61,7 @@
             <th>Sequences</th>
             <th>Annotator</th>
             <th>Comments</th>
-            <th>Action</th>
+            <th colspan=2>Action</th>
           </tr>
         </thead>
 
@@ -74,8 +73,8 @@
               # Annotation submission date
               echo "<td>" . $annotation[0] . "</td>";
               # Annotation sequence (cut)
-              echo "<td>" . substr($annotation[1], 0, 50);
-              if (strlen($annotation[1]) > 50) {
+              echo "<td>" . substr($annotation[1], 0, 25);
+              if (strlen($annotation[1]) > 25) {
                 echo "...";
               }
               echo "</td>";
@@ -83,6 +82,8 @@
               echo "<td>" . $annotation[2] . "</td>";
               # Comment for validation or refusal
               echo "<td> <input type=\"text\" name=\"comments\"> </td>";
+              # Review annotation
+              echo "<td> <input type=\"submit\" value=\"Review annotation\" name=\"review\"> </td>";
               # Validate / Refuse annotation
               echo "<td>";
               echo "<input type=\"submit\" value=\"Validate\" name=\"validate\">  ";

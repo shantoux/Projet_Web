@@ -34,9 +34,7 @@
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
 
-    <div id="pagetitle">
-      Sequences to attribute
-    </div>
+    <h2  id="pagetitle"> Sequences to attribute </h2>
 
     <div class = "center">
       <table class="table_type1">
