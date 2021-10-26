@@ -83,10 +83,13 @@
               # Comment for validation or refusal
               echo "<td> <input type=\"text\" name=\"comments\"> </td>";
               # Review annotation
-              echo "<td> <input type=\"submit\" value=\"Review annotation\" name=\"review\"> </td>";
+              echo "<td> <form action=\"annotation_2.php\" method = \"post\">";
+              echo "<input type=\"submit\" value=\"Review annotation\" name=\"review\"> </td>";
               # Validate / Refuse annotation
               echo "<td>";
+              echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method = \"post\">";
               echo "<input type=\"submit\" value=\"Validate\" name=\"validate\">  ";
+              echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method = \"post\">";
               echo "<input type=\"submit\" value=\"Refuse\" name=\"refuse\">";
               echo "</td>";
               echo "</tr>";
