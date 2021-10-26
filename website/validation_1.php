@@ -86,6 +86,7 @@
               echo "<td> <form action=\"annotation_2.php\" method = \"post\">";
               echo "<input type=\"submit\" value=\"Review annotation\" name=\"review\"> </td>";
               # Validate / Refuse annotation
+              # TODO: multiple forme DOES NOT WORK YET HERE
               echo "<td>";
               echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method = \"post\">";
               echo "<input type=\"submit\" value=\"Validate\" name=\"validate\">  ";
