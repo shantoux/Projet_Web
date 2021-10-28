@@ -36,14 +36,55 @@
 
     <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
-    <!-- Table to display annotations waiting for validation -->
-
     <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
     <?php
       $annotations = array();
-      array_push($annotations, array("29-04-2020", "ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA", "Bob"));
-      array_push($annotations, array("15-04-2020", "AAATTAGCCCTAGCT", "Bobby"));
+      $annot_file = file_get_contents('./annotations.txt');
+      $rows = explode("\n", $annot_file);
+
+      foreach($rows as $row => $data){
+        //get row data
+        $row_data = explode(',', $data);
+        $annotation = array();
+
+        array_push($annotation, $row_data[0]);
+        array_push($annotation, $row_data[1]);
+        array_push($annotation, $row_data[2]);
+        array_push($annotation, $row_data[3]);
+
+        array_push($annotations, $annotation);
+      }
     ?>
+
+    <!-- TODO: Here we remove the annotations from the list because they have been validated or refused.
+    But at a point we will have to update their status in the database - they just will not be loaded afterwards. -->
+
+    <?php
+      if(isset($_POST['validate']) || isset($_POST['refuse'])){
+        $id = $_POST['annotation_id'];
+        array_splice($annotations,$id-1,1);
+        $new_annot = "";
+
+        foreach ($annotations as $key1 => $annotation) {
+          foreach ($annotation as $key2 => $value) {
+            if ($key2 != 0) {$new_annot = $new_annot . $value . ",";}
+            # Update the new id of each annotation, in the text and in the annotation array.
+            else {
+              $new_annot = $new_annot . "\"" . (string)($key1+1) . "\",";
+              $annotations[$key1][0] = (string)($key1+1);
+            }
+          }
+          $new_annot = substr($new_annot, 0, -1) . "\n";
+        }
+        $new_annot = substr($new_annot, 0, -1);
+
+        $annot_file = fopen("./annotations.txt", "w") or die("Unable to open file!");
+        fwrite($annot_file, $new_annot);
+        fclose($annot_file);
+      }
+    ?>
+
+    <!-- Table to display annotations waiting for validation -->
 
     <div class = "table_type1">
       <table>
@@ -71,27 +112,28 @@
             foreach ($annotations as $annotation) {
               echo "<tr>";
               # Annotation submission date
-              echo "<td>" . $annotation[0] . "</td>";
+              echo "<td>" . $annotation[1] . "</td>";
               # Annotation sequence (cut)
-              echo "<td>" . substr($annotation[1], 0, 25);
-              if (strlen($annotation[1]) > 25) {
+              echo "<td>" . substr($annotation[2], 0, 25);
+              if (strlen($annotation[2]) > 25) {
                 echo "...";
               }
               echo "</td>";
               # Annotator
-              echo "<td>" . $annotation[2] . "</td>";
+              echo "<td>" . $annotation[3] . "</td>";
               # Comment for validation or refusal
               echo "<td> <input type=\"text\" name=\"comments\"> </td>";
               # Review annotation
               echo "<td> <form action=\"annotation_2.php\" method = \"post\">";
-              echo "<input type=\"submit\" value=\"Review annotation\" name=\"review\"> </td>";
+              echo "<input type=\"submit\" value=\"Review annotation\" name=\"review\"> </form> </td>";
               # Validate / Refuse annotation
-              # TODO: multiple forme DOES NOT WORK YET HERE
               echo "<td>";
-              echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method = \"post\">";
-              echo "<input type=\"submit\" value=\"Validate\" name=\"validate\">  ";
-              echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method = \"post\">";
-              echo "<input type=\"submit\" value=\"Refuse\" name=\"refuse\">";
+              echo "<div style=\"float:left; width: 50%;\"> <form action=\"" . $_SERVER['PHP_SELF'] . "\" method = \"post\">";
+              echo "<input type=\"text\" value=" . $annotation[0] . " name=\"annotation_id\" hidden>";
+              echo "<input type=\"submit\" value=\"Validate\" name=\"validate\"> </form> </div>";
+              echo "<div style=\"float: left; width: auto;\"> <form action=\"" . $_SERVER['PHP_SELF'] . "\" method = \"post\">";
+              echo "<input type=\"text\" value=" . $annotation[0] . " name=\"annotation_id\" hidden>";
+              echo "<input type=\"submit\" value=\"Refuse\" name=\"refuse\"> </form> </div>";
               echo "</td>";
               echo "</tr>";
             }

@@ -25,7 +25,7 @@
             <td> <input type="password" name="pass"> </td>
           </tr>
           <tr>
-            <td colspan=2> <input type ="submit" value="Log in" name = "submit"> </td>
+            <td colspan=2> <input type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
           </tr>
         </table>
 
@@ -34,7 +34,7 @@
       <br> <br> <span class="small_text">Not already registered? <a href="./registration_form.php">Click here</a> to submit a new account.</span>
     </div>
 
-<!-- Le popup ci-dessous doit ensuite intégrer la connexion à la DB pour checker l'Utilisateur -->
+<!-- TODO: Le popup ci-dessous doit ensuite intégrer la connexion à la DB pour checker l'Utilisateur -->
 
     <?php
     $essai_name = "username";
