@@ -16,11 +16,6 @@ CREATE TABLE users(
   PRIMARY KEY (email)
 );
 
-CREATE TABLE genome( --partitionner les genomes en annotés/pas annotés peut être
-  genome_id VARCHAR,
-  PRIMARY KEY (genome_id)
-);
-
 CREATE TABLE gene(
   gene_id VARCHAR,
   genome_id VARCHAR,
