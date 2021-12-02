@@ -19,7 +19,8 @@ CREATE TABLE users(
 CREATE TABLE gene(
   gene_id VARCHAR,
   genome_id VARCHAR,
-  size INTEGER,
+  begin_seq INTEGER,
+  end_seg INTEGER,
   chromosome VARCHAR,
   localization VARCHAR,
   type VARCHAR,
