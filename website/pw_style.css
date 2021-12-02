@@ -161,7 +161,7 @@ body {
   border: solid 1px #DDEEEE;
   margin: 10px 10px;
   background-color: #E9F2F2;
-  }
+}
 
 .table_type1 thead th{
   text-align:center;
@@ -185,15 +185,14 @@ body {
   width: auto;
   max-width: 100%;
   table-layout: auto;
+}
 
-  }
 .table_type2 thead th{
   text-align:left;
   background-color: #ccdee5;
   width:auto;
   padding: 10px 10px;
   column-width: 100%;
-
 }
 
 .table_type2 tbody td{
@@ -202,8 +201,32 @@ body {
   color:black;
   width:auto;
   white-space: normal;
-
 }
+
+.table_type_gene_inf{
+  border: solid 1px #DDEEEE;
+  margin:10px 50px;
+  background-color: #E9F2F2;
+  border-collapse:separate;
+  white-space: normal;
+  width: 95%;
+  table-layout: fixed;
+}
+
+.table_type_gene_inf thead th{
+  text-align:left;
+  background-color: #ccdee5;
+  padding: 10px 10px;
+  overflow-wrap: break-word;
+}
+
+.table_type_gene_inf tbody td{
+  border-right: 1px solid black;
+  color:black;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .table_type3{
   border: solid 1px #DDEEEE;
   margin:auto;
