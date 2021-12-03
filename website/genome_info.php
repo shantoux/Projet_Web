@@ -83,7 +83,7 @@
                     if ($fragment["annotated"]) {
                       $color = "blue";
                       $info = ' title="' . $fragment["name"] . "\n" . $fragment["info"] . "\nClick to see annotation";
-                      echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . ';">';
+                      echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
                     }
                     else {
                       $color = "red";
