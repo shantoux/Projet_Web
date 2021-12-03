@@ -1,1 +1,1 @@
-DROP SCHEMA annotation_seq IF EXISTS CASCADE;
+DROP SCHEMA annotation_seq CASCADE;
