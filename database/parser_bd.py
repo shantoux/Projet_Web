@@ -133,10 +133,12 @@ def parse_proteins(genome_id, file):
         if line[0] == '>':
             # if not first gene, insert previous one
             if not first_prot:
-                file.write(prot_text_to_write + "\');\n")
+                file.write(prot_text_to_write + "\'\nWHERE sequence_id = \'" + seq_id + "\';\n")
             first_prot = False
+            word_list = line.split()
+            seq_id = word_list[0][1:]
             # parse new prot sequence
-            prot_text_to_write = "INSERT INTO gene (prot_seq) VALUES (\'"
+            prot_text_to_write = "UPDATE gene\nSET prot_seq = \'"
         else:
             prot_text_to_write += line
 
