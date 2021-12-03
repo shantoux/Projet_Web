@@ -80,7 +80,8 @@ def parse_genes(genome_id, annotated, file):
             # if not first gene, insert previous one
             if not first_gene:
                 file.write(gene_text_to_write + "\');\n")
-                file.write(annotation_text_to_write + "\');\n")
+                if annotated:
+                    file.write(annotation_text_to_write + "\');\n")
             first_gene = False
             # parse new gene infos
             gene_text_to_write = "INSERT INTO gene (sequence_id, genome_id, start_seq, end_seq, chromosome, gene_seq) VALUES ("
@@ -116,7 +117,8 @@ def parse_genes(genome_id, annotated, file):
             gene_text_to_write += line
 
     file.write(gene_text_to_write + "\');\n")
-    file.write(annotation_text_to_write + "\');\n")
+    if annotated:
+        file.write(annotation_text_to_write + "\');\n")
     file.write("\ncommit;\nend transaction;\n")
     return
 
