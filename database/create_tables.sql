@@ -5,8 +5,8 @@ SET SCHEMA 'annotation_seq';
 CREATE TABLE users(
   email VARCHAR,
   pw VARCHAR,
-  first_name VARCHAR,
   last_name VARCHAR,
+  first_name VARCHAR,
   phone VARCHAR,
   role VARCHAR,
   status VARCHAR,
@@ -30,7 +30,7 @@ CREATE TABLE gene(
   chromosome VARCHAR,
   prot_seq VARCHAR(10000),
   gene_seq VARCHAR(10000),
-  PRIMARY KEY (gene_id),
+  PRIMARY KEY (sequence_id),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
 );
 
