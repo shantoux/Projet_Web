@@ -93,7 +93,7 @@ def parse_genes(genome_id, annotated, file):
             gene_text_to_write += "\'" + word_list[2].split(":")[1] + "\', \'" # chromosome
 
             if annotated:
-                annotation_text_to_write = "INSERT INTO annotations (genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator, status, comments) VALUES ("
+                annotation_text_to_write = "INSERT INTO annotations (genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, description, annotator, status, comments) VALUES ("
                 annotation_text_to_write += "\'" + genome_id + "\', " # genome_id
                 annotation_text_to_write += "\'" + word_list[3].split(":")[1] + "\', " # gene_id
                 annotation_text_to_write += "\'" + word_list[0][1:] + "\', " # sequence_id
@@ -102,6 +102,7 @@ def parse_genes(genome_id, annotated, file):
                 # check whether gene_symbol is there or not
                 descr_index = 6
                 if word_list[6].split(":")[0] == "gene_symbol":
+                    annotation_text_to_write = annotation_text_to_write[:91] + " gene_symbol," + annotation_text_to_write[91:]
                     annotation_text_to_write += "\'" + word_list[6].split(":")[1] + "\', " # gene_symbol
                     descr_index = 7
                 annotation_text_to_write += "\'" + word_list[descr_index].split(":")[1].replace("\'"," ") # description
