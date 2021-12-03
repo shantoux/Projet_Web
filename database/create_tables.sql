@@ -28,8 +28,8 @@ CREATE TABLE gene(
   start_seq INTEGER,
   end_seq INTEGER,
   chromosome VARCHAR,
-  prot_seq VARCHAR(10000),
-  gene_seq VARCHAR(10000),
+  prot_seq VARCHAR(100000),
+  gene_seq VARCHAR(100000),
   PRIMARY KEY (sequence_id),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
 );
