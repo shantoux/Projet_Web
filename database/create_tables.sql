@@ -30,6 +30,12 @@ CREATE TABLE gene(
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
 );
 
+CREATE TABLE genome( 
+  genome_id VARCHAR,
+  genome_seq VARCHAR,
+  PRIMARY KEY (genome_id)
+);
+
 CREATE TABLE annotations(
   genome_id VARCHAR,
   gene_id VARCHAR,
