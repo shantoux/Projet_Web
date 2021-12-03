@@ -11,7 +11,8 @@ VALUES (
     'Bobby',
     '0671891726',
     'administrator',
-    'validated');
+    'validated',
+    '2021-12-02');
 
 INSERT INTO users
 VALUES (
@@ -21,7 +22,8 @@ VALUES (
     'Shannon',
     '0671891724',
     'validator',
-    'validated');
+    'validated',
+    '2021-12-02');
 
 INSERT INTO users
 VALUES (
@@ -31,7 +33,8 @@ VALUES (
     'Olivia',
     '0671891713',
     'annotator',
-    'validated');
+    'validated',
+    '2021-12-02');
 
 INSERT INTO users
 VALUES (
@@ -41,6 +44,7 @@ VALUES (
     'Joshua',
     '0671891756',
     'reader',
-    'validated');
+    'validated',
+    '2021-12-02');
 
 end transaction;

@@ -10,7 +10,7 @@ CREATE TABLE users(
   phone VARCHAR,
   role VARCHAR,
   status VARCHAR,
-  date_of_validation TIMESTAMP,
+  date_of_validation DATE,
   CHECK (role IN ('reader', 'annotator', 'validator', 'administrator')),
   CHECK (status IN ('waiting', 'validated')),
   PRIMARY KEY (email)
