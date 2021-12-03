@@ -23,7 +23,7 @@ CREATE TABLE genome(
 );
 
 CREATE TABLE gene(
-  gene_id VARCHAR,
+  sequence_id VARCHAR,
   genome_id VARCHAR,
   start_seq INTEGER,
   end_seg INTEGER,
@@ -41,6 +41,7 @@ CREATE TABLE gene(
 CREATE TABLE annotations(
   genome_id VARCHAR,
   gene_id VARCHAR,
+  sequence_id VARCHAR,
   gene_biotype VARCHAR,
   transcript_biotype VARCHAR,
   gene_symbol VARCHAR,
@@ -56,5 +57,5 @@ CREATE TABLE annotations(
   PRIMARY KEY (annotator, genome_id, gene_id),
   FOREIGN KEY (annotator) REFERENCES users(email),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id),
-  FOREIGN KEY (gene_id) REFERENCES gene(gene_id)
+  FOREIGN KEY (sequence_id) REFERENCES gene(sequence_id)
 );
