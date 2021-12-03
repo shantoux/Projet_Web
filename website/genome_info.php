@@ -11,7 +11,6 @@
 
   <body>
     <?php
-      $char_per_line = 50
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
       $roles = array("annotator", "validator", "administrator");
@@ -41,6 +40,7 @@
 
     <!-- store genome -->
     <?php
+      $char_per_line = 100;
       $sequences = array("CGATCGATGAGCAGCTTTGCATGCAGAAACGATCGGCGCGCTAGTACGCCCGGCTGCATGCAGAAACGATCGGCGCGCTAGTACGATCGTCAGGATCACTACGCAGCACTAGC",
                           "ATGCGTACGATCGTGACATCTGATCGTCTCTAGCTAGCATCTGGCATCG",
                           "GCTCGGGATACGCTCAGCTGGAGCCTGGCTATCATGCGAGCTAGGC",
@@ -76,6 +76,7 @@
             </td>
             <td>
               <?php
+                $count = $char_per_line;
                 foreach ($genome_fragments as $fragment) {
                   if ($fragment["type"] == "igene") {
                     echo '<span style="font-family:Consolas;">';
@@ -92,9 +93,18 @@
                       echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
                     }
                   }
-                  print_r($fragment["seq"]);
+                  $seq_to_display = $fragment["seq"];
+
+                  while (strlen($seq_to_display) > $count) {
+                    echo substr($seq_to_display, 0, $count);
+                    echo '<br>';
+                    $seq_to_display = substr($seq_to_display, $count);
+                    $count = $char_per_line;
+                  }
+                  echo $seq_to_display;
+                  $count = $count - strlen($seq_to_display);
+
                   echo '</span>';
-                  #print_r($fragment[0]);
                 }
               ?>
             </td>
