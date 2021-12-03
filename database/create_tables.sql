@@ -5,8 +5,8 @@ SET SCHEMA 'annotation_seq';
 CREATE TABLE users(
   email VARCHAR,
   pw VARCHAR,
-  first_name VARCHAR,
   last_name VARCHAR,
+  first_name VARCHAR,
   phone VARCHAR,
   role VARCHAR,
   status VARCHAR,
