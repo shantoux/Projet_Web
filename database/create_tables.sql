@@ -30,7 +30,6 @@ CREATE TABLE gene(
   chromosome VARCHAR,
   prot_seq VARCHAR,
   gene_seq VARCHAR,
-  CHECK (type IN ('pep', 'cds')),
   PRIMARY KEY (gene_id),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
 );
