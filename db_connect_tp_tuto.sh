@@ -5,6 +5,7 @@ ssh -X benjamin.vacus@ssh1.pgip.universite-paris-saclay.fr
 
 # 2 - déplacer les fichiers dont vous avez besoin pour le tp sur public_html en ssh
 # demo_php_postgres c'est le fichier à dl et dezip sur ecampus 
+# SUR VOTRE PROPRE MACHINE 
 scp -r /path-where-this-file-is/demo_php_postgres/ sandra.pijeaud@ssh1.pgip.universite-paris-saclay.fr:$~//path-where-this-directory-is/public_html
 scp -r /path-where-this-file-is/demo_php_postgres/ benjamin.vacus@ssh1.pgip.universite-paris-saclay.fr:$~//path-where-this-directory-is/public_html
 
