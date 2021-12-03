@@ -62,7 +62,7 @@ def parse_genome(genome_id, file):
     for line in lines:
         genome_seq += line
     file.write("Begin transaction;\n\n")
-    file.write("INSERT INTO genome (genome_id, genom_seq) VALUES (\"" + genome_id + "\", \"" + genome_seq + "\");\n")
+    file.write("INSERT INTO genome (genome_id, genom_seq) VALUES (\'" + genome_id + "\', \'" + genome_seq + "\');\n")
     file.write("\ncommit;\nend transaction;\n")
     return
 
@@ -79,43 +79,43 @@ def parse_genes(genome_id, annotated, file):
         if line[0] == '>':
             # if not first gene, insert previous one
             if not first_gene:
-                file.write(gene_text_to_write + "\");\n")
-                file.write(annotation_text_to_write + "\");\n")
+                file.write(gene_text_to_write + "\');\n")
+                file.write(annotation_text_to_write + "\');\n")
             first_gene = False
             # parse new gene infos
             gene_text_to_write = "INSERT INTO gene (sequence_id, genome_id, start_seq, end_seg, chromosome, gene_seq) VALUES ("
             word_list = line.split()
             # retrieve gene info
-            gene_text_to_write += "\"" + word_list[0][1:] + "\", " # sequence_id (et non word_list[3].split(":")[1])
-            gene_text_to_write += "\"" + genome_id + "\", " # genome_id
+            gene_text_to_write += "\'" + word_list[0][1:] + "\', " # sequence_id (et non word_list[3].split(":")[1])
+            gene_text_to_write += "\'" + genome_id + "\', " # genome_id
             gene_text_to_write += word_list[2].split(":")[3] + ", " # start_seg
             gene_text_to_write += word_list[2].split(":")[4] + ", " # end_seg
-            gene_text_to_write += "\"" + word_list[2].split(":")[1] + "\", \"" # chromosome
+            gene_text_to_write += "\'" + word_list[2].split(":")[1] + "\', \'" # chromosome
 
             if annotated:
                 annotation_text_to_write = "INSERT INTO annotations (genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator, status, comments) VALUES ("
-                annotation_text_to_write += "\"" + genome_id + "\", " # genome_id
-                annotation_text_to_write += "\"" + word_list[3].split(":")[1] + "\", " # gene_id
-                annotation_text_to_write += "\"" + word_list[0][1:] + "\", " # sequence_id
-                annotation_text_to_write += "\"" + word_list[4].split(":")[1] + "\", " # gene_biotype
-                annotation_text_to_write += "\"" + word_list[5].split(":")[1] + "\", " # transcript_biotype
+                annotation_text_to_write += "\'" + genome_id + "\', " # genome_id
+                annotation_text_to_write += "\'" + word_list[3].split(":")[1] + "\', " # gene_id
+                annotation_text_to_write += "\'" + word_list[0][1:] + "\', " # sequence_id
+                annotation_text_to_write += "\'" + word_list[4].split(":")[1] + "\', " # gene_biotype
+                annotation_text_to_write += "\'" + word_list[5].split(":")[1] + "\', " # transcript_biotype
                 # check whether gene_symbol is there or not
                 descr_index = 6
                 if word_list[6].split(":")[0] == "gene_symbol":
-                    annotation_text_to_write += "\"" + word_list[6].split(":")[1] + "\", " # gene_symbol
+                    annotation_text_to_write += "\'" + word_list[6].split(":")[1] + "\', " # gene_symbol
                     descr_index = 7
-                annotation_text_to_write += "\"" + word_list[descr_index].split(":")[1] # description
+                annotation_text_to_write += "\'" + word_list[descr_index].split(":")[1] # description
                 for word in word_list[(descr_index+1):]: # ADD ALL WORDS AT THE END OF ANNOTATION IN THE DESCRIPTION
                     annotation_text_to_write += " " + word
-                annotation_text_to_write += "\", "
-                annotation_text_to_write += "\"" + "ecampus" + "\", " # annotator
-                annotation_text_to_write += "\"" + "validated" + "\", " # status
-                annotation_text_to_write += "\"" + "Downloaded from ecampus examples data." # comments
+                annotation_text_to_write += "\', "
+                annotation_text_to_write += "\'" + "ecampus" + "\', " # annotator
+                annotation_text_to_write += "\'" + "validated" + "\', " # status
+                annotation_text_to_write += "\'" + "Downloaded from ecampus examples data." # comments
         else:
             gene_text_to_write += line
 
-    file.write(gene_text_to_write + "\");\n")
-    file.write(annotation_text_to_write + "\");\n")
+    file.write(gene_text_to_write + "\');\n")
+    file.write(annotation_text_to_write + "\');\n")
     file.write("\ncommit;\nend transaction;\n")
     return
 
@@ -132,14 +132,14 @@ def parse_proteins(genome_id, file):
         if line[0] == '>':
             # if not first gene, insert previous one
             if not first_prot:
-                file.write(prot_text_to_write + "\");\n")
+                file.write(prot_text_to_write + "\');\n")
             first_prot = False
             # parse new prot sequence
-            prot_text_to_write = "INSERT INTO gene (prot_seq) VALUES (\""
+            prot_text_to_write = "INSERT INTO gene (prot_seq) VALUES (\'"
         else:
             prot_text_to_write += line
 
-    file.write(prot_text_to_write + "\");\n")
+    file.write(prot_text_to_write + "\');\n")
     file.write("\ncommit;\nend transaction;\n")
     return
 
