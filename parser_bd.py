@@ -108,7 +108,7 @@ def parse_genes(genome_id, annotated, file):
                 for word in word_list[(descr_index+1):]: # ADD ALL WORDS AT THE END OF ANNOTATION IN THE DESCRIPTION
                     annotation_text_to_write += " " + word.replace("\'"," ")
                 annotation_text_to_write += "\', "
-                annotation_text_to_write += "\'" + "ecampus" + "\', " # annotator
+                annotation_text_to_write += "\'" + "olivia@gmail.com" + "\', " # annotator
                 annotation_text_to_write += "\'" + "validated" + "\', " # status
                 annotation_text_to_write += "\'" + "Downloaded from ecampus examples data." # comments
         else:
