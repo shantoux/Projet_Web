@@ -19,15 +19,21 @@ CREATE TABLE users(
 CREATE TABLE gene(
   gene_id VARCHAR,
   genome_id VARCHAR,
-  size INTEGER,
+  start_seq INTEGER,
+  end_seg INTEGER,
   chromosome VARCHAR,
-  localization VARCHAR,
   type VARCHAR,
   prot_seq VARCHAR,
   gene_seq VARCHAR,
   CHECK (type IN ('pep', 'cds')),
   PRIMARY KEY (gene_id),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
+);
+
+CREATE TABLE genome( 
+  genome_id VARCHAR,
+  genome_seq VARCHAR,
+  PRIMARY KEY (genome_id)
 );
 
 CREATE TABLE annotations(
