@@ -1,3 +1,8 @@
+#imports
+import sys
+import os
+import time
+
 ## CDS
 ##>AAG54301 cds chromosome:ASM666v1:Chromosome:190:273:1 gene:Z0001 gene_biotype:protein_coding transcript_biotype:protein_coding gene_symbol:thrL description:thr operon leader peptide
 #ATGAAACGCATTAGCACCACCATTACCACCACCATCACCACCACCATCACCATTACCATT
@@ -19,51 +24,153 @@
 #         lines = f.readlines()
 #         f.close()
 
-with open("Escherichia_coli_cft073_cds.fa") as f:
-    lines = f.readlines()
-    f.close()
+# check that repository and passed args verify demanded conditions
+def check_rep(args):
+    if len(args) != 1:
+        return (False, "\nPlease pass the name of the genome file as argument.\nE.g.: python parser_bd.py new_coli.fa")
+    genome_file_name = args[0]
+    if genome_file_name.split(".")[-1] != "fa":
+        return(False, "\nPlease provide genome as a fasta file.\nE.g.: python parser_bd.py new_coli.fa")
+    genome_name = genome_file_name[:-3]
+    for r, d, f in os.walk(".", topdown=False):
+        files = f
+    if (not genome_file_name in files) or (not genome_name + "_cds.fa" in files) or (not genome_name + "_pep.fa" in files):
+        return(False, "\nPlease make sure " + genome_file_name + ", " + genome_name + "_cds.fa, " + genome_name + "_pep.fa all are in the same repository as the python script.\nE.g.: python parser_bd.py new_coli.fa")
+    else:
+        return(True, "\nAll files - ok.")
 
-with open('instances_test.sql', 'a') as file:
-    file.write('Begin transaction;'+"\n"+"\n")
+# check whether provided genome is annotated or not
+def is_annotated(genome_id):
+    with open(genome_id + "_cds.fa") as f:
+        line = f.readline()
+        f.close()
+    return len(line.split(" ")) > 3
 
-    attributs = []
+# Reading file to parse
+def open_file(FILE_NAME):
+    with open(FILE_NAME) as f:
+        lines = f.readlines()
+        f.close()
+    return(lines)
+
+# parse genome file
+def parse_genome(genome_id, file):
+    # read all lines except header
+    lines = open_file(genome_id + ".fa")[1:]
+    lines = [line.strip() for line in lines]
+    genome_seq = ""
     for line in lines:
-        word_list = line.split()
-        if word_list[0].split(">")[0] == '>':
-            chromosome = word_list[0].split(">")[1]
-            gene_id = word_list[3].split(":")[1]
-            genome_id = word_list[2].split(":")[1]
-            start_seq = word_list[2].split(":")[3]
-            end_seq = word_list[2].split(":")[4]
-            gene_biotype = word_list[4].split(":")[1]
-            transcript_biotype = word_list[5].split(":")[1]
-            gene_symbol = word_list[6].split(":")[1]
-            description = word_list[7].split(":")[1] + word_list[8] ###AJOUTER TOUS LES MOTS DE LA FIN
+        genome_seq += line
+    file.write("Begin transaction;\n\n")
+    file.write("INSERT INTO genome (genome_id, genom_seq) VALUES (\"" + genome_id + "\", \"" + genome_seq + "\");\n")
+    file.write("\ncommit;\nend transaction;\n")
+    return
+
+# parse genes file
+def parse_genes(genome_id, annotated, file):
+    lines = open_file(genome_id + "_cds.fa")
+    lines = [line.strip() for line in lines]
+    file.write('\nBegin transaction;'+"\n"+"\n")
+    first_gene = True
+
+    # Running through all lines
+    for line in lines:
+        # check if new gene
+        if line[0] == '>':
+            # if not first gene, insert previous one
+            if not first_gene:
+                file.write(gene_text_to_write + "\");\n")
+                file.write(annotation_text_to_write + "\");\n")
+            first_gene = False
+            # parse new gene infos
+            gene_text_to_write = "INSERT INTO gene (sequence_id, genome_id, start_seq, end_seg, chromosome, gene_seq) VALUES ("
+            word_list = line.split()
+            # retrieve gene info
+            gene_text_to_write += "\"" + word_list[0][1:] + "\", " # sequence_id (et non word_list[3].split(":")[1])
+            gene_text_to_write += "\"" + genome_id + "\", " # genome_id
+            gene_text_to_write += word_list[2].split(":")[3] + ", " # start_seg
+            gene_text_to_write += word_list[2].split(":")[4] + ", " # end_seg
+            gene_text_to_write += "\"" + word_list[2].split(":")[1] + "\", \"" # chromosome
+
+            if annotated:
+                annotation_text_to_write = "INSERT INTO annotations (genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator, status, comments) VALUES ("
+                annotation_text_to_write += "\"" + genome_id + "\", " # genome_id
+                annotation_text_to_write += "\"" + word_list[3].split(":")[1] + "\", " # gene_id
+                annotation_text_to_write += "\"" + word_list[0][1:] + "\", " # sequence_id
+                annotation_text_to_write += "\"" + word_list[4].split(":")[1] + "\", " # gene_biotype
+                annotation_text_to_write += "\"" + word_list[5].split(":")[1] + "\", " # transcript_biotype
+                # check whether gene_symbol is there or not
+                descr_index = 6
+                if word_list[6].split(":")[0] == "gene_symbol":
+                    annotation_text_to_write += "\"" + word_list[6].split(":")[1] + "\", " # gene_symbol
+                    descr_index = 7
+                annotation_text_to_write += "\"" + word_list[descr_index].split(":")[1] # description
+                for word in word_list[(descr_index+1):]: # ADD ALL WORDS AT THE END OF ANNOTATION IN THE DESCRIPTION
+                    annotation_text_to_write += " " + word
+                annotation_text_to_write += "\", "
+                annotation_text_to_write += "\"" + "ecampus" + "\", " # annotator
+                annotation_text_to_write += "\"" + "validated" + "\", " # status
+                annotation_text_to_write += "\"" + "Downloaded from ecampus examples data." # comments
         else:
-            gene_seq = []
-            seq = line.replace('\n', '')
-            gene_seq.append(seq)
-            
-            attributs.append(gene_id)
-        file.write('INSERT INTO gene'+"\n")
-        file.write('VALUES (' + "\n" +"\t"+ ';)' + "\n")
-        file.write("%s = %s\n" %("essai", attributs))
+            gene_text_to_write += line
 
+    file.write(gene_text_to_write + "\");\n")
+    file.write(annotation_text_to_write + "\");\n")
+    file.write("\ncommit;\nend transaction;\n")
+    return
 
-        # file.write('INSERT INTO gene'+"\n")
-        # file.write('VALUES (' + "\n" +"\t"+ ';)' + "\n")
-        #file.write("%s = %s\n" %("essai", gene_id))
-        #print(genone_id)
-        file.write("commit;" + "\n" + "end transaction;")
+# parse proteins file
+def parse_proteins(genome_id, file):
+    lines = open_file(genome_id + "_pep.fa")
+    lines = [line.strip() for line in lines]
+    file.write('\nBegin transaction;'+"\n"+"\n")
+    first_prot = True
+
+    # Running through all lines
+    for line in lines:
+        # check if new gene
+        if line[0] == '>':
+            # if not first gene, insert previous one
+            if not first_prot:
+                file.write(prot_text_to_write + "\");\n")
+            first_prot = False
+            # parse new prot sequence
+            prot_text_to_write = "INSERT INTO gene (prot_seq) VALUES (\""
+        else:
+            prot_text_to_write += line
+
+    file.write(prot_text_to_write + "\");\n")
+    file.write("\ncommit;\nend transaction;\n")
+    return
+
+if __name__ == "__main__":
+    # retrieve arguments
+    args = sys.argv[1:]
+
+    # control one argument has been passed, and all files are present
+    is_ok, error_msg = check_rep(args)
+    if not is_ok:
+        print("ERROR:", error_msg)
+
+    genome_id = args[0][:-3]
+    # check whether the provided genome is annotated or not
+    annotated = is_annotated(genome_id)
+
+    with open('instances_test.sql', 'w') as file:
+        print("\nParsing genome " + genome_id + "...")
+        start_time = time.time()
+        # parse genome
+        parse_genome(genome_id, file)
+
+        # parse gene sequences
+        parse_genes(genome_id, annotated, file)
+
+        # parse protein sequences
+        parse_proteins(genome_id, file)
+
+        end_time = time.time()
+        parsing_time = end_time - start_time
+        print("Parsing all 3 files required %0.2f" % parsing_time, "seconds.")
         file.close()
-# with open('instances_test.sql', 'w') as file:
-#     file.write('Begin transaction;'+"\n")
 
-    # file.write('INSERT INTO gene'+"\n")
-    # file.write('VALUES (' +"\n")
-    #file.write(gene_id)
-
-    # file.write("%s = %s\n" %("essai", gene_id))
-    #
-    # file.write('test')
-    # file.close()
+    print("\nthe end")

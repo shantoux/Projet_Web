@@ -11,6 +11,7 @@
 
   <body>
     <?php
+      $char_per_line = 50
       # TODO: un-hardcode the user role, check in database for the actual role
       $role = "administrator";
       $roles = array("annotator", "validator", "administrator");
