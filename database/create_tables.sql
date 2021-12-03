@@ -22,7 +22,6 @@ CREATE TABLE gene(
   start_seq INTEGER,
   end_seg INTEGER,
   chromosome VARCHAR,
-  localization VARCHAR,
   type VARCHAR,
   prot_seq VARCHAR,
   gene_seq VARCHAR,
