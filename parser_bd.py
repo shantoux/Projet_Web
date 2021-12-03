@@ -30,20 +30,20 @@ with open('instances_test.sql', 'a') as file:
     for line in lines:
         word_list = line.split()
         if word_list[0].split(">")[0] == '>':
-            gene_id = word_list[0].split(">")[1]
+            chromosome = word_list[0].split(">")[1]
+            gene_id = word_list[3].split(":")[1]
             genome_id = word_list[2].split(":")[1]
-            begin_seq = word_list[2].split(":")[3]
+            start_seq = word_list[2].split(":")[3]
             end_seq = word_list[2].split(":")[4]
-            #chromosome = euh c'est quoi
-            #localization =
             gene_biotype = word_list[4].split(":")[1]
             transcript_biotype = word_list[5].split(":")[1]
             gene_symbol = word_list[6].split(":")[1]
             description = word_list[7].split(":")[1] + word_list[8] ###AJOUTER TOUS LES MOTS DE LA FIN
-        # else:
-        #     gene_seq = []
-        #     seq = line.replace('\n', '')
-        #     gene_seq.append(seq)
+        else:
+            gene_seq = []
+            seq = line.replace('\n', '')
+            gene_seq.append(seq)
+            
             attributs.append(gene_id)
         file.write('INSERT INTO gene'+"\n")
         file.write('VALUES (' + "\n" +"\t"+ ';)' + "\n")
