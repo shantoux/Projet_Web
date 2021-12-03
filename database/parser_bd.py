@@ -142,7 +142,7 @@ def parse_proteins(genome_id, file):
         else:
             prot_text_to_write += line
 
-    file.write(prot_text_to_write + "\');\n")
+    file.write(prot_text_to_write + "\'\nWHERE sequence_id = \'" + seq_id + "\';\n")
     file.write("\ncommit;\nend transaction;\n")
     return
 
