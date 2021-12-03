@@ -62,7 +62,7 @@ def parse_genome(genome_id, file):
     for line in lines:
         genome_seq += line
     file.write("Begin transaction;\n\n")
-    file.write("INSERT INTO genome (genome_id, genom_seq) VALUES (\'" + genome_id + "\', \'" + genome_seq + "\');\n")
+    file.write("INSERT INTO genome (genome_id, genome_seq) VALUES (\'" + genome_id + "\', \'" + genome_seq + "\');\n")
     file.write("\ncommit;\nend transaction;\n")
     return
 
@@ -83,13 +83,13 @@ def parse_genes(genome_id, annotated, file):
                 file.write(annotation_text_to_write + "\');\n")
             first_gene = False
             # parse new gene infos
-            gene_text_to_write = "INSERT INTO gene (sequence_id, genome_id, start_seq, end_seg, chromosome, gene_seq) VALUES ("
+            gene_text_to_write = "INSERT INTO gene (sequence_id, genome_id, start_seq, end_seq, chromosome, gene_seq) VALUES ("
             word_list = line.split()
             # retrieve gene info
             gene_text_to_write += "\'" + word_list[0][1:] + "\', " # sequence_id (et non word_list[3].split(":")[1])
             gene_text_to_write += "\'" + genome_id + "\', " # genome_id
-            gene_text_to_write += word_list[2].split(":")[3] + ", " # start_seg
-            gene_text_to_write += word_list[2].split(":")[4] + ", " # end_seg
+            gene_text_to_write += word_list[2].split(":")[3] + ", " # start_seq
+            gene_text_to_write += word_list[2].split(":")[4] + ", " # end_seq
             gene_text_to_write += "\'" + word_list[2].split(":")[1] + "\', \'" # chromosome
 
             if annotated:
@@ -104,9 +104,9 @@ def parse_genes(genome_id, annotated, file):
                 if word_list[6].split(":")[0] == "gene_symbol":
                     annotation_text_to_write += "\'" + word_list[6].split(":")[1] + "\', " # gene_symbol
                     descr_index = 7
-                annotation_text_to_write += "\'" + word_list[descr_index].split(":")[1] # description
+                annotation_text_to_write += "\'" + word_list[descr_index].split(":")[1].replace("\'"," ") # description
                 for word in word_list[(descr_index+1):]: # ADD ALL WORDS AT THE END OF ANNOTATION IN THE DESCRIPTION
-                    annotation_text_to_write += " " + word
+                    annotation_text_to_write += " " + word.replace("\'"," ")
                 annotation_text_to_write += "\', "
                 annotation_text_to_write += "\'" + "ecampus" + "\', " # annotator
                 annotation_text_to_write += "\'" + "validated" + "\', " # status
