@@ -52,7 +52,7 @@ CREATE TABLE annotations(
   -- je pense une autre table serait de bon goût
   date_of_validation TIMESTAMP,
   CHECK (status IN ('waiting', 'validated')),
-  PRIMARY KEY (annotator, genome_id, gene_id),
+  PRIMARY KEY (annotator, genome_id, sequence_id),
   FOREIGN KEY (annotator) REFERENCES users(email),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id),
   FOREIGN KEY (sequence_id) REFERENCES gene(sequence_id)
