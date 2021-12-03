@@ -10,24 +10,10 @@ CREATE TABLE users(
   phone VARCHAR,
   role VARCHAR,
   status VARCHAR,
-  date_of_validation TIMESTAMP,
+  date_of_validation DATE,
   CHECK (role IN ('reader', 'annotator', 'validator', 'administrator')),
   CHECK (status IN ('waiting', 'validated')),
   PRIMARY KEY (email)
-);
-
-CREATE TABLE gene(
-  gene_id VARCHAR,
-  genome_id VARCHAR,
-  start_seq INTEGER,
-  end_seg INTEGER,
-  chromosome VARCHAR,
-  type VARCHAR,
-  prot_seq VARCHAR,
-  gene_seq VARCHAR,
-  CHECK (type IN ('pep', 'cds')),
-  PRIMARY KEY (gene_id),
-  FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
 );
 
 CREATE TABLE genome( 
@@ -36,9 +22,24 @@ CREATE TABLE genome(
   PRIMARY KEY (genome_id)
 );
 
+CREATE TABLE gene(
+  sequence_id VARCHAR,
+  genome_id VARCHAR,
+  start_seq INTEGER,
+  end_seg INTEGER,
+  chromosome VARCHAR,
+  prot_seq VARCHAR,
+  gene_seq VARCHAR,
+  PRIMARY KEY (gene_id),
+  FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
+);
+
+
+
 CREATE TABLE annotations(
   genome_id VARCHAR,
   gene_id VARCHAR,
+  sequence_id VARCHAR,
   gene_biotype VARCHAR,
   transcript_biotype VARCHAR,
   gene_symbol VARCHAR,
@@ -54,5 +55,5 @@ CREATE TABLE annotations(
   PRIMARY KEY (annotator, genome_id, gene_id),
   FOREIGN KEY (annotator) REFERENCES users(email),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id),
-  FOREIGN KEY (gene_id) REFERENCES gene(gene_id)
+  FOREIGN KEY (sequence_id) REFERENCES gene(sequence_id)
 );
