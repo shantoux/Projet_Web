@@ -26,7 +26,7 @@ CREATE TABLE gene(
   sequence_id VARCHAR,
   genome_id VARCHAR,
   start_seq INTEGER,
-  end_seg INTEGER,
+  end_seq INTEGER,
   chromosome VARCHAR,
   prot_seq VARCHAR(10000),
   gene_seq VARCHAR(10000),
