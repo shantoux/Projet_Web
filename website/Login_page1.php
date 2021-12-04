@@ -50,21 +50,25 @@
       $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = '$user_password';";
       $result = pg_query($db_conn, $query) 
 					or die('Query failed with exception: ' . pg_last_error());
-      if(pg_num_rows($result) != 1){
-        echo "<div class=\"alert_bad\">
-          <span class=\"closebtn\"
-          onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Wrong username or password.
-        </div>";
-      }
-      else{
-        echo '<script>location.href="search_1.php"</script>';
-      }
+	if(pg_num_rows($result) == 1){
+          echo '<script>location.href="search_1.php"</script>';
+
+          session_start();
+          $_SESSION['user'] = $_POST['name'];
+          $_SESSION['status'] = pg_fetch_result($result, 0, 5);
+          }
+          else{
+            echo "<div class=\"alert_bad\">
+              <span class=\"closebtn\"
+              onclick=\"this.parentElement.style.display='none';\">&times;</span>
+              Wrong username or password.
+            </div>";
+          }
       //libère le résultat de la query
-      pg_free_result($result);
+      //pg_free_result($result);
 
       //ferme la connexion
-      disconnect_db();
+      //disconnect_db();
 
     }
 ?>
