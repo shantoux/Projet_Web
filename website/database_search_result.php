@@ -8,6 +8,7 @@
 
 <body class="center">
 
+  <!-- display top navigation bar -->
   <div class="topnav">
     <a href="./search_1.php">New search</a>
     <?php
@@ -33,6 +34,9 @@
     Search results
   </div>
 
+  <?php
+    print_r($_POST);
+  ?>
   Genome's type : [insert type protein or nucleotides]<br>
   <div id="element1">Results</div>
 
