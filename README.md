@@ -16,5 +16,5 @@ Replace `[login_court]` with your short login. For example, *Michel Arsouin* sho
 Save the editing with `Esc` followed by command `:x`.  
 To then initialize the database, use command:
 ```
-./reset_database.sh website/.projetWEB.ini
+./reset_database.sh
 ```
