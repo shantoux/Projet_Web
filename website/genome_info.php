@@ -54,25 +54,37 @@
                                 array("seq"=>$sequences[4], "type"=>"igene", "id"=>"2"),
                                 array("seq"=>$sequences[5], "type"=>"gene", "id"=>"3", "annotated"=>true, "info"=>"That's the 6th finger gene.", "name"=>"PHO3"));
       echo "<br>";
+      $genome_size_to_unhardcode_later = 0;
+      foreach ($sequences as $seq) {
+        $genome_size_to_unhardcode_later += strlen($seq);
+      }
     ?>
 
     <div class="center">
       <table class="table_type_gene_inf">
         <colgroup>
           <col span="1" style="width: 10%;">
-          <col span="1" style="width: 90%;">
+          <col span="1" style="width: 70%;">
+          <col span="1" style="width: 10%;">
+          <col span="1" style="width: 10%;">
         </colgroup>
         <thead>
           <tr>
-            <th colspan=2 class="type2">Genome's name : Ecoli</th>
+            <th colspan=4 class="type2">Genome's name : Ecoli</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
-            <td>
-              extract
-              <input type="checkbox" id="Select" name="select">
+            <td align='right'>
+              <?php
+                $genome_size = $genome_size_to_unhardcode_later;
+                $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
+                for ($line = 0; $line < $nb_of_lines; $line++) {
+                  $char = $line*$char_per_line + 1;
+                  echo "$char <br>";
+                }
+              ?>
             </td>
             <td>
               <?php
@@ -105,6 +117,25 @@
                   $count = $count - strlen($seq_to_display);
 
                   echo '</span>';
+                }
+              ?>
+            </td>
+            <td align='left'>
+              <?php
+                $genome_size = $genome_size_to_unhardcode_later;
+                $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
+                for ($line = 1; $line <= $nb_of_lines; $line++) {
+                  $char = $line*$char_per_line;
+                  echo "$char <br>";
+                }
+              ?>
+            </td>
+            <td>
+              <?php
+                $count = 0;
+                for ($seq_ind = 0; $seq_ind < sizeof($sequences); $seq_ind++) {
+                  $char = $line*$char_per_line + 1;
+                  echo "$char <br>";
                 }
               ?>
             </td>

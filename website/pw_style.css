@@ -221,7 +221,6 @@ body {
 }
 
 .table_type_gene_inf tbody td{
-  border-right: 1px solid black;
   color:black;
   white-space: normal;
   overflow-wrap: break-word;
