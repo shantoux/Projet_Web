@@ -47,12 +47,9 @@
         <tbody>
           <?php
           include_once 'libphp/dbutils.php';
+          connect_db();
 
-          //if(isset($_POST['submit'])){
-          //essai connexion postgres
-            connect_db();
-          $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name
-          FROM genome G, users U, annotations A
+          $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name FROM genome G, users U, annotations A
           WHERE G.genome_id = A.genome_id
           AND U.role='annotator';";
 
@@ -68,7 +65,7 @@
             <td> Ecoli</td>
             <td>
               <select name="annotator">
-                <option value="annotator"> bobby </option>
+                <option value="annotator"> <?php echo ("$_SESSION['first_name']");?></option>
                 <!--<option value="annotator"> </option>-->
               </select>
 

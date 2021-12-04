@@ -35,11 +35,11 @@
     </div>
 
 <!-- Vérification de l'email et du mot de passe de l'utilisateur pour accéder à la search page -->
-    
+
     <?php
     include_once 'libphp/dbutils.php';
 
-    if(isset($_POST['submit'])){ 
+    if(isset($_POST['submit'])){
     //essai connexion postgres
       connect_db();
       //Récupération du nom et password rempli dans le formulaire de connexion
@@ -48,9 +48,9 @@
 
       // Ex�cution de la requ�te SQL
       $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = '$user_password';";
-      $result = pg_query($db_conn, $query) 
+      $result = pg_query($db_conn, $query)
 					or die('Query failed with exception: ' . pg_last_error());
-	if(pg_num_rows($result) == 1){
+	    if(pg_num_rows($result) == 1){
           echo '<script>location.href="search_1.php"</script>';
 
           session_start();
