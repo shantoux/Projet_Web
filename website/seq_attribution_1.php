@@ -48,7 +48,7 @@
           <?php
           include_once 'libphp/dbutils.php';
 
-          if(isset($_POST['submit'])){
+          //if(isset($_POST['submit'])){
           //essai connexion postgres
             connect_db();
           $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name
@@ -68,7 +68,7 @@
             <td> Ecoli</td>
             <td>
               <select name="annotator">
-                <option value="annotator"> <?php echo $_SESSION['first_name']; echo $_SESSION['last_name'] ;?></option>
+                <option value="annotator"> <?php echo "$_SESSION['first_name']" echo "$_SESSION['last_name']" ;?></option>
                 <!--<option value="annotator"> </option>-->
               </select>
 
