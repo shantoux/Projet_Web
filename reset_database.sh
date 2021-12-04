@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# parse .bd_postrgre
+# parse .projetWEB.ini
 while read -r line; do
   if [[ $line =~ ^(host) ]]; then
     host=${line##* }
@@ -9,12 +9,9 @@ while read -r line; do
   elif [[ $line =~ ^(password) ]]; then
     pw=${line##* }
   fi
-done < $1
+done < website/.projetWEB.ini
 
-echo $host
-echo $user
-echo $pw
-
+# connect to and initialize database
 PGPASSWORD=$pw psql -h $host -U $user  << EOF
   \i database/drop_schema.sql
   \i database/create_tables.sql
