@@ -17,8 +17,8 @@ echo $pw
 
 PGPASSWORD=$pw
 
-psql -h $host -U $user
-
-\i database/drop_schema.sql
-\i database/drop_schema.sql
-\i database/create_tables.sql
+psql -h $host -U $user  << EOF
+  \i database/drop_schema.sql
+  \i database/create_tables.sql
+  \q
+EOF
