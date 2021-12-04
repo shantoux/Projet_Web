@@ -34,6 +34,7 @@
       <br> <br> <span class="small_text">Not already registered? <a href="./registration_form.php">Click here</a> to submit a new account.</span>
     </div>
 
+<!-- Vérification de l'email et du mot de passe de l'utilisateur pour accéder à la search page -->
     
     <?php
     include_once 'libphp/dbutils.php';
