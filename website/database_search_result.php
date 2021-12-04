@@ -13,24 +13,24 @@
     $roles = array("annotator", "validator", "administrator");
   ?>
 
-    <div class="topnav">
-        <a class="active" href="./search_1.php">New search</a>
-        <?php
-          if ($_SESSION['status'] == 'annotator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-          }
-          if ($_SESSION['status'] == 'validator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
-          }
-          if ($_SESSION['status'] == 'administrator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
-            echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
-          }
-        ?>
-        <a href="about.php">About</a>
-        <a class="disc" href="Login_page1.php">Disconnect</a>
+  <div class="topnav">
+    <a class="active" href="./search_1.php">New search</a>
+    <?php
+        if ($_SESSION['status'] == 'annotator'){
+          echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+        }
+        if ($_SESSION['status'] == 'validator'){
+          echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+          echo "<a href=\"./validation_1.php\">Validate annotation</a>";
+        }
+        if ($_SESSION['status'] == 'administrator'){
+          echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+          echo "<a href=\"./validation_1.php\">Validate annotation</a>";
+          echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+        }
+      ?>
+      <a href="about.php">About</a>
+      <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
   <br>
 
