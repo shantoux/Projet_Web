@@ -63,7 +63,7 @@
       $user_password = $_POST["pass"];
 
       // Ex�cution de la requ�te SQL
-      $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = md5('$user_password');";
+      $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = '$user_password';";
       $result = pg_query($db_conn, $query);
       if(pg_num_rows($result) != 1){
         echo "<div class=\"alert_bad\">
