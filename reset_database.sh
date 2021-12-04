@@ -2,11 +2,11 @@
 
 while read -r line; do
   if [[ $line =~ ^(host) ]]; then
-    $host=${line##* }
+    host=${line##* }
   elif [[ $line =~ ^(user) ]]; then
-    $user=${line##* }
+    user=${line##* }
   elif [[ $line =~ ^(password) ]]; then
-    $pw=${line##* }
+    pw=${line##* }
   fi
 done < $1
 
