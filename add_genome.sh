@@ -17,11 +17,10 @@ gen_name="${1}.fa"
 # parse new genome
 cd database/
 python parser_bd.py $gen_name
+cd ../
 
 # add new genome to database
 PGPASSWORD=$pw psql -h $host -U $user  << EOF
   \i database/instances_new_genome.sql
   \q
 EOF
-
-cd ../
