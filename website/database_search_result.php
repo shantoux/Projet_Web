@@ -7,14 +7,9 @@
 </head>
 
 <body class="center">
-  <?php
-    # TODO: un-hardcode the user role, check in database for the actual role
-    $role = "administrator";
-    $roles = array("annotator", "validator", "administrator");
-  ?>
 
   <div class="topnav">
-    <a class="active" href="./search_1.php">New search</a>
+    <a href="./search_1.php">New search</a>
     <?php
         if ($_SESSION['status'] == 'annotator'){
           echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
