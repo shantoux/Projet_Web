@@ -65,15 +65,15 @@
       // Ex�cution de la requ�te SQL
       $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = md5('$user_password');";
       $result = pg_query($db_conn, $query);
-      if(pg_num_rows($result) == 1){
-        echo '<script>location.href="search_1.php"</script>';
-      }
-      else{
+      if(pg_num_rows($result) != 1){
         echo "<div class=\"alert_bad\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
           Wrong username or password.
         </div>";
+      }
+      else{
+        echo '<script>location.href="search_1.php"</script>';
       }
     }
 ?>
