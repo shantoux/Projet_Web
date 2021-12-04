@@ -18,3 +18,21 @@ To then initialize the database, use command:
 ```
 ./reset_database.sh
 ```
+
+## Add new genome into the database
+
+To add a new genome, first put the three corresponding *fasta* files in the `database` folder:
+```
+[new_genome].fa #contains the whole genome sequence
+[new_genome]_cds.fa #contains gene sequences
+[new_genome]_pep.fa #contains the protein sequences
+```
+Then, go back to the root folder, and use command:
+```
+./add_genome.sh [genome_name]
+```
+Example:
+```
+./add_genome.sh Escherichia_coli_cft073
+```
+
