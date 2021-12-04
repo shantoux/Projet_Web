@@ -76,10 +76,10 @@
           </tr>
           <tr>
             <td> Type of search:<span style="color:red;">*</span></td>
-            <td align="left"> <input type="radio" id="genome" name="search_type" required> <label for="genome">Genome</label> </td>
+            <td align="left"> <input type="radio" id="genome" name="search_type" value="genome" required> <label for="genome">Genome</label> </td>
           <tr>
             <td></td>
-            <td align="left"> <input type="radio" id="gene_prot" name="search_type" required> <label for="gene_prot">Gene / Proteine</label> </td>
+            <td align="left"> <input type="radio" id="gene_prot" name="search_type" value="gene_prot" required> <label for="gene_prot">Gene / Proteine</label> </td>
 
           </tr>
           <tr>
