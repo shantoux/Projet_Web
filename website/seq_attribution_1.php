@@ -69,7 +69,7 @@
             <td>
               <select name="annotator">
                 <option value="annotator"> <?php echo $_SESSION['first_name']; echo $_SESSION['last_name'] ;?></option>
-                <!--<option value="annotator"> <?php $_SESSION['first_name'] $_SESSION['last_name'] ;?> </option>-->
+                <!--<option value="annotator"> </option>-->
               </select>
 
               <input type="submit" value="Choose">
