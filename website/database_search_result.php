@@ -36,54 +36,102 @@
 
   <?php
     print_r($_POST);
+    # Array ( [nucl_sequence] => [pep_sequence] => [genes] => [transcripts] => [description] => [search_type] => genome [submit] => Search! )
   ?>
   Genome's type : [insert type protein or nucleotides]<br>
   <div id="element1">Results</div>
 
+  <!-- Display table of results for the search -->
   <div class = "center">
-    <table class = "table_type1">
+    <?php
+      if ($_POST["search-type"] == "genome") {
+      echo '<table class = "table_type1">';
 
-    <thead>
-        <tr>
-            <th>Genome</th>
-            <th>Species</th>
-            <th>Sequences</th>
-        </tr>
-        </thead>
+      # display first line
+      echo '<thead>';
+      echo '<tr>';
+      echo '<th>Specie / Name / Strain</th>';
+      echo '<th>Size of stored genome</th>';
+      echo '</tr>';
+      echo '</thead>'; #end of first line
 
-        <tbody>
-        <tr>
-            <td><?php echo "<a href=\"./genome_info.php\">Genome example1</a>"; ?>
-            </td>
+      # display results of search
+      echo '<tbody>';
+      $query = "SELECT DISTINCT GENO.genome_id, GENO.genome_seq FROM annotation_seq.genome AS GENO";
+      $conditions = false;
+      # test if one condition has been filled in the search form
+      foreach (array("specie", "nucl_sequence") as $token) {
+        if ($_POST[$token] != "") {
+          $conditions = true;
+          break;
+        }
+      }
+      if ($_POST["pep_sequence"] != "") {
+        $conditions = true;
+        $query = $query . ", annotation_seq.gene AS GENE";
+      }
+      foreach (array("genes", "description") as $token) {
+        if ($_POST[$token] != "") {
+          $conditions = true;
+          $query = $query . ", annotation_seq.annotations AS A";
+          break;
+        }
+      }
+      # add conditions to request
+      if ($conditions) {
+        $first_cond = true;
+        $query = $query . "WHERE ";
+        # joint the tables
+        if ($_POST["pep_sequence"] != "") {
+          $query = $query . "GENO.genome_id = GENE.genome_id";
+          $first_cond = false;
+        }
+        if ($_POST["genes"] != "" || $_POST["description"] != "") {
+          if (!$first_cond) {$query = $query . " AND ";}
+          else {$first_cond = false;}
+          $query = $query . "GENO.genome_id = A.genome_id";
+        }
+        # check for condition on specie name
+        if ($_POST["specie"] != "") {
+          if (!$first_cond) {$query = $query . " AND ";}
+          else {$first_cond = false;}
+          $query = $query . "GENO.genome_id LIKE '%" . $_POST["specie"] . "%'";
+        }
+        # check for condition on nucleotides sequence
+        if ($_POST["nucl_sequence"] != "") {
+          if (!$first_cond) {$query = $query . " AND ";}
+          else {$first_cond = false;}
+          $query = $query . "GENO.genome_seq LIKE '%" . $_POST["nucl_sequence"] . "%'";
+        }
+        # check for condition on peptides sequence
+        if ($_POST["pep_sequence"] != "") {
+          if (!$first_cond) {$query = $query . " AND ";}
+          else {$first_cond = false;}
+          $query = $query . "GENE.genome_seq LIKE '%" . $_POST["pep_sequence"] . "%'";
+        }
+        # check for condition on genes names
+        if ($_POST["genes"] != "") {
+          if (!$first_cond) {$query = $query . " AND ";}
+          else {$first_cond = false;}
+          $query = $query . "A.gene_id LIKE '%" . $_POST["genes"] . "%'";
+        }
+        # check for condition on genes descriptions
+        if ($_POST["description"] != "") {
+          if (!$first_cond) {$query = $query . " AND ";}
+          else {$first_cond = false;}
+          $query = $query . "A.description LIKE '%" . $_POST["description"] . "%'";
+        }
+      }
 
-            <td>Escherichia coli </td>
-            <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCG
-GGCTGA</td>
-        </tr>
-        <tr>
-            <td>
-              <?php echo "<a href=\"./genome_info.php\">Genome example2</a>"; ?>
-            </td>
-            <td>Escherichia coli</td>
-            <td>GTGTTCTACAGAGAGAAGCGTAGAGCAATAGGCTGTATTTTGAGAAAGCTGTGTGAGTGG
-AAAAGTGTACGGATTCTGGAAGCTGAATGCTGTGCAGATCATATCCATATGCTTGTGGAG
-ATCCCGCCCAAAATGAGCGTATCAGGCTTTATGGGATATCTGAAAGGGAAAAGCAGTCTG
-ATGCCTTACGAGCAGTTTGGTGATTTGAAATTCAAATACAGGAACAGGGAGTTCTGGTGC
-AGAGGGTATTACGTCGATACGGTGGGTAAGAACACGGCGAAGATACAGGATTACATAAAG
-CACCAGCTTGAAGAGGATAAAATGGGAGAGCAGTTATCGATTCCCTATCCGGGCAGCCCG
-TTTACGGGCCGTAAGTAA</td>
-        </tr>
-        <tr>
-            <td>
-              <?php echo "<a href=\"./genome_info.php\">Genome example3</a>"; ?>
-            </td>
-            <td>Escherichia coli</td>
-            <td>ATGC</td>
-        </tr>
+      $query = $query . ";";
+      echo $query;
 
-        <tbody>
+      echo '</tbody>';
+      echo '</table>';
+      }
+    ?>
 
-  </table>
+  <?php echo "<a href=\"./genome_info.php\">Genome example1</a>"; ?>
 </div>
 </body>
 </html>

@@ -55,6 +55,10 @@
       <form action="database_search_result.php" method = "post">
         <table class="center">
           <tr>
+            <td> Specie / Name / Strain: </td>
+            <td> <input type="text" name="specie"> </td>
+          </tr>
+          <tr>
             <td> Nucleotides sequence: </td>
             <td> <input type="text" name="nucl_sequence"> </td>
           </tr>
@@ -65,10 +69,6 @@
           <tr>
             <td> Genes names: </td>
             <td> <input type="text" name="genes"> </td>
-          </tr>
-          <tr>
-            <td> Transcripts names: </td>
-            <td> <input type="text" name="transcripts"> </td>
           </tr>
           <tr>
             <td> Description: </td>
