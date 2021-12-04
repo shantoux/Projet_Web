@@ -1,6 +1,4 @@
 <!-- Web page to attribute annotation to annotator -->
-<?php session_start();?>
-
 <!DOCTYPE html>
 <html>
 
@@ -66,7 +64,7 @@
             <td> Ecoli</td>
             <td>
               <select name="annotator">
-                <option value="annotator"> <?php echo $_SESSION['first_name'];?></option>
+                <option value="annotator"> <?php echo $_SESSION['first_name'] echo $_SESSION['last_name'];?></option>
                 <!--<option value="annotator"> </option>-->
               </select>
 
