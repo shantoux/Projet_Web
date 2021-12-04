@@ -54,10 +54,11 @@
     ?> -->
 
     <?php
-    //essai connexion postgres
-    $db_conn = pg_connect("host=tp-postgres user=spijeau_a password=spijeau_a");
+    include_once 'libphp/dbutils.php';
 
-    if(isset($_POST['submit'])){
+    if(isset($_POST['submit'])){ 
+    //essai connexion postgres
+      connect_db();
       //Récupération du nom et password rempli dans le formulaire de connexion
       $user_name = $_POST["name"];
       $user_password = $_POST["pass"];
@@ -76,6 +77,12 @@
       else{
         echo '<script>location.href="search_1.php"</script>';
       }
+      //libère le résultat de la query
+      pg_free_result($result);
+
+      //ferme la connexion
+      disconnect_db();
+
     }
 ?>
   </body>
