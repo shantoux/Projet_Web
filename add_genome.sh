@@ -21,6 +21,7 @@ cd ../
 
 # add new genome to database
 PGPASSWORD=$pw psql -h $host -U $user  << EOF
+  SET SCHEMA 'annotation_seq';
   \i database/instances_new_genome.sql
   \q
 EOF
