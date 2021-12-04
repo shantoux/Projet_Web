@@ -11,12 +11,6 @@
   </head>
 
   <body class="center">
-    <?php
-      # TODO: un-hardcode the user role, check in database for the actual role
-      $role = "administrator";
-      $roles = array("annotator", "validator", "administrator");
-    ?>
-
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
         <a class="active" href="./search_1.php">New search</a>
@@ -51,13 +45,25 @@
         </thead>
 
         <tbody>
+          <?php
+          $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name
+          FROM genome G, users U, annotations A
+          WHERE G.genome_id = A.genome_id
+          AND U.role='annotator';"
+
+          $result = pg_query($db_conn, $seq_attribution)
+    					or die('Query failed with exception: ' . pg_last_error());
+
+          $_SESSION['first_name'] = pg_fetch_result($result, 0, 1);
+          $_SESSION['last_name'] = pg_fetch_result($result, 0, 2);
+          ?>
           <tr>
             <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
             <td> Ecoli</td>
             <td>
               <select name="annotator">
-                <option value="annotator"> Bob </option>
-                <option value="annotator"> Bobby </option>
+                <option value="annotator"> <?php $_SESSION['first_name'] $_SESSION['last_name'] ;?></option>
+                <option value="annotator"> <?php $_SESSION['first_name'] $_SESSION['last_name'] ;?> </option>
               </select>
 
               <input type="submit" value="Choose">
