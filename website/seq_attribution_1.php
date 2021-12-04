@@ -54,7 +54,7 @@
           $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name
           FROM genome G, users U, annotations A
           WHERE G.genome_id = A.genome_id
-          AND U.role='annotator';"
+          AND U.role='annotator';";
 
           $result = pg_query($db_conn, $seq_attribution)
     					or die('Query failed with exception: ' . pg_last_error());
