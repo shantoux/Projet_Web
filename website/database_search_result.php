@@ -44,7 +44,7 @@
   <!-- Display table of results for the search -->
   <div class = "center">
     <?php
-      if ($_POST["search-type"] == "genome") {
+      if ($_POST["search_type"] == "genome") {
       echo '<table class = "table_type1">';
 
       # display first line
