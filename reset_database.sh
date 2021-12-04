@@ -18,5 +18,10 @@ echo $pw
 PGPASSWORD=$pw psql -h $host -U $user  << EOF
   \i database/drop_schema.sql
   \i database/create_tables.sql
+  \i database/instances_cft073.sql
+  \i database/instances_edl933.sql
+  \i database/instances_mg1655.sql
+  \i database/instances_unannotated.sql
+  \i database/instances_users.sql
   \q
 EOF
