@@ -15,7 +15,7 @@ done < website/.projetWEB.ini
 gen_name="${1}.fa"
 
 # parse new genome
-python website/parser_bd.py $gen_name
+python database/parser_bd.py $gen_name
 
 # add new genome to database
 PGPASSWORD=$pw psql -h $host -U $user  << EOF
