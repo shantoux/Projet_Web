@@ -83,7 +83,7 @@ def parse_genes(genome_id, annotated, file):
                 descr_index = 6
                 if word_list[6].split(":")[0] == "gene_symbol":
                     annotation_text_to_write = annotation_text_to_write[:91] + " gene_symbol," + annotation_text_to_write[91:]
-                    annotation_text_to_write += "\'" + word_list[6].split(":")[1] + "\', " # gene_symbol
+                    annotation_text_to_write += "\'" + word_list[6].split(":")[1].replace("\'","") + "\', " # gene_symbol
                     descr_index = 7
                 annotation_text_to_write += "\'" + word_list[descr_index].split(":")[1].replace("\'"," ") # description
                 for word in word_list[(descr_index+1):]: # ADD ALL WORDS AT THE END OF ANNOTATION IN THE DESCRIPTION
