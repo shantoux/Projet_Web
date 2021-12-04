@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-while read -r; do
-  if [[ $REPLY =~ ^(host) ]]; then
-    $host = ${REPLY##* }
-  elif [[ $REPLY =~ ^(user) ]]; then
-    $user = ${REPLY##* }
-  elif [[ $REPLY =~ ^(password) ]]; then
-    $pw = ${REPLY##* }
+while read -r line; do
+  if [[ $line =~ ^(host) ]]; then
+    $host = ${line##* }
+  elif [[ $line =~ ^(user) ]]; then
+    $user = ${line##* }
+  elif [[ $line =~ ^(password) ]]; then
+    $pw = ${line##* }
   fi
 done < $1
 
