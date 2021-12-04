@@ -47,29 +47,26 @@
         <tbody>
           <?php
           include_once 'libphp/dbutils.php';
+          connect_db();
 
-          //if(isset($_POST['submit'])){
-          //essai connexion postgres
-            connect_db();
           $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name
-          FROM genome G, users U, annotations A
+          FROM annotation_seq.genome G, annotation_seq.users U, annotation_seq.annotations A
           WHERE G.genome_id = A.genome_id
           AND U.role='annotator';";
 
           $result = pg_query($db_conn, $seq_attribution)
     					or die('Query failed with exception: ' . pg_last_error());
 
-          session_start();
+          $_SESSION['genome_id'] = pg_fetch_result($require, 0, 0);
           $_SESSION['first_name'] = pg_fetch_result($result, 0, 1);
           $_SESSION['last_name'] = pg_fetch_result($result, 0, 2);
           ?>
           <tr>
             <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
-            <td> Ecoli</td>
+            <td> <?php echo $_SESSION['genome_id'];?></td>
             <td>
               <select name="annotator">
-                <option value="annotator"> <?php echo "$_SESSION['first_name']";?></option>
-                <!--<option value="annotator"> </option>-->
+                <option value="annotator"> <?php echo $_SESSION['first_name'] " "; echo $_SESSION['last_name'];?></option>
               </select>
 
               <input type="submit" value="Choose">
