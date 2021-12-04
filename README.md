@@ -12,7 +12,7 @@ First one must connect to the database. To do so, go to the root of the project 
 ```
 vim website/.projetWEB.ini
 ```
-Replace `login_court` with your short login. For example, *Michel Arsouin* should replace it with `marsouin`.  
+Replace `[login_court]` with your short login. For example, *Michel Arsouin* should replace it with `marsouin`.  
 Save the editing with `Esc` followed by command `:x`.  
 To then initialize the database, use command:
 ```
