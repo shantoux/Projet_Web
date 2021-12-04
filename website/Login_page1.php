@@ -36,7 +36,7 @@
 
 <!-- TODO: Le popup ci-dessous doit ensuite intégrer la connexion à la DB pour checker l'Utilisateur -->
 
-    <?php
+<!--     <?php
     $essai_name = "username";
     $essai_password  = "password";
     if(isset($_POST['submit'])){
@@ -51,22 +51,31 @@
         </div>";
       }
     }
-    ?>
+    ?> -->
 
-<?php
-//essai connexion postgres
-//$db = pg_connect("host=localhost port=5432 dbname=shanti_psql username = shanti") or die ("Connection échoué");
-//syntaxe connexion conditionnelle :
-$essai_name = "username";
-$essai_password  = "password";
-if(isset($_POST['submit'])){
-  if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-    echo '<script>location.href="search_1.php"</script>';
-  }
-  else{
-    echo "Utilisateur ou mot de passe erronés";
-  }
-}
+    <?php
+    //essai connexion postgres
+    $db_conn = pg_connect("host=tp-postgres user=spijeau_a password=spijeau_a");
+
+    if(isset($_POST['submit'])){
+      //Récupération du nom et password rempli dans le formulaire de connexion
+      $user_name = $_POST["name"];
+      $user_password = $_POST["pass"];
+
+      // Ex�cution de la requ�te SQL
+      $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND password = md5('$user_password');";
+      $result = pg_query($db_conn, $query);
+      if(pg_num_rows($result) == 1){
+        echo '<script>location.href="search_1.php"</script>';
+      }
+      else{
+        echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Wrong username or password.
+        </div>";
+      }
+    }
 ?>
   </body>
 </html>
