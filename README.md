@@ -8,7 +8,7 @@ TODO
 
 ## Initialize database
 
-First one must connect to the database. To do so, go to the root of the project and set *username* and *password*. Use command:
+First, one must connect to the database. To do so, go to the root of the project and set *username* and *password*. Use command:
 ```
 vim website/.projetWEB.ini
 ```
