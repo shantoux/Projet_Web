@@ -1,4 +1,5 @@
 <!-- Web page to attribute annotation to annotator -->
+<?php session_start();?>
 
 <!DOCTYPE html>
 <html>
@@ -18,16 +19,19 @@
 
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a href="./search_1.php">New search</a>
+        <a class="active" href="./search_1.php">New search</a>
         <?php
-          if (in_array($role, array_slice($roles, 0), true)) {
+          if ($_SESSION['status'] == 'annotator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
           }
-          if (in_array($role, array_slice($roles, 1), true)) {
+          if ($_SESSION['status'] == 'validator'){
+            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
             echo "<a href=\"./validation_1.php\">Validate annotation</a>";
           }
-          if (in_array($role, array_slice($roles, 1), true)) {
-            echo "<a class=\"active\" href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+          if ($_SESSION['status'] == 'administrator'){
+            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
+            echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
           }
         ?>
         <a href="about.php">About</a>
