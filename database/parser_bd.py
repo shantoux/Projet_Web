@@ -3,27 +3,6 @@ import sys
 import os
 import time
 
-## CDS
-##>AAG54301 cds chromosome:ASM666v1:Chromosome:190:273:1 gene:Z0001 gene_biotype:protein_coding transcript_biotype:protein_coding gene_symbol:thrL description:thr operon leader peptide
-#ATGAAACGCATTAGCACCACCATTACCACCACCATCACCACCACCATCACCATTACCATT
-#ACCACAGGTAACGGTGCGGGCTGA
-
-## peptide
-#>AAN78502 pep chromosome:ASM744v1:Chromosome:534:911:1 gene:c0002 transcript:AAN78502 gene_biotype:protein_coding transcript_biotype:protein_coding description:Hypothetical protein
-#MFYREKRRAIGCILRKLCEWKSVRILEAECCADHIHMLVEIPPKMSVSGFMGYLKGKSSL
-#MPYEQFGDLKFKYRNREFWCRGYYVDTVGKNTAKIQDYIKHQLEEDKMGEQLSIPYPGSP
-#FTGRK
-
-## pas annoté
-## >Chromosome dna:chromosome chromosome:ASM744v1:Chromosome:1:5231428:1 REF
-
-#def read_files (directory):
-# for file in os.listdir(directory):
-#     if file.endswith(".fa"):
-#         f = open(file, "r")
-#         lines = f.readlines()
-#         f.close()
-
 # check that repository and passed args verify demanded conditions
 def check_rep(args):
     if len(args) != 1:
