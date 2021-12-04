@@ -161,7 +161,7 @@ if __name__ == "__main__":
     # check whether the provided genome is annotated or not
     annotated = is_annotated(genome_id)
 
-    with open('instances_test.sql', 'w') as file:
+    with open('instances_new_genome.sql', 'w') as file:
         print("\nParsing genome " + genome_id + "...")
         start_time = time.time()
         # parse genome
