@@ -59,6 +59,7 @@
           $result = pg_query($db_conn, $seq_attribution)
     					or die('Query failed with exception: ' . pg_last_error());
 
+          session_start();
           $_SESSION['first_name'] = pg_fetch_result($result, 0, 1);
           $_SESSION['last_name'] = pg_fetch_result($result, 0, 2);
           ?>
