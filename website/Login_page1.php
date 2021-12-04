@@ -5,8 +5,8 @@
     <title>Website_title</title>
     <link rel="stylesheet" type="text/css" href="./pw_style.css" />
   </head>
-
   <body class="center">
+
     <h1> Welcome to the Symposium on Biology and Sequences </h1>
     <div id="menu">
       Welcome to our brand new website login page!<br>
@@ -34,25 +34,7 @@
       <br> <br> <span class="small_text">Not already registered? <a href="./registration_form.php">Click here</a> to submit a new account.</span>
     </div>
 
-<!-- TODO: Le popup ci-dessous doit ensuite intégrer la connexion à la DB pour checker l'Utilisateur -->
-
-<!--     <?php
-    $essai_name = "username";
-    $essai_password  = "password";
-    if(isset($_POST['submit'])){
-      if ($_POST['name'] == $essai_name && $_POST['pass']== $essai_password){
-        echo '<script>location.href="search_1.php"</script>';
-      }
-      else{
-        echo "<div class=\"alert_bad\">
-          <span class=\"closebtn\"
-          onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Wrong username or password.
-        </div>";
-      }
-    }
-    ?> -->
-
+    
     <?php
     include_once 'libphp/dbutils.php';
 
@@ -85,5 +67,6 @@
 
     }
 ?>
+
   </body>
 </html>
