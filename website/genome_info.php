@@ -41,6 +41,9 @@
     <!-- store genome -->
     <?php
       $char_per_line = 100;
+      if (isset($_POST["nb_nucl_per_line"])) {
+        $char_per_line = $_POST["nb_nucl_per_line"];
+      }
       $sequences = array("CGATCGATGAGCAGCTTTGCATGCAGAAACGATCGGCGCGCTAGTACGCCCGGCTGCATGCAGAAACGATCGGCGCGCTAGTACGATCGTCAGGATCACTACGCAGCACTAGC",
                           "ATGCGTACGATCGTGACATCTGATCGTCTCTAGCTAGCATCTGGCATCG",
                           "GCTCGGGATACGCTCAGCTGGAGCCTGGCTATCATGCGAGCTAGGC",
@@ -70,7 +73,14 @@
         </colgroup>
         <thead>
           <tr>
-            <th colspan=4 class="type2">Genome's name : Ecoli</th>
+            <th colspan=2 class="type2"  align='left'>Genome's name : Ecoli</th>
+            <th colspan=2 text-align='right' horizontal-align="middle">
+              <form action="genome_info.php" method="post">
+                Nb of nucl. per line:
+                <input type="text" name="nb_nucl_per_line" maxlength="4" size="4" value="<?php echo $char_per_line; ?>">
+                <input type="submit" value="Update">
+              </form>
+            </th>
           </tr>
         </thead>
 
@@ -82,11 +92,11 @@
                 $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
                 for ($line = 0; $line < $nb_of_lines; $line++) {
                   $char = $line*$char_per_line + 1;
-                  echo "$char <br>";
+                  echo "$char-<br>";
                 }
               ?>
             </td>
-            <td>
+            <td align='left'>
               <?php
                 $count = $char_per_line;
                 foreach ($genome_fragments as $fragment) {
@@ -124,10 +134,11 @@
               <?php
                 $genome_size = $genome_size_to_unhardcode_later;
                 $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
-                for ($line = 1; $line <= $nb_of_lines; $line++) {
+                for ($line = 1; $line < $nb_of_lines; $line++) {
                   $char = $line*$char_per_line;
-                  echo "$char <br>";
+                  echo "-$char <br>";
                 }
+                echo "-$genome_size";
               ?>
             </td>
             <td>

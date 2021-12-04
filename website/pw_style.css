@@ -214,7 +214,6 @@ body {
 }
 
 .table_type_gene_inf thead th{
-  text-align:left;
   background-color: #ccdee5;
   padding: 10px 10px;
   overflow-wrap: break-word;
