@@ -49,7 +49,8 @@
           include_once 'libphp/dbutils.php';
           connect_db();
 
-          $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name FROM genome G, users U, annotations A
+          $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name
+          FROM annotation_seq.genome G, annotation_seq.users U, annotation_seq.annotations A
           WHERE G.genome_id = A.genome_id
           AND U.role='annotator';";
 
