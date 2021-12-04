@@ -33,37 +33,40 @@
 
       <br> <br> <span class="small_text">Not already registered? <a href="./registration_form.php">Click here</a> to submit a new account.</span>
     </div>
+
+    
     <?php
-      // Connexion à la base de donn�es
-      $db_conn = pg_connect("host=tp-postgres user=sbellab_a password=sbellab_a");
+    include_once 'libphp/dbutils.php';
 
-      if(isset($_POST['submit'])){
-        // R�cup�ration du nom pass� en param�tre (pour recherche)
-        $user_email = $_POST['name'];
-        $user_pw = $_POST['pass'];
+    if(isset($_POST['submit'])){ 
+    //essai connexion postgres
+      connect_db();
+      //Récupération du nom et password rempli dans le formulaire de connexion
+      $user_name = $_POST["name"];
+      $user_password = $_POST["pass"];
 
-        $query = "SELECT email, pw FROM annotation_seq.users
-              WHERE email = '$user_email' AND pw = '$user_pw';";
+      // Ex�cution de la requ�te SQL
+      $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = '$user_password';";
+      $result = pg_query($db_conn, $query) 
+					or die('Query failed with exception: ' . pg_last_error());
+      if(pg_num_rows($result) != 1){
+        echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Wrong username or password.
+        </div>";
+      }
+      else{
+        echo '<script>location.href="search_1.php"</script>';
+      }
+      //libère le résultat de la query
+      pg_free_result($result);
 
-        $result = pg_query($db_conn, $query)
-              or die('Query failed with exception: ' . pg_last_error());
+      //ferme la connexion
+      disconnect_db();
 
-        if(pg_num_rows($result) == 1){
-          echo '<script>location.href="search_1.php"</script>';
-          }
-          else{
-            echo "<div class=\"alert_bad\">
-              <span class=\"closebtn\"
-              onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              Wrong username or password.
-            </div>";
-          }
-          // Lib�re le r�sultat
-          //pg_free_result($result);
+    }
+?>
 
-          // Ferme la connexion
-          //pg_close($db_conn);
-        }
-      ?>
   </body>
 </html>
