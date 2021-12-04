@@ -55,7 +55,7 @@
 
           session_start();
           $_SESSION['user'] = $_POST['name'];
-          $_SESSION['status'] = pg_fetch_result($result, 0, 5);
+          $_SESSION['status'] = pg_fetch_result($result, 0, 5); //récupère le résultat de la 6e colonne (5) première ligne (0)
           }
           else{
             echo "<div class=\"alert_bad\">
