@@ -1,5 +1,6 @@
 <!-- Web page to make a search, user is automatically brought here after loging in -->
 <?php session_start();?>
+
 <!DOCTYPE html>
 <html>
 
@@ -11,9 +12,6 @@
 
   <body class="center">
     <?php
-      # TODO: un-hardcode the user role, check in database for the actual role
-      #$role = "administrator";
-      #$roles = array("annotator", "validator", "administrator");
       $url_array = preg_split("#/#", $_SERVER['HTTP_REFERER']);
     ?>
 
@@ -21,16 +19,13 @@
     <div class="topnav">
         <a class="active" href="./search_1.php">New search</a>
         <?php
-          //if (in_array($role, array_slice($roles, 0), true)) {
           if ($_SESSION['status'] == 'annotator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
           }
-          //if (in_array($role, array_slice($roles, 1), true)) {
           if ($_SESSION['status'] == 'validator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
             echo "<a href=\"./validation_1.php\">Validate annotation</a>";
           }
-          //if (in_array($role, array_slice($roles, 1), true)) {
           if ($_SESSION['status'] == 'administrator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
             echo "<a href=\"./validation_1.php\">Validate annotation</a>";
@@ -40,7 +35,7 @@
         <a href="about.php">About</a>
         <a class="disc" href="Login_page1.php">Disconnect</a>
     </div>
-    
+
     <!-- Display info box for successful login -->
     <?php
       if (end($url_array) == "Login_page1.php") {
