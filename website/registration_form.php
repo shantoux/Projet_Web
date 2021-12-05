@@ -76,14 +76,14 @@ if(isset($_POST['submit_registration'])){
   //Retrieve informations
   $values_user = array( );
   $values_user['email'] = $_POST["adress"];
-  $values_user['pw'] = '01/01/2005';
+  $values_user['pw'] = $_POST["pass_registration"];
   $values_user['last_name'] = $_POST["lastname"];
   $values_user['first_name'] = $_POST["firstname"];
   $values_user['phone'] = $_POST["phone"];
   $values_user['role'] = $_POST["role"];
   $values_user['status'] = 'waiting';
 
-  $result = pg_insert($db_conn, "annotation_seq.users", $values_user);
+  $result = pg_insert($db_conn, 'annotation_seq.users', $values_user);
 }
 ?>
 
