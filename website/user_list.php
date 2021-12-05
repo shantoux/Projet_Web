@@ -46,7 +46,7 @@ connect_db();?>
         $values_user['status'] = 'validated';
 
         $condition = array();
-        $condition_email=$_GET['email'];
+        $condition['email']=$_POST['email'];
 
         $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
@@ -56,7 +56,7 @@ connect_db();?>
         }
       }
       if(isset($_POST['delete'])){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = " .$_GET['mail']. ";";
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_POST['mail']. "';";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
           echo 'User removed from the database';
@@ -103,7 +103,7 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo '<form action="./user_list.php?email=' . $email . '" method="post">';
+          echo "<form action=\"./user_list.php?mail=\"" . $email . "\" method=\"post\">";
           echo '<select name="action">';
           echo '<option value="validate" name="validate">Validate</option>';
           echo '<option value="Delete" name="delete">Delete</option>';
