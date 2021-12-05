@@ -52,8 +52,24 @@
       $query = "SELECT genome_seq FROM annotation_seq.genome WHERE genome_id = '" . $genome_id . "';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
       $genome_whole_seq = pg_fetch_result($result, 0, 0);
-      echo substr($genome_whole_seq, 0, 300);
-
+      #echo substr($genome_whole_seq, 0, 300);
+      # retrieve all genes
+      $genome_fragments = array()
+      $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "';";
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+      $nucl_ind_count = 0
+      for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
+        $seq_id = pg_fetch_result($result, $gene_ind, 0);
+        $seq_start = pg_fetch_result($result, $gene_ind, 1);
+        $seq_end = pg_fetch_result($result, $gene_ind, 2);
+        $gene_seq = pg_fetch_result($result, $gene_ind, 3);
+        # add intergene before the gene to the fragments lists
+        array_push($genome_fragments, array("seq"=>substr($genome_whole_seq, $nucl_ind_count, $seq_start-1), "type"=>"igene", "id"=>$gene_ind));
+        # check if gene is annotated
+        # add gene to gene fragments
+        array_push($genome_fragments, array("seq"=>$gene_seq, "type"=>"gene", "id"=>$gene_ind));
+        $nucl_ind_count = $seq_end + 1;
+      }
 
 
 
