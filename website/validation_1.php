@@ -110,6 +110,7 @@
       echo "something went wrong in the query";
     }
   } else if (isset($_POST['reject_button'])) {
+    echo "SOMETHING";
     //Retrieve value of comment :
     $comments = htmlspecialchars($_POST['comments']);
     echo $comments;
