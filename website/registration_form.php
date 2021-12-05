@@ -25,8 +25,8 @@
 
     <tr>
       <td> <div>
-        <label>Email address : </label></td>
-      <td> <input type="text" name="adress"> </td>
+        <label for ="email">Email address : </label></td>
+      <td> <input type="email" id="email" name="adress"> </td>
     </tr>
 
     <tr>
@@ -70,17 +70,16 @@
 </form>
 </div>
 
+
+<!-- Check if all entered informations are valid -->
 <!-- Add to users'list in the database -->
+
 <?php
 include_once 'libphp/dbutils.php';
 
 if(isset($_POST['submit_registration'])){
   connect_db();
-  if($db_conn) {
-    echo 'connected';
-  } else {
-    echo 'there has been an error connecting';
- } 
+
   //Retrieve informations
   $values_user = array();
   $values_user['email'] = $_POST["adress"];
@@ -102,7 +101,7 @@ if(isset($_POST['submit_registration'])){
     echo "<div class=\"alert_bad\">
               <span class=\"closebtn\"
               onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              Erreur lors de la registration.
+              Error during registration.
             </div>";
 }
 }
