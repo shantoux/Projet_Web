@@ -56,7 +56,7 @@
     <div id="element1">
       <form action="database_search_result.php" method = "post">
         <table class="center">
-          <tr>
+        <tr>
             <td> Type of search:<span style="color:red;">*</span></td>
             <td align="left"> <input type="radio" id="genome" name="search_type" value="genome" required> <label for="genome">Genome</label> </td>
           <tr>
@@ -91,6 +91,7 @@
           <tr>
             <td colspan=2> <br> <br> <input type ="submit" value="Search!" name = "submit"> </td>
           </tr>
+
         </table>
         <br> <span class="small_text"> Fields with a <span style="color:red">*</span> are required.</span>
 
