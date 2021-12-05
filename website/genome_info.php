@@ -124,7 +124,7 @@
 
               echo "$char_per_line <br>";
               echo "$count <br>";
-              $seq_to_display = substr($seq_to_display, $count);
+              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-1);
               echo strlen($seq_to_display) . "<br>";
               echo "$seq_to_display <br>____<br>";
 
