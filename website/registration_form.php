@@ -49,7 +49,7 @@
     <tr>
       <td> <div>
         <label for = "phone_number">Phone number : </label></td>
-      <td> <input type="number" id="phone_number" name="phone" minlength="10" step="1"> </td>
+      <td> <input type="tel" id="phone_number" name="phone" minlength="10" step="1"> </td>
     </tr>
 
     <tr>
