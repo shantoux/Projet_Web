@@ -38,8 +38,7 @@
     include_once 'libphp/dbutils.php';
     connect_db();
   ?>
-  Genome's type : [insert type protein or nucleotides]<br>
-  <div id="element1">Results</div>
+  <br>
 
   <!-- Display table of results for the search -->
   <div id="element1">
