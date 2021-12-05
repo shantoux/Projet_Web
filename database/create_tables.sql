@@ -10,13 +10,12 @@ CREATE TABLE users(
   phone VARCHAR,
   role VARCHAR,
   status VARCHAR,
-  date_of_validation DATE,
   CHECK (role IN ('reader', 'annotator', 'validator', 'administrator')),
   CHECK (status IN ('waiting', 'validated')),
   PRIMARY KEY (email)
 );
 
-CREATE TABLE genome( 
+CREATE TABLE genome(
   genome_id VARCHAR,
   genome_seq VARCHAR,
   PRIMARY KEY (genome_id)
@@ -50,7 +49,7 @@ CREATE TABLE annotations(
   -- mais il faut aussi garder les annotations refusées, donc des attributs différents ?
   -- du genre "discarded_comments" ou "discarded_annotation"
   -- je pense une autre table serait de bon goût
-  date_of_validation DATE,
+  date_of_validation TIMESTAMP,
   CHECK (status IN ('waiting', 'validated')),
   PRIMARY KEY (annotator, genome_id, sequence_id),
   FOREIGN KEY (annotator) REFERENCES users(email),
