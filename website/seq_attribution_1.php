@@ -66,7 +66,6 @@
         echo '<th>Genome</th>';
         echo '<th>Sequence</th>';
         echo '<th>Annotators</th>';
-        echo '<th>-------</th>';
         echo '</tr>';
         echo '</thead>'; #end of first line
 
