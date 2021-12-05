@@ -59,7 +59,7 @@
         connect_db();
         $query = "SELECT a.genome_id, a.sequence_id, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
         $result = pg_query($db_conn, $query);
-        if ($SELECT != false) {
+        if ($result != false) {
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
