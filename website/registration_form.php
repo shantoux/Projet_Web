@@ -48,8 +48,8 @@
 
     <tr>
       <td> <div>
-        <label>Phone number : </label></td>
-      <td> <input type="text" name="phone"> </td>
+        <label for = "phone_number">Phone number : </label></td>
+      <td> <input type="number" id="phone_number" name="phone" minlength="10" step="1"> </td>
     </tr>
 
     <tr>
