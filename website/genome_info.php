@@ -112,6 +112,9 @@
             # retrieve all genes
             $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
             $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+            echo pg_num_rows($result) . '<br>';
+            echo pg_fetch_result($result, pg_num_rows($result)-1, 1) . '<br>';
+            echo pg_fetch_result($result, pg_num_rows($result)-1, 2) . '<br>';
             $nucl_ind_count = 0;
             $count = $char_per_line;
             for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
@@ -150,7 +153,7 @@
                 $info = ' title="';
                 # add gene symbol if it exists
                 if (pg_fetch_result($result_annot, 0, 1) != "") {
-                  $info = $info . '<b>' . pg_fetch_result($result_annot, 0, 1) . '</b>\n';
+                  $info = $info . pg_fetch_result($result_annot, 0, 1) . "\n";
                 }
                 $info = $info . pg_fetch_result($result_annot, 0, 0) . "\n" . pg_fetch_result($result_annot, 0, 2) . "\nClick to see annotation";
                 echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
