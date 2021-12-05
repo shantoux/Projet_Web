@@ -75,10 +75,9 @@
         FROM annotation_seq.genome G, annotation_seq.gene E
         WHERE G.genome_id = 'new_coli' AND G.genome_id=E.genome_id;";
 
-        /*$list_annotator="SELECT U.first_name, U.last_name
+        $list_annotator="SELECT U.first_name, U.last_name, U.email
         FROM annotation_seq.users U
-        WHERE U.role='annotator';";*/
-        $list_annotator="SELECT email FROM annotation_seq.users U WHERE U.role='annotator';";
+        WHERE U.role='annotator';";
 
         $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());
         $result2 = pg_query($db_conn, $list_annotator) or die('Query failed with exception: ' . pg_last_error());
@@ -96,9 +95,9 @@
 
             if (pg_num_rows($result2)>0){
               for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){
-                //$annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
-                //$annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
-                $annotator_email= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_email= pg_fetch_result($result2, $res2_nb, 2); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
                 echo '<option value="'. $annotator_email . '">';
                 echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
