@@ -72,6 +72,7 @@
 <!-- Add to users'list in the database -->
 <?php
 if(isset($_POST['submit_registration'])){
+  connect_db();
   //Retrieve informations
   $first_name = $_POST["firstname"];
   $last_name = $_POST["lastname"];
