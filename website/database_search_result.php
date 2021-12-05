@@ -248,7 +248,7 @@
             $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
             if(pg_num_rows($result_annot) > 0){
               echo "<span style=\"color:green;\">&#10004</span>";
-              print_r($result_annot);
+              echo pg_fetch_result($result_annot, 0, 0);
             }
             else {
               echo "<span style=\"color:red;\">&#10008</span>";
