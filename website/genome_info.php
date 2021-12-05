@@ -110,7 +110,7 @@
             echo "<td align='left'>";
 
             # retrieve all genes
-            $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq LIMIT 10;";
+            $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq LIMIT 3;";
             $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
             $nucl_ind_count = 0;
             $count = $char_per_line;
