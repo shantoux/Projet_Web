@@ -43,6 +43,8 @@
     </div>
 
     <?php
+      include_once 'libphp/dbutils.php';
+      connect_db();
       $seq_id = $_GET['id'];
       $query = "SELECT * FROM annotation_seq.gene WHERE sequence_id = '" . $seq_id . "';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
