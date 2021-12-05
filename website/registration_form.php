@@ -25,13 +25,13 @@
 
     <tr>
       <td> <div>
-        <label for ="email">Email address : </label></td>
-      <td> <input type="email" id="email" name="adress"> </td>
+        <label for ="email">Email address :<span style="color:red;">*</span> </label></td>
+      <td> <input type="email" required id="email" name="adress"> </td>
     </tr>
 
     <tr>
-      <td> Password : </td>
-      <td> <input type="password" name="pass_registration"> </td>
+      <td> Password :<span style="color:red;">*</span> </td>
+      <td> <input type="password" required name="pass_registration"> </td>
     </tr>
 
     <tr>
@@ -68,6 +68,7 @@
 
   </table>
 </form>
+<br> <span class="small_text"> Fields with a <span style="color:red">*</span> are required.</span>
 </div>
 
 
@@ -95,7 +96,7 @@ if(isset($_POST['submit_registration'])){
     echo "<div class=\"alert_good\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Registration Succeeded.
+            Registration succeeded, wait for validation by an admin.
           </div>";
   } else {
     echo "<div class=\"alert_bad\">
@@ -106,6 +107,7 @@ if(isset($_POST['submit_registration'])){
 }
 }
 ?>
+
 
 
 </body>
