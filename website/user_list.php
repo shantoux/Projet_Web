@@ -139,7 +139,7 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo '<form action="./user_list.php?mail=' . $email . '" method="post">';
+          echo "<form action=\"./user_list.php?mail=\"" . $email . "\" method=\"post\">";
           echo '<select name="action">';
           echo '<option value="Delete" name="delete">Delete</option>';
           echo '</select>';
