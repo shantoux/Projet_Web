@@ -118,9 +118,9 @@
     echo $sequence_id;
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
-                SET status = 'rejected'
-                SET comments = '" . $comments .
-      "' WHERE sequence_id ='" . $sequence_id . "';";
+                SET status = 'rejected',
+                SET comments = ". $comments .
+      " WHERE sequence_id =" . $sequence_id . ";";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
     if ($result) {
       echo "Annotation successfully rejected -_-";
