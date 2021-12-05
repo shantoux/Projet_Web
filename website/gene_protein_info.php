@@ -62,7 +62,7 @@
               echo "<b>Sequence identifier:</b> $seq_id<br><br>";
               echo "<b>Specie:</b> $genome_id<br>";
               echo "<b>Chromosome:</b> $chromosome<br>";
-              echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position " . strlen($start_seq) . " and ends on position " . strlen($end_seq)".<br><br>";
+              echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position " . strlen($start_seq) . " and ends on position " . strlen($end_seq) . ".<br><br>";
               ## check for annotations
               $query_annot = "SELECT * FROM annotation_seq.annotations WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "';";
               $result_annot = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
