@@ -112,7 +112,7 @@
             # retrieve all genes
             $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "';";
             $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-            $nucl_ind_count = 0
+            $nucl_ind_count = 0;
             $count = $char_per_line;
             for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
 
