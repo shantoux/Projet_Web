@@ -134,6 +134,7 @@
               echo $seq_to_display;
               $count = $count - strlen($seq_to_display);
               echo '</span>';
+              echo '_____';
 
               # check if gene is annotated
               $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "';";
