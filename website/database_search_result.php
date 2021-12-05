@@ -169,7 +169,7 @@
 
         # display results of search
         echo '<tbody>';
-        $query = "SELECT DISTINCT GENE.seq_id, GENE.genome_id, GENE.gene_seq FROM annotation_seq.gene AS GENE";
+        $query = "SELECT DISTINCT GENE.sequence_id, GENE.genome_id, GENE.gene_seq FROM annotation_seq.gene AS GENE";
         $conditions = false;
         # test if one condition has been filled in the search form
         foreach (array("specie", "nucl_sequence", "seq_id", "pep_sequence") as $token) {
