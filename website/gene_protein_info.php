@@ -75,7 +75,7 @@
                 $result2 = pg_query($db_conn, $annotator) or die('Query failed with exception: ' . pg_last_error());
                 $annotator_first_name= pg_fetch_result($result2, 0, 0);
                 $annotator_last_name= pg_fetch_result($result2, 0, 1);
-                echo "This sequence has been annotated by " . $annotator_first_name . " " . $annotator_last_name . ".";
+                echo "This sequence has been annotated by " . $annotator_first_name . " " . $annotator_last_name . ".<br>";
                 if (pg_fetch_result($result_annot, 0, 3) != "") {
                   echo "<b>Gene biotype:</b> " . pg_fetch_result($result_annot, 0, 3) . "<br>";
                 }
