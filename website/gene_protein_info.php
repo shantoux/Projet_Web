@@ -64,17 +64,17 @@
               echo "<b>Sequence identifier:</b> $seq_id<br><br>";
               echo "<b>Specie:</b> $genome_id<br>";
               echo "<b>Chromosome:</b> $chromosome<br>";
-              echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position " . strlen($start_seq) . " and ends on position " . strlen($end_seq) . ".<br><br>";
+              echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position " . $start_seq . " and ends on position " . $end_seq . ".<br><br>";
               ## check for annotations
               $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "';";
-              $result_annot = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+              $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
               if(pg_num_rows($result_annot) > 0){
                 $annotator="SELECT U.first_name, U.last_name
                 FROM annotation_seq.users U
                 WHERE U.email='" . pg_fetch_result($result_annot, 0, 7) . "';";
                 $result2 = pg_query($db_conn, $annotator) or die('Query failed with exception: ' . pg_last_error());
-                $annotator_first_name= pg_fetch_result($result2, $res2_nb, 0);
-                $annotator_last_name= pg_fetch_result($result2, $res2_nb, 1);
+                $annotator_first_name= pg_fetch_result($result2, 0, 0);
+                $annotator_last_name= pg_fetch_result($result2, 0, 1);
                 echo "This sequence has been annotated by " . $annotator_first_name . " " . $annotator_last_name . ".";
                 if (pg_fetch_result($result_annot, 0, 3) != "") {
                   echo "<b>Gene biotype:</b> " . pg_fetch_result($result_annot, 0, 3) . "<br>";
