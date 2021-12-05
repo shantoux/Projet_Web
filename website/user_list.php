@@ -1,5 +1,7 @@
 <!-- Web page to display, validate, delete users -->
-<?php session_start();?>
+<?php session_start();
+include_once 'libphp/dbutils.php';
+connect_db();?>
 
 <!DOCTYPE html>
 <html>
@@ -11,15 +13,9 @@
   </head>
 
   <body class="center">
-    <?php
-      # TODO: un-hardcode the user role, check in database for the actual role
-      $role = "administrator";
-      $roles = array("annotator", "validator", "administrator");
-    ?>
 
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a class="active" href="./search_1.php">New search</a>
         <?php
           if ($_SESSION['status'] == 'annotator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
@@ -32,6 +28,7 @@
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
             echo "<a href=\"./validation_1.php\">Validate annotation</a>";
             echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+            echo "<a href=\"./user_list.php\">Users' List</a>";
           }
         ?>
         <a href="about.php">About</a>
@@ -42,39 +39,121 @@
       Users' list
     </h2>
 
-    <form></form>
+    <?php
+    if(isset($_POST['save'])){
+      if(isset($_POST['validate'])){
+        $values_user = array();
+        $values_user['status'] = 'validated';
+
+        $condition = array();
+        $condition['mail']=$_POST['email'];
+
+        $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
+        if ($result_insert){
+          echo 'User added to the database';
+        } else {
+          'Error : user has not been added.';
+        }
+      }
+      if(isset($_POST['delete'])){
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = 'where is the email';";
+        $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
+        if ($result_delete){
+          echo 'User removed from the database';
+        } else {
+          'Error';
+        }
+      }
+    }?>
 
     <div id = "element1">
-      <table class = "center">
-        <thead>
-          <tr>
-            <th>User email</th>
-            <th>Role</th>
-            <th>Last connexion</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+      <?php
+      echo '<table class = "center">';
+      echo '<thead>';
+      echo '<tr>';
+      echo '<th>Last Name</th>';
+      echo '<th>First Name</th>';
+      echo '<th>User email</th>';
+      echo '<th>Role</th>';
+      echo '<th>Status</th>';
+      echo '<th>Action</th></tr></thead>';
 
-        <tbody>
-          <tr>
-            <td>bob@gmail.com </td>
-            <td>annotator </td>
-            <td>22/10/2021 18:46</td>
-            <td>
-              <input type="checkbox" id="Validate" name="validate">
-              <label for="validate">Validate</label>
-              <br>
-              <input type="checkbox" id="Delete" name="delete">
-              <label for="delete">Delete</label>
-            </td>
-            <td>
-              <input type="submit" name="save" value="save">
-            </td>
-          </tr>
+      //Display users waiting to be validated
+      echo '<tbody>';
+      $query = "SELECT last_name, first_name, email, role, status
+      FROM annotation_seq.users WHERE status='waiting' ORDER BY last_name;";
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
-        <tbody>
-      </table>
+      if(pg_num_rows($result) > 0){
+        for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+          $last_name = pg_fetch_result($result, $res_nb, 0);
+          $first_name = pg_fetch_result($result, $res_nb, 1);
+          $email = pg_fetch_result($result, $res_nb, 2);
+          $role = pg_fetch_result($result, $res_nb, 3);
+          $status = pg_fetch_result($result, $res_nb, 4);
+
+          echo '<tr><td>';
+          echo $last_name;
+          echo '</td><td>';
+          echo $first_name;
+          echo '</td><td>';
+          echo $email;
+          echo '</td><td>';
+          echo $role;
+          echo '</td><td>';
+          echo $status;
+          echo '</td><td>';
+          echo '<form action="./user_list.php?mail=' . $email . '" method="post">
+          <input type="checkbox" id="validate" name="validate">
+          <label for="validate">Validate</label><br>
+          <input type="checkbox" id="delete" name="delete">
+          <label for="delete">Delete</label></td>';
+          echo '<td>
+            <input type="submit" name="save" value="save">
+          </td></form></tr>';
+        }
+      }
+      echo '</tbody><br>';
+
+      //Display users already in database
+      echo '<tbody>';
+      $query = "SELECT last_name, first_name, email, role, status
+      FROM annotation_seq.users WHERE status='validated' ORDER BY last_name;";
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+
+      if(pg_num_rows($result) > 0){
+        for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+          $last_name = pg_fetch_result($result, $res_nb, 0);
+          $first_name = pg_fetch_result($result, $res_nb, 1);
+          $email = pg_fetch_result($result, $res_nb, 2);
+          $role = pg_fetch_result($result, $res_nb, 3);
+          $status = pg_fetch_result($result, $res_nb, 4);
+
+          echo '<tr><td>';
+          echo $last_name;
+          echo '</td><td>';
+          echo $first_name;
+          echo '</td><td>';
+          echo $email;
+          echo '</td><td>';
+          echo $role;
+          echo '</td><td>';
+          echo $status;
+          echo '</td><td>';
+          echo '<input type="checkbox" id="Delete" name="delete">
+          <label for="delete">Delete</label></td>';
+          echo '<td>
+            <input type="submit" name="save" value="save">
+          </td></tr>';
+        }
+      }
+      echo '</tbody>';
+
+      echo '</table>';
+          ?>
+
     </div>
+
     </form>
   </body>
 </html>
