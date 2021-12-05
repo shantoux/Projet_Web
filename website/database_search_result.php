@@ -42,7 +42,7 @@
   <div id="element1">Results</div>
 
   <!-- Display table of results for the search -->
-  <div class = "center">
+  <div id="element1">
     <?php
       if ($_POST["search_type"] == "genome") {
       echo '<table class = "table_type1">';
