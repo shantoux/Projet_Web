@@ -74,17 +74,16 @@
 if(isset($_POST['submit_registration'])){
   connect_db();
   //Retrieve informations
-  $first_name = $_POST["firstname"];
-  $last_name = $_POST["lastname"];
-  $email_registration = $_POST["adress"];
-  $phone_number = $_POST["phone"];
-  $password_registration = $_POST["pass_registration"];
-  $role_registration = $_POST["role"];
+  $values_user = array( );
+  $values_user['email'] = $_POST["adress"];
+  $values_user['pw'] = '01/01/2005';
+  $values_user['last_name'] = $_POST["lastname"];
+  $values_user['first_name'] = $_POST["firstname"];
+  $values_user['phone'] = $_POST["phone"];
+  $values_user['role'] = $_POST["role"];
+  $values_user['status'] = 'waiting';
 
-  //Query in postgres
-  $add_user = "INSERT INTO users (email, pw, last_name, first_name, phone, role, status) 
-  VALUES ($email_registration, $password_registration, $last_name, $first_name, $phone_number,$role_registration, 'waiting');";
-  $result_registration = pg_query($db_conn, $add_user) or die('Query failed with exception: ' . pg_last_error());
+  $result = pg_insert($db_conn, "annotation_seq.users", $values_user);
 }
 ?>
 
