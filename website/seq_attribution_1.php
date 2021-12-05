@@ -93,7 +93,7 @@
             echo '</td><td>';
             echo $sequence_id;
             echo '</td>';
-            echo '<td><form action="./seq_attribution_1.php?g_id=' . $genome_id . '&sid=' . $sequence_id . '" method="post"><select name="selected_annotator">';
+            echo '<td><form action="./seq_attribution_1.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post"><select name="selected_annotator">';
 
             if (pg_num_rows($result2)>0){
               for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){
