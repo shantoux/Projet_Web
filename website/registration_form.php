@@ -74,7 +74,7 @@
 if(isset($_POST['submit_registration'])){
   connect_db();
   //Retrieve informations
-  $values_user = array( );
+  $values_user = array();
   $values_user['email'] = $_POST["adress"];
   $values_user['pw'] = $_POST["pass_registration"];
   $values_user['last_name'] = $_POST["lastname"];
@@ -83,7 +83,7 @@ if(isset($_POST['submit_registration'])){
   $values_user['role'] = $_POST["role"];
   $values_user['status'] = 'waiting';
 
-  $result_insert = pg_insert($db_conn, 'annotation_seq.users', $values_user);
+  $result_insert = pg_insert($db_conn, 'annotation_seq.users', $values_user, PG_DML_ESCAPE);
   if ($result_inser) {
     echo "Les données POSTées ont pu être enregistrées avec succès.\n";
   } else {
