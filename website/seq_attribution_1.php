@@ -34,47 +34,68 @@
 
     <h2  id="pagetitle"> Sequences to attribute </h2>
 
-    <div class = "center">
-      <table class="table_type1">
-        <thead>
-          <tr>
-            <th>Sequences</th>
-            <th>Genome</th>
-            <th>Annotator</th>
-          </tr>
-        </thead>
+    <?php
+      include_once 'libphp/dbutils.php';
+      connect_db();
+    ?>
+    <br>
 
-        <tbody>
-          <?php
-          include_once 'libphp/dbutils.php';
-          connect_db();
+    <!-- Display table of results for the search -->
+    <div id="element1"> <!-- <div class = "center"> -->
+      <?php
+        echo '<table class = "table_type1">';
 
-          $seq_attribution="SELECT G.genome_id, U.first_name, U.last_name
-          FROM annotation_seq.genome G, annotation_seq.users U, annotation_seq.annotations A
-          WHERE G.genome_id = A.genome_id
-          AND U.role='annotator';";
+        # display first line
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th>Genome</th>';
+        echo '<th>Sequence</th>';
+        echo '<th>Annotators</th>';
+        echo '</tr>';
+        echo '</thead>'; #end of first line
 
-          $result = pg_query($db_conn, $seq_attribution)
-    					or die('Query failed with exception: ' . pg_last_error());
+        # display results of search
+        echo '<tbody>';
+        $seq_attribution="SELECT G.genome_id, E.sequence_id
+        FROM annotation_seq.genome G, annotation_seq.gene E
+        WHERE G.genome_id = 'new_coli';";
 
-          $_SESSION['genome_id'] = pg_fetch_result($require, 0, 0);
-          $_SESSION['first_name'] = pg_fetch_result($result, 0, 1);
-          $_SESSION['last_name'] = pg_fetch_result($result, 0, 2);
-          ?>
-          <tr>
-            <td>ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA </td>
-            <td> <?php echo $_SESSION['genome_id'];?></td>
-            <td>
-              <select name="annotator">
-                <option value="annotator"> <?php echo $_SESSION['first_name'] " "; echo $_SESSION['last_name'];?></option>
-              </select>
+        $list_annotator="SELECT U.first_name, U.last_name
+        FROM annotation_seq.users U
+        WHERE U.role='annotator';";
 
-              <input type="submit" value="Choose">
-            </td>
-          </tr>
+        $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());
+        $result2 = pg_query($db_conn, $list_annotator) or die('Query failed with exception: ' . pg_last_error());
 
-        </tbody>
-      </table>
-    </div>
+        if(pg_num_rows($result1) > 0){
+          for ($res_nb = 0; $res_nb < pg_num_rows($result1); $res_nb++) {
+            $genome_id = pg_fetch_result($result1, $res_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
+            $sequence_id = pg_fetch_result($result1, $res_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+            echo '<tr><td>';
+            echo $genome_id;
+            echo '</td><td>';
+            echo $sequence_id;
+            echo '</td>';
+
+            if (pg_num_rows($result2)>0){
+              for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){
+                $annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+                echo '<td><select name="annotator"><option value="annotator">';
+                echo $annotator_first_name." ". $annotator_last_name;
+                echo '</select><input type="submit" value="Attribute"></td></tr>';
+              }
+            }
+          }
+        }
+        else{
+          echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          There is no new sequences to attribute.</div>";
+        }
+        echo '</tbody>';
+        echo '</table>';
+
+        ?>
   </body>
 </html>
