@@ -70,9 +70,9 @@
             echo "<textarea id=" . $rows['comments'] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
-            echo "<input type=\"submit\" value=\"accept\" name=\"accept_button\" id=" . $rows['sequence_id'] . "</div>";
+            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">accept</button></div>";
             echo "<div style=\"float: left; width: auto;\">";
-            echo "<input type=\"submit\" value=\"reject\" name=\"reject_button\" id=" . $rows['sequence_id'] . "</div>";
+            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button></div>";
             echo "</td>";
             echo "</form>";
             echo "</tr>";
@@ -88,8 +88,10 @@
       <tbody>
     </table>
     <?php
-
     //Ici faire le résultat du submit
+    if(isset($_POST['accept_button'])){
+
+    }
     ?>
   </div>
 
