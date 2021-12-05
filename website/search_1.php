@@ -30,6 +30,7 @@
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
             echo "<a href=\"./validation_1.php\">Validate annotation</a>";
             echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+            echo "<a href=\"./user_list.php\">Users list</a>";
           }
         ?>
         <a href="about.php">About</a>
