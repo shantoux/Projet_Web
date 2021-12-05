@@ -68,6 +68,7 @@
 
   </table>
 </form>
+</div>
 
 <!-- Add to users'list in the database -->
 <?php
@@ -103,6 +104,6 @@ if(isset($_POST['submit_registration'])){
 }
 ?>
 
-</div>
+
 </body>
 </html>
