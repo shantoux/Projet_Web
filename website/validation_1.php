@@ -73,7 +73,7 @@
             echo "<textarea id=" . $rows['comments'] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
-            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">accept</button></div>";
+            echo "<button type=\"submit\" name=\"accept_button\" value=" . $rows['sequence_id'] . ">accept</button></div>";
             echo "<div style=\"float: left; width: auto;\">";
             echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button></div>";
             echo "</td>";
