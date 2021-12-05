@@ -32,6 +32,9 @@
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
+
+
+
   <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
   <div class="table_type1">
     <table>
@@ -63,18 +66,17 @@
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"]. "\">" . $rows["sequence_id"] . "</a></td>";
+            echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
             echo "<td> <form action=\"validation_1.php\" method = \"post\">";
-            echo "<textarea id=" . $rows['comments'] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
+            echo "<textarea id=" . $rows["sequence_id"] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></form></td>";            # Validate / Refuse annotation
             echo "<td>";
-            echo "<div style=\"float:left; width: 50%;\">";
-            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">accept</button></div>";
-            echo "<div style=\"float: left; width: auto;\">";
-            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button></div>";
+            echo "<div style=\"float:left; width: 50%;\"> <form action=\"validation_1.php\" method = \"post\">";
+            echo "<button type=\"submit\" name=\"accept_button\" value=" . $rows['sequence_id'] . ">accept</button> </form> </div>";
+            echo "<div style=\"float: left; width: auto;\"> <form action=\"validation_1.php\" method = \"post\">";
+            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button> </form> </div>";
             echo "</td>";
-            echo "</form>";
             echo "</tr>";
           }
         } else {
@@ -87,13 +89,48 @@
         ?>
       <tbody>
     </table>
-    <?php
-    //Ici faire le résultat du submit
-    if(isset($_POST['accept_button'])){
 
-    }
-    ?>
   </div>
+  <?php
+  
+  //Ici faire le résultat du submit
+  if (isset($_POST['accept_button'])) {
+    //Retrieve value of comment :
+    $comments = htmlspecialchars($_POST['comments']);
+    $sequence_id = $_POST['accept_button'];
+    //Query on postgres
+    $query = "UPDATE annotation_seq.annotations
+                SET status = 'validated'
+                SET comments = " . $comments .
+      "WHERE sequence_id =" . $sequence_id . ";";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+    if ($result) {
+      echo "Annotation validated :)";
+    } else {
+      echo "something went wrong in the query";
+    }
+  } else if (isset($_POST['reject_button'])) {
+    echo "SOMETHING";
+    //Retrieve value of comment :
+    $comments = $_POST["comments"];
+    echo $comments;
+    $sequence_id = $_POST['reject_button'];
+    echo $sequence_id;
+    //Query on postgres
+    $query = "UPDATE annotation_seq.annotations
+                SET status = 'rejected'
+                SET comments = " . $comments .
+      "WHERE sequence_id =" . $sequence_id . ";";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+    if ($result) {
+      echo "Annotation successfully rejected -_-";
+    } else {
+      echo "something went wrong in the query";
+    }
+  }
+  ?>
+
+
 
 </body>
 
