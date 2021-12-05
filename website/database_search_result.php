@@ -244,11 +244,10 @@
             echo "<a href=\"./gene_protein_info.php?id=" . $s_id . "\">$s_id</a></td>";
             echo "<td><a href=\"./genome_info.php?id=" . $g_id . "\">$g_id</a></td>";
             echo "<td>$s_size</td><td>";
-            $query_annot = "SELECT A.sequence_id FROM annotation_seq.annotations AS A, annotation_seq.gene AS G WHERE G.genome_id = A.genome_id AND G.sequence_id = A.sequence_id;";
+            $query_annot = "SELECT sequence_id FROM annotation_seq.annotations WHERE genome_id = '" . $g_id . "' AND sequence_id = '" . $s_id . "';";
             $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
             if(pg_num_rows($result_annot) > 0){
               echo "<span style=\"color:green;\">&#10004</span>";
-              print_r($result_annot);
             }
             else {
               echo "<span style=\"color:red;\">&#10008</span>";
