@@ -13,7 +13,7 @@
   <body class="center">
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a class="active" href="./search_1.php">New search</a>
+        <a href="./search_1.php">New search</a>
         <?php
           if ($_SESSION['status'] == 'annotator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
@@ -25,7 +25,7 @@
           if ($_SESSION['status'] == 'administrator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
             echo "<a href=\"./validation_1.php\">Validate annotation</a>";
-            echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+            echo "<a class=\"active\" href=\"./seq_attribution_1.php\">Attribute annotation</a>";
           }
         ?>
         <a href="about.php">About</a>
@@ -66,7 +66,6 @@
         echo '<th>Genome</th>';
         echo '<th>Sequence</th>';
         echo '<th>Annotators</th>';
-        echo '<th>-------</th>';
         echo '</tr>';
         echo '</thead>'; #end of first line
 
@@ -74,12 +73,12 @@
         echo '<tbody>';
         $seq_attribution="SELECT G.genome_id, E.sequence_id
         FROM annotation_seq.genome G, annotation_seq.gene E
-        WHERE G.genome_id = 'new_coli' AND G.genome_id=E.genome_id;";
+        WHERE G.genome_id = E.genome_id
+        EXCEPT (SELECT A.genome_id, A.sequence_id FROM annotation_seq.annotations A);
 
-        /*$list_annotator="SELECT U.first_name, U.last_name
+        $list_annotator="SELECT U.first_name, U.last_name, U.email
         FROM annotation_seq.users U
-        WHERE U.role='annotator';";*/
-        $list_annotator="SELECT email FROM annotation_seq.users U WHERE U.role='annotator';";
+        WHERE U.role='annotator';";
 
         $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());
         $result2 = pg_query($db_conn, $list_annotator) or die('Query failed with exception: ' . pg_last_error());
@@ -97,9 +96,9 @@
 
             if (pg_num_rows($result2)>0){
               for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){
-                //$annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
-                //$annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
-                $annotator_email= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_email= pg_fetch_result($result2, $res2_nb, 2); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
                 echo '<option value="'. $annotator_email . '">';
                 echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
