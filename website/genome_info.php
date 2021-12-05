@@ -180,16 +180,15 @@
             # display end of genome
             echo '<span style="font-family:Consolas;">';
             $seq_to_display = substr($genome_whole_seq, $nucl_ind_count);
-            #while (strlen($seq_to_display) > $count) {
-              #echo substr($seq_to_display, 0, $count);
-              #echo '<br>';
-              #$seq_to_display = substr($seq_to_display, $count);
-              #$count = $char_per_line;
-            #}
-            #echo $seq_to_display;
-            #$count = $count - strlen($seq_to_display);
+            while (strlen($seq_to_display) > $count) {
+              echo substr($seq_to_display, 0, $count);
+              echo '<br>';
+              $seq_to_display = substr($seq_to_display, $count);
+              $count = $char_per_line;
+            }
+            echo $seq_to_display;
+            $count = $count - strlen($seq_to_display);
             echo '</span>';
-            echo strlen($seq_to_display);
             echo '</td>';
 
             # display third column
