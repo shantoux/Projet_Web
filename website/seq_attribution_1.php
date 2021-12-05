@@ -37,6 +37,21 @@
     <?php
       include_once 'libphp/dbutils.php';
       connect_db();
+
+      # attribute annotation
+      if(isset($_POST["selected_annotator"])){
+        $values_annotations = array();
+        $values_annotations['genome_id'] = $_GET['gid'];
+        $values_annotations['sequence_id'] = $_GET['sid'];
+        $values_annotations['annotator'] = $_POST["selected_annotator"]; //annotator_email;
+
+        $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
+        if ($result_insert) {
+          echo "<td> Successfully added</td>";
+        } else {
+          echo "<td> Not added</td>";
+        }
+      }
     ?>
     <br>
 
@@ -78,34 +93,19 @@
             echo '</td><td>';
             echo $sequence_id;
             echo '</td>';
-            echo '<td><form action="./seq_attribution_1.php" method="post"><select name="selected_annotator">';
+            echo '<td><form action="./seq_attribution_1.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post"><select name="selected_annotator">';
 
             if (pg_num_rows($result2)>0){
               for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){
                 //$annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
                 //$annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
                 $annotator_email= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
-                echo '<option value="annotator">';
+                echo '<option value="'. $annotator_email . '">';
                 echo $annotator_email;
                 //echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
               }
               echo '</select><input type="submit" value="Attribute" name="Attribute"></td></form>';
-              if(isset($_POST['Attribute'])){
-                if(!empty($_POST['selected_annotator'])){
-                  $values_annotations = array();
-                  $values_annotations['genome_id'] = $genome_id;
-                  $values_annotations['sequence_id'] = $sequence_id;
-                  $values_annotations['annotator'] = $_POST["selected_annotator"]; //annotator_email;
-
-                  $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
-                  if ($result_insert) {
-                    echo "<td> Successfully added</td>";
-                  } else {
-                    echo "<td> Not added</td>";
-                  }
-                }
-              }
             }
             echo '</tr>';
           }
