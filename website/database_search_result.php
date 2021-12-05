@@ -1,5 +1,5 @@
 <?php session_start();?>
-<!DOCTYPE html>
+
 <html>
 <head> <meta charset="UTF-8">
   <title>Database search result</title>
@@ -35,6 +35,8 @@
   </div>
 
   <?php
+    include_once 'libphp/dbutils.php';
+    connect_db();
     print_r($_POST);
     # Array ( [nucl_sequence] => [pep_sequence] => [genes] => [transcripts] => [description] => [search_type] => genome [submit] => Search! )
   ?>
