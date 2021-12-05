@@ -37,8 +37,6 @@
   <?php
     include_once 'libphp/dbutils.php';
     connect_db();
-    print_r($_POST);
-    # Array ( [nucl_sequence] => [pep_sequence] => [genes] => [transcripts] => [description] => [search_type] => genome [submit] => Search! )
   ?>
   Genome's type : [insert type protein or nucleotides]<br>
   <div id="element1">Results</div>
@@ -82,7 +80,7 @@
       # add conditions to request
       if ($conditions) {
         $first_cond = true;
-        $query = $query . "WHERE ";
+        $query = $query . " WHERE ";
         # joint the tables
         if ($_POST["pep_sequence"] != "") {
           $query = $query . "GENO.genome_id = GENE.genome_id";
