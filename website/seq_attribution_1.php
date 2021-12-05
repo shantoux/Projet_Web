@@ -51,6 +51,7 @@
         echo '<th>Genome</th>';
         echo '<th>Sequence</th>';
         echo '<th>Annotators</th>';
+        echo '<th>-------</th>';
         echo '</tr>';
         echo '</thead>'; #end of first line
 
@@ -60,9 +61,10 @@
         FROM annotation_seq.genome G, annotation_seq.gene E
         WHERE G.genome_id = 'new_coli';";
 
-        $list_annotator="SELECT U.first_name, U.last_name
+        /*$list_annotator="SELECT U.first_name, U.last_name
         FROM annotation_seq.users U
-        WHERE U.role='annotator';";
+        WHERE U.role='annotator';";*/
+        $list_annotator="SELECT email FROM annotation_seq.users U WHERE U.role='annotator';";
 
         $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());
         $result2 = pg_query($db_conn, $list_annotator) or die('Query failed with exception: ' . pg_last_error());
@@ -76,18 +78,40 @@
             echo '</td><td>';
             echo $sequence_id;
             echo '</td>';
-            echo '<td><select name="annotator">';
+            echo '<td><select name="selected_annotator">';
 
             if (pg_num_rows($result2)>0){
               $nb_rows = pg_num_rows($result2);
               for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){
-                $annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
-                $annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+                //$annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
+                //$annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
+                $annotator_email= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
                 echo '<option value="annotator">';
-                echo $annotator_first_name." ". $annotator_last_name;
+                echo $annotator_email;
+                //echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
               }
               echo '</select><input type="submit" value="Attribute"></td>';
+            }
+            if(isset($_POST['Attribute'])){
+              if(!empty($_POST["selected_annotator"])){
+                $values_annotations = array();
+                $values_user['genome_id'] = $genome_id;
+                $values_user['sequence_id'] = $sequence_id;
+                $values_user['annotator'] = $_POST["selected_annotator"];
+                $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
+                  //$annotatoremail = $_POST["selected_annotator"]; //Retrieve information
+                  //$get_email = "SELECT email FROM annotation_seq.users u WHERE u.last_name ='$annotatorlastname';"; //AND u.first.name ='$annotator_first_name';";
+                  //$result = pg_query($db_conn, $get_email) or die('Query failed with exception: ' . pg_last_error());
+                  //$email = pg_fetch_result($result, 0, 0);
+                  //$query = "INSERT INTO annotation_seq.annotations(genome_id, sequence_id, annotator) VALUES ('$genome_id','sequence_id','$annotator_email');";
+                  //$instances = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+                if ($result_insert) {
+                  echo "<td> Successfully added</td>";
+                } else {
+                  echo "<td> Not added</td>";
+                }
+              }
             }
             echo '</tr>';
           }
@@ -99,7 +123,27 @@
         }
         echo '</tbody>';
         echo '</table>';
-
         ?>
+      </div>
+
   </body>
+
+  <?/*php
+  if(isset($_POST['Attribute'])){
+    if($db_conn) {
+      echo 'connected';
+    }
+    else {
+      echo 'there has been an error connecting';
+    }
+    if(!empty($_POST["selected_annotator"])){
+      $annotatorlastname = $_POST["selected_annotator"]; //Retrieve information
+      $get_email = "SELECT email FROM annotation_seq.users u WHERE u.last_name ='$annotator_last_name' AND u.first.name ='$annotator_first_name';";
+      $result = pg_query($db_conn, $get_email) or die('Query failed with exception: ' . pg_last_error());
+      $email = pg_fetch_result($result, 0, 0);
+      $query = "INSERT INTO annotation_seq.annotations(annotator) VALUES ('$email');";
+      $instances = pg_query($db_conn, $query);
+    }
+  }
+    */?>
 </html>
