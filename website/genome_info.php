@@ -49,7 +49,7 @@
       # retrieve genome sequence
       include_once 'libphp/dbutils.php';
       connect_db();
-      $query = "SELECT genome_seq FROM annotation_seq.genome WHERE genome_id = " . $genome_id . ";";
+      $query = "SELECT genome_seq FROM annotation_seq.genome WHERE genome_id = '" . $genome_id . "';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
       $genome_whole_seq = pg_fetch_result($result, 0, 0);
       echo substr($genome_whole_seq, 0, 300);
