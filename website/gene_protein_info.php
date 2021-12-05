@@ -43,8 +43,10 @@
     </div>
 
     <?php
+      include_once 'libphp/dbutils.php';
+      connect_db();
       $seq_id = $_GET['id'];
-      $query = "SELECT * FROM annotation_seq.gene WHERE sequence_id = '" . $seq_id . "';";
+      $query = "SELECT sequence_id, genome_id, start_seq, end_seq, chromosome, prot_seq, gene_seq FROM annotation_seq.gene WHERE sequence_id = '" . $seq_id . "';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
       $genome_id = pg_fetch_result($result, 0, 1);
       $start_seq = pg_fetch_result($result, 0, 2);
@@ -62,9 +64,9 @@
               echo "<b>Sequence identifier:</b> $seq_id<br><br>";
               echo "<b>Specie:</b> $genome_id<br>";
               echo "<b>Chromosome:</b> $chromosome<br>";
-              echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position " . strlen($start_seq) . " and ends on position " . strlen($end_seq)".<br><br>";
+              echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position " . strlen($start_seq) . " and ends on position " . strlen($end_seq) . ".<br><br>";
               ## check for annotations
-              $query_annot = "SELECT * FROM annotation_seq.annotations WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "';";
+              $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "';";
               $result_annot = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
               if(pg_num_rows($result_annot) > 0){
                 $annotator="SELECT U.first_name, U.last_name
