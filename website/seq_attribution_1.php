@@ -73,7 +73,8 @@
         echo '<tbody>';
         $seq_attribution="SELECT G.genome_id, E.sequence_id
         FROM annotation_seq.genome G, annotation_seq.gene E
-        WHERE G.genome_id = 'new_coli' AND G.genome_id=E.genome_id;";
+        WHERE G.genome_id = E.genome_id
+        EXCEPT (SELECT A.genome_id, A.sequence_id FROM annotation_seq.annotations A);
 
         $list_annotator="SELECT U.first_name, U.last_name, U.email
         FROM annotation_seq.users U
