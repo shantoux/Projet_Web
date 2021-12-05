@@ -35,7 +35,7 @@
       <br> <br> <span class="small_text">Not already registered? <a href="./registration_form.php">Click here</a> to submit a new account.</span>
     </div>
 
-<!-- Vérification de l'email et du mot de passe de l'utilisateur pour accéder à la search page -->
+<!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
 
     <?php
     include_once 'libphp/dbutils.php';
@@ -51,27 +51,37 @@
       $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = '$user_password';";
       $result = pg_query($db_conn, $query)
 					or die('Query failed with exception: ' . pg_last_error());
-	if(pg_num_rows($result) == 1){
+    	if(pg_num_rows($result) == 1){
+        $validated= pg_fetch_result($result,0, 6) == 'validated';
+        if($validated){
           echo '<script>location.href="search_1.php"</script>';
 
           session_start();
           $_SESSION['user'] = $_POST['name'];
           $_SESSION['status'] = pg_fetch_result($result, 0, 5); //récupère le résultat de la 6e colonne (5) première ligne (0)
+        }
+        else{
+          echo "<div class=\"alert_bad\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Your account has not been validated by an admin yet.
+          </div>";
           }
-          else{
-            echo "<div class=\"alert_bad\">
-              <span class=\"closebtn\"
-              onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              Wrong username or password.
-            </div>";
-          }
-      //libère le résultat de la query
-      //pg_free_result($result);
+        //libère le résultat de la query
+        //pg_free_result($result);
 
-      //ferme la connexion
-      //disconnect_db();
+        //ferme la connexion
+        //disconnect_db();
 
-    }
+      }
+      else{
+        echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Wrong Username or Password.
+        </div>";
+        }
+  }
 ?>
 
   </body>
