@@ -63,11 +63,11 @@
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo "<td>" . $rows["sequence_ic"] . "</td>";
+            echo "<td>" . $rows["sequence_id"] . "</td>";
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
             echo "<td> <form action=\"annotation_1.php\" method = \"post\">";
-            echo "<input type=\"submit\" value=\"Review annotation\" name=\"review\" id=" . $row['id'] . "</form> </td>";
+            echo "<input type=\"submit\" value=\"Review annotation\" name=\"review\" id=" . $rows['sequence_id'] . "</form> </td>";
             echo "</tr>";
           }
         } else {
