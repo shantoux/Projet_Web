@@ -187,11 +187,7 @@
           ?>
             <td>
               <?php
-                $count = 0;
-                for ($seq_ind = 0; $seq_ind < sizeof($sequences); $seq_ind++) {
-                  $char = $line*$char_per_line + 1;
-                  #echo "$char <br>";
-                }
+                #TODO;
               ?>
             </td>
         </tbody>
