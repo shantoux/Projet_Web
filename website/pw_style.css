@@ -156,10 +156,10 @@ body {
 }
 
 /* Table Styles */
-
 .table_type1{
   border: solid 1px #DDEEEE;
-  margin: 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #E9F2F2;
 }
 
