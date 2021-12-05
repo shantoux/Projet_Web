@@ -89,6 +89,9 @@
                   echo "<b>Description:</b> " . pg_fetch_result($result_annot, 0, 6) . "<br>";
                 }
               }
+              else {
+                echo "This gene is yet un-annotated.<br>";
+              }
             ?>
         </td>
         </tr>
