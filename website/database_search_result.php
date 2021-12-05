@@ -45,7 +45,7 @@
   <div class = "center">
     <?php
       if ($_POST["search_type"] == "genome") {
-      echo '<table class = "table_type1">';
+      echo '<table class = "table_type2">';
 
       # display first line
       echo '<thead>';
@@ -146,7 +146,7 @@
       }
     ?>
 
-  <?php echo "<a href=\"./genome_info.php\">Genome example1</a>"; ?>
-</div>
+    <?php echo "<a href=\"./genome_info.php\">Genome example1</a>"; ?>
+  </div>
 </body>
 </html>
