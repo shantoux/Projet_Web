@@ -92,8 +92,12 @@ if(isset($_POST['submit_registration'])){
   $values_user['status'] = 'waiting';
 
   $result_insert = pg_insert($db_conn, 'annotation_seq.users', $values_user);
-  if ($result_inser) {
-    echo "Les données POSTées ont pu être enregistrées avec succès.\n";
+  if ($result_insert) {
+    echo "<div class=\"alert_good\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Registration Succeeded.
+          </div>";
   } else {
     echo "<div class=\"alert_bad\">
               <span class=\"closebtn\"
