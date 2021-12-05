@@ -32,9 +32,68 @@
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
+
+
+
+  <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
+  <div class="table_type1">
+    <table>
+      <colgroup>
+        <col style="width: 13%">
+        <col style="width: 25%">
+        <col style="width: 10%">
+        <col style="width: 15%">
+        <col style="width: 18%">
+        <col style="width: auto">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Génomes</th>
+          <th>Sequences</th>
+          <th>Annotator</th>
+          <th>Comments</th>
+          <th colspan=2>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <?php
+        include_once 'libphp/dbutils.php';
+        connect_db();
+        $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
+        $result = pg_query($db_conn, $query);
+        if ($result != false) {
+          while ($rows = pg_fetch_array($result)) {
+            echo "<tr>";
+            echo "<td>" . $rows["genome_id"] . "</td>";
+            echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
+            echo "<td>" . $rows["annotator"] . "</td>";
+            # Review annotation
+            echo "<td> <form action=\"validation_1.php\" method = \"post\">";
+            echo "<textarea id=" . $rows['comments'] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
+            echo "<td>";
+            echo "<div style=\"float:left; width: 50%;\">";
+            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">accept</button></div>";
+            echo "<div style=\"float: left; width: auto;\">";
+            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button></div>";
+            echo "</td>";
+            echo "</form>";
+            echo "</tr>";
+          }
+        } else {
+          echo "
+        <tr>
+        <td colspan='3'>Something went wrong with the query</td>
+        </tr>
+    ";
+        }
+        ?>
+      <tbody>
+    </table>
+
+  </div>
   <?php
-  include_once 'libphp/dbutils.php';
-  connect_db();
+  
   //Ici faire le résultat du submit
   if (isset($_POST['accept_button'])) {
     //Retrieve value of comment :
@@ -68,64 +127,6 @@
     }
   }
   ?>
-
-
-  <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
-  <div class="table_type1">
-    <table>
-      <colgroup>
-        <col style="width: 13%">
-        <col style="width: 25%">
-        <col style="width: 10%">
-        <col style="width: 15%">
-        <col style="width: 18%">
-        <col style="width: auto">
-      </colgroup>
-      <thead>
-        <tr>
-          <th>Génomes</th>
-          <th>Sequences</th>
-          <th>Annotator</th>
-          <th>Comments</th>
-          <th colspan=2>Action</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <?php
-
-        $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
-        $result = pg_query($db_conn, $query);
-        if ($result != false) {
-          while ($rows = pg_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $rows["genome_id"] . "</td>";
-            echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
-            echo "<td>" . $rows["annotator"] . "</td>";
-            # Review annotation
-            echo "<td> <form action=\"validation_1.php\" method = \"post\">";
-            echo "<textarea id=" . $rows['comments'] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
-            echo "<td>";
-            echo "<div style=\"float:left; width: 50%;\">";
-            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">accept</button></div>";
-            echo "<div style=\"float: left; width: auto;\">";
-            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button></div>";
-            echo "</td>";
-            echo "</form>";
-            echo "</tr>";
-          }
-        } else {
-          echo "
-        <tr>
-        <td colspan='3'>Something went wrong with the query</td>
-        </tr>
-    ";
-        }
-        ?>
-      <tbody>
-    </table>
-
-  </div>
 
 
 
