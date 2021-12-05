@@ -46,23 +46,6 @@
       }
       # retrieve genome informations
       $genome_id = $_GET['id'];
-
-
-
-
-
-      $sequences = array("CGATCGATGAGCAGCTTTGCATGCAGAAACGATCGGCGCGCTAGTACGCCCGGCTGCATGCAGAAACGATCGGCGCGCTAGTACGATCGTCAGGATCACTACGCAGCACTAGC",
-                          "ATGCGTACGATCGTGACATCTGATCGTCTCTAGCTAGCATCTGGCATCG",
-                          "GCTCGGGATACGCTCAGCTGGAGCCTGGCTATCATGCGAGCTAGGC",
-                          "ATGCAGTGAGCGCGATCGAGACGCTGATGATCGTAGACGTCGA",
-                          "CGATCGATGAGCAGCTTCCCGGCTGCATGCAGAAACGATCGGCGCGCTAGTACGATCGTCAGGATCACTACGCAGCACTAGC",
-                          "ATGCGATGCAATCTGCTAGACAGCTACGC");
-      $genome_fragments = array(array("seq"=>$sequences[0], "type"=>"igene", "id"=>"0"),
-                                array("seq"=>$sequences[1], "type"=>"gene", "id"=>"1", "annotated"=>false, "name"=>"PHO1"),
-                                array("seq"=>$sequences[2], "type"=>"igene", "id"=>"1"),
-                                array("seq"=>$sequences[3], "type"=>"gene", "id"=>"2", "annotated"=>true, "info"=>"That's a very uncommon gene.", "name"=>"PHO2"),
-                                array("seq"=>$sequences[4], "type"=>"igene", "id"=>"2"),
-                                array("seq"=>$sequences[5], "type"=>"gene", "id"=>"3", "annotated"=>true, "info"=>"That's the 6th finger gene.", "name"=>"PHO3"));
       echo "<br>";
     ?>
 
@@ -78,7 +61,10 @@
           <tr>
             <th colspan=2 class="type2"  align='left'>Genome's name : Ecoli</th>
             <th colspan=2 text-align='right' horizontal-align="middle">
-              <form action="genome_info.php" method="post">
+              <?php
+                $url_suffix = "?id=" . $genome_id;
+                echo '<form action="genome_info.php' . $url_suffix . '" method="post">';
+              ?>
                 Nb of nucl. per line:
                 <input type="text" name="nb_nucl_per_line" maxlength="4" size="4" value="<?php echo $char_per_line; ?>">
                 <input type="submit" value="Update">
