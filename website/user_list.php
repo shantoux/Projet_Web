@@ -46,7 +46,7 @@ connect_db();?>
         $values_user['status'] = 'validated';
 
         $condition = array();
-        $condition['mail']=$_POST['email'];
+        $condition['mail']=$_GET['mail'];
 
         $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
