@@ -76,7 +76,7 @@ include_once 'libphp/dbutils.php';
 
 if(isset($_POST['submit_registration'])){
   connect_db();
-  if($db_connect) {
+  if($db_conn) {
     echo 'connected';
   } else {
     echo 'there has been an error connecting';
