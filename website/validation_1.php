@@ -112,7 +112,7 @@
   } else if (isset($_POST['reject_button'])) {
     echo "SOMETHING";
     //Retrieve value of comment :
-    $comments = "". $_POST['comments'] . "";
+    $comments = $_POST["comments"];
     echo $comments;
     $sequence_id = $_POST['reject_button'];
     echo $sequence_id;
