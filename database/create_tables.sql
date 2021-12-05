@@ -51,7 +51,7 @@ CREATE TABLE annotations(
   -- du genre "discarded_comments" ou "discarded_annotation"
   -- je pense une autre table serait de bon goût
   date_of_validation DATE,
-  CHECK (status IN ('waiting', 'validated')),
+  CHECK (status IN ('waiting', 'validated','rejected')),
   PRIMARY KEY (annotator, genome_id, sequence_id),
   FOREIGN KEY (annotator) REFERENCES users(email),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id),
