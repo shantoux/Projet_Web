@@ -243,8 +243,8 @@
             echo '<tr><td>';
             echo "<a href=\"./gene_protein_info.php?id=" . $s_id . "\">$s_id</a></td>";
             echo "<td><a href=\"./genome_info.php?id=" . $g_id . "\">$g_id</a></td>";
-            echo "<td>$g_size</td><td>";
-            echo "&#10004";
+            echo "<td>$s_size</td><td>";
+            echo "<span style=\"color:green;\">&#10004</span>";
             echo '</td></tr>';
           }
         }
