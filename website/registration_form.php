@@ -83,7 +83,12 @@ if(isset($_POST['submit_registration'])){
   $values_user['role'] = $_POST["role"];
   $values_user['status'] = 'waiting';
 
-  $result = pg_insert($db_conn, 'annotation_seq.users', $values_user);
+  $result_insert = pg_insert($db_conn, 'annotation_seq.users', $values_user);
+  if ($result_inser) {
+    echo "Les données POSTées ont pu être enregistrées avec succès.\n";
+  } else {
+    echo "Il y a un problème avec les données.\n";
+}
 }
 ?>
 
