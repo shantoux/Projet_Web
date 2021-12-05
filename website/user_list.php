@@ -40,13 +40,13 @@ connect_db();?>
     </h2>
 
     <?php
-    if(isset($_POST['save'])){
+    if(isset($_POST['action'])){
       if(isset($_POST['validate'])){
         $values_user = array();
         $values_user['status'] = 'validated';
 
         $condition = array();
-        $condition['mail']=$_GET['mail'];
+        $condition_email=$_GET['email'];
 
         $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
@@ -56,7 +56,7 @@ connect_db();?>
         }
       }
       if(isset($_POST['delete'])){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = 'where is the email';";
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = " .$_GET['mail']. ";";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
           echo 'User removed from the database';
@@ -100,17 +100,16 @@ connect_db();?>
           echo $email;
           echo '</td><td>';
           echo $role;
-          echo '</td><td>';
+          echo '</td><td><b>';
           echo $status;
-          echo '</td><td>';
-          echo '<form action="./user_list.php?mail=' . $email . '" method="post">
-          <input type="checkbox" id="validate" name="validate">
-          <label for="validate">Validate</label><br>
-          <input type="checkbox" id="delete" name="delete">
-          <label for="delete">Delete</label></td>';
-          echo '<td>
-            <input type="submit" name="save" value="save">
-          </td></form></tr>';
+          echo '</b></td><td>';
+          echo '<form action="./user_list.php?email=' . $email . '" method="post">';
+          echo '<select name="action">';
+          echo '<option value="validate" name="validate">Validate</option>';
+          echo '<option value="Delete" name="delete">Delete</option>';
+          echo '</select>';
+          echo '<input type="submit" value="submit" name="submit">';
+          echo '</td></form></tr>';
         }
       }
       echo '</tbody><br>';
@@ -140,11 +139,12 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo '<input type="checkbox" id="Delete" name="delete">
-          <label for="delete">Delete</label></td>';
-          echo '<td>
-            <input type="submit" name="save" value="save">
-          </td></tr>';
+          echo '<form action="./user_list.php?mail=' . $email . '" method="post">';
+          echo '<select name="action">';
+          echo '<option value="Delete" name="delete">Delete</option>';
+          echo '</select>';
+          echo '<input type="submit" value="submit" name="submit">';
+          echo '</td></form></tr>';
         }
       }
       echo '</tbody>';

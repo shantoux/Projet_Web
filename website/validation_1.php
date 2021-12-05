@@ -96,13 +96,13 @@
   //Ici faire le résultat du submit
   if (isset($_POST['accept_button'])) {
     //Retrieve value of comment :
-    $comments = htmlspecialchars($_POST['comments']);
-    $sequence_id = $_POST['accept_button'];
+    $comments = "'" . htmlspecialchars($_POST["comments"]) . "'";
+    $sequence_id = "'".$_POST['accept_button']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
-                SET status = 'validated'
-                SET comments = \'" . $comments .
-      "\' WHERE sequence_id =\'" . $sequence_id . "\';";
+                SET status = 'validated',
+                comments = " . $comments .
+      " WHERE sequence_id =" . $sequence_id . ";";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
     if ($result) {
       echo "Annotation validated :)";
@@ -112,15 +112,13 @@
   } else if (isset($_POST['reject_button'])) {
     echo "SOMETHING";
     //Retrieve value of comment :
-    $comments = $_POST["comments"];
-    echo $comments;
-    $sequence_id = $_POST['reject_button'];
-    echo $sequence_id;
+    $comments = "'" . htmlspecialchars($_POST["comments"]) . "'";
+    $sequence_id = "'".$_POST['reject_button']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
-                SET status = 'rejected'
-                SET comments = \'" . $comments .
-      "\'WHERE sequence_id =\'" . $sequence_id . "\';";
+                SET status = 'rejected',
+                comments = ". $comments .
+      " WHERE sequence_id =" . $sequence_id . ";";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
     if ($result) {
       echo "Annotation successfully rejected -_-";
