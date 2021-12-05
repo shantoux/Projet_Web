@@ -126,10 +126,8 @@
               $gene_seq = pg_fetch_result($result, $gene_ind, 3);
 
               # display intergenic part immediately before gene
-              echo '<br>' . $nucl_ind_count . '<br>';
-              echo '<br>' . $seq_start . '<br>';
               echo '<span style="font-family:Consolas;">'; # set style
-              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-1);
+              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-$nucl_ind_count);
               while (strlen($seq_to_display) > $count) {
                 echo substr($seq_to_display, 0, $count);
                 echo '<br>';
