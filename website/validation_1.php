@@ -113,7 +113,7 @@
   } else if (isset($_POST['reject_button'])) {
     //Retrieve value of comment :
     $comments = $_POST['comments'];
-    $sequence_id = $_POST['accept_buton'];
+    $sequence_id = $_POST['accept_button'];
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
                 SET status = 'rejected'
