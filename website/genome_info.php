@@ -11,15 +11,10 @@
   </head>
 
   <body>
-    <?php
-      # TODO: un-hardcode the user role, check in database for the actual role
-      $role = "administrator";
-      $roles = array("annotator", "validator", "administrator");
-    ?>
 
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a class="active" href="./search_1.php">New search</a>
+        <a href="./search_1.php">New search</a>
         <?php
           if ($_SESSION['status'] == 'annotator'){
             echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
@@ -44,10 +39,24 @@
 
     <!-- store genome -->
     <?php
+      # initialize a variable for the number of characters to display per line
       $char_per_line = 100;
       if (isset($_POST["nb_nucl_per_line"])) {
         $char_per_line = $_POST["nb_nucl_per_line"];
       }
+      # retrieve genome informations
+      $genome_id = $_GET['id'];
+      # retrieve genome sequence
+      include_once 'libphp/dbutils.php';
+      connect_db();
+      $query = "SELECT genome_seq FROM annotation_seq.genome WHERE genome_id = " . $genome_id . ";";
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+      $genome_whole_seq = pg_fetch_result($result, 0, 0);
+      echo substr($genome_whole_seq, 0, 300);
+
+
+
+
       $sequences = array("CGATCGATGAGCAGCTTTGCATGCAGAAACGATCGGCGCGCTAGTACGCCCGGCTGCATGCAGAAACGATCGGCGCGCTAGTACGATCGTCAGGATCACTACGCAGCACTAGC",
                           "ATGCGTACGATCGTGACATCTGATCGTCTCTAGCTAGCATCTGGCATCG",
                           "GCTCGGGATACGCTCAGCTGGAGCCTGGCTATCATGCGAGCTAGGC",
@@ -150,7 +159,7 @@
                 $count = 0;
                 for ($seq_ind = 0; $seq_ind < sizeof($sequences); $seq_ind++) {
                   $char = $line*$char_per_line + 1;
-                  echo "$char <br>";
+                  #echo "$char <br>";
                 }
               ?>
             </td>
