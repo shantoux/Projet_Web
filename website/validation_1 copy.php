@@ -57,7 +57,7 @@
         <?php
         include_once 'libphp/dbutils.php';
         connect_db();
-        $query = "SELECT genome_id, sequence_id, annotator FROM annotation_seq.annotations WHERE status = 'waiting';";
+        $query = "SELECT a.genome_id, a.sequence_id, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
         $result = pg_query($db_conn, $query);
         if ($SELECT != false) {
           while ($rows = pg_fetch_array($result)) {
