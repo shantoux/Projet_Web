@@ -109,6 +109,8 @@
             echo '</td>';
             echo "<td align='left'>";
 
+            # extend query max time because it takes quite some time to retrieve and display whole genome
+            ini_set('max_execution_time', '300'); //300 seconds = 5 minutes
             # retrieve all genes
             $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
             $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
@@ -127,7 +129,7 @@
 
               # display intergenic part immediately before gene
               echo '<span style="font-family:Consolas;">'; # set style
-              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-$nucl_ind_count);
+              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-$nucl_ind_count-1);
               while (strlen($seq_to_display) > $count) {
                 echo substr($seq_to_display, 0, $count);
                 echo '<br>';
@@ -171,6 +173,17 @@
               echo '</span>';
               $nucl_ind_count = $seq_end;
             }
+            # display end of genome
+            $seq_to_display = substr($genome_whole_seq, $nucl_ind_count);
+            while (strlen($seq_to_display) > $count) {
+              echo substr($seq_to_display, 0, $count);
+              echo '<br>';
+              $seq_to_display = substr($seq_to_display, $count);
+              $count = $char_per_line;
+            }
+            echo $seq_to_display;
+            $count = $count - strlen($seq_to_display);
+            echo '</span>';
             echo '</td>';
 
             # display third column
