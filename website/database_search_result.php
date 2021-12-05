@@ -131,7 +131,7 @@
       if(pg_num_rows($result) > 0){
         for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++) {
           $g_id = pg_fetch_result($result, $res_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
-          $g_size = sizeof(pg_fetch_result($result, $res_nb, 1));
+          $g_size = strlen(pg_fetch_result($result, $res_nb, 1));
           echo '<tr><td>';
           echo "$g_id</td><td>$g_size";
           echo '</td></tr>';
