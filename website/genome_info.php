@@ -127,7 +127,7 @@
 
               # display intergenic part immediately before gene
               echo '<br>' . $nucl_ind_count . '<br>';
-              echo '<br>' . $seq_start-1 . '<br>';
+              echo '<br>' . $seq_start . '<br>';
               echo '<span style="font-family:Consolas;">'; # set style
               $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-1);
               while (strlen($seq_to_display) > $count) {
