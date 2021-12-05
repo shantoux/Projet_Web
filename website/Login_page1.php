@@ -18,11 +18,12 @@
         <table class="center">
           <tr>
             <td> Login : </td>
-            <td> <input type="text" name="name"> </td>
+            <!-- #TODO: unhardcode login and pw -->
+            <td> <input type="text" name="name" value="bobby@gmail.com"> </td>
           </tr>
           <tr>
             <td> Password : </td>
-            <td> <input type="password" name="pass"> </td>
+            <td> <input type="password" name="pass" value="cestmoibobby"> </td>
           </tr>
           <tr>
             <td colspan=2> <input type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
@@ -50,7 +51,7 @@
       $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = '$user_password';";
       $result = pg_query($db_conn, $query)
 					or die('Query failed with exception: ' . pg_last_error());
-	    if(pg_num_rows($result) == 1){
+	if(pg_num_rows($result) == 1){
           echo '<script>location.href="search_1.php"</script>';
 
           session_start();
