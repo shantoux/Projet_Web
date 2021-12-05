@@ -38,6 +38,17 @@ VALUES (
 
 INSERT INTO users
 VALUES (
+    'melina@gmail.com',
+    'cestmoimelina',
+    'Hanaux',
+    'Melina',
+    '0671491712',
+    'annotator',
+    'validated',
+    '2021-12-02');
+
+INSERT INTO users
+VALUES (
     'joshua@gmail.com',
     'cestmoijoshua',
     'Bertrand',
