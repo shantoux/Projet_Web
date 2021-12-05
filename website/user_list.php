@@ -136,9 +136,9 @@ connect_db();?>
           echo $email;
           echo '</td><td>';
           echo $role;
-          echo '</td><td>';
+          echo '</td><td><b>';
           echo $status;
-          echo '</td><td>';
+          echo '</b></td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '" method="post">';
           echo '<select name="action">';
           echo '<option value="Delete" name="delete">Delete</option>';
