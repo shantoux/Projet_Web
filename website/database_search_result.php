@@ -122,9 +122,24 @@
           $query = $query . "A.description LIKE '%" . $_POST["description"] . "%'";
         }
       }
-
+      # query is complete!
       $query = $query . ";";
-      echo $query;
+      # run query
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+      if(pg_num_rows($result) > 0){
+        for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++) {
+          $g_id = pg_fetch_result($result, $res_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
+          $g_size = sizeof(pg_fetch_result($result, $res_nb, 1));
+          echo '<tr><td>';
+          echo "$g_id</td><td>$g_size"
+          echo '</td></tr>';
+        }
+      }
+      else{
+        echo "<div class=\"alert_bad\">
+        <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
+        No result found in base.</div>";
+      }
 
       echo '</tbody>';
       echo '</table>';
