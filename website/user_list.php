@@ -141,7 +141,6 @@ connect_db();?>
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '" method="post">';
           echo '<select name="action">';
-          echo '<option value="Validate" name="validate">Validate</option>';
           echo '<option value="Delete" name="delete">Delete</option>';
           echo '</select>';
           echo '<input type="submit" value="submit" name="submit">';
