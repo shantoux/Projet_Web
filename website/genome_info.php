@@ -101,13 +101,11 @@
 
             # display first column
             echo "<td align='right'>";
-            ?> <!--
             $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
             for ($line = 0; $line < $nb_of_lines; $line++) {
               $char = $line*$char_per_line + 1;
               echo "$char-<br>";
             }
-          --><?php
             echo '</td>';
             echo "<td align='left'>";
 
@@ -175,14 +173,12 @@
 
             # display third column
             echo "<td align='left'>";
-            ?> <!--
             $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
             for ($line = 1; $line < $nb_of_lines; $line++) {
               $char = $line*$char_per_line;
               echo "-$char <br>";
             }
             echo "-$genome_size";
-          --><?php
             echo '</td>';
           ?>
             <td>
