@@ -138,7 +138,7 @@
               echo '</span>';
 
               # check if gene is annotated
-              $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "';";
+              $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
               $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
               # if it's not...
               if(pg_num_rows($result_annot) == 0) {
