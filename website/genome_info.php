@@ -46,30 +46,8 @@
       }
       # retrieve genome informations
       $genome_id = $_GET['id'];
-      # retrieve genome sequence
-      include_once 'libphp/dbutils.php';
-      connect_db();
-      $query = "SELECT genome_seq FROM annotation_seq.genome WHERE genome_id = '" . $genome_id . "';";
-      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-      $genome_whole_seq = pg_fetch_result($result, 0, 0);
-      #echo substr($genome_whole_seq, 0, 300);
-      # retrieve all genes
-      $genome_fragments = array()
-      $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "';";
-      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-      $nucl_ind_count = 0
-      for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
-        $seq_id = pg_fetch_result($result, $gene_ind, 0);
-        $seq_start = pg_fetch_result($result, $gene_ind, 1);
-        $seq_end = pg_fetch_result($result, $gene_ind, 2);
-        $gene_seq = pg_fetch_result($result, $gene_ind, 3);
-        # add intergene before the gene to the fragments lists
-        array_push($genome_fragments, array("seq"=>substr($genome_whole_seq, $nucl_ind_count, $seq_start-1), "type"=>"igene", "id"=>$gene_ind));
-        # check if gene is annotated
-        # add gene to gene fragments
-        array_push($genome_fragments, array("seq"=>$gene_seq, "type"=>"gene", "id"=>$gene_ind));
-        $nucl_ind_count = $seq_end + 1;
-      }
+
+
 
 
 
@@ -86,10 +64,6 @@
                                 array("seq"=>$sequences[4], "type"=>"igene", "id"=>"2"),
                                 array("seq"=>$sequences[5], "type"=>"gene", "id"=>"3", "annotated"=>true, "info"=>"That's the 6th finger gene.", "name"=>"PHO3"));
       echo "<br>";
-      $genome_size_to_unhardcode_later = 0;
-      foreach ($sequences as $seq) {
-        $genome_size_to_unhardcode_later += strlen($seq);
-      }
     ?>
 
     <div class="center">
@@ -115,61 +89,98 @@
 
         <tbody>
           <tr>
-            <td align='right'>
-              <?php
-                $genome_size = $genome_size_to_unhardcode_later;
-                $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
-                for ($line = 0; $line < $nb_of_lines; $line++) {
-                  $char = $line*$char_per_line + 1;
-                  echo "$char-<br>";
-                }
-              ?>
-            </td>
-            <td align='left'>
-              <?php
+          <?php
+            # retrieve genome sequence
+            include_once 'libphp/dbutils.php';
+            connect_db();
+            $query = "SELECT genome_seq FROM annotation_seq.genome WHERE genome_id = '" . $genome_id . "';";
+            $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+            $genome_whole_seq = pg_fetch_result($result, 0, 0);
+            $genome_size = strlen($genome_whole_seq);
+            #echo substr($genome_whole_seq, 0, 300);
+
+            # display first column
+            echo "<td align='right'>";
+            $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
+            for ($line = 0; $line < $nb_of_lines; $line++) {
+              $char = $line*$char_per_line + 1;
+              echo "$char-<br>";
+            }
+            echo '</td>';
+            echo "<td align='left'>";
+
+            # retrieve all genes
+            $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "';";
+            $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+            $nucl_ind_count = 0
+            $count = $char_per_line;
+            for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
+
+              # store gene informations
+              $seq_id = pg_fetch_result($result, $gene_ind, 0);
+              $seq_start = pg_fetch_result($result, $gene_ind, 1);
+              $seq_end = pg_fetch_result($result, $gene_ind, 2);
+              $gene_seq = pg_fetch_result($result, $gene_ind, 3);
+
+              # display intergenic part immediately before gene
+              echo '<span style="font-family:Consolas;">'; # set style
+              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-1);
+              while (strlen($seq_to_display) > $count) {
+                echo substr($seq_to_display, 0, $count);
+                echo '<br>';
+                $seq_to_display = substr($seq_to_display, $count);
                 $count = $char_per_line;
-                foreach ($genome_fragments as $fragment) {
-                  if ($fragment["type"] == "igene") {
-                    echo '<span style="font-family:Consolas;">';
-                  }
-                  else {
-                    if ($fragment["annotated"]) {
-                      $color = "blue";
-                      $info = ' title="' . $fragment["name"] . "\n" . $fragment["info"] . "\nClick to see annotation";
-                      echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
-                    }
-                    else {
-                      $color = "red";
-                      $info = ' title="' . "WARNING: Unannotated gene";
-                      echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
-                    }
-                  }
-                  $seq_to_display = $fragment["seq"];
+              }
+              echo $seq_to_display;
+              $count = $count - strlen($seq_to_display);
+              echo '</span>';
 
-                  while (strlen($seq_to_display) > $count) {
-                    echo substr($seq_to_display, 0, $count);
-                    echo '<br>';
-                    $seq_to_display = substr($seq_to_display, $count);
-                    $count = $char_per_line;
-                  }
-                  echo $seq_to_display;
-                  $count = $count - strlen($seq_to_display);
+              # check if gene is annotated
+              $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "';";
+              $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
+              # if it's not...
+              if(pg_num_rows($result_annot) == 0) {
+                $color = "red";
+                $info = ' title="' . "WARNING: Unannotated gene";
+                echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
+              }
+              # if it is...
+              else {
+                $color = "blue";
+                $info = ' title="';
+                # add gene symbol if it exists
+                if (pg_fetch_result($result_annot, 0, 1) != "") {
+                  $info = $info . '<b>' . pg_fetch_result($result_annot, 0, 1) . '</b>\n';
+                }
+                $info = $info . pg_fetch_result($result_annot, 0, 0) . "\n" . pg_fetch_result($result_annot, 0, 2) . "\nClick to see annotation";
+                echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
+              }
+              # display gene
+              $seq_to_display = $gene_seq;
+              while (strlen($seq_to_display) > $count) {
+                echo substr($seq_to_display, 0, $count);
+                echo '<br>';
+                $seq_to_display = substr($seq_to_display, $count);
+                $count = $char_per_line;
+              }
+              echo $seq_to_display;
+              $count = $count - strlen($seq_to_display);
+              echo '</span>';
 
-                  echo '</span>';
-                }
-              ?>
-            </td>
-            <td align='left'>
-              <?php
-                $genome_size = $genome_size_to_unhardcode_later;
-                $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
-                for ($line = 1; $line < $nb_of_lines; $line++) {
-                  $char = $line*$char_per_line;
-                  echo "-$char <br>";
-                }
-                echo "-$genome_size";
-              ?>
-            </td>
+              $nucl_ind_count = $seq_end + 1;
+            }
+            echo '</td>';
+
+            # display third column
+            echo "<td align='left'>";
+            $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
+            for ($line = 1; $line < $nb_of_lines; $line++) {
+              $char = $line*$char_per_line;
+              echo "-$char <br>";
+            }
+            echo "-$genome_size";
+            echo '</td>';
+          ?>
             <td>
               <?php
                 $count = 0;
