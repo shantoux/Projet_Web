@@ -45,7 +45,7 @@
   <div class = "center">
     <?php
       if ($_POST["search_type"] == "genome") {
-      echo '<table class = "table_type2">';
+      echo '<table class = "table_type">';
 
       # display first line
       echo '<thead>';
