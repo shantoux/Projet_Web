@@ -122,12 +122,6 @@
               $seq_end = pg_fetch_result($result, $gene_ind, 2);
               $gene_seq = pg_fetch_result($result, $gene_ind, 3);
 
-              echo "$char_per_line <br>";
-              echo "$count <br>";
-              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-1);
-              echo strlen($seq_to_display) . "<br>";
-              echo "$seq_to_display <br>____<br>";
-
               # display intergenic part immediately before gene
               echo '<span style="font-family:Consolas;">'; # set style
               $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-1);
@@ -140,7 +134,6 @@
               echo $seq_to_display;
               $count = $count - strlen($seq_to_display);
               echo '</span>';
-              echo '_____';
 
               # check if gene is annotated
               $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "';";
