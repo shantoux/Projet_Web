@@ -57,7 +57,7 @@
         <?php
         include_once 'libphp/dbutils.php';
         connect_db();
-        $query = "SELECT a.genome_id, a.sequence_id, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
+        $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
         $result = pg_query($db_conn, $query);
         if ($result != false) {
           while ($rows = pg_fetch_array($result)) {
@@ -66,8 +66,15 @@
             echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"]. "\">" . $rows["sequence_id"] . "</a></td>";
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
-            echo "<td> <form action=\"annotation_1.php\" method = \"post\">";
-            echo "<input type=\"submit\" value=\"Review annotation\" name=\"review\" id=" . $rows['sequence_id'] . "</form> </td>";
+            echo "<td> <form action=\"validation_1.php\" method = \"post\">";
+            echo "<textarea id=" . $rows['comments'] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
+            echo "<td>";
+            echo "<div style=\"float:left; width: 50%;\">";
+            echo "<input type=\"submit\" value=\"accept\" name=\"accept_button\" id=" . $rows['sequence_id'] . "</div>";
+            echo "<div style=\"float: left; width: auto;\">";
+            echo "<input type=\"submit\" value=\"reject\" name=\"reject_button\" id=" . $rows['sequence_id'] . "</div>";
+            echo "</td>";
+            echo "</form>";
             echo "</tr>";
           }
         } else {
