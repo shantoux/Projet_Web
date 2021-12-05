@@ -70,7 +70,7 @@
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
             echo "<td> <form action=\"validation_1.php\" method = \"post\">";
-            echo "<textarea id=" . $rows['comments'] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td></form>";            # Validate / Refuse annotation
+            echo "<textarea id=" . $rows["sequence_id"] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></form></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\"> <form action=\"validation_1.php\" method = \"post\">";
             echo "<button type=\"submit\" name=\"accept_button\" value=" . $rows['sequence_id'] . ">accept</button> </form> </div>";
