@@ -20,7 +20,7 @@
   </div>
 
 <div id="element1">
-<form action="./registration_form.php" method = "post"  onsubmit="submit_registration.disabled = true; return true;">
+<form action="./registration_form.php" method = "post">
   <table class="center">
 
     <tr>
@@ -72,14 +72,14 @@
 
 <!-- Add to users'list in the database -->
 <?php
-    include_once 'libphp/dbutils.php';
+include_once 'libphp/dbutils.php';
 
 if(isset($_POST['submit_registration'])){
   connect_db();
   if($db_connect) {
     echo 'connected';
- } else {
-     echo 'there has been an error connecting';
+  } else {
+    echo 'there has been an error connecting';
  } 
   //Retrieve informations
   $values_user = array();
