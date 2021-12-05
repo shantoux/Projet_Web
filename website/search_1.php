@@ -56,8 +56,20 @@
       <form action="database_search_result.php" method = "post">
         <table class="center">
           <tr>
+            <td> Type of search:<span style="color:red;">*</span></td>
+            <td align="left"> <input type="radio" id="genome" name="search_type" value="genome" required> <label for="genome">Genome</label> </td>
+          <tr>
+            <td></td>
+            <td align="left"> <input type="radio" id="gene_prot" name="search_type" value="gene_prot" required> <label for="gene_prot">Gene / Proteine</label> </td>
+
+          </tr>
+          <tr>
             <td> Specie / Name / Strain: </td>
             <td> <input type="text" name="specie"> </td>
+          </tr>
+          <tr>
+            <td> Sequence identifier: </td>
+            <td> <input type="text" name="seq_id"> </td>
           </tr>
           <tr>
             <td> Nucleotides sequence: </td>
@@ -74,14 +86,6 @@
           <tr>
             <td> Description: </td>
             <td> <textarea cols="29" rows="5" name="description"></textarea> </td>
-          </tr>
-          <tr>
-            <td> Type of search:<span style="color:red;">*</span></td>
-            <td align="left"> <input type="radio" id="genome" name="search_type" value="genome" required> <label for="genome">Genome</label> </td>
-          <tr>
-            <td></td>
-            <td align="left"> <input type="radio" id="gene_prot" name="search_type" value="gene_prot" required> <label for="gene_prot">Gene / Proteine</label> </td>
-
           </tr>
           <tr>
             <td colspan=2> <br> <br> <input type ="submit" value="Search!" name = "submit"> </td>

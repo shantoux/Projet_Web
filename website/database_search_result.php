@@ -65,9 +65,11 @@
           break;
         }
       }
-      if ($_POST["pep_sequence"] != "") {
-        $conditions = true;
-        $query = $query . ", annotation_seq.gene AS GENE";
+      foreach (array("seq_id", "pep_sequence") as $token) {
+        if ($_POST[$token] != "") {
+          $conditions = true;
+          $query = $query . ", annotation_seq.gene AS GENE";
+        }
       }
       foreach (array("genes", "description") as $token) {
         if ($_POST[$token] != "") {
@@ -81,7 +83,7 @@
         $first_cond = true;
         $query = $query . " WHERE ";
         # joint the tables
-        if ($_POST["pep_sequence"] != "") {
+        if ($_POST["pep_sequence"] != "" || $_POST["seq_id"] != "") {
           $query = $query . "GENO.genome_id = GENE.genome_id";
           $first_cond = false;
         }
@@ -95,6 +97,12 @@
           if (!$first_cond) {$query = $query . " AND ";}
           else {$first_cond = false;}
           $query = $query . "GENO.genome_id LIKE '%" . $_POST["specie"] . "%'";
+        }
+        # check for condition on sequence id
+        if ($_POST["seq_id"] != "") {
+          if (!$first_cond) {$query = $query . " AND ";}
+          else {$first_cond = false;}
+          $query = $query . "GENE.sequence_id LIKE '%" . $_POST["seq_id"] . "%'";
         }
         # check for condition on nucleotides sequence
         if ($_POST["nucl_sequence"] != "") {
