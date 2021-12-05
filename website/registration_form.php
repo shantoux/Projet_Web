@@ -20,7 +20,7 @@
   </div>
 
 <div id="element1">
-<form action="./Login_page1.php" method = "post">
+<form action="./Login_page1.php" method = "post"  onsubmit="submit_registration.disabled = true; return true;">
   <table class="center">
 
     <tr>
@@ -63,7 +63,7 @@
     </td>
     </tr>
     <tr>
-      <td colspan=2> <input type ="submit" value="Submit" name = "submit_registration" onsubmit="myButton.disabled = true; return true;"onsubmit="myButton.disabled = true; return true;"> </td>
+      <td colspan=2> <input type ="submit" value="Submit" name = "submit_registration"> </td>
     </tr>
 
   </table>
