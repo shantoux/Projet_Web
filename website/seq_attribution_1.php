@@ -95,12 +95,6 @@
             }
             if(isset($_POST['Attribute'])){
               if(!empty($_POST["selected_annotator"])){
-                if($db_conn) {
-                  echo 'connected';
-                } 
-                else {
-                 echo 'there has been an error connecting';
-                } 
                 $values_annotations = array();
                 $values_annotations['genome_id'] = $genome_id;
                 $values_annotations['sequence_id'] = $sequence_id;
