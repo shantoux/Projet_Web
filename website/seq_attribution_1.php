@@ -95,10 +95,16 @@
             }
             if(isset($_POST['Attribute'])){
               if(!empty($_POST["selected_annotator"])){
+                if($db_conn) {
+                  echo 'connected';
+                } 
+                else {
+                 echo 'there has been an error connecting';
+                } 
                 $values_annotations = array();
-                $values_user['genome_id'] = $genome_id;
-                $values_user['sequence_id'] = $sequence_id;
-                $values_user['annotator'] = $_POST["selected_annotator"];
+                $values_annotations['genome_id'] = $genome_id;
+                $values_annotations['sequence_id'] = $sequence_id;
+                $values_annotations['annotator'] = $_POST["selected_annotator"];
                 $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
                   //$annotatoremail = $_POST["selected_annotator"]; //Retrieve information
                   //$get_email = "SELECT email FROM annotation_seq.users u WHERE u.last_name ='$annotatorlastname';"; //AND u.first.name ='$annotator_first_name';";
