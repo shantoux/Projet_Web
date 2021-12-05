@@ -114,7 +114,7 @@
     //Retrieve value of comment :
     $comments = htmlspecialchars($_POST['comments']);
     echo $comments;
-    $sequence_id = $_POST['accept_button'];
+    $sequence_id = $_POST['reject_button'];
     echo $sequence_id;
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
