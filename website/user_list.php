@@ -100,9 +100,9 @@ connect_db();?>
           echo $email;
           echo '</td><td>';
           echo $role;
-          echo '</td><td>';
+          echo '</td><td><b>';
           echo $status;
-          echo '</td><td>';
+          echo '</b></td><td>';
           echo '<form action="./user_list.php?email=' . $email . '" method="post">';
           echo '<select name="action">';
           echo '<option value="validate" name="validate">Validate</option>';
