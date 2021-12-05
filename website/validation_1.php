@@ -32,8 +32,43 @@
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
-  
-  
+  <?php
+  include_once 'libphp/dbutils.php';
+  connect_db();
+  //Ici faire le résultat du submit
+  if (isset($_POST['accept_button'])) {
+    //Retrieve value of comment :
+    $comments = $_POST['comments'];
+    $sequence_id = $_POST['accept_button'];
+    //Query on postgres
+    $query = "UPDATE annotation_seq.annotations
+                SET status = 'validated'
+                SET comments = " . $comments .
+      "WHERE sequence_id =" . $sequence_id . ";";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+    if ($result) {
+      echo "Annotation validated :)";
+    } else {
+      echo "something went wrong in the query";
+    }
+  } else if (isset($_POST['reject_button'])) {
+    //Retrieve value of comment :
+    $comments = $_POST['comments'];
+    $sequence_id = $_POST['accept_buton'];
+    //Query on postgres
+    $query = "UPDATE annotation_seq.annotations
+                SET status = 'rejected'
+                SET comments = " . $comments .
+      "WHERE sequence_id =" . $sequence_id . ";";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+    if ($result) {
+      echo "Annotation successfully rejected -_-";
+    } else {
+      echo "something went wrong in the query";
+    }
+  }
+  ?>
+
 
   <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
   <div class="table_type1">
@@ -58,15 +93,14 @@
 
       <tbody>
         <?php
-        include_once 'libphp/dbutils.php';
-        connect_db();
+
         $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
         $result = pg_query($db_conn, $query);
         if ($result != false) {
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"]. "\">" . $rows["sequence_id"] . "</a></td>";
+            echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
             echo "<td> <form action=\"validation_1.php\" method = \"post\">";
@@ -90,46 +124,10 @@
         ?>
       <tbody>
     </table>
-    
+
   </div>
-  
-  <?php
-    //Ici faire le résultat du submit
-    if(isset($_POST['accept_button'])){
-      //Retrieve value of comment :
-      $comments = $_POST['comments'];
-      $sequence_id = $_POST['accept_buton'];
-      //Query on postgres
-      $query = "UPDATE annotation_seq.annotations
-                SET status = 'validated'
-                SET comments = " . $comments .
-                "WHERE sequence_id =" . $sequence_id . ";";
-      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-      if ($result){
-        echo "Annotation validated :)";
-      }
-      else{
-        echo "something went wrong in the query";
-      }
-    }
-    else if(isset($_POST['reject_button'])){
-      //Retrieve value of comment :
-      $comments = $_POST['comments'];
-      $sequence_id = $_POST['accept_buton'];
-      //Query on postgres
-      $query = "UPDATE annotation_seq.annotations
-                SET status = 'rejected'
-                SET comments = " . $comments .
-                "WHERE sequence_id =" . $sequence_id . ";";
-      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-      if ($result){
-        echo "Annotation successfully rejected -_-";
-      }
-      else{
-        echo "something went wrong in the query";
-      }
-    }
-    ?>
+
+
 
 </body>
 
