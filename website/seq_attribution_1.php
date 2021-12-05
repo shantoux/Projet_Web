@@ -101,8 +101,7 @@
                 //$annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
                 $annotator_email= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
                 echo '<option value="'. $annotator_email . '">';
-                echo $annotator_email;
-                //echo $annotator_first_name." ". $annotator_last_name;
+                echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
               }
               echo '</select><input type="submit" value="Attribute" name="Attribute"></td></form>';
