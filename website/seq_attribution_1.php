@@ -76,14 +76,20 @@
             echo '</td><td>';
             echo $sequence_id;
             echo '</td>';
+            echo '<td><select name="annotator">';
 
             if (pg_num_rows($result2)>0){
+              $nb_rows = pg_num_rows($result2);
               for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){
                 $annotator_first_name= pg_fetch_result($result2, $res2_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
                 $annotator_last_name= pg_fetch_result($result2, $res2_nb, 1); //récupère le résultat de la 2e colonne (0), $res_nb ieme ligne ($res_nb)
                 echo '<td><select name="annotator"><option value="annotator">';
                 echo $annotator_first_name." ". $annotator_last_name;
-                echo '</select><input type="submit" value="Attribute"></td></tr>';
+                echo '</option>';
+                echo '<option value="annotator">';
+                echo $annotator_first_name." ". $annotator_last_name;
+                echo '</option></select><input type="submit" value="Attribute">';
+                echo '</td></tr>';
               }
             }
           }
