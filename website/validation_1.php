@@ -70,11 +70,11 @@
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
             echo "<td> <form action=\"validation_1.php\" method = \"post\">";
-            echo "<textarea id=" . $rows["sequence_id"] . "name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></form></td>";            # Validate / Refuse annotation
+            echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
-            echo "<div style=\"float:left; width: 50%;\"> <form action=\"validation_1.php\" method = \"post\">";
-            echo "<button type=\"submit\" name=\"accept_button\" value=" . $rows['sequence_id'] . ">accept</button> </form> </div>";
-            echo "<div style=\"float: left; width: auto;\"> <form action=\"validation_1.php\" method = \"post\">";
+            echo "<div style=\"float:left; width: 50%;\">";
+            echo "<button type=\"submit\" name=\"accept_button\" value=" . $rows['sequence_id'] . ">accept</button>  </div>";
+            echo "<div style=\"float: left; width: auto;\">";
             echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button> </form> </div>";
             echo "</td>";
             echo "</tr>";
