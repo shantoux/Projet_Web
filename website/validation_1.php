@@ -96,7 +96,7 @@
   //Ici faire le résultat du submit
   if (isset($_POST['accept_button'])) {
     //Retrieve value of comment :
-    $comments = "'".htmlspecialchars($_POST["comments"])."'";
+    $comments = "'" . htmlspecialchars($_POST["comments"]) . "'";
     $sequence_id = "'".$_POST['accept_button']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
@@ -112,7 +112,7 @@
   } else if (isset($_POST['reject_button'])) {
     echo "SOMETHING";
     //Retrieve value of comment :
-    $comments = "'".htmlspecialchars($_POST["comments"])."'";
+    $comments = "'" . htmlspecialchars($_POST["comments"]) . "'";
     $sequence_id = "'".$_POST['reject_button']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
