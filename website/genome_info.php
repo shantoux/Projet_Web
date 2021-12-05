@@ -127,51 +127,55 @@
               $seq_end = pg_fetch_result($result, $gene_ind, 2);
               $gene_seq = pg_fetch_result($result, $gene_ind, 3);
 
-              # display intergenic part immediately before gene
-              echo '<span style="font-family:Consolas;">'; # set style
-              $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-$nucl_ind_count-1);
-              while (strlen($seq_to_display) > $count) {
-                echo substr($seq_to_display, 0, $count);
-                echo '<br>';
-                $seq_to_display = substr($seq_to_display, $count);
-                $count = $char_per_line;
-              }
-              echo $seq_to_display;
-              $count = $count - strlen($seq_to_display);
-              echo '</span>';
+              # check that sequence does not overlap with previously displayed sequences, else, skip sequence
+              if ($seq_start > $nucl_ind_count) {
 
-              # check if gene is annotated
-              $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
-              $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
-              # if it's not...
-              if(pg_num_rows($result_annot) == 0) {
-                $color = "red";
-                $info = ' title="' . "WARNING: Unannotated gene";
-                echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
-              }
-              # if it is...
-              else {
-                $color = "blue";
-                $info = ' title="';
-                # add gene symbol if it exists
-                if (pg_fetch_result($result_annot, 0, 1) != "") {
-                  $info = $info . pg_fetch_result($result_annot, 0, 1) . "\n";
+                # display intergenic part immediately before gene
+                echo '<span style="font-family:Consolas;">'; # set style
+                $seq_to_display = substr($genome_whole_seq, $nucl_ind_count, $seq_start-$nucl_ind_count-1);
+                while (strlen($seq_to_display) > $count) {
+                  echo substr($seq_to_display, 0, $count);
+                  echo '<br>';
+                  $seq_to_display = substr($seq_to_display, $count);
+                  $count = $char_per_line;
                 }
-                $info = $info . pg_fetch_result($result_annot, 0, 0) . "\n" . pg_fetch_result($result_annot, 0, 2) . "\nClick to see annotation";
-                echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
+                echo $seq_to_display;
+                $count = $count - strlen($seq_to_display);
+                echo '</span>';
+
+                # check if gene is annotated
+                $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
+                $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
+                # if it's not...
+                if(pg_num_rows($result_annot) == 0) {
+                  $color = "red";
+                  $info = ' title="' . "WARNING: Unannotated gene";
+                  echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
+                }
+                # if it is...
+                else {
+                  $color = "blue";
+                  $info = ' title="';
+                  # add gene symbol if it exists
+                  if (pg_fetch_result($result_annot, 0, 1) != "") {
+                    $info = $info . pg_fetch_result($result_annot, 0, 1) . "\n";
+                  }
+                  $info = $info . pg_fetch_result($result_annot, 0, 0) . "\n" . pg_fetch_result($result_annot, 0, 2) . "\nClick to see annotation";
+                  echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
+                }
+                # display gene
+                $seq_to_display = $gene_seq;
+                while (strlen($seq_to_display) > $count) {
+                  echo substr($seq_to_display, 0, $count);
+                  echo '<br>';
+                  $seq_to_display = substr($seq_to_display, $count);
+                  $count = $char_per_line;
+                }
+                echo $seq_to_display;
+                $count = $count - strlen($seq_to_display);
+                echo '</span>';
+                $nucl_ind_count = $seq_end;
               }
-              # display gene
-              $seq_to_display = $gene_seq;
-              while (strlen($seq_to_display) > $count) {
-                echo substr($seq_to_display, 0, $count);
-                echo '<br>';
-                $seq_to_display = substr($seq_to_display, $count);
-                $count = $char_per_line;
-              }
-              echo $seq_to_display;
-              $count = $count - strlen($seq_to_display);
-              echo '</span>';
-              $nucl_ind_count = $seq_end;
             }
             # display end of genome
             echo '<span style="font-family:Consolas;">';
