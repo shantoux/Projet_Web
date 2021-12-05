@@ -20,7 +20,7 @@
   </div>
 
 <div id="element1">
-<form action="./Login_page1.php" method = "post"  onsubmit="submit_registration.disabled = true; return true;">
+<form action="./registration_form.php" method = "post"  onsubmit="submit_registration.disabled = true; return true;">
   <table class="center">
 
     <tr>
@@ -87,7 +87,11 @@ if(isset($_POST['submit_registration'])){
   if ($result_inser) {
     echo "Les données POSTées ont pu être enregistrées avec succès.\n";
   } else {
-    echo "Il y a un problème avec les données.\n";
+    echo "<div class=\"alert_bad\">
+              <span class=\"closebtn\"
+              onclick=\"this.parentElement.style.display='none';\">&times;</span>
+              Erreur lors de la registration.
+            </div>";
 }
 }
 ?>
