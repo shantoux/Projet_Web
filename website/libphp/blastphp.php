@@ -26,12 +26,12 @@
 #
 # ===========================================================================
 # custom function to use blast API
-function align_nucl_seq($query) {
+function align_nucl_seq($seq) {
 
-  $encoded_query = $query.'';
+  $encoded_query = urlencode($seq);
 
   // Build the request
-  $data = array('CMD' => 'Put', 'PROGRAM' => 'blastn', 'DATABASE' => 'nt', 'QUERY' => $encoded_query);
+  $data = array('CMD' => 'Put', 'PROGRAM' => $programm, 'DATABASE' => $database, 'QUERY' => $encoded_query);
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -43,7 +43,6 @@ function align_nucl_seq($query) {
 
   // Get the response from BLAST
   $result = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi", false, $context);
-  echo "RES: $result";
 
   // Parse out the request ID
   preg_match("/^.*RID = .*\$/m", $result, $ridm);
@@ -117,5 +116,13 @@ function align_nucl_seq($query) {
   print $output;
 }
 
-align_nucl_seq($_GET["query"]);
+if ($_GET["type"] == "nucl") {
+  $database = 'nt';
+  $programm = 'blastn';
+}
+else {
+  $database = 'nr';
+  $programm = 'blastp';
+}
+align_nucl_seq($_GET["seq"]);
 ?>
