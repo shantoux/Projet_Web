@@ -40,21 +40,22 @@ connect_db();?>
     </h2>
 
     <?php
-    if(isset($_POST['action'])){
-      if(isset($_POST['validate'])){
+    if(isset($_POST['submit'])){
+      if($_POST['selected_action']=='validate'){
         $values_user = array();
         $values_user['status'] = 'validated';
 
         $condition = array();
-        $condition_email=$_GET['email'];
+        $condition['email']=$_GET['mail'];
 
         $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
           echo 'User added to the database';
         } else {
-          'Error : user has not been added.';
+          echo 'Error : user has not been added.';
         }
       }
+<<<<<<< HEAD
       $query_verif = "SELECT * FROM annotation_seq.annotations a WHERE a.annotator = " .$_GET['mail']. ";";
       $result = pg_query($db_conn, $query_verif) or die('Query failed with exception: ' . pg_last_error());
       if(pg_num_rows($result) == 0){
@@ -66,6 +67,15 @@ connect_db();?>
           } else {
             'Error';
           }
+=======
+      if($_POST['selected_action']=='delete'){
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = '" .$_GET['mail']. "';";
+        $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
+        if ($result_delete){
+          echo 'User removed from the database';
+        } else {
+          echo 'Error';
+>>>>>>> c730c461ad594a39ebfa9df694d69dd1857c3c64
         }
       } else {
         if(isset($_POST['delete'])){
@@ -73,7 +83,8 @@ connect_db();?>
         }
 
       }
-    }?>
+    }
+    ?>
 
     <div id = "element1">
       <?php
@@ -112,12 +123,10 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo '<form action="./user_list.php?email=' . $email . '" method="post">';
-          echo '<select name="action">';
-          echo '<option value="validate" name="validate">Validate</option>';
-          echo '<option value="Delete" name="delete">Delete</option>';
-          echo '</select>';
-          echo '<input type="submit" value="submit" name="submit">';
+          echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
+          echo '<option value="validate">Validate</option>';
+          echo '<option value="delete">Delete</option>';
+          echo '</select><input type="submit" value="submit" name="submit">';
           echo '</td></form></tr>';
         }
       }
@@ -148,11 +157,10 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo "<form action=\"./user_list.php?mail=\"" . $email . "\" method=\"post\">";
-          echo '<select name="action">';
-          echo '<option value="Delete" name="delete">Delete</option>';
+          echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
+          echo '<option value="delete">Delete</option>';
           echo '</select>';
-          echo '<input type="submit" value="submit" name="submit">';
+          echo '</select><input type="submit" value="submit" name="submit">';
           echo '</td></form></tr>';
         }
       }
@@ -162,7 +170,5 @@ connect_db();?>
           ?>
 
     </div>
-
-    </form>
   </body>
 </html>

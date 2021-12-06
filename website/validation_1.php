@@ -69,13 +69,13 @@
             echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
-            echo "<td> <form action=\"validation_1.php\" method = \"post\">";
+            echo '<td> <form action="validation_1.php?seq=' .$rows["sequence_id"]. '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
-            echo "<button type=\"submit\" name=\"accept_button\" value=" . $rows['sequence_id'] . ">accept</button>  </div>";
+            echo '<input type="submit" name="accept_button" value="accept"></div>';
             echo "<div style=\"float: left; width: auto;\">";
-            echo "<button type=\"submit\" name=\"reject_button\" value=" . $rows['sequence_id'] . ">reject</button> </form> </div>";
+            echo '<input type="submit" name="reject_button" value="reject"> </form> </div>';
             echo "</td>";
             echo "</tr>";
           }
@@ -97,7 +97,7 @@
   if (isset($_POST['accept_button'])) {
     //Retrieve value of comment :
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
-    $sequence_id = "'".$_POST['accept_button']."'";
+    $sequence_id = "'".$_GET['seq']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
                 SET status = 'validated',
@@ -110,10 +110,9 @@
       echo "something went wrong in the query";
     }
   } else if (isset($_POST['reject_button'])) {
-    echo "SOMETHING";
     //Retrieve value of comment :
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
-    $sequence_id = "'".$_POST['reject_button']."'";
+    $sequence_id = "'".$_GET['seq']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
                 SET status = 'rejected',
