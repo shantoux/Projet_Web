@@ -54,7 +54,7 @@
       $condition_pkey['sequence_id']=$_GET['sid'];
       $condition_pkey['annotator']=$_GET['annotator'];
 
-      $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_annotations, $condition) or die('Query failed with exception: ' . pg_last_error());
+      $result_insert = pg_update($db_conn, 'annotation_seq.users', $condition_pkey) or die('Query failed with exception: ' . pg_last_error());
 
       if ($result_insert) {
         echo "Annotation has been set. Wait for validation.";
@@ -96,7 +96,7 @@
               echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
               echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
               echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
-              echo '<b> Description : </b><input type ="text" name = "description"><br>';
+              echo '<b> Description : </b><input type ="text" name = "gene_description"><br>';
               ?>
         </td>
         </tr>
