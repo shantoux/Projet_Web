@@ -69,7 +69,7 @@
             echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
-            echo '<td> <form action="validation_1.php?seq=' .$rows["sequence_id"]. '" method = \"post\">';
+            echo '<td> <form action="validation_1.php?seq=' .$rows["sequence_id"]. '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
