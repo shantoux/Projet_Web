@@ -42,6 +42,7 @@ connect_db();?>
     <?php
     if(isset($_POST['submit'])){
       if(isset($_POST['validate'])){
+        echo "that's something";
         $values_user = array();
         $values_user['status'] = 'validated';
 
