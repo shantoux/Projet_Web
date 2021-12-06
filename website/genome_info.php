@@ -129,6 +129,7 @@
                 $count = $count - strlen($seq_to_display);
                 echo '</span>';
 
+                echo "<a href=\"./gene_protein_info.php?id=" . $seq_id . "\" ";
                 # check if gene is annotated
                 $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
                 $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
@@ -136,7 +137,7 @@
                 if(pg_num_rows($result_annot) == 0) {
                   $color = "red";
                   $info = ' title="' . "WARNING: Unannotated gene";
-                  echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
+                  echo 'style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
                 }
                 # if it is...
                 else {
@@ -147,7 +148,7 @@
                     $info = $info . pg_fetch_result($result_annot, 0, 1) . "\n";
                   }
                   $info = $info . pg_fetch_result($result_annot, 0, 0) . "\n" . pg_fetch_result($result_annot, 0, 2) . "\nClick to see annotation";
-                  echo '<span style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
+                  echo 'style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
                 }
                 # display gene
                 $seq_to_display = $gene_seq;
@@ -159,7 +160,7 @@
                 }
                 echo $seq_to_display;
                 $count = $count - strlen($seq_to_display);
-                echo '</span>';
+                echo '</a>';
                 $nucl_ind_count = $seq_end;
               }
             }
