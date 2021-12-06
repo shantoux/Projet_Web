@@ -55,35 +55,26 @@ connect_db();?>
           echo 'Error : user has not been added.';
         }
       }
-<<<<<<< HEAD
-      $query_verif = "SELECT * FROM annotation_seq.annotations a WHERE a.annotator = " .$_GET['mail']. ";";
+
+      $query_verif = "SELECT a.annotator FROM annotation_seq.annotations a WHERE a.annotator = '" .$_GET['mail']. "';";
       $result = pg_query($db_conn, $query_verif) or die('Query failed with exception: ' . pg_last_error());
+
       if(pg_num_rows($result) == 0){
-        if(isset($_POST['delete'])){
-          $query_delete = "DELETE FROM annotation_seq.users WHERE email = " .$_GET['mail']. ";";
+        if($_POST['selected_action']=='delete'){
+          $query_delete = "DELETE FROM annotation_seq.users WHERE email = '" .$_GET['mail']. "';";
           $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
           if ($result_delete){
             echo 'User removed from the database';
           } else {
-            'Error';
+            echo 'Error';
           }
-=======
-      if($_POST['selected_action']=='delete'){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = '" .$_GET['mail']. "';";
-        $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
-        if ($result_delete){
-          echo 'User removed from the database';
-        } else {
-          echo 'Error';
->>>>>>> c730c461ad594a39ebfa9df694d69dd1857c3c64
         }
       } else {
-        if(isset($_POST['delete'])){
-          echo 'This user can not be removed.'
-        }
-
+        if($_POST['selected_action']=='delete'){
+          echo 'This user can not be removed.';
       }
     }
+  }
     ?>
 
     <div id = "element1">
@@ -168,7 +159,6 @@ connect_db();?>
 
       echo '</table>';
           ?>
-
     </div>
   </body>
 </html>
