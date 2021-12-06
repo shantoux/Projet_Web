@@ -97,7 +97,7 @@
   if (isset($_POST['accept_button'])) {
     //Retrieve value of comment :
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
-    $sequence_id = "'".$GET['seq']."'";
+    $sequence_id = "'".$_GET['seq']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
                 SET status = 'validated',
@@ -112,7 +112,7 @@
   } else if (isset($_POST['reject_button'])) {
     //Retrieve value of comment :
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
-    $sequence_id = "'".$GET['seq']."'";
+    $sequence_id = "'".$_GET['seq']."'";
     //Query on postgres
     $query = "UPDATE annotation_seq.annotations
                 SET status = 'rejected',
