@@ -211,6 +211,11 @@
                 }
                 echo '</a> ';
               }
+              $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
+              while ($line_ind < $nb_of_lines) {
+                $line_ind = $line_ind + 1;
+                echo "<br>";
+              }
             ?>
           </td>
         </tbody>
