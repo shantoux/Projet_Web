@@ -30,10 +30,10 @@ ini_set('max_execution_time', '300'); //300 seconds = 5 minutes
 # custom function to use blast API
 function align_nucl_seq($query) {
 
-  $encoded_query = $query;
+  $encoded_query = $query.'';
 
   // Build the request
-  $data = array('CMD' => 'Put', 'PROGRAM' => 'blastn', 'DATABASE' => 'ncbi', 'QUERY' => $encoded_query);
+  $data = array('CMD' => 'Put', 'PROGRAM' => 'blastn', 'DATABASE' => 'nt', 'QUERY' => $encoded_query);
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
