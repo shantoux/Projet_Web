@@ -43,9 +43,6 @@
         <col style="width: 13%">
         <col style="width: 25%">
         <col style="width: 10%">
-        <col style="width: 15%">
-        <col style="width: 18%">
-        <col style="width: auto">
       </colgroup>
       <thead>
         <tr>
