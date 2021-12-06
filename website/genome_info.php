@@ -190,13 +190,19 @@
               $line_ind = 0;
               $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
               $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+              $gene_on_line = false;
               for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
                 $seq_id = pg_fetch_result($result, $gene_ind, 0);
                 $seq_start = pg_fetch_result($result, $gene_ind, 1);
                 $gene_line = intdiv($seq_start, $char_per_line);
                 while ($line_ind < $gene_line) {
                   $line_ind = $line_ind + 1;
+                  $gene_on_line = false;
                   echo "<br>";
+                }
+                if ($gene_on_line) {
+                  echo "<br>";
+                  $line_ind = $line_ind + 1;
                 }
                 echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
                 echo 'style="color:blue;" title="Clik to see sequence page.">&#8592;';
