@@ -48,6 +48,23 @@
         $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
         if ($result_insert) {
           echo "<td> Successfully added</td>";
+
+          $to = $_POST["selected_annotator"]; // Send email to our user
+          $subject = "A new annotation is waiting for you"; // Give the email a subject
+          $emessage = "A new sequence is waiting for you to annotate it !";
+
+          // if emessage is more than 70 chars
+          $emessage = wordwrap($emessage, 70, "\r\n");
+
+          // Our emessage above including the link
+          $headers   = array();
+          $headers[] = "MIME-Version: 1.0";
+          $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+          $headers[] = "From: no-reply <noreply@yourdomain.com>";
+          $headers[] = "Subject: {$subject}";
+          $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+
+          mail($to, $subject, $emessage, implode("\r\n", $headers));
         } else {
           echo "<td> Not added</td>";
         }
@@ -115,8 +132,10 @@
         }
         echo '</tbody>';
         echo '</table>';
+
         ?>
       </div>
 
   </body>
 </html>
+
