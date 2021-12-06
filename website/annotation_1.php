@@ -79,7 +79,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
     ";
       }
       ?>
-    <tbody>
+    </tbody>
   </table>
 
 </div>
@@ -129,7 +129,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
     ";
       }
       ?>
-    <tbody>
+    </tbody>
   </table>
 
 </div>
