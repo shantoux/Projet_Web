@@ -40,13 +40,13 @@ connect_db();?>
     </h2>
 
     <?php
-    if(isset($_POST['action'])){
+    if(isset($_POST['submit'])){
       if(isset($_POST['validate'])){
         $values_user = array();
         $values_user['status'] = 'validated';
 
         $condition = array();
-        $condition['email']=$_POST['email'];
+        $condition['email']=$_POST['submit'];
 
         $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
@@ -56,7 +56,7 @@ connect_db();?>
         }
       }
       if(isset($_POST['delete'])){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_POST['email']. "';";
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_POST['submit']. "';";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
           echo 'User removed from the database';
@@ -108,7 +108,7 @@ connect_db();?>
           echo '<option value="validate" name="validate">Validate</option>';
           echo '<option value="Delete" name="delete">Delete</option>';
           echo '</select>';
-          echo '<button type="submit" value="submit" name="submit">';
+          echo '<button type="submit" value='.$email.'name="submit">submit</button>';
           echo '</td></form></tr>';
         }
       }
@@ -139,11 +139,11 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo "<form action=\"./user_list.php?mail=\"" . $email . "\" method=\"post\">";
+          echo "<form action=\"./user_list.php\" method=\"post\">";
           echo '<select name="action">';
           echo '<option value="Delete" name="delete">Delete</option>';
           echo '</select>';
-          echo '<input type="submit" value="submit" name="submit">';
+          echo '<button type="submit" value='.$email.'name="submit">submit</button>';
           echo '</td></form></tr>';
         }
       }
