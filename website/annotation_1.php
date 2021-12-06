@@ -118,7 +118,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
-          echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'annotation_1.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
+          echo "<td>" . $rows["comments"] . "</td>";
+          echo '<td>' . $rows["status"] . '</td>';
           echo "</tr>";
         }
       } else {
