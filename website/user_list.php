@@ -42,7 +42,7 @@ connect_db();?>
     <?php
     if(isset($_POST['submit'])){
       echo "that's something";
-      if(isset($_POST['validate'])){
+      if($_POST['selected_action']=='validate'){
         echo "that's something";
         $values_user = array();
         $values_user['status'] = 'validated';
@@ -57,7 +57,7 @@ connect_db();?>
           echo 'Error : user has not been added.';
         }
       }
-      if(isset($_POST['delete'])){
+      if($_POST['selected_action']=='delete'){
         $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_GET['mail']. "';";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
@@ -107,7 +107,7 @@ connect_db();?>
           echo '</b></td><td>';
           echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_action">';
           echo '<option value="validate">Validate</option>';
-          echo '<option value="Delete">Delete</option>';
+          echo '<option value="delete">Delete</option>';
           echo '</select><input type="submit" value="sumbit" name="submit">';
           echo '</td></form></tr>';
         }
@@ -140,7 +140,7 @@ connect_db();?>
           echo $status;
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_action">';
-          echo '<option value="Delete">Delete</option>';
+          echo '<option value="delete">Delete</option>';
           echo '</select>';
           echo '</select><input type="submit" value="sumbit" name="submit">';
           echo '</td></form></tr>';
