@@ -69,7 +69,7 @@
             echo "<td>" . $rows["genome_id"] . "</td>";
             echo '<td>' . $rows["sequence_id"] . '</td>';
             # Review annotation
-            echo '<td> <input type="button" class="button_active" onclick="location.href=\'annotation_1.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
+            echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'annotation_1.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
             echo "</tr>";
           }
         } else {
