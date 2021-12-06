@@ -102,7 +102,7 @@
           <td>
             Gene sequence<br>
             <textarea id="seq" name="seq"
-            rows="8" cols="60" readonly><?php echo $gene_seq;?></textarea>
+            rows="8" cols="80" readonly><?php echo $gene_seq;?></textarea>
           </td>
           <td>
             <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome">
@@ -115,7 +115,7 @@
           <td>
             Peptide sequence<br>
             <textarea id="seq" name="seq"
-            rows="8" cols="60" readonly><?php echo $prot_seq;?> </textarea>
+            rows="8" cols="80" readonly><?php echo $prot_seq;?> </textarea>
           </td>
           <td>
             <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastp&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome">
