@@ -25,6 +25,14 @@
 #     5 - unknown error
 #
 # ===========================================================================
+if ($_GET["type"] == "nucl") {
+  $database = 'nt';
+  $programm = 'blastn';
+}
+else {
+  $database = 'nr';
+  $programm = 'blastp';
+}
 # custom function to use blast API
 function align_nucl_seq($seq) {
 
@@ -116,13 +124,5 @@ function align_nucl_seq($seq) {
   print $output;
 }
 
-if ($_GET["type"] == "nucl") {
-  $database = 'nt';
-  $programm = 'blastn';
-}
-else {
-  $database = 'nr';
-  $programm = 'blastp';
-}
 align_nucl_seq($_GET["seq"]);
 ?>
