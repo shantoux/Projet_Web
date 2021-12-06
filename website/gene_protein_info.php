@@ -139,6 +139,6 @@
            <button type="button">Search</button>
            </a>
     </div>
+    <? echo $query; ?>
   </body>
-  <? echo $query; ?>
 </html>
