@@ -52,7 +52,7 @@ connect_db();?>
         if ($result_insert){
           echo 'User added to the database';
         } else {
-          'Error : user has not been added.';
+          echo 'Error : user has not been added.';
         }
       }
       if(isset($_POST['delete'])){
@@ -61,7 +61,7 @@ connect_db();?>
         if ($result_delete){
           echo 'User removed from the database';
         } else {
-          'Error';
+          echo 'Error';
         }
       }
     }?>
