@@ -35,7 +35,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
 <br> 
 <br>
-<h3 id="pageundertitle"> Sequences waiting to be annotated </h3>
+<h3 id="pageundertitle" class="center"> Sequences waiting to be annotated </h3>
 <br>
 
 <!-- Table to display sequences assignated for annotation -->
@@ -86,7 +86,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 </div>
 
 <br>
-<h3 id="pageundertitle"> Sequences already annotated </h3>
+<h3 id="pageundertitle" class="center"> Sequences already annotated </h3>
 <br>
 
 <div id="element1">
