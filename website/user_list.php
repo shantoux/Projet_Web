@@ -56,7 +56,7 @@ connect_db();?>
         }
       }
       if(isset($_POST['delete'])){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_POST['mail']. "';";
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_POST['email']. "';";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
           echo 'User removed from the database';
@@ -103,12 +103,12 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo "<form action=\"./user_list.php?mail=\"" . $email . "\" method=\"post\">";
+          echo "<form action=\"./user_list.php\" method=\"post\">";
           echo '<select name="action">';
           echo '<option value="validate" name="validate">Validate</option>';
           echo '<option value="Delete" name="delete">Delete</option>';
           echo '</select>';
-          echo '<input type="submit" value="submit" name="submit">';
+          echo '<button type="submit" value="submit" name="submit">';
           echo '</td></form></tr>';
         }
       }
