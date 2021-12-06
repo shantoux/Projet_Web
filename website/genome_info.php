@@ -204,6 +204,7 @@
                   echo "<br>";
                   $line_ind = $line_ind + 1;
                 }
+                $gene_on_line = true;
                 echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
                 echo 'style="color:blue;" title="Clik to see sequence page.">&#8592;';
                 echo $seq_id;
