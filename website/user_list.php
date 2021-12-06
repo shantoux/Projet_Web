@@ -40,7 +40,7 @@ connect_db();?>
     </h2>
 
     <?php
-    if(isset($_POST['submit'])){
+    if(isset($_POST['selected_action'])){
       echo "that's something";
       if($_POST['selected_action']=='validate'){
         echo "that's something";
