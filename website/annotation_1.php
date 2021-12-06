@@ -39,11 +39,6 @@
 
 <div class="table_type1">
     <table>
-      <colgroup>
-        <col style="width: 13%">
-        <col style="width: 25%">
-        <col style="width: 10%">
-      </colgroup>
       <thead>
         <tr>
           <th>Génomes</th>
