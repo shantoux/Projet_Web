@@ -40,7 +40,7 @@ connect_db();?>
     </h2>
 
     <?php
-    if(isset($_POST['selected_user'])){
+    if(isset($_POST['submit'])){
       echo "that's something";
       if(isset($_POST['validate'])){
         echo "that's something";
@@ -105,10 +105,9 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_user">';
-          echo '<option value="validate" name="validate">Validate</option>';
-          echo '<option value="Delete" name="delete">Delete</option>';
-          echo '</select>';
+          echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_action">';
+          echo '<option value="validate">Validate</option>';
+          echo '<option value="Delete">Delete</option>';
           echo '</select><input type="submit" value="sumbit" name="submit">';
           echo '</td></form></tr>';
         }
@@ -140,11 +139,10 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo "<form action=\"./user_list.php\" method=\"post\">";
-          echo '<select name="action">';
-          echo '<option value="Delete" name="delete">Delete</option>';
+          echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_action">';
+          echo '<option value="Delete">Delete</option>';
           echo '</select>';
-          echo '<button type="submit" value='.$email.'name="submit">submit</button>';
+          echo '</select><input type="submit" value="sumbit" name="submit">';
           echo '</td></form></tr>';
         }
       }
