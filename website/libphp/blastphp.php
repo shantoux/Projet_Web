@@ -60,9 +60,10 @@ function align_nucl_seq($query) {
 
   // Maximum execution time of webserver (optional)
   //ini_set('max_execution_time', $rtoe+60);
-
+  echo $rtoe;
   //converting string to long (sleep() expects a long)
   $rtoe = $rtoe + 0;
+  echo $rtoe;
 
   // Wait for search to complete
   sleep($rtoe);
