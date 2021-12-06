@@ -36,8 +36,8 @@
 
 
   <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
-  <div class="table_type1">
-    <table>
+  <div id="element1">
+    <table class="table_type1">
       <colgroup>
         <col style="width: 13%">
         <col style="width: 25%">
