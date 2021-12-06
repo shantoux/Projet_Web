@@ -105,7 +105,14 @@
             rows="8" cols="80" readonly><?php echo $gene_seq;?></textarea>
           </td>
           <td>
-            <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $gene_seq . "\">"?>
+            <?php
+            # create query to call NCBI
+            $query = '';
+            $query .= '>' . $seq_id . ' cds\n' . $gene_seq;
+            echo $query;
+            $query = urlencode($query);
+            echo $query;
+            echo "<a href=\"./libphp/blastphp.php?query=" . $query . "\">"?>
                  <button type="button">Align with Blast</button>
                  </a>
           </td>

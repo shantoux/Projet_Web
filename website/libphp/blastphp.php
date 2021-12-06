@@ -27,14 +27,12 @@
 # ===========================================================================
 
 # custom function to use blast API
-function align_nucl_seq($seq) {
-  //return urlencode($seq);
+function align_nucl_seq($query) {
 
-  //$encoded_query = fas_read($_FILES["file"]["tmp_name"]);
-  $encoded_query = urlencode($seq);
+  $encoded_query = $query;
 
   // Build the request
-  $data = array('CMD' => 'Put', 'PROGRAM' => 'blastp', 'DATABASE' => 'pdb', 'QUERY' => $encoded_query);
+  $data = array('CMD' => 'Put', 'PROGRAM' => 'blastn', 'DATABASE' => 'ncbi', 'QUERY' => $encoded_query);
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -120,5 +118,5 @@ function align_nucl_seq($seq) {
   print $output;
 }
 
-align_nucl_seq($_GET["seq"]);
+align_nucl_seq($_GET["query"]);
 ?>
