@@ -42,6 +42,12 @@ connect_db();?>
     <?php
     include_once 'libphp/dbutils.php';
     connect_db();
+    if($db_conn){
+      echo "that's something";
+    }
+    else{
+      echo "ne fonctionne pas";
+    }
     if(isset($_POST['submit'])){
       echo "that's something";
       if($_POST['selected_action']=='validate'){
