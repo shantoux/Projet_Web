@@ -7,27 +7,27 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Annotation validation </title>
-  <link rel="stylesheet" type="text/css" href="./pw_style.css" />
+  <link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
 
 <body class="center">
 
   <!-- display menu options depending of the user's role -->
   <div class="topnav">
-    <a href="./search_1.php">New search</a>
+    <a href="./search.php">New search</a>
     <?php
     if ($_SESSION['status'] == 'validator') {
-      echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-      echo "<a class=\"active\" href=\"./validation_1.php\">Validate annotation</a>";
+      echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+      echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
     }
     if ($_SESSION['status'] == 'administrator') {
-      echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-      echo "<a class=\"active\" href=\"./validation_1.php\">Validate annotation</a>";
-      echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+      echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+      echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
+      echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
     }
     ?>
     <a href="about.php">About</a>
-    <a class="disc" href="Login_page1.php">Disconnect</a>
+    <a class="disc" href="login.php">Disconnect</a>
   </div>
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
@@ -69,7 +69,7 @@
             echo "<td><a href=\"./sequence_annotation.php?id=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
-            echo '<td> <form action="validation_1.php?seq=' .$rows["sequence_id"]. '" method = "post">';
+            echo '<td> <form action="annotation_validation.php?seq=' .$rows["sequence_id"]. '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
@@ -92,7 +92,7 @@
 
   </div>
   <?php
-  
+
   //Ici faire le résultat du submit
   if (isset($_POST['accept_button'])) {
     //Retrieve value of comment :

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Website_title</title>
-    <link rel="stylesheet" type="text/css" href="./pw_style.css" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
   <body class="center">
 
@@ -32,7 +32,7 @@
 
       </form>
 
-      <br> <br> <span class="small_text">Not already registered? <a href="./registration_form.php">Click here</a> to submit a new account.</span>
+      <br> <br> <span class="small_text">Not already registered? <a href="./registration.php">Click here</a> to submit a new account.</span>
     </div>
 
 <!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
@@ -54,7 +54,7 @@
     	if(pg_num_rows($result) == 1){
         $validated= pg_fetch_result($result,0, 6) == 'validated';
         if($validated){
-          echo '<script>location.href="search_1.php"</script>';
+          echo '<script>location.href="search.php"</script>';
 
           session_start();
           $_SESSION['user'] = $_POST['name'];

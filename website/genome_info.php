@@ -7,30 +7,30 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Genome information </title>
-    <link rel="stylesheet" type="text/css" href="./pw_style.css" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
   <body>
 
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a href="./search_1.php">New search</a>
+        <a href="./search.php">New search</a>
         <?php
           if ($_SESSION['status'] == 'annotator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
           }
           if ($_SESSION['status'] == 'validator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
           }
           if ($_SESSION['status'] == 'administrator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
-            echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
           }
         ?>
         <a href="about.php">About</a>
-        <a class="disc" href="Login_page1.php">Disconnect</a>
+        <a class="disc" href="login.php">Disconnect</a>
     </div>
 
     <div id="pagetitle">
@@ -129,7 +129,7 @@
                 $count = $count - strlen($seq_to_display);
                 echo '</span>';
 
-                echo "<a href=\"./gene_protein_info.php?id=" . $seq_id . "\" ";
+                echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
                 # check if gene is annotated
                 $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
                 $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());

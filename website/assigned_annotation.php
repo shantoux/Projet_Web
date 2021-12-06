@@ -7,33 +7,33 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sequences annotation </title>
-  <link rel="stylesheet" type="text/css" href="./pw_style.css" />
+  <link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
 <!-- display menu options depending of the user's role -->
 <div class="topnav">
-  <a href="./search_1.php">New search</a>
+  <a href="./search.php">New search</a>
   <?php
   if ($_SESSION['status'] == 'annotator') {
-    echo "<a class=\"active\" href=\"./annotation_1.php\">Annotate sequence</a>";
+    echo "<a class=\"active\" href=\"./assigned_annotation.php\">Annotate sequence</a>";
   }
   if ($_SESSION['status'] == 'validator') {
-    echo "<a class=\"active\" href=\"./annotation_1.php\">Annotate sequence</a>";
-    echo "<a href=\"./validation_1.php\">Validate annotation</a>";
+    echo "<a class=\"active\" href=\"./assigned_annotation.php\">Annotate sequence</a>";
+    echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
   }
   if ($_SESSION['status'] == 'administrator') {
-    echo "<a class=\"active\" href=\"./annotation_1.php\">Annotate sequence</a>";
-    echo "<a href=\"./validation_1.php\">Validate annotation</a>";
-    echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+    echo "<a class=\"active\" href=\"./assigned_annotation.php\">Annotate sequence</a>";
+    echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+    echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
   }
   ?>
   <a href="about.php">About</a>
-  <a class="disc" href="Login_page1.php">Disconnect</a>
+  <a class="disc" href="login.php">Disconnect</a>
 </div>
 
 <h3 id="pagetitle"> Sequences annotation </h3>
 Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
 <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
-<br> 
+<br>
 <br>
 <h3 id="pageundertitle" class="center"> Sequences waiting to be annotated </h3>
 <br>

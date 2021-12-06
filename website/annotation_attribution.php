@@ -7,29 +7,29 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sequence attribution </title>
-    <link rel="stylesheet" type="text/css" href="./pw_style.css" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
   <body class="center">
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a href="./search_1.php">New search</a>
+        <a href="./search.php">New search</a>
         <?php
           if ($_SESSION['status'] == 'annotator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
           }
           if ($_SESSION['status'] == 'validator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
           }
           if ($_SESSION['status'] == 'administrator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
-            echo "<a class=\"active\" href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a class=\"active\" href=\"./annotation_attribution.php\">Attribute annotation</a>";
           }
         ?>
         <a href="about.php">About</a>
-        <a class="disc" href="Login_page1.php">Disconnect</a>
+        <a class="disc" href="login.php">Disconnect</a>
     </div>
 
     <h2  id="pagetitle"> Sequences to attribute </h2>
@@ -92,7 +92,7 @@
             echo '</td><td>';
             echo $sequence_id;
             echo '</td>';
-            echo '<td><form action="./seq_attribution_1.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post"><select name="selected_annotator">';
+            echo '<td><form action="./annotation_attribution.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post"><select name="selected_annotator">';
 
             if (pg_num_rows($result2)>0){
               for($res2_nb = 0; $res2_nb < pg_num_rows($result2); $res2_nb++){

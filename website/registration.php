@@ -6,13 +6,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Registration form</title>
-    <link rel="stylesheet" type="text/css" href="pw_style.css" /s>
+    <link rel="stylesheet" type="text/css" href="style.css" /s>
   </head>
 
 <body>
   <!-- display menu option -->
   <div class="topnav">
-        <a href="Login_page1.php">Back to login screen</a>
+        <a href="login.php">Back to login screen</a>
     </div>
 
   <div id="menu">
@@ -20,7 +20,7 @@
   </div>
 
 <div id="element1">
-<form action="./registration_form.php" method = "post">
+<form action="./registration.php" method = "post">
   <table class="center">
 
     <tr>

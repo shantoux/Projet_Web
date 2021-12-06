@@ -7,29 +7,29 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>About </title>
-    <link rel="stylesheet" type="text/css" href="./pw_style.css" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
   <body class="center">
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-        <a href="./search_1.php">New search</a>
+        <a href="./search.php">New search</a>
         <?php
           if ($_SESSION['status'] == 'annotator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
           }
           if ($_SESSION['status'] == 'validator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
           }
           if ($_SESSION['status'] == 'administrator'){
-            echo "<a href=\"./annotation_1.php\">Annotate sequence</a>";
-            echo "<a href=\"./validation_1.php\">Validate annotation</a>";
-            echo "<a href=\"./seq_attribution_1.php\">Attribute annotation</a>";
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
           }
         ?>
         <a class="active" href="about.php">About</a>
-        <a class="disc" href="Login_page1.php">Disconnect</a>
+        <a class="disc" href="login.php">Disconnect</a>
     </div>
 
 
