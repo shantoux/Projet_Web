@@ -30,12 +30,12 @@
   <a class="disc" href="Login_page1.php">Disconnect</a>
 </div>
 
-<h2 id="pagetitle"> Sequences annotation </h2>
+<h3 id="pagetitle"> Sequences annotation </h3>
 Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
 <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
 <br> 
 <br>
-<h2 id="pageundertitle"> Sequences waiting to be annotated </h2>
+<h3 id="pageundertitle"> Sequences waiting to be annotated </h3>
 <br>
 
 <!-- Table to display sequences assignated for annotation -->
@@ -50,7 +50,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
     <thead>
       <tr>
         <th>Génomes</th>
-        <th>Sequences</th>
+        <th>Séquences</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -100,7 +100,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
     <thead>
       <tr>
         <th>Génomes</th>
-        <th>Sequences</th>
+        <th>Séquences</th>
         <th>Validator's comment</th>
         <th>Annotation status</th>
       </tr>
