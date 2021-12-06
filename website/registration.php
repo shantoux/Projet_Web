@@ -130,4 +130,3 @@ if(isset($_POST['submit_registration'])){
 
 </body>
 </html>
-
