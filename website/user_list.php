@@ -55,14 +55,23 @@ connect_db();?>
           'Error : user has not been added.';
         }
       }
-      if(isset($_POST['delete'])){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = " .$_GET['mail']. ";";
-        $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
-        if ($result_delete){
-          echo 'User removed from the database';
-        } else {
-          'Error';
+      $query_verif = "SELECT * FROM annotation_seq.annotations a WHERE a.annotator = " .$_GET['mail']. ";";
+      $result = pg_query($db_conn, $query_verif) or die('Query failed with exception: ' . pg_last_error());
+      if(pg_num_rows($result) == 0){
+        if(isset($_POST['delete'])){
+          $query_delete = "DELETE FROM annotation_seq.users WHERE email = " .$_GET['mail']. ";";
+          $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
+          if ($result_delete){
+            echo 'User removed from the database';
+          } else {
+            'Error';
+          }
         }
+      } else {
+        if(isset($_POST['delete'])){
+          echo 'This user can not be removed.'
+        }
+
       }
     }?>
 
