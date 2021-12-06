@@ -109,7 +109,7 @@
             # create query to call NCBI
             $query = '';
             $query .= '>' . $seq_id . ' cds\n' . $gene_seq;
-            $query = encoded_query($query);
+            $query = urlencode($query);
             echo "<a href=\"./libphp/blastphp.php?query=" . $query . "\">"?>
                  <button type="button">Align with Blast</button>
                  </a>
@@ -140,4 +140,5 @@
            </a>
     </div>
   </body>
+  <? echo $query; ?>
 </html>
