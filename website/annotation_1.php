@@ -67,9 +67,8 @@
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo "<td><a href=\"./sequence_annotation.php?seq=" . $rows["sequence_id"] . "\">" . $rows["sequence_id"] . "</a></td>";
+            echo '<td>' . $rows["sequence_id"] . '</td>';
             # Review annotation
-            echo '<td> <form action="annotation_1.php?seq=' .$rows["sequence_id"]. '" method = "post">';
             echo '<td> <input type="button" class="button_active" onclick="location.href=\'annotation_1.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
             echo "</tr>";
           }
