@@ -199,7 +199,7 @@
                   echo "<br>";
                 }
                 echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
-                echo 'style="color:blue;" title="Clik to see sequence page."><<<';
+                echo 'style="color:blue;" title="Clik to see sequence page.">\<\<\<';
                 echo $seq_id;
                 # check if gene has gene_symbol
                 $query_annot = "SELECT gene_symbol FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
