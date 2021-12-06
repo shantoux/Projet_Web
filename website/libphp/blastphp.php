@@ -33,96 +33,93 @@ else {
   $database = 'nr';
   $programm = 'blastp';
 }
-# custom function to use blast API
-function align_nucl_seq($seq) {
 
-  $encoded_query = urlencode($seq);
+$seq = ($_GET["seq"]);
 
-  // Build the request
-  $data = array('CMD' => 'Put', 'PROGRAM' => $programm, 'DATABASE' => $database, 'QUERY' => $encoded_query);
-  $options = array(
-    'http' => array(
-      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-      'method'  => 'POST',
-      'content' => http_build_query($data)
-    )
+$encoded_query = urlencode($seq);
+
+// Build the request
+$data = array('CMD' => 'Put', 'PROGRAM' => $programm, 'DATABASE' => $database, 'QUERY' => $encoded_query);
+$options = array(
+  'http' => array(
+    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+    'method'  => 'POST',
+    'content' => http_build_query($data)
+  )
+);
+$context  = stream_context_create($options);
+
+// Get the response from BLAST
+$result = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi", false, $context);
+
+// Parse out the request ID
+preg_match("/^.*RID = .*\$/m", $result, $ridm);
+$rid = implode("\n", $ridm);
+$rid = preg_replace('/\s+/', '', $rid);
+$rid = str_replace("RID=", "", $rid);
+
+// Parse out the estimated time to completion
+preg_match("/^.*RTOE = .*\$/m", $result, $rtoem);
+$rtoe = implode("\n", $rtoem);
+$rtoe = preg_replace('/\s+/', '', $rtoe);
+$rtoe = str_replace("RTOE=", "", $rtoe);
+
+// Maximum execution time of webserver (optional)
+ini_set('max_execution_time', $rtoe+60);
+//converting string to long (sleep() expects a long)
+$rtoe = $rtoe + 0;
+
+// Wait for search to complete
+sleep($rtoe);
+
+// Poll for results
+while(true) {
+  sleep(10);
+
+  $opts = array(
+  	'http' => array(
+      'method' => 'GET'
+  	)
   );
-  $context  = stream_context_create($options);
+  $contxt = stream_context_create($opts);
+  $reslt = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Get&FORMAT_OBJECT=SearchInfo&RID=$rid", false, $contxt);
 
-  // Get the response from BLAST
-  $result = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi", false, $context);
+  if(preg_match('/Status=WAITING/', $reslt)) {
+  	//print "Searching...\n";
+    continue;
+  }
 
-  // Parse out the request ID
-  preg_match("/^.*RID = .*\$/m", $result, $ridm);
-  $rid = implode("\n", $ridm);
-  $rid = preg_replace('/\s+/', '', $rid);
-  $rid = str_replace("RID=", "", $rid);
+  if(preg_match('/Status=FAILED/', $reslt)) {
+    print "Search $rid failed, please report to blast-help\@ncbi.nlm.nih.gov.\n";
+    exit(4);
+  }
 
-  // Parse out the estimated time to completion
-  preg_match("/^.*RTOE = .*\$/m", $result, $rtoem);
-  $rtoe = implode("\n", $rtoem);
-  $rtoe = preg_replace('/\s+/', '', $rtoe);
-  $rtoe = str_replace("RTOE=", "", $rtoe);
+  if(preg_match('/Status=UNKNOWN/', $reslt)) {
+    print "Search $rid expired.\n";
+    exit(3);
+  }
 
-  // Maximum execution time of webserver (optional)
-  ini_set('max_execution_time', $rtoe+60);
-  //converting string to long (sleep() expects a long)
-  $rtoe = $rtoe + 0;
+  if(preg_match('/Status=READY/', $reslt)) {
+    if(preg_match('/ThereAreHits=yes/', $reslt)) {
+      //print "Search complete, retrieving results...\n";
+      break;
+  	} else {
+      print "No hits found.\n";
+      exit(2);
+  	}
+  }
 
-  // Wait for search to complete
-  sleep($rtoe);
+  // If we get here, something unexpected happened.
+  exit(5);
+} // End poll loop
 
-  // Poll for results
-  while(true) {
-    sleep(10);
-
-    $opts = array(
-    	'http' => array(
-        'method' => 'GET'
-    	)
-    );
-    $contxt = stream_context_create($opts);
-    $reslt = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Get&FORMAT_OBJECT=SearchInfo&RID=$rid", false, $contxt);
-
-    if(preg_match('/Status=WAITING/', $reslt)) {
-    	//print "Searching...\n";
-      continue;
-    }
-
-    if(preg_match('/Status=FAILED/', $reslt)) {
-      print "Search $rid failed, please report to blast-help\@ncbi.nlm.nih.gov.\n";
-      exit(4);
-    }
-
-    if(preg_match('/Status=UNKNOWN/', $reslt)) {
-      print "Search $rid expired.\n";
-      exit(3);
-    }
-
-    if(preg_match('/Status=READY/', $reslt)) {
-      if(preg_match('/ThereAreHits=yes/', $reslt)) {
-        //print "Search complete, retrieving results...\n";
-        break;
-    	} else {
-        print "No hits found.\n";
-        exit(2);
-    	}
-    }
-
-    // If we get here, something unexpected happened.
-    exit(5);
-  } // End poll loop
-
-  // Retrieve and display results
-  $opt = array(
-    'http' => array(
-    	'method' => 'GET'
-    )
-  );
-  $content = stream_context_create($opt);
-  $output = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Get&FORMAT_TYPE=Text&RID=$rid", false, $content);
-  print $output;
-}
-
-align_nucl_seq($_GET["seq"]);
+// Retrieve and display results
+$opt = array(
+  'http' => array(
+  	'method' => 'GET'
+  )
+);
+$content = stream_context_create($opt);
+$output = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Get&FORMAT_TYPE=Text&RID=$rid", false, $content);
+print $output;
 ?>
