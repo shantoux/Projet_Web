@@ -123,8 +123,11 @@
       echo '<td colspan=2> <input type ="submit" value="Send" name = "submit_annotation"> </td></tr>';
       echo '</tbody></table></div>';
 
-      ?>
+      echo "<a href=\"./libphp/blastphp.php?seq=" . $sequence . "&type=nucl\" target=\"_blank\">"?>
+        <button type="button">Align with Blast</button>
+      </a>
+
+
     </form>
   </body>
 </html>
-
