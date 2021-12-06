@@ -42,8 +42,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 <div id="element1">
   <table class="table_type1">
   <colgroup>
-        <col style="width: 13%">
-        <col style="width: 13%">
+        <col style="width: 5%">
+        <col style="width: 5%">
         <col style="width: 10%">
       </colgroup>
     <thead>
@@ -90,12 +90,10 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 <div id="element1">
   <table class="table_type1">
   <colgroup>
-        <col style="width: 13%">
-        <col style="width: 25%">
         <col style="width: 10%">
-        <col style="width: 15%">
-        <col style="width: 18%">
-        <col style="width: auto">
+        <col style="width: 10%">
+        <col style="width: 10%">
+        <col style="width: 10%">
       </colgroup>
     <thead>
       <tr>
