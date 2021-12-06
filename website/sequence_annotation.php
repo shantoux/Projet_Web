@@ -5,8 +5,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Annotation </title>
-  <link rel="stylesheet" type="text/css" hhref="./style.css" /s>
-
+  <link rel="stylesheet" type="text/css" href="./style.css" /s>
 </head>
 
   <body>
