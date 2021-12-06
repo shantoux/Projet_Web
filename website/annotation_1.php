@@ -86,7 +86,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 </div>
 
 <br>
-<h2 id="pageundertitle"> Sequences already annotated </h2>
+<h3 id="pageundertitle"> Sequences already annotated </h3>
 <br>
 
 <div id="element1">
