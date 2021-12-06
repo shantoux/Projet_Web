@@ -1,18 +1,18 @@
-<!-- Web page to annotate a sequence -->
+<!-- Web page to get information about gene or protein -->
 <?php session_start();?>
-
 <!DOCTYPE html>
 <html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Annotation </title>
+  <link rel="stylesheet" type="text/css" hhref="./style.css" /s>
 
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Annotation validation </title>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-  </head>
+</head>
 
-  <body class="center">
+  <body>
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
+        <a href="./search.php">New search</a>
         <?php
           if ($_SESSION['status'] == 'annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
@@ -31,15 +31,14 @@
         <a class="disc" href="login.php">Disconnect</a>
     </div>
 
-    <h2 id="pagetitle">
+    <div id="pagetitle">
       Sequence Annotation
-    </h2>
+    </div>
     <?php
     include_once 'libphp/dbutils.php';
     connect_db();
 
-    if(isset($_POST['submit_registration'])){
-      connect_db();
+    if(isset($_POST['send_annotation'])){
       //Retrieve informations
       $values_annotations = array();
       $values_annotations['gene_id'] = $_POST["gene_id"];
@@ -47,6 +46,7 @@
       $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
       $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
       $values_annotations['gene_description'] = $_POST["gene_description"];
+      $values_annotations['status'] = 'waiting';
 
       $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
 
@@ -57,36 +57,13 @@
 
       $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_annotations, $condition) or die('Query failed with exception: ' . pg_last_error());
 
-
       if ($result_insert) {
-        echo "<div class=\"alert_good\">
-                <span class=\"closebtn\"
-                onclick=\"this.parentElement.style.display='none';\">&times;</span>
-                Annotation successfully saved, wait for validation by an admin.
-              </div>";
-            } else {
-              echo "<div class=\"alert_bad\">
-              <span class=\"closebtn\"
-              onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              Error during registration.
-              </div>";
-            }
-          }
-
-    ?>
-    <div class = "table_type1">
-      <?php
-      echo '<form action="./sequence_annotation.php" method = "post">';
-      echo '<table><thead><tr>';
-      echo '<th>Sequence</th>';
-      echo '<th>Annotation</th>';
-      echo '</tr></thead>';
-
-      echo '<tbody>';
-
-      echo '<tr>';
-
-      //retrieve info
+        echo "Annotation has been set. Wait for validation.";
+      } else {
+        echo "Error : the annotation has not been set.";
+      }
+    }
+      // Fill the information already in the database
       $genome_id = $_GET['gid'];
       $sequence_id = $_GET['sid'];
 
@@ -98,36 +75,68 @@
       $gid = pg_fetch_result($result1, 0, 0);
       $sid = pg_fetch_result($result1, 0, 1);
 
-      $query2 = "SELECT gene_seq FROM annotation_seq.gene g WHERE sequence_id = '"  . $sequence_id . "';";
+      $query2 = "SELECT gene_seq, prot_seq, start_seq, end_seq, chromosome FROM annotation_seq.gene g WHERE sequence_id = '"  . $sequence_id . "';";
       $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
-      $sequence = pg_fetch_result($result2, 0, 0);
+      $nt = pg_fetch_result($result2, 0, 0);
+      $prot = pg_fetch_result($result2, 0, 1);
+      $start = pg_fetch_result($result2, 0, 2);
+      $end = pg_fetch_result($result2,0,3);
+      $chromosome = pg_fetch_result($result2,0,4);
+      ?>
 
-      echo '<td> Genome identifier : ';
-      echo $gid;
-      echo '<br> Sequence identifier : ';
-      echo $sid;
-      echo '<br>Sequence : ';
-      echo '<textarea id="seq" name="seq" rows="8" cols="80" readonly>';
-      echo $sequence;
-      echo '</textarea>';
-      echo '</td>';
+    <div class="center">
+      <table class="table_type3">
+        <tr colspan=2>
+          <td>
+            <?php
+              echo "<b>Sequence identifier:</b> $sid<br><br>";
+              echo "<b>Specie:</b> $gid<br>";
+              echo "<b>Chromosome:</b> $chromosome<br>";
+              echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
+              echo '<b>Gene identifier : </b><input type="text" name="gene_id"><br>';
+              echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
+              echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
+              echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
+              echo '<b> Description : </b><input type ="text" name = "description"><br>';
+              ?>
+        </td>
+        </tr>
+        <tr>
+        </tr>
 
-      echo '<td>';
-      echo 'Gene identifier : <input type="text" name="gene_id"><br>';
-      echo 'Gene biotype : <input type="text" name="gene_biotype"><br>';
-      echo 'Transcript Biotype : <input type="text" name="transcript_biotype"><br>';
-      echo 'Gene symbol : <input type="text" name="gene_symbol"><br>';
-      echo 'Description : <input type="text" name="gene_description"><br></td></tr>';
+        <tr>
+          <td>
+            Gene sequence<br>
+            <textarea id="seq" name="seq"
+            rows="8" cols="80" readonly><?php echo $nt?></textarea>
+          </td>
 
-      echo '<tr><td colspan=2> <input type ="submit" value="Save" name = "submit_annotation"> </td>';
-      echo '<td colspan=2> <input type ="submit" value="Send" name = "submit_annotation"> </td></tr>';
-      echo '</tbody></table></div>';
+          <td>
+            <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">"?>
+                 <button type="button">Align with Blast</button>
+                 </a>
+          </td>
+        </tr>
 
-      echo "<a href=\"./libphp/blastphp.php?seq=" . $sequence . "&type=nucl\" target=\"_blank\">"?>
-        <button type="button">Align with Blast</button>
-      </a>
+        <tr>
+          <td>
+            Peptide sequence<br>
+            <textarea id="seq" name="seq"
+            rows="8" cols="80" readonly><?php echo $prot;?> </textarea>
+          </td>
+          <td>
+            <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">"?>
+                 <button type="button">Align with Blast</button>
+                 </a>
+        </tr>
 
+        <tr>
+          <td colspan=2> <input type ="submit" value="Save" name = "save_annotation"> </td>
+          <td colspan=2> <input type ="submit" value="Send" name = "send_annotation"> </td>
+        </tr>
 
-    </form>
+      </table>
+    </div>
   </body>
 </html>
+
