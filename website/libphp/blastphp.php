@@ -25,7 +25,8 @@
 #     5 - unknown error
 #
 # ===========================================================================
-
+# extend query max time because it takes quite some time sometimes
+ini_set('max_execution_time', '300'); //300 seconds = 5 minutes
 # custom function to use blast API
 function align_nucl_seq($query) {
 
