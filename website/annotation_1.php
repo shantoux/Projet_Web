@@ -35,15 +35,16 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
 <br> 
 <br>
-<br> Sequences waiting to be annotated
+<h2 id="pageundertitle"> Sequences waiting to be annotated </h2>
+<br>
 
 <!-- Table to display sequences assignated for annotation -->
 
 <div id="element1">
   <table class="table_type1">
   <colgroup>
-        <col style="width: 13%">
-        <col style="width: 13%">
+        <col style="width: 10%">
+        <col style="width: 10%">
         <col style="width: 10%">
       </colgroup>
     <thead>
@@ -68,7 +69,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
-          echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'annotation_1.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
+          echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
           echo "</tr>";
         }
       } else {
@@ -84,18 +85,17 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 
 </div>
 
+<br>
+<h2 id="pageundertitle"> Sequences already annotated </h2>
+<br>
 
-
-<br> Sequences already annotated
 <div id="element1">
   <table class="table_type1">
   <colgroup>
-        <col style="width: 13%">
-        <col style="width: 25%">
         <col style="width: 10%">
-        <col style="width: 15%">
-        <col style="width: 18%">
-        <col style="width: auto">
+        <col style="width: 10%">
+        <col style="width: 10%">
+        <col style="width: 10%">
       </colgroup>
     <thead>
       <tr>
@@ -118,7 +118,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
-          echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'annotation_1.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
+          echo "<td>" . $rows["comments"] . "</td>";
+          echo '<td>' . $rows["status"] . '</td>';
           echo "</tr>";
         }
       } else {
