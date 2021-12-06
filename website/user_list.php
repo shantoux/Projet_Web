@@ -40,9 +40,6 @@ connect_db();?>
     </h2>
 
     <?php
-    if($db_conn){
-      echo "yeaaah";
-    }
     if(isset($_POST['submit'])){
       echo "that's something";
       if($_POST['selected_action']=='validate'){
@@ -109,7 +106,7 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo '<form action="./user_list.php?mail="' . $email . '""method="post"><select name="selected_action">';
+          echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="validate">Validate</option>';
           echo '<option value="delete">Delete</option>';
           echo '</select><input type="submit" value="submit" name="submit">';
@@ -143,7 +140,7 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo '<form action="./user_list.php?mail="' . $email . '""method="post"><select name="selected_action">';
+          echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="delete">Delete</option>';
           echo '</select>';
           echo '</select><input type="submit" value="submit" name="submit">';
