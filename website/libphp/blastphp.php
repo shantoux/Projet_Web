@@ -25,15 +25,13 @@
 #     5 - unknown error
 #
 # ===========================================================================
-# extend query max time because it takes quite some time sometimes
-ini_set('max_execution_time', '300'); //300 seconds = 5 minutes
 # custom function to use blast API
 function align_nucl_seq($query) {
 
-  $encoded_query = $query;
+  $encoded_query = $query.'';
 
   // Build the request
-  $data = array('CMD' => 'Put', 'PROGRAM' => 'blastn', 'DATABASE' => 'ncbi', 'QUERY' => $encoded_query);
+  $data = array('CMD' => 'Put', 'PROGRAM' => 'blastn', 'DATABASE' => 'nt', 'QUERY' => $encoded_query);
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -45,6 +43,7 @@ function align_nucl_seq($query) {
 
   // Get the response from BLAST
   $result = file_get_contents("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi", false, $context);
+  echo "RES: $result";
 
   // Parse out the request ID
   preg_match("/^.*RID = .*\$/m", $result, $ridm);
@@ -59,11 +58,9 @@ function align_nucl_seq($query) {
   $rtoe = str_replace("RTOE=", "", $rtoe);
 
   // Maximum execution time of webserver (optional)
-  //ini_set('max_execution_time', $rtoe+60);
-  echo $rtoe;
+  ini_set('max_execution_time', $rtoe+60);
   //converting string to long (sleep() expects a long)
   $rtoe = $rtoe + 0;
-  echo $rtoe;
 
   // Wait for search to complete
   sleep($rtoe);
