@@ -40,6 +40,9 @@ connect_db();?>
     </h2>
 
     <?php
+    include_once 'libphp/dbutils.php';
+    connect_db();
+    echo $_GET['mail'];
     if(isset($_POST['selected_action'])){
       echo "that's something";
       if($_POST['selected_action']=='validate'){
