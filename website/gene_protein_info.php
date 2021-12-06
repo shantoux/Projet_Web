@@ -105,7 +105,7 @@
             rows="8" cols="80" readonly><?php echo $gene_seq;?></textarea>
           </td>
           <td>
-            <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome">
+            <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $gene_seq . "\">"?>
                  <button type="button">Align with Blast</button>
                  </a>
           </td>
@@ -118,7 +118,7 @@
             rows="8" cols="80" readonly><?php echo $prot_seq;?> </textarea>
           </td>
           <td>
-            <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastp&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome">
+            <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot_seq . "\">"?>
                  <button type="button">Align with Blast</button>
                  </a>
         </tr>
