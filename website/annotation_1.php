@@ -33,7 +33,9 @@
 <h2 id="pagetitle"> Sequences annotation </h2>
 Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
 <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
-<br> <br>
+<br> 
+<br>
+<br> Sequences waiting to be annotated
 
 <!-- Table to display sequences assignated for annotation -->
 
@@ -41,11 +43,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
   <table class="table_type1">
   <colgroup>
         <col style="width: 13%">
-        <col style="width: 25%">
+        <col style="width: 13%">
         <col style="width: 10%">
-        <col style="width: 15%">
-        <col style="width: 18%">
-        <col style="width: auto">
       </colgroup>
     <thead>
       <tr>
@@ -80,7 +79,57 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
     ";
       }
       ?>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+<br> Sequences already annotated
+<div id="element1">
+  <table class="table_type1">
+  <colgroup>
+        <col style="width: 13%">
+        <col style="width: 25%">
+        <col style="width: 10%">
+        <col style="width: 15%">
+        <col style="width: 18%">
+        <col style="width: auto">
+      </colgroup>
+    <thead>
+      <tr>
+        <th>Génomes</th>
+        <th>Sequences</th>
+        <th>Validator's comment</th>
+        <th>Annotation status</th>
+      </tr>
+    </thead>
+
     <tbody>
+      <?php
+      $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status
+      FROM annotation_seq.annotations a
+      WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is not null;";
+      $result = pg_query($db_conn, $query);
+      if ($result != false) {
+        while ($rows = pg_fetch_array($result)) {
+          echo "<tr>";
+          echo "<td>" . $rows["genome_id"] . "</td>";
+          echo '<td>' . $rows["sequence_id"] . '</td>';
+          # Review annotation
+          echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'annotation_1.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
+          echo "</tr>";
+        }
+      } else {
+        echo "
+        <tr>
+        <td colspan='3'>Something went wrong with the query</td>
+        </tr>
+    ";
+      }
+      ?>
+    </tbody>
   </table>
 
 </div>
