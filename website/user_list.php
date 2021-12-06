@@ -40,7 +40,7 @@ connect_db();?>
     </h2>
 
     <?php
-    if(isset($_POST['submit'])){
+    if(isset($_POST['selected_user'])){
       echo "that's something";
       if(isset($_POST['validate'])){
         echo "that's something";
@@ -48,7 +48,7 @@ connect_db();?>
         $values_user['status'] = 'validated';
 
         $condition = array();
-        $condition['email']=$_POST['submit'];
+        $condition['email']=$_GET['mail'];
 
         $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
@@ -58,7 +58,7 @@ connect_db();?>
         }
       }
       if(isset($_POST['delete'])){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_POST['submit']. "';";
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_GET['mail']. "';";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
           echo 'User removed from the database';
@@ -105,12 +105,11 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo "<form action=\"./user_list.php\" method=\"post\">";
-          echo '<select name="action">';
+          echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_user">';
           echo '<option value="validate" name="validate">Validate</option>';
           echo '<option value="Delete" name="delete">Delete</option>';
           echo '</select>';
-          echo '<button type="submit" value='.$email.'name="submit">submit</button>';
+          echo '</select><input type="submit" value="sumbit" name="submit">';
           echo '</td></form></tr>';
         }
       }
