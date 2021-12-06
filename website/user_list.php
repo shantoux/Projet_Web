@@ -58,7 +58,7 @@ connect_db();?>
         }
       }
       if($_POST['selected_action']=='delete'){
-        $query_delete = "DELETE FROM annotation_seq.users WHERE email = \'" .$_GET['mail']. "';";
+        $query_delete = "DELETE FROM annotation_seq.users WHERE email = " .$_GET['mail']. ";";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
           echo 'User removed from the database';
