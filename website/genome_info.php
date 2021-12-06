@@ -185,33 +185,35 @@
             echo "-$genome_size";
             echo '</td>';
           ?>
-            <td>
-              <?php
-                $line_ind = 0;
-                $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
-                $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-                for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
-                  $seq_id = pg_fetch_result($result, $gene_ind, 0);
-                  $seq_start = pg_fetch_result($result, $gene_ind, 1);
-                  $gene_line = intdiv($seq_start, $char_per_line);
-                  while ($line_ind < $gene_line) {
-                    $line_ind += 1;
-                  }
-                  echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
-                  echo 'style="color:blue;" title="Clik to see sequence page.">';
-                  echo $seq_id;
-                  # check if gene has gene_symbol
-                  $query_annot = "SELECT gene_symbol FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
-                  $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
-                  # if it's not...
-                  if(pg_num_rows($result_annot) > 0) {
-                    $gene_symb = pg_fetch_result($result_annot, 0, 0);
-                    echo "($gene_symb)";
-                  }
-                  echo '</a> ';
+          <td>
+            <?php
+            echo "A";
+              $line_ind = 0;
+              $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
+              $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+              echo pg_num_rows($result);
+              for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
+                $seq_id = pg_fetch_result($result, $gene_ind, 0);
+                $seq_start = pg_fetch_result($result, $gene_ind, 1);
+                $gene_line = intdiv($seq_start, $char_per_line);
+                while ($line_ind < $gene_line) {
+                  $line_ind = $line_ind + 1;
                 }
-              ?>
-            </td>
+                echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
+                echo 'style="color:blue;" title="Clik to see sequence page."><<<';
+                echo $seq_id;
+                # check if gene has gene_symbol
+                $query_annot = "SELECT gene_symbol FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
+                $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
+                # if it's not...
+                if(pg_num_rows($result_annot) > 0) {
+                  $gene_symb = pg_fetch_result($result_annot, 0, 0);
+                  echo "($gene_symb)";
+                }
+                echo '</a> ';
+              }
+            ?>
+          </td>
         </tbody>
       </table>
     </div>
