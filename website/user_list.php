@@ -43,6 +43,7 @@ connect_db();?>
     include_once 'libphp/dbutils.php';
     connect_db();
     echo $_GET['mail'];
+    echo $POST['selected_action'];
     if(isset($_POST['selected_action'])){
       echo "that's something";
       if($_POST['selected_action']=='validate'){
@@ -108,7 +109,7 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_action">';
+          echo '<form action="./user_list.php?mail="' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="validate">Validate</option>';
           echo '<option value="delete">Delete</option>';
           echo '</select><input type="submit" value="sumbit" name="submit">';
@@ -142,7 +143,7 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo '<form action="./user_list.php?mail=' . $email . 'method="post"><select name="selected_action">';
+          echo '<form action="./user_list.php?mail="' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="delete">Delete</option>';
           echo '</select>';
           echo '</select><input type="submit" value="sumbit" name="submit">';
