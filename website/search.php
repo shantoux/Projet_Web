@@ -20,14 +20,14 @@
     <div class="topnav">
         <a class="active" href="./search.php">New search</a>
         <?php
-          if ($_SESSION['status'] == 'annotator'){
+          if ($_SESSION['role'] == 'annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
           }
-          if ($_SESSION['status'] == 'validator'){
+          if ($_SESSION['role'] == 'validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
           }
-          if ($_SESSION['status'] == 'administrator'){
+          if ($_SESSION['role'] == 'administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
