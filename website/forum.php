@@ -1,0 +1,169 @@
+<!-- Web page for the annotation forum -->
+<?php session_start();?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forum</title>
+  <link rel="stylesheet" type="text/css" href="./style.css" /s>
+</head>
+
+  <body>
+    <!-- display menu options depending of the user's role -->
+    <div class="topnav">
+        <a href="./search.php">New search</a>
+        <?php
+          if ($_SESSION['status'] == 'annotator'){
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+          }
+          if ($_SESSION['status'] == 'validator'){
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+          }
+          if ($_SESSION['status'] == 'administrator'){
+            echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+          }
+        ?>
+        <a href="about.php">About</a>
+        <a class="disc" href="login.php">Disconnect</a>
+    </div>
+
+    <div id="pagetitle">
+      Annotators Forum
+    </div>
+
+    <div class="center">
+      This is the annotation forum. Create a conversation with other annotators to help on any question or difficulty.
+    </div>
+
+    <?php
+      include_once 'libphp/dbutils.php';
+      connect_db();
+
+      // add message in the database
+      if (!isset($_POST["send_message"])) {
+        $new_message = array();
+        $new_message['topic_name'] = $_GET['topic'];
+        $new_message['user_email'] = $_SESSION['user'];
+        $new_message['message'] = $_POST['message'];
+        $result_insert = pg_insert($db_conn, 'database_projet.messages', $new_message);
+      }
+
+      echo '<div class="center">';
+      if (!isset($_POST["creating"])) {
+        echo '<form action="forum.php" method = "post">';
+        echo '<input type="submit" value="Create new topic" name="creating">';
+        echo '</form>';
+      }
+      elseif (!isset($_POST["create"])){
+        echo 'Chose who will be part of the conversation:<br>'
+        echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>'
+        echo '<form action="forum.php" method = "post">';
+        echo '<select name="selected_users">';
+        // retrieve all users
+        $query_users = "SELECT email, last_name, first_name, role, status FROM database_projet.users;";
+        $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
+        while ($user = pg_fetch_array($result_users)) {
+          // check if user is validated
+          if ($user["status"] == 'validated') {
+            echo '<option value=' . $user["email"] . '>' . $user["first_name"] . " " . $user["last_name"] . " (" . $user["role"] . ")"'</option>';
+          }
+        }
+        echo '</select><br>';
+        echo '<input type="text" id="name" name="topic_name" required> <label for="name">Chose topic name</label><br>';
+        echo '<input type="submit" value="Create" name="create">';
+        echo '</form>';
+      }
+      else {
+        // create topic in DB
+        $new_topic = array();
+        $new_topic['name'] = $_POST['topic_name'];
+        $result_insert_1 = pg_insert($db_conn, 'database_projet.topics', $new_topic);
+
+        // add all involved annotators
+        foreach ($_POST['selected_users'] as $user_email) {
+          $new_conv_member = array();
+          $new_conv_member['topic_name'] = $_POST['topic_name'];
+          $new_conv_member['user_email'] = $user_email;
+          $result_insert_2 = pg_insert($db_conn, 'database_projet.correspondents', $new_conv_member);
+        }
+
+        // check if all went well
+        if ($result_insert_1 && $result_insert_2) {
+          echo "<td> Successfully added</td>";
+        } else {
+          echo "<td> Something went wrong.</td>";
+        }
+      }
+      echo '</div>';
+
+      ### Display all conversations
+      // retrieve conversations in which user is involved
+      $_SESSION['user']
+      $query_topics = "SELECT T.name, T.creation_date FROM database_projet.topics T, database_projet.correspondents C
+      WHERE T.name = C.topic_name AND C.user_email = '" . $_SESSION['user'] . "' ORDER BY T.creation_date DESC;";
+      $result_topics = pg_query($db_conn, $query_topics) or die('Query failed with exception: ' . pg_last_error());
+      while ($topic = pg_fetch_array($result_topics)) {
+        echo '<div class="center">';
+        echo '<table class="table_type_gene_inf">';
+        echo '<colgroup>';
+        echo '<col span="1" style="width: 80%;">';
+        echo '<col span="1" style="width: 20%;">';
+        echo '</colgroup>';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th class="type2"  align='left'>';
+        // display topic name
+        echo $topic["name"];
+        // display conversation participants
+        $query_participants = "SELECT U.last_name, U.first_name
+        FROM database_projet.topics T, database_projet.correspondents C, database_projet.users U
+        WHERE U.email = C.user_email AND C.topic_name = T.name AND T.name = '" . $topic["name"]; . "';";
+        $result_participants = pg_query($db_conn, $query_participants) or die('Query failed with exception: ' . pg_last_error());
+        $title = "";
+        while ($participant = pg_fetch_array($result_topics)) {
+          $title .= $participant["first_name"] . " " . $participant["last_name"] . "\n";
+        }
+        echo '<span style="float:right;color:grey;" title="' . $title . '">';
+        echo 'Who can see this topic?';
+        echo '</span>';
+        echo '</th>';
+        echo '<td class="dark_cell" align="center" horizontal-align="middle">';
+        echo 'Topic created on' . $topic["creation_date"];
+        echo '</td>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+        echo '<tr>';
+        echo '<td colspan="2">';
+        // retrieve all messages for this conversation
+        $query_messages = "SELECT M.message, M.emission_date, M.user_email, U.last_name, U.first_name
+        FROM database_projet.topics T, database_projet.messages M, database_projet.users U
+        WHERE T.name = M.topic_name AND M.user_email = U.email AND T.name = '" . $topic["name"]; . "' ORDER BY M.emission_date ASC;";
+        $result_messages = pg_query($db_conn, $query_messages) or die('Query failed with exception: ' . pg_last_error());
+        // display all messages
+        while ($message = pg_fetch_array($result_messages)) {
+          echo '<span class="small_text">';
+          echo 'On ' . $message["emission_date"] . ', ' $message["first_name"] . ' ' . $message["last_name"] . ' (' . $message["user_email"] . ') wrote:<br>';
+          echo '</span>';
+          echo $message["message"] . '<br>';
+        }
+        echo '</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td colspan="2" class="dark_cell">';
+        echo '<form action="./WIP.php?topic=' . $topic["name"] . '" method = "post">';
+        echo '<input type="text" name="message" size="190%">';
+        echo '<input type ="submit" value="Reply" name = "send_message">';
+        echo '</form>';
+        echo '</td>';
+        echo '</tr>';
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+      }
+    ?>
+  </body>
+</html>
