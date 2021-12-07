@@ -62,8 +62,8 @@
         echo '</form>';
       }
       elseif (!isset($_POST["create"])){
-        echo 'Chose who will be part of the conversation:<br>'
-        echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>'
+        echo 'Chose who will be part of the conversation:<br>';
+        echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>';
         echo '<form action="forum.php" method = "post">';
         echo '<select name="selected_users">';
         // retrieve all users
