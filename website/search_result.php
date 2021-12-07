@@ -159,6 +159,7 @@
 
       ### DISPLAY RESULTS AS GENE/PROT
       if ($_POST["search_type"] == "gene_prot") {
+        echo '<form action="download_fasta.php" method="post" target="_blank">';
         echo '<table class = "table_type1">';
 
         # display first line
@@ -168,6 +169,7 @@
         echo '<th>Specie</th>';
         echo '<th>Size of sequence</th>';
         echo '<th>Annotated</th>';
+        echo '<th>Extract</th>';
         echo '</tr>';
         echo '</thead>'; #end of first line
 
@@ -244,10 +246,14 @@
             $s_id = pg_fetch_result($result, $res_nb, 0);
             $g_id = pg_fetch_result($result, $res_nb, 1);
             $s_size = strlen(pg_fetch_result($result, $res_nb, 2));
+            // display sequence id
             echo '<tr><td>';
             echo "<a href=\"./sequence_info.php?id=" . $s_id . "\">$s_id</a></td>";
+            // display genome / specie / strain
             echo "<td><a href=\"./genome_info.php?id=" . $g_id . "\">$g_id</a></td>";
+            // display size of nucleotidic sequence
             echo "<td>$s_size</td><td>";
+            // display a character indicating wether the sequence is annotated, not annotated or with an annotation waiting for validation
             $query_annot = "SELECT status FROM database_projet.annotations WHERE genome_id = '" . $g_id . "' AND sequence_id = '" . $s_id . "' AND status != 'rejected';";
             $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
             if(pg_num_rows($result_annot) > 0){
@@ -262,6 +268,8 @@
             else {
               echo "<span style=\"color:red;\">&#10008</span>";
             }
+            echo '</td><td>';
+            echo '<input type="checkbox" name="extracted_seq[]" value="' . $s_id . '">';
             echo '</td></tr>';
           }
         }
@@ -274,6 +282,7 @@
         echo '</tbody>';
         echo '</table>';
       }
+      echo '<br><input type="submit" name="extracted" value="Extract selected sequences">';
     ?>
   </div>
 </body>
