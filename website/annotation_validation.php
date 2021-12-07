@@ -39,6 +39,14 @@
 
 //Ici faire le résultat du submit
 if (isset($_POST['accept_button'])) {
+
+  //Retrieve last attempt number :
+  $query_attempt = "SELECT a.attempt 
+      FROM database_project a 
+      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
+  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+  $attempt = pg_fetch_result($result_attempt, 0, 0);
+
   //Retrieve value of comment :
   $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
   $sequence_id = "'".$_GET['seq']."'";
@@ -46,7 +54,8 @@ if (isset($_POST['accept_button'])) {
   $query = "UPDATE database_projet.annotations
               SET status = 'validated',
               comments = " . $comments .
-    " WHERE sequence_id =" . $sequence_id . ";";
+    " WHERE sequence_id =" . $sequence_id . 
+    " AND attempt = " . $attempt . ";";
   $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
   if ($result) {
     echo "Annotation validated. An email was sent to the annotator.";
@@ -80,9 +89,27 @@ if (isset($_POST['accept_button'])) {
   $query = "UPDATE database_projet.annotations
               SET status = 'rejected',
               comments = ". $comments .
-    " WHERE sequence_id =" . $sequence_id . ";";
+    " WHERE sequence_id =" . $sequence_id . 
+    " AND attempt = " . $attempt . ";";
   $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-  if ($result) {
+
+  //Retrieve informations to add a new attempt to the annotation
+
+  //Retrieve last attempt number :
+  $query_attempt = "SELECT a.attempt 
+      FROM database_project a 
+      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
+  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+  $attempt = pg_fetch_result($result_attempt, 0, 0);
+
+  $values_attempt = array();
+  $values_attempt['genome_id'] = $_GET['gid'];
+  $values_attempt['sequence_id'] = $_GET['gid'];
+  $values_attempt['attempt'] = $attempt + 1;
+
+  $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt);
+
+  if ($result and $result_insert) {
     echo "Annotation successfully rejected -_-";
 
     $to = $_POST["adress"]; // Send email to our user
