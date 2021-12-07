@@ -12,9 +12,16 @@
 
   <body>
     <?php
-      # TODO: un-hardcode the user role, check in database for the actual role
-      $role = "administrator";
-      $roles = array("annotator", "validator", "administrator");
+      $seq_id = $_GET['id'];
+      if (isset($_POST["websites"])) {
+        if ($_POST["websites"] == "Uniprot") {
+          echo '<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>';
+        }
+        elseif ($_POST["websites"] == "Embl") {
+          echo '<script>location.href="https://www.ebi.ac.uk/ebisearch/search.ebi?db=allebi&query=' . $seq_id . '&requestFrom=searchBox"</script>';
+        }
+      }
+
     ?>
 
     <!-- display menu options depending of the user's role -->
@@ -133,13 +140,12 @@
       </table>
 
       Search other websites :
+      <?php echo '<form action="sequence_info.php?id=' . $seq_id . '" method="post" target="blank">';?>
       <select name="websites">
         <option value="Uniprot"> Uniprot </option>
         <option value="Embl"> Embl </option>
       </select>
-      <?php echo '<a href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score" target="_blank">';?>
-           <button type="button">Search</button>
-           </a>
+      <input type="submit" name="search" value="Search">
     </div>
   </body>
 </html>
