@@ -32,6 +32,7 @@
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+            echo "<a href=\"./user_list.php\">Users' List</a>";
           }
         ?>
         <a href="about.php">About</a>
@@ -66,7 +67,7 @@
               echo "<b>Chromosome:</b> $chromosome<br>";
               echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position <b>" . $start_seq . "</b> and ends on position <b>" . $end_seq . "</b>.<br><br>";
               ## check for annotations
-              ## Only get annotations that were updated 
+              ## Only get annotations that were updated
               $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator
               FROM database_projet.annotations
               WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "' AND status = 'validated';";
