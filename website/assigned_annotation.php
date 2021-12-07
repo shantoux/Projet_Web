@@ -53,9 +53,10 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       </colgroup>
     <thead>
       <tr>
-        <th>Génomes</th>
-        <th>Séquences</th>
+        <th>Genomes</th>
+        <th>Sequences</th>
         <th>Action</th>
+        <th>Attempt</th>
       </tr>
     </thead>
 
@@ -63,7 +64,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       <?php
       include_once 'libphp/dbutils.php';
       connect_db();
-      $query = "SELECT a.genome_id, a.sequence_id
+      $query = "SELECT a.genome_id, a.sequence_id, a.attempt
         FROM database_projet.annotations a
         WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is null;";
       $result = pg_query($db_conn, $query);
@@ -74,6 +75,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
           echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .  '\';"/></td>';
+          echo '<td>' . $rows["attempt"] . '</td>';
           echo "</tr>";
         }
       } else {
