@@ -58,11 +58,7 @@
       or die('Query failed with exception: ' . pg_last_error());
 
       if ($result_update) {
-<<<<<<< HEAD
-        echo "Annotation has been set. Wait for validation.";
-=======
         echo "Annotation has been sent. Wait for validation.";
->>>>>>> e6b61c665f9f14026987e86aca393545b533b0f5
       } else {
         echo "Error : the annotation has not been sent.";
       }
@@ -136,4 +132,3 @@
     </div>
   </body>
 </html>
-
