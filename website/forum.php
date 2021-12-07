@@ -47,7 +47,7 @@
       connect_db();
 
       // add message in the database
-      if (!isset($_POST["send_message"])) {
+      if (isset($_POST["send_message"])) {
         $new_message = array();
         $new_message['topic_name'] = $_GET['topic'];
         $new_message['user_email'] = $_SESSION['user'];
