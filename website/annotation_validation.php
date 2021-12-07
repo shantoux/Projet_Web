@@ -71,7 +71,7 @@
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
             echo '<td> <form action="annotation_validation.php?seq=' .$rows["sequence_id"]. '&annotator=' .$rows["annotator"] . '" method = "post">';
-            echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
+            echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
             echo '<input type="submit" name="accept_button" value="accept"></div>';
