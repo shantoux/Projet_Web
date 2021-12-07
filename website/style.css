@@ -38,11 +38,6 @@ body {
   line-height: 50px;
 }
 
-.undertopnav {
-  height: 10px;
-  float:right;
-  text-align: end;
-}
 /* Style of navigation top bar */
 .topnav {
   overflow: hidden;
