@@ -15,6 +15,7 @@ if ($_POST["extracted"]){
     if (!$first_seq) {
       $file_text .= '\n;\n';
     }
+    $first_seq = false;
     $query_gene = "SELECT genome_id, start_seq, end_seq, chromosome, gene_seq FROM database_projet.gene WHERE  sequence_id = '" . $seq_id . "';";
     $result_gene = pg_query($db_conn, $query_gene) or die('Query failed with exception: ' . pg_last_error());
     $file_text .= '>' . $seq_id . ' cds chromosome:';
@@ -65,7 +66,7 @@ if ($_POST["extracted"]){
 
 
   // write and download file
-  $file = "projet_WEB.fa";
+  $file = "./download_files/projet_WEB.fa";
   $txt = fopen($file, "w") or die("Unable to open file!");
   fwrite($txt, $file_text);
   fclose($txt);
