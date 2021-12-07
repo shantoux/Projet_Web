@@ -47,9 +47,9 @@
 
     <!-- Personnal informations about website developers /!\ attention il faut s'assumer !!-->
     <br>
-    <div id="shanti">
-      <img src="./images/group_image.jpg" alt="From left to right : Soundous Bella Baci, Benjamin Vacus, Sandra Pijeaud" style="width:360px;height:490px;">
-      <br>Shanti
+    <div>
+      <img src="./images/group_image.jpg" alt="Group picture">
+      <br>From left to right : Soundous Bella Baci, Benjamin Vacus, Sandra Pijeaud
     </div>
 
   </body>
