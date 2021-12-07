@@ -122,7 +122,7 @@
 
         if(pg_num_rows($result1) > 0){
           // If there is un-annotated sequences
-          for ($res_nb = 0; $res_nb <= pg_num_rows($result1); $res_nb++) {
+          for ($res_nb = 0; $res_nb < pg_num_rows($result1); $res_nb++) {
             // Loop over each un-annotated sequences
             $genome_id = pg_fetch_result($result1, $res_nb, 0); //get the result of the first column (0) for the row in question
             $sequence_id = pg_fetch_result($result1, $res_nb, 1);
