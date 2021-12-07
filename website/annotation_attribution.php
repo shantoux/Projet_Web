@@ -60,9 +60,9 @@
 
           $to = $_POST["selected_annotator"];  // Get the annotator's email
           $subject = "A new annotation is waiting for you"; // Email subject
-          $emessage = "A new sequence has been attributed to you!\n
-          Sequence identifier : " .$_GET['sid']. "
-          Genome identifier : " .$_GET['gid']. "
+          $emessage = "A new sequence has been attributed to you! \r\n
+          Sequence identifier : " .$_GET['sid']. " \r\n
+          Genome identifier : " .$_GET['gid']. " \r\n
           Thank you for your contribution.";
 
           // if emessage is more than 70 chars
@@ -72,7 +72,7 @@
           $headers   = array();
           $headers[] = "MIME-Version: 1.0";
           $headers[] = "Content-type: text/plain; charset=iso-8859-1";
-          $headers[] = "From: no-reply <noreply@yourdomain.com>";
+          $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
           $headers[] = "Subject: {$subject}";
           $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
 
