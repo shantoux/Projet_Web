@@ -72,7 +72,7 @@
         while ($user = pg_fetch_array($result_users)) {
           // check if user is validated
           if ($user["status"] == 'validated') {
-            echo '<option value=' . $user["email"] . '>' . $user["first_name"] . " " . $user["last_name"] . " (" . $user["role"] . ")"'</option>';
+            echo '<option value=' . $user["email"] . '>' . $user["first_name"] . " " . $user["last_name"] . " (" . $user["role"] . ")" . '</option>';
           }
         }
         echo '</select><br>';
