@@ -69,7 +69,7 @@
 
       $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
       FROM database_projet.gene g
-      WHERE g.sequence_id = " . $sequence_id . ";";
+      WHERE g.sequence_id = '" . $sequence_id . "';";
       $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
       $nt = pg_fetch_result($result2, 0, 0);
       $prot = pg_fetch_result($result2, 0, 1);
@@ -79,7 +79,7 @@
       ?>
 
     <div class="center">
-      <form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id .  '" method = "post">
+      <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
         <table class="table_type3">
           <tr colspan=2>
             <td>
