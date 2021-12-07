@@ -42,7 +42,7 @@ if (isset($_POST['accept_button'])) {
 
   //Retrieve last attempt number :
   $query_attempt = "SELECT a.attempt 
-      FROM database_project a 
+      FROM database_projet a 
       WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
   $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
   $attempt = pg_fetch_result($result_attempt, 0, 0);
@@ -96,8 +96,8 @@ if (isset($_POST['accept_button'])) {
   //Retrieve informations to add a new attempt to the annotation
 
   //Retrieve last attempt number :
-  $query_attempt = "SELECT a.attempt 
-      FROM database_project a 
+  $query_attempt = "SELECT a.attempt, a.annotator 
+      FROM database_projet.annotations a 
       WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
   $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
   $attempt = pg_fetch_result($result_attempt, 0, 0);
@@ -105,6 +105,7 @@ if (isset($_POST['accept_button'])) {
   $values_attempt = array();
   $values_attempt['genome_id'] = $_GET['gid'];
   $values_attempt['sequence_id'] = $_GET['gid'];
+  $values_attempt['annotator'] = $_GET['annotator'];
   $values_attempt['attempt'] = $attempt + 1;
 
   $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt);

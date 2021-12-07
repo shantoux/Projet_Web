@@ -117,7 +117,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 
     <tbody>
       <?php
-      $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status
+      $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt
       FROM database_projet.annotations a
       WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is not null;";
       $result = pg_query($db_conn, $query);
