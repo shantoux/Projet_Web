@@ -13,17 +13,21 @@
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
-          if ($_SESSION['status'] == 'annotator'){
+          if ($_SESSION['role'] == 'annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['status'] == 'validator'){
+          if ($_SESSION['role'] == 'validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['status'] == 'administrator'){
+          if ($_SESSION['role'] == 'administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+            echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
+            echo "<a href=\"./user_list.php\">Users' List</a>";
           }
         ?>
         <a href="about.php">About</a>
@@ -43,7 +47,7 @@
       connect_db();
 
       // add message in the database
-      if (!isset($_POST["send_message"])) {
+      if (isset($_POST["send_message"])) {
         $new_message = array();
         $new_message['topic_name'] = $_GET['topic'];
         $new_message['user_email'] = $_SESSION['user'];
@@ -58,8 +62,8 @@
         echo '</form>';
       }
       elseif (!isset($_POST["create"])){
-        echo 'Chose who will be part of the conversation:<br>'
-        echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>'
+        echo 'Chose who will be part of the conversation:<br>';
+        echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>';
         echo '<form action="forum.php" method = "post">';
         echo '<select name="selected_users">';
         // retrieve all users
@@ -68,7 +72,7 @@
         while ($user = pg_fetch_array($result_users)) {
           // check if user is validated
           if ($user["status"] == 'validated') {
-            echo '<option value=' . $user["email"] . '>' . $user["first_name"] . " " . $user["last_name"] . " (" . $user["role"] . ")"'</option>';
+            echo '<option value=' . $user["email"] . '>' . $user["first_name"] . " " . $user["last_name"] . " (" . $user["role"] . ")" . '</option>';
           }
         }
         echo '</select><br>';
@@ -101,7 +105,6 @@
 
       ### Display all conversations
       // retrieve conversations in which user is involved
-      $_SESSION['user']
       $query_topics = "SELECT T.name, T.creation_date FROM database_projet.topics T, database_projet.correspondents C
       WHERE T.name = C.topic_name AND C.user_email = '" . $_SESSION['user'] . "' ORDER BY T.creation_date DESC;";
       $result_topics = pg_query($db_conn, $query_topics) or die('Query failed with exception: ' . pg_last_error());
@@ -114,13 +117,13 @@
         echo '</colgroup>';
         echo '<thead>';
         echo '<tr>';
-        echo '<th class="type2"  align='left'>';
+        echo '<th class="type2"  align="left">';
         // display topic name
         echo $topic["name"];
         // display conversation participants
         $query_participants = "SELECT U.last_name, U.first_name
         FROM database_projet.topics T, database_projet.correspondents C, database_projet.users U
-        WHERE U.email = C.user_email AND C.topic_name = T.name AND T.name = '" . $topic["name"]; . "';";
+        WHERE U.email = C.user_email AND C.topic_name = T.name AND T.name = '" . $topic["name"] . "';";
         $result_participants = pg_query($db_conn, $query_participants) or die('Query failed with exception: ' . pg_last_error());
         $title = "";
         while ($participant = pg_fetch_array($result_topics)) {
@@ -141,12 +144,12 @@
         // retrieve all messages for this conversation
         $query_messages = "SELECT M.message, M.emission_date, M.user_email, U.last_name, U.first_name
         FROM database_projet.topics T, database_projet.messages M, database_projet.users U
-        WHERE T.name = M.topic_name AND M.user_email = U.email AND T.name = '" . $topic["name"]; . "' ORDER BY M.emission_date ASC;";
+        WHERE T.name = M.topic_name AND M.user_email = U.email AND T.name = '" . $topic["name"] . "' ORDER BY M.emission_date ASC;";
         $result_messages = pg_query($db_conn, $query_messages) or die('Query failed with exception: ' . pg_last_error());
         // display all messages
         while ($message = pg_fetch_array($result_messages)) {
           echo '<span class="small_text">';
-          echo 'On ' . $message["emission_date"] . ', ' $message["first_name"] . ' ' . $message["last_name"] . ' (' . $message["user_email"] . ') wrote:<br>';
+          echo 'On ' . $message["emission_date"] . ', ' . $message["first_name"] . ' ' . $message["last_name"] . ' (' . $message["user_email"] . ') wrote:<br>';
           echo '</span>';
           echo $message["message"] . '<br>';
         }

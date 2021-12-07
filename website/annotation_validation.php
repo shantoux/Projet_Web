@@ -19,11 +19,13 @@
     if ($_SESSION['role'] == 'validator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
+      echo "<a href=\"./forum.php\">Forum</a>";
     }
     if ($_SESSION['role'] == 'administrator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
       echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+      echo "<a href=\"./forum.php\">Forum</a>";
       echo "<a href=\"./user_list.php\">Users' List</a>";
     }
     ?>
