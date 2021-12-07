@@ -48,8 +48,8 @@
       $values_annotations['status'] = 'waiting';
 
       $condition_pkey = array();
-      $condition_pkey['genome_id']= $_GET['gid'];
-      $condition_pkey['sequence_id']=$_GET['sid'];
+      $condition_pkey['genome_id']= $genome_id;
+      $condition_pkey['sequence_id']=$sequence_id;
       $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
 
       $result_update = pg_update($db_conn, 'annotation_seq.annotations', $values_annotations, $condition_pkey)
@@ -84,9 +84,9 @@
 
     <div class="center">
       <form action="./sequence_annotation.php" method = "post">
-      <table class="table_type3">
-        <tr colspan=2>
-          <td>
+        <table class="table_type3">
+          <tr colspan=2>
+            <td>
             <?php
               echo "<b>Sequence identifier:</b> $sid<br><br>";
               echo "<b>Specie:</b> $gid<br>";
@@ -98,13 +98,12 @@
               echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
               echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
               ?>
-        </td>
-        </tr>
-        <tr>
-        </tr>
+            </td>
+          </tr>
+          <tr></tr>
 
-        <tr>
-          <td>
+          <tr>
+            <td>
             Gene sequence<br>
             <textarea id="seq" name="seq"
             rows="8" cols="80" readonly><?php echo $nt?></textarea>
@@ -113,8 +112,7 @@
           <td>
             <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">"?>
                  <button type="button">Align with Blast</button>
-                 </a>
-          </td>
+                 </a></td>
         </tr>
 
         <tr>
