@@ -57,7 +57,7 @@
 
       # display results of search
       echo '<tbody>';
-      $query = "SELECT DISTINCT GENO.genome_id, GENO.genome_seq FROM annotation_seq.genome AS GENO";
+      $query = "SELECT DISTINCT GENO.genome_id, GENO.genome_seq FROM database_projet.genome AS GENO";
       $conditions = false;
       # test if one condition has been filled in the search form
       foreach (array("specie", "nucl_sequence") as $token) {
@@ -69,13 +69,13 @@
       foreach (array("seq_id", "pep_sequence") as $token) {
         if ($_POST[$token] != "") {
           $conditions = true;
-          $query = $query . ", annotation_seq.gene AS GENE";
+          $query = $query . ", database_projet.gene AS GENE";
         }
       }
       foreach (array("genes", "description") as $token) {
         if ($_POST[$token] != "") {
           $conditions = true;
-          $query = $query . ", annotation_seq.annotations AS A";
+          $query = $query . ", database_projet.annotations AS A";
           break;
         }
       }
@@ -169,7 +169,7 @@
 
         # display results of search
         echo '<tbody>';
-        $query = "SELECT DISTINCT GENE.sequence_id, GENE.genome_id, GENE.gene_seq FROM annotation_seq.gene AS GENE";
+        $query = "SELECT DISTINCT GENE.sequence_id, GENE.genome_id, GENE.gene_seq FROM database_projet.gene AS GENE";
         $conditions = false;
         # test if one condition has been filled in the search form
         foreach (array("specie", "nucl_sequence", "seq_id", "pep_sequence") as $token) {
@@ -181,7 +181,7 @@
         foreach (array("genes", "description") as $token) {
           if ($_POST[$token] != "") {
             $conditions = true;
-            $query = $query . ", annotation_seq.annotations AS A";
+            $query = $query . ", database_projet.annotations AS A";
             break;
           }
         }
@@ -244,7 +244,7 @@
             echo "<a href=\"./sequence_info.php?id=" . $s_id . "\">$s_id</a></td>";
             echo "<td><a href=\"./genome_info.php?id=" . $g_id . "\">$g_id</a></td>";
             echo "<td>$s_size</td><td>";
-            $query_annot = "SELECT sequence_id FROM annotation_seq.annotations WHERE genome_id = '" . $g_id . "' AND sequence_id = '" . $s_id . "';";
+            $query_annot = "SELECT sequence_id FROM database_projet.annotations WHERE genome_id = '" . $g_id . "' AND sequence_id = '" . $s_id . "';";
             $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
             if(pg_num_rows($result_annot) > 0){
               echo "<span style=\"color:green;\">&#10004</span>";

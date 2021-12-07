@@ -58,7 +58,7 @@
         <?php
         include_once 'libphp/dbutils.php';
         connect_db();
-        $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator FROM annotation_seq.annotations as a WHERE status = 'waiting';";
+        $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator FROM database_projet.annotations as a WHERE status = 'waiting';";
         $result = pg_query($db_conn, $query);
         if ($result != false) {
           while ($rows = pg_fetch_array($result)) {
@@ -97,7 +97,7 @@
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
     $sequence_id = "'".$_GET['seq']."'";
     //Query on postgres
-    $query = "UPDATE annotation_seq.annotations
+    $query = "UPDATE database_projet.annotations
                 SET status = 'validated',
                 comments = " . $comments .
       " WHERE sequence_id =" . $sequence_id . ";";
@@ -131,7 +131,7 @@
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
     $sequence_id = "'".$_GET['seq']."'";
     //Query on postgres
-    $query = "UPDATE annotation_seq.annotations
+    $query = "UPDATE database_projet.annotations
                 SET status = 'rejected',
                 comments = ". $comments .
       " WHERE sequence_id =" . $sequence_id . ";";

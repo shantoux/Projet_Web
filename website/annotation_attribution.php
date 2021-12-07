@@ -45,7 +45,7 @@
         $values_annotations['sequence_id'] = $_GET['sid'];
         $values_annotations['annotator'] = $_POST["selected_annotator"]; //annotator_email;
 
-        $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
+        $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_annotations);
         if ($result_insert) {
           echo "<td> Successfully added</td>";
 
@@ -89,12 +89,12 @@
         # display results of search
         echo '<tbody>';
         $seq_attribution="SELECT G.genome_id, E.sequence_id
-        FROM annotation_seq.genome G, annotation_seq.gene E
+        FROM database_projet.genome G, database_projet.gene E
         WHERE G.genome_id = E.genome_id
-        EXCEPT (SELECT A.genome_id, A.sequence_id FROM annotation_seq.annotations A);";
+        EXCEPT (SELECT A.genome_id, A.sequence_id FROM database_projet.annotations A);";
 
         $list_annotator="SELECT U.first_name, U.last_name, U.email
-        FROM annotation_seq.users U
+        FROM database_projet.users U
         WHERE U.role='annotator';";
 
         $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());
@@ -138,4 +138,3 @@
 
   </body>
 </html>
-

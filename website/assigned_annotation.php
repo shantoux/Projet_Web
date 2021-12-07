@@ -60,7 +60,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       include_once 'libphp/dbutils.php';
       connect_db();
       $query = "SELECT a.genome_id, a.sequence_id
-        FROM annotation_seq.annotations a
+        FROM database_projet.annotations a
         WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is null;";
       $result = pg_query($db_conn, $query);
       if ($result != false) {
@@ -109,7 +109,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
     <tbody>
       <?php
       $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status
-      FROM annotation_seq.annotations a
+      FROM database_projet.annotations a
       WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is not null;";
       $result = pg_query($db_conn, $query);
       if ($result != false) {
