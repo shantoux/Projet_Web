@@ -165,7 +165,7 @@
         echo '</tr>';
         echo '<tr>';
         echo '<td colspan="2" class="dark_cell">';
-        echo '<form action="./WIP.php?topic=' . urlencode($topic["name"]) . '" method = "post">';
+        echo '<form action="./forum.php?topic=' . urlencode($topic["name"]) . '" method = "post">';
         echo '<input type="text" name="message" size="190%">';
         echo '<input type ="submit" value="Reply" name = "send_message">';
         echo '</form>';
