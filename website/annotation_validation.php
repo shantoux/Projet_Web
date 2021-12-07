@@ -1,5 +1,7 @@
 <!-- Web page to validate sequence annotations -->
-<?php session_start(); ?>
+<?php session_start(); 
+include_once 'libphp/dbutils.php';
+connect_db();?>
 
 <!DOCTYPE html>
 <html>
@@ -157,8 +159,6 @@ if (isset($_POST['accept_button'])) {
 
       <tbody>
         <?php
-        include_once 'libphp/dbutils.php';
-        connect_db();
         $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator FROM database_projet.annotations as a WHERE status = 'waiting';";
         $result = pg_query($db_conn, $query);
         if ($result != false) {
