@@ -113,7 +113,7 @@ connect_db();?>
           echo $role;
           echo '</td><td><b><mark class = "red>';
           echo $status;
-          echo '</b></mark></td><td>';
+          echo '</mark></b></td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="validate">Validate</option>';
           echo '<option value="delete">Delete</option>';
