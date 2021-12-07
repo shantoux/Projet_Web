@@ -95,7 +95,7 @@
         echo '<th>Sequence</th>';
         echo '<th>Annotators</th>';
         echo '</tr>';
-        echo '</thead>'; #end of first line
+        echo '</thead>'; #end of title line
 
         # display results of search
         echo '<tbody>';
