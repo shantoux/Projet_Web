@@ -48,7 +48,6 @@
         $values_annotations['genome_id'] = $_GET['gid'];
         $values_annotations['sequence_id'] = $_GET['sid'];
         $values_annotations['annotator'] = $_POST["selected_annotator"]; //annotator_email;
-        $values_annotations['tries'] = '0';
 
         $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_annotations);
         if ($result_insert) {
