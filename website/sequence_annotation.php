@@ -55,6 +55,7 @@
       $condition_pkey = array();
       $condition_pkey['genome_id']= $_GET['gid'];
       $condition_pkey['sequence_id']=$_GET['sid'];
+      $condition_pkey['attempt']=$_GET['att'];
       $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
 
       //Update database
@@ -134,5 +135,61 @@
 
       </table>
     </div>
+
+    Past attempts :
+
+    <div id="element1">
+  <table class="table_type1">
+  <colgroup>
+        <col style="width: 10%">
+        <col style="width: 10%">
+        <col style="width: 10%">
+        <col style="width: 10%">
+      </colgroup>
+    <thead>
+      <tr>
+        <th>Attempt</th>
+        <th>Gene id</th>
+        <th>gene biotype</th>
+        <th>transcript_biotype</th>
+        <th>gene_symbol</th>
+        <th>description</th>
+        <th>Validator's comment</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <?php
+      $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status
+      FROM database_projet.annotations as a
+      WHERE sequence_id ='". $sequence_id . "'and status = 'rejected'
+      ORDER BY attempt DESC;";
+      $result_attempts = pg_query($db_conn, $query_pastattempts);
+      if (pg_num_rows($result_attempts) > 0) {
+        while ($rows = pg_fetch_array($result_attempts)) {
+          echo "<tr>";
+          echo "<td>" . $rows["attempt"] . "</td>";
+          echo '<td>' . $rows["gene_id"] . '</td>';
+          echo '<td>' . $rows["gene_biotype"] . '</td>';
+          echo '<td>' . $rows["transcript_biotype"] . '</td>';
+          echo '<td>' . $rows["gene_symbol"] . '</td>';
+          echo '<td>' . $rows["description"] . '</td>';
+          echo "<td>" . $rows["comments"] . "</td>";
+          echo "</tr>";
+        }
+      } else {
+        echo "
+        <tr>
+        <td colspan='3'>Something went wrong with the query</td>
+        </tr>
+    ";
+      }
+      ?>
+    </tbody>
+  </table>
+
+</div>
+
   </body>
 </html>
