@@ -61,7 +61,7 @@
           $to = $_POST["selected_annotator"];  // Get the annotator's email
           $subject = "A new annotation is waiting for you"; // Email subject
           $emessage = "A new sequence has been attributed to you!\n
-          Sequence identifier : $_GET['gid']
+          Sequence identifier : '.$_GET['gid'].'
           Genome identifier : $_GET['gid']
           Thank you for your contribution.";
 
@@ -102,7 +102,7 @@
 
         # display results of search
         echo '<tbody>';
-        
+
         // Query to only get the un-annotated sequences :
         // retrieve all the sequences except for the one already in the annotations table
         $seq_attribution="SELECT G.genome_id, E.sequence_id
