@@ -82,6 +82,7 @@
       $chromosome = pg_fetch_result($result2,0,4);
       ?>
 
+
     <div class="center">
       <?php
         echo'<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
@@ -96,7 +97,7 @@
         echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
         echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
         echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
-        echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
+        echo '<b> Description : </b><input type ="text" required name = "gene_description"><br></form>';
               ?>
             </td>
           </tr>
@@ -132,7 +133,6 @@
         </tr>
 
       </table>
-      </form>
     </div>
   </body>
 </html>
