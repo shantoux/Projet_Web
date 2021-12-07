@@ -137,7 +137,7 @@
         <option value="Uniprot"> Uniprot </option>
         <option value="Embl"> Embl </option>
       </select>
-      <a href="https://www.uniprot.org">
+      <?php echo '<a href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"">';?>
            <button type="button">Search</button>
            </a>
     </div>
