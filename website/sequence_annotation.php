@@ -52,10 +52,10 @@
       $values_annotations['status'] = 'waiting';
 
       //Conditions for query
-      
+
       /////Retrieve latest attempt number
       $query_attempt = "SELECT a.attempt 
-      FROM database_project a 
+      FROM database_projet a 
       WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
       $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
       $attempt = pg_fetch_result($result_attempt, 0, 0);
@@ -144,37 +144,26 @@
       </table>
     </div>
 
-    Past attempts :
-
+    <h3 id="pageundertitle" class="center"> Past attempts </h3>
     <div id="element1">
-  <table class="table_type1">
-  <colgroup>
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-      </colgroup>
-    <thead>
-      <tr>
-        <th>Attempt</th>
-        <th>Gene id</th>
-        <th>gene biotype</th>
-        <th>transcript_biotype</th>
-        <th>gene_symbol</th>
-        <th>description</th>
-        <th>Validator's comment</th>
-
-      </tr>
-    </thead>
-
-    <tbody>
-      <?php
-      $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status
+    <?php
+    $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status
       FROM database_projet.annotations as a
       WHERE sequence_id ='". $sequence_id . "'and status = 'rejected'
       ORDER BY attempt DESC;";
       $result_attempts = pg_query($db_conn, $query_pastattempts);
       if (pg_num_rows($result_attempts) > 0) {
+        echo '<table class="table_type1">';
+        echo '<colgroup>';
+        echo '<col style="width: 10%"><col style="width: 10%"><col style="width: 10%"><col style="width: 10%">';
+        echo '</colgroup>';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th>Attempt</th><th>Gene id</th><th>gene biotype</th><th>transcript_biotype</th><th>gene_symbol</th><th>description</th><th>Validator\'s comment</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo ' <tbody>';
+
         while ($rows = pg_fetch_array($result_attempts)) {
           echo "<tr>";
           echo "<td>" . $rows["attempt"] . "</td>";
@@ -188,14 +177,13 @@
         }
       } else {
         echo "
-        <tr>
-        <td colspan='3'>Something went wrong with the query</td>
-        </tr>
+        This is your first attempt
     ";
       }
-      ?>
-    </tbody>
-  </table>
+      
+      echo '</tbody>';
+      echo '</table>';
+  ?>
 
 </div>
 
