@@ -65,7 +65,7 @@ if ($_POST["extracted"]){
 
 
   // write and download file
-  $file = "projet_WEB.fa";
+  $file = "./download_files/projet_WEB.fa";
   $txt = fopen($file, "w") or die("Unable to open file!");
   fwrite($txt, $file_text);
   fclose($txt);
