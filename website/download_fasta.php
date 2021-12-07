@@ -3,7 +3,7 @@ session_start();
 include_once 'libphp/dbutils.php';
 connect_db();
 
-if ($_POST["extracted"]){
+if (isset($_POST["extracted_seq"])) {
 
   // build text to write in file
   $file_text = '';
