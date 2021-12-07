@@ -40,7 +40,7 @@
         <a href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
     </div>
-    <tr style="height:10px; text-align:right;">Hello <?php echo $_SESSION['first_name']?></tr>
+    <div align = "right";><tr style="height:10px; text-align:right;">Hello <?php echo $_SESSION['first_name']?></tr><div>
 
     <!-- Display info box for successful login -->
     <?php
