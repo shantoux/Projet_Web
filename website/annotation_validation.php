@@ -115,8 +115,8 @@ connect_db(); ?>
     $query = "UPDATE database_projet.annotations
               SET status = 'rejected',
               comments = " . $comments .
-      " WHERE sequence_id =" . $sequence_id .
-      " AND attempt = " . $attempt . ";";
+      " WHERE sequence_id ='" . $sequence_id .
+      "' AND attempt = " . $attempt . ";";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
     //Retrieve informations to add a new attempt to that sequence's annotation
