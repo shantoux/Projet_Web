@@ -38,7 +38,7 @@
           }
         ?>
         <a href="about.php">About</a>
-        <a class="disc"> Hello <?php ". $_SESSION['first_name'] ." $_SESSION['last_name'] ?></a>
+        <a class="disc"> Hello <?php ". $_SESSION['first_name'] ." . $_SESSION['last_name'] .?></a>
         <a class="disc" href="disconnect.php">Disconnect</a>
     </div>
 
