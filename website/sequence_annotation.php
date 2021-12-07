@@ -44,11 +44,11 @@
       $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
       $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
       $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
-      $values_annotations['gene_description'] = $_POST["gene_description"];
+      $values_annotations['description'] = $_POST["gene_description"];
       $values_annotations['status'] = 'waiting';
 
       $condition_pkey = array();
-      $condition_pkey['genome_id']=$_GET['gid'];
+      $condition_pkey['genome_id']=' .$_GET['gid']. ';
       $condition_pkey['sequence_id']=$_GET['sid'];
       $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
 
