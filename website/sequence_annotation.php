@@ -146,6 +146,8 @@
 
     Past attempts :
 
+    
+
     <div id="element1">
   <table class="table_type1">
   <colgroup>
@@ -188,9 +190,7 @@
         }
       } else {
         echo "
-        <tr>
-        <td colspan='3'>Something went wrong with the query</td>
-        </tr>
+        This is your first attempt
     ";
       }
       ?>
