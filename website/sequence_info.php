@@ -18,7 +18,7 @@
           echo '<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>';
         }
         elseif ($_POST["websites"] == "Embl") {
-          echo "meh";
+          echo '<script>location.href="https://www.ebi.ac.uk/ebisearch/search.ebi?db=allebi&query=' . $seq_id . '&requestFrom=searchBox"</script>';
         }
       }
 
