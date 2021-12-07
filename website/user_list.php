@@ -73,7 +73,7 @@ connect_db();?>
           $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
 
           mail($to, $subject, $emessage, implode("\r\n", $headers));
-          
+
         } else {
           echo 'Error : user has not been added.';
         }
