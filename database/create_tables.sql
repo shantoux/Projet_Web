@@ -1,5 +1,5 @@
-CREATE SCHEMA annotation_seq;
-SET SCHEMA 'annotation_seq';
+CREATE SCHEMA database_projet;
+SET SCHEMA 'database_projet';
 
 
 CREATE TABLE users(
@@ -32,7 +32,6 @@ CREATE TABLE gene(
   PRIMARY KEY (sequence_id),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id)
 );
-
 
 
 CREATE TABLE annotations(

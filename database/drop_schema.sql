@@ -1,1 +1,1 @@
-DROP SCHEMA annotation_seq CASCADE;
+DROP SCHEMA database_projet CASCADE;
