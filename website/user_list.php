@@ -68,7 +68,7 @@ connect_db();?>
           $headers   = array();
           $headers[] = "MIME-Version: 1.0";
           $headers[] = "Content-type: text/plain; charset=iso-8859-1";
-          $headers[] = "From: The Symposium of Biology <noreply@yourdomain.com>";
+          $headers[] = "From: The Symposium on Biology and Sequences <noreply@yourdomain.com>";
           $headers[] = "Subject: {$subject}";
           $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
 
