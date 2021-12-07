@@ -48,7 +48,7 @@
         echo "<br> <div class=\"alert_good\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Hello " . $_SESSION['first_name'] ." Good to see you :)
+          Hello " . $_SESSION['first_name'] ."! Good to see you :)
         </div>";
       }
     ?>
