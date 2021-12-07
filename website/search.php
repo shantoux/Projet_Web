@@ -39,7 +39,7 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
-        <a class="disc">Hello <?php echo $_SESSION['first_name']?></a>
+        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
     <!-- Display info box for successful login -->
