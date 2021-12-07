@@ -48,7 +48,7 @@
     <!-- Personnal informations about website developers /!\ attention il faut s'assumer !!-->
     <br>
     <div>
-      <img src="./images/group_image.jpg" alt="Group picture" style="width:1242px;height:931px;">
+      <img src="./images/group_image.jpg" alt="Group picture" style="width:1242px;height:631px;">
       <br>From left to right : Soundous Bella Baci, Benjamin Vacus, Sandra Pijeaud
     </div>
 
