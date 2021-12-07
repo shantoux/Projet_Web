@@ -67,7 +67,7 @@
         echo 'Chose who will be part of the conversation:<br>';
         echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>';
         echo '<form action="forum.php" method = "post">';
-        echo '<select name="selected_users" ';
+        echo '<select name="selected_users[]" ';
         // retrieve all users
         $query_users = "SELECT email, last_name, first_name, role, status FROM database_projet.users;";
         $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
