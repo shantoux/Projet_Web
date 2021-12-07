@@ -59,7 +59,7 @@ CREATE TABLE annotations(
 -- stores all topics of the annotator forum
 CREATE TABLE topics(
   name VARCHAR,
-  creation_date DATETIME DEFAULT now(),
+  creation_date TIMESTAMP DEFAULT now(),
   PRIMARY KEY (name),
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE messages(
   topic_name VARCHAR,
   user_email VARCHAR,
   message VARCHAR,
-  emission_date DATETIME DEFAULT now(),
+  emission_date TIMESTAMP DEFAULT now(),
   PRIMARY KEY (topic_name, user_email, emission_date),
   FOREIGN KEY (topic_name) REFERENCES topics(name),
   FOREIGN KEY (user_email) REFERENCES users(email)
