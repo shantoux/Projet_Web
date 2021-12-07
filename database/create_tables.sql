@@ -60,7 +60,7 @@ CREATE TABLE annotations(
 CREATE TABLE topics(
   name VARCHAR,
   creation_date TIMESTAMP DEFAULT now(),
-  PRIMARY KEY (name),
+  PRIMARY KEY (name)
 );
 
 -- stores who can talk in which conversation in the annotator forum
