@@ -13,16 +13,16 @@
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
-          if ($_SESSION['status'] == 'annotator'){
+          if ($_SESSION['role'] == 'annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['status'] == 'validator'){
+          if ($_SESSION['role'] == 'validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['status'] == 'administrator'){
+          if ($_SESSION['role'] == 'administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
@@ -47,52 +47,60 @@
       connect_db();
 
       // add message in the database
-      if (!isset($_POST["send_message"])) {
+      if (isset($_POST["send_message"])) {
         $new_message = array();
-        $new_message['topic_name'] = $_GET['topic'];
+        $new_message['topic_name'] = urldecode($_GET['topic']);
         $new_message['user_email'] = $_SESSION['user'];
         $new_message['message'] = $_POST['message'];
         $result_insert = pg_insert($db_conn, 'database_projet.messages', $new_message);
       }
 
       echo '<div class="center">';
+      // add button to instanciate new conversation
       if (!isset($_POST["creating"])) {
         echo '<form action="forum.php" method = "post">';
         echo '<input type="submit" value="Create new topic" name="creating">';
         echo '</form>';
       }
-      elseif (!isset($_POST["create"])){
+      // chose conversation participants and topic name
+      else {
         echo 'Chose who will be part of the conversation:<br>';
         echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>';
         echo '<form action="forum.php" method = "post">';
-        echo '<select name="selected_users">';
+        echo '<select name="selected_users[]" ';
         // retrieve all users
         $query_users = "SELECT email, last_name, first_name, role, status FROM database_projet.users;";
         $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
+        echo 'multiple size = ' . pg_num_rows($result_users) . '>';
         while ($user = pg_fetch_array($result_users)) {
-          // check if user is validated
-          if ($user["status"] == 'validated') {
+          // check if user is validated and different from current user (who has to take part in the discussion)
+          if ($user["status"] == 'validated' && $user["email"] != $_SESSION['user']) {
             echo '<option value=' . $user["email"] . '>' . $user["first_name"] . " " . $user["last_name"] . " (" . $user["role"] . ")" . '</option>';
           }
         }
-        echo '</select><br>';
-        echo '<input type="text" id="name" name="topic_name" required> <label for="name">Chose topic name</label><br>';
-        echo '<input type="submit" value="Create" name="create">';
+        echo '</select><br><br>';
+        echo '<br><input type="text" id="name" name="topic_name" required> <label for="name">Chose topic name</label><br><br>';
+        echo '<br><br><input type="submit" value="Create" name="create">';
         echo '</form>';
       }
-      else {
+      if (isset($_POST["create"])) {
         // create topic in DB
         $new_topic = array();
         $new_topic['name'] = $_POST['topic_name'];
         $result_insert_1 = pg_insert($db_conn, 'database_projet.topics', $new_topic);
 
-        // add all involved annotators
+        // add all involved annotators...
         foreach ($_POST['selected_users'] as $user_email) {
           $new_conv_member = array();
           $new_conv_member['topic_name'] = $_POST['topic_name'];
           $new_conv_member['user_email'] = $user_email;
           $result_insert_2 = pg_insert($db_conn, 'database_projet.correspondents', $new_conv_member);
         }
+        // ...including current user
+        $new_conv_member = array();
+        $new_conv_member['topic_name'] = $_POST['topic_name'];
+        $new_conv_member['user_email'] = $_SESSION['user'];
+        $result_insert_2 = pg_insert($db_conn, 'database_projet.correspondents', $new_conv_member);
 
         // check if all went well
         if ($result_insert_1 && $result_insert_2) {
@@ -126,7 +134,7 @@
         WHERE U.email = C.user_email AND C.topic_name = T.name AND T.name = '" . $topic["name"] . "';";
         $result_participants = pg_query($db_conn, $query_participants) or die('Query failed with exception: ' . pg_last_error());
         $title = "";
-        while ($participant = pg_fetch_array($result_topics)) {
+        while ($participant = pg_fetch_array($result_participants)) {
           $title .= $participant["first_name"] . " " . $participant["last_name"] . "\n";
         }
         echo '<span style="float:right;color:grey;" title="' . $title . '">';
@@ -134,7 +142,7 @@
         echo '</span>';
         echo '</th>';
         echo '<td class="dark_cell" align="center" horizontal-align="middle">';
-        echo 'Topic created on' . $topic["creation_date"];
+        echo 'Topic created on ' . $topic["creation_date"];
         echo '</td>';
         echo '</tr>';
         echo '</thead>';
@@ -157,7 +165,7 @@
         echo '</tr>';
         echo '<tr>';
         echo '<td colspan="2" class="dark_cell">';
-        echo '<form action="./WIP.php?topic=' . $topic["name"] . '" method = "post">';
+        echo '<form action="./forum.php?topic=' . urlencode($topic["name"]) . '" method = "post">';
         echo '<input type="text" name="message" size="190%">';
         echo '<input type ="submit" value="Reply" name = "send_message">';
         echo '</form>';
