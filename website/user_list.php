@@ -55,6 +55,25 @@ connect_db();?>
         $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
           echo 'User added to the database';
+
+          //Send email to inform user that their account has been validated
+          $to = $_GET['mail']; // Send email to our user
+          $subject = "Your account is ready."; // Give the email a subject
+          $emessage = "Your account is ready to use !<br>";
+
+          // if emessage is more than 70 chars
+          $emessage = wordwrap($emessage, 70, "\r\n");
+
+          // Our emessage above including the link
+          $headers   = array();
+          $headers[] = "MIME-Version: 1.0";
+          $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+          $headers[] = "From: The Symposium on Biology and Sequences <noreply@yourdomain.com>";
+          $headers[] = "Subject: {$subject}";
+          $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+
+          mail($to, $subject, $emessage, implode("\r\n", $headers));
+
         } else {
           echo 'Error : user has not been added.';
         }

@@ -70,7 +70,7 @@
             echo '<td><a href="./sequence_annotation.php?gid=' .$rows['genome_id']. '&sid=' . $rows['sequence_id'] . '">' . $rows["sequence_id"] . '</a></td>';
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
-            echo '<td> <form action="annotation_validation.php?seq=' .$rows["sequence_id"]. '" method = "post">';
+            echo '<td> <form action="annotation_validation.php?seq=' .$rows["sequence_id"]. '&annotator=' .$rows["annotator"] . '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" >" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
@@ -106,9 +106,9 @@
       " WHERE sequence_id =" . $sequence_id . ";";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
     if ($result) {
-      echo "Annotation validated :)";
+      echo "Annotation validated. An email was sent to the annotator.";
 
-      $to = $_POST["adress"]; // Send email to our user
+      $to = $_GET["annotator"]; // Send email to the annotator
       $subject = "Your annotation has been validated."; // Give the email a subject
       $emessage = "Your annotation has been validated. <br>
       Thank you for your contribution.";
