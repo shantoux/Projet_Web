@@ -45,7 +45,7 @@
     include_once 'libphp/dbutils.php';
 
     if(isset($_POST['submit'])){
-      connect_db();
+      connect_db(); // connexion to database
 
       //Get email and password filled in the connexion form
       $user_name = $_POST["name"];
@@ -57,16 +57,25 @@
 
 
     	if(pg_num_rows($result) == 1){
-        //If there's only one result to the query
-        $validated= pg_fetch_result($result,0, 6) == 'validated'; //get the result of the 7th column (Status) for the 1st row
+        //If there's only one result to the query = correct pair of email/pw
+        $validated= pg_fetch_result($result,0, 6) == 'validated';
+        //get the result of the 7th column (Status) for the 1st row
+        // TODO : commenter le "==validated"
+
         if($validated){
+          // If the user's status is "validated" (approved by the site's admin)
+          // Go to the search page
           echo '<script>location.href="search.php"</script>';
 
+          // Start a session and store variables email and role
           session_start();
           $_SESSION['user'] = $_POST['name'];
-          $_SESSION['role'] = pg_fetch_result($result, 0, 5); //récupère le résultat de la 6e colonne (5) première ligne (0)
+          $_SESSION['role'] = pg_fetch_result($result, 0, 5);
         }
-        else{
+        else {
+          // If the user has not been approved yet
+
+          # display message
           echo "<div class=\"alert_bad\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
@@ -75,15 +84,16 @@
           }
 
       }
-      else{
+      else {
+        // If there's no result to the query : wrong pair of email/pw
         echo "<div class=\"alert_bad\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
           Wrong Username or Password.
         </div>";
-        }
-  }
-?>
+      }
+    }
+    ?>
 
   </body>
 </html>
