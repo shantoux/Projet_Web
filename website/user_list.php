@@ -109,11 +109,11 @@ connect_db();?>
           echo $first_name;
           echo '</td><td>';
           echo $email;
-          echo '</td><td>';
+          echo '</td><td>"';
           echo $role;
-          echo '</td><td><b>';
+          echo '</td><td><b><mark class = "red>';
           echo $status;
-          echo '</b></td><td>';
+          echo '</b></mark></td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="validate">Validate</option>';
           echo '<option value="delete">Delete</option>';
