@@ -13,7 +13,7 @@ if ($_POST["extracted"]){
   // run through selected sequences
   foreach ($_POST['extracted_seq'] as $seq_id) {
     if (!$first_seq) {
-      $file_text .= '\n;\n';
+      $file_text .= "\n;\n";
     }
     $first_seq = false;
     $query_gene = "SELECT genome_id, start_seq, end_seq, chromosome, gene_seq FROM database_projet.gene WHERE  sequence_id = '" . $seq_id . "';";
@@ -35,26 +35,26 @@ if ($_POST["extracted"]){
     if(pg_num_rows($result_annot) > 0){
       //add gene_id
       if (pg_fetch_result($result_gene, 0, 0) != "") {
-        $file_text .= ' gene:' . pg_fetch_result($result_gene, 0, 0);
+        $file_text .= ' gene:' . pg_fetch_result($result_annot, 0, 0);
       }
       //add gene_biotype
       if (pg_fetch_result($result_gene, 0, 1) != "") {
-        $file_text .= ' gene_biotype:' . pg_fetch_result($result_gene, 0, 1);
+        $file_text .= ' gene_biotype:' . pg_fetch_result($result_annot, 0, 1);
       }
       //add transcript_biotype
       if (pg_fetch_result($result_gene, 0, 2) != "") {
-        $file_text .= ' transcript_biotype:' . pg_fetch_result($result_gene, 0, 2);
+        $file_text .= ' transcript_biotype:' . pg_fetch_result($result_annot, 0, 2);
       }
       //add gene_symbol
       if (pg_fetch_result($result_gene, 0, 3) != "") {
-        $file_text .= ' gene_symbol:' . pg_fetch_result($result_gene, 0, 3);
+        $file_text .= ' gene_symbol:' . pg_fetch_result($result_annot, 0, 3);
       }
       //add description
       if (pg_fetch_result($result_gene, 0, 4) != "") {
-        $file_text .= ' description:' . pg_fetch_result($result_gene, 0, 4);
+        $file_text .= ' description:' . pg_fetch_result($result_annot, 0, 4);
       }
     }
-    $file_text .= '\n';
+    $file_text .= "\n";
     $characters_left_on_line = 60;
     while (strlen($seq) > $characters_left_on_line) {
       $file_text .= substr($seq, 0, $characters_left_on_line);
