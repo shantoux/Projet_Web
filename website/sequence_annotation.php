@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Annotation</title>
+  <title>Annotation </title>
   <link rel="stylesheet" type="text/css" href="./style.css" /s>
 </head>
 
@@ -27,7 +27,7 @@
           }
         ?>
         <a href="about.php">About</a>
-        <a class="disc" href="disconnect.php">Disconnect</a>
+        <a class="disc" href="login.php">Disconnect</a>
     </div>
 
     <div id="pagetitle">
@@ -55,25 +55,27 @@
       $result_update = pg_update($db_conn, 'annotation_seq.annotations', $values_annotations, $condition_pkey)
       or die('Query failed with exception: ' . pg_last_error());
 
-      if ($result_insert) {
-        echo "Annotation has been set. Wait for validation.";
+      if ($result_update) {
+        echo "Annotation has been sent. Wait for validation.";
       } else {
-        echo "Error : the annotation has not been set.";
+        echo "Error : the annotation has not been sent.";
       }
     }
       // Fill the information already in the database
       $genome_id = $_GET['gid'];
       $sequence_id = $_GET['sid'];
 
-      $query1 = "SELECT a.genome_id, a.sequence_id FROM annotation_seq.annotations a
-      WHERE a.annotator = '" . $_SESSION['user'] . "'
-      AND a.genome_id = '" . $genome_id . "'
-      AND a.sequence_id = '"  . $sequence_id . "';";
-      $result1 = pg_query($db_conn, $query1) or die('Query failed with exception: ' . pg_last_error());
-      $gid = pg_fetch_result($result1, 0, 0);
-      $sid = pg_fetch_result($result1, 0, 1);
+      // $query1 = "SELECT a.genome_id, a.sequence_id FROM annotation_seq.annotations a
+      // WHERE a.annotator = '" . $_SESSION['user'] . "'
+      // AND a.genome_id = '$genome_id'
+      // AND a.sequence_id = '$sequence_id';";
+      // $result1 = pg_query($db_conn, $query1) or die('Query failed with exception: ' . pg_last_error());
+      // $gid = pg_fetch_result($result1, 0, 0);
+      // $sid = pg_fetch_result($result1, 0, 1);
 
-      $query2 = "SELECT gene_seq, prot_seq, start_seq, end_seq, chromosome FROM annotation_seq.gene g WHERE sequence_id = '"  . $sequence_id . "';";
+      $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
+      FROM annotation_seq.gene g
+      WHERE g.sequence_id = '" . $sequence_id . "';";
       $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
       $nt = pg_fetch_result($result2, 0, 0);
       $prot = pg_fetch_result($result2, 0, 1);
@@ -83,13 +85,13 @@
       ?>
 
     <div class="center">
-      <form action="./sequence_annotation.php?gid=' . $_GET['gid'] . '&sid=' . $_GET['sid'] .  '" method = "post">
+      <form action="./sequence_annotation.php?gid=' . $_GET['$genome_id'] . '&sid=' . $_GET['sid'] .  '" method = "post">
         <table class="table_type3">
           <tr colspan=2>
             <td>
             <?php
-              echo "<b>Sequence identifier:</b> $sid<br><br>";
-              echo "<b>Specie:</b> $gid<br>";
+              echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
+              echo "<b>Specie:</b> $genome_id<br>";
               echo "<b>Chromosome:</b> $chromosome<br>";
               echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
               echo '<b>Gene identifier : </b><input type="text" required name="gene_id"><br>';
@@ -136,3 +138,4 @@
     </div>
   </body>
 </html>
+
