@@ -26,7 +26,7 @@
         }
       ?>
       <a href="about.php">About</a>
-      <a class="disc" href="login.php">Disconnect</a>
+      <a class="disc" href="disconnect.php">Disconnect</a>
     </div>
   <br>
 

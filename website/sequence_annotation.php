@@ -27,7 +27,7 @@
           }
         ?>
         <a href="about.php">About</a>
-        <a class="disc" href="login.php">Disconnect</a>
+        <a class="disc" href="disconnect.php">Disconnect</a>
     </div>
 
     <div id="pagetitle">
@@ -48,8 +48,8 @@
       $values_annotations['status'] = 'waiting';
 
       $condition_pkey = array();
-      $condition_pkey['genome_id']= $genome_id;
-      $condition_pkey['sequence_id']=$sequence_id;
+      $condition_pkey['genome_id']= $_GET['gid'];
+      $condition_pkey['sequence_id']=$_GET['sid'];
       $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
 
       $result_update = pg_update($db_conn, 'annotation_seq.annotations', $values_annotations, $condition_pkey)
@@ -83,7 +83,7 @@
       ?>
 
     <div class="center">
-      <form action="./sequence_annotation.php" method = "post">
+      <form action="./sequence_annotation.php?gid=' . $_GET['gid'] . '&sid=' . $_GET['sid'] .  '" method = "post">
         <table class="table_type3">
           <tr colspan=2>
             <td>

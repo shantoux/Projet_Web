@@ -32,7 +32,7 @@ connect_db();?>
           }
         ?>
         <a href="about.php">About</a>
-        <a class="disc" href="login.php">Disconnect</a>
+        <a class="disc" href="disconnect.php">Disconnect</a>
     </div>
 
     <h2 id="pagetitle">
