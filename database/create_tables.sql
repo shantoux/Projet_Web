@@ -44,13 +44,10 @@ CREATE TABLE annotations(
   description VARCHAR,
   annotator VARCHAR,
   status VARCHAR,
-  comments VARCHAR, -- les commentaires qui vont avec la validation d'une annotation
-  -- mais il faut aussi garder les annotations refusées, donc des attributs différents ?
-  -- du genre "discarded_comments" ou "discarded_annotation"
-  -- je pense une autre table serait de bon goût
-  date_of_validation DATE,
+  comments VARCHAR,
+  tries INTEGER,
   CHECK (status IN ('waiting', 'validated', 'rejected')),
-  PRIMARY KEY (annotator, genome_id, sequence_id),
+  PRIMARY KEY (annotator, genome_id, sequence_id, tries),
   FOREIGN KEY (annotator) REFERENCES users(email),
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id),
   FOREIGN KEY (sequence_id) REFERENCES gene(sequence_id)
