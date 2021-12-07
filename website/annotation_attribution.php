@@ -60,9 +60,9 @@
 
           $to = $_POST["selected_annotator"];  // Get the annotator's email
           $subject = "A new annotation is waiting for you"; // Email subject
-          $emessage = "A new sequence has been attributed to you!\n
-          Sequence identifier : $_GET['gid']
-          Genome identifier : $_GET['gid']
+          $emessage = "A new sequence has been attributed to you! \r\n
+          Sequence identifier : " .$_GET['sid']. " \r\n
+          Genome identifier : " .$_GET['gid']. " \r\n
           Thank you for your contribution.";
 
           // if emessage is more than 70 chars
@@ -72,7 +72,7 @@
           $headers   = array();
           $headers[] = "MIME-Version: 1.0";
           $headers[] = "Content-type: text/plain; charset=iso-8859-1";
-          $headers[] = "From: no-reply <noreply@yourdomain.com>";
+          $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
           $headers[] = "Subject: {$subject}";
           $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
 
@@ -102,7 +102,7 @@
 
         # display results of search
         echo '<tbody>';
-        
+
         // Query to only get the un-annotated sequences :
         // retrieve all the sequences except for the one already in the annotations table
         $seq_attribution="SELECT G.genome_id, E.sequence_id
@@ -122,7 +122,7 @@
 
         if(pg_num_rows($result1) > 0){
           // If there is un-annotated sequences
-          for ($res_nb = 0; $res_nb <= pg_num_rows($result1); $res_nb++) {
+          for ($res_nb = 0; $res_nb < pg_num_rows($result1); $res_nb++) {
             // Loop over each un-annotated sequences
             $genome_id = pg_fetch_result($result1, $res_nb, 0); //get the result of the first column (0) for the row in question
             $sequence_id = pg_fetch_result($result1, $res_nb, 1);
