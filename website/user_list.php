@@ -59,8 +59,8 @@ connect_db();?>
 
           //Send email to inform user that their account has been validated
           $to = $_GET['mail']; // Send email to our user
-          $subject = "Your account is ready."; // Give the email a subject
-          $emessage = "Your account is ready to use !<br>";
+          $subject = "Your account is ready!"; // Give the email a subject
+          $emessage = "Your account is ready to use ! \r\n Your information:\r\n Email : " .$_GET['mail']. "\r\n Password: <br>";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
@@ -69,7 +69,7 @@ connect_db();?>
           $headers   = array();
           $headers[] = "MIME-Version: 1.0";
           $headers[] = "Content-type: text/plain; charset=iso-8859-1";
-          $headers[] = "From: The Symposium on Biology and Sequences <noreply@yourdomain.com>";
+          $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
           $headers[] = "Subject: {$subject}";
           $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
 
