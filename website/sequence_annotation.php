@@ -55,10 +55,10 @@
       $result_update = pg_update($db_conn, 'annotation_seq.annotations', $values_annotations, $condition_pkey)
       or die('Query failed with exception: ' . pg_last_error());
 
-      if ($result_insert) {
+      if ($result_update) {
         echo "Annotation has been set. Wait for validation.";
       } else {
-        echo "Error : the annotation has not been set.";
+        echo "Error : the annotation has not been sent.";
       }
     }
       // Fill the information already in the database
