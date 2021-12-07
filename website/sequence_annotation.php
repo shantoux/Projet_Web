@@ -79,7 +79,7 @@
       ?>
 
     <div class="center">
-      <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
+      <form action="<?php echo "./sequence_annotation.php?gid='".$genome_id."'&sid='".$sequence_id."'";?>" method = "post">
         <table class="table_type3">
           <tr colspan=2>
             <td>
