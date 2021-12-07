@@ -234,6 +234,11 @@ body {
   overflow-wrap: break-word;
 }
 
+.dark_cell{
+  background-color: #ccdee5;
+  padding: 10px 10px;
+}
+
 .table_type3{
   border: solid 1px #DDEEEE;
   margin:auto;
@@ -251,4 +256,3 @@ body {
   input:invalid {
     box-shadow: 0 0 5px 1px red;
   }
-  

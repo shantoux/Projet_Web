@@ -80,8 +80,8 @@
       ?>
 
     <div class="center">
-      <?php 
-        echo'<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';        
+      <?php
+        echo'<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
         echo '<table class="table_type3">';
         echo '<tr colspan=2>';
         echo '<td>';
