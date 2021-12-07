@@ -248,10 +248,16 @@
             echo "<a href=\"./sequence_info.php?id=" . $s_id . "\">$s_id</a></td>";
             echo "<td><a href=\"./genome_info.php?id=" . $g_id . "\">$g_id</a></td>";
             echo "<td>$s_size</td><td>";
-            $query_annot = "SELECT sequence_id FROM database_projet.annotations WHERE genome_id = '" . $g_id . "' AND sequence_id = '" . $s_id . "';";
+            $query_annot = "SELECT status FROM database_projet.annotations WHERE genome_id = '" . $g_id . "' AND sequence_id = '" . $s_id . "';";
             $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
             if(pg_num_rows($result_annot) > 0){
+              $status_annot = pg_fetch_result($result_annot,0,0);
+              if ($status_annot == 'validated'){
               echo "<span style=\"color:green;\">&#10004</span>";
+              }
+              else{
+              echo "<span style=\"color:red;\">&#8987</span>";
+              }
             }
             else {
               echo "<span style=\"color:red;\">&#10008</span>";
