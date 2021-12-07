@@ -16,16 +16,16 @@
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
-          if ($_SESSION['role'] == 'annotator'){
+          if ($_SESSION['role'] == 'Annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['role'] == 'validator'){
+          if ($_SESSION['role'] == 'Validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['role'] == 'administrator'){
+          if ($_SESSION['role'] == 'Administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a class=\"active\" href=\"./annotation_attribution.php\">Attribute annotation</a>";
@@ -35,6 +35,7 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
+        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
     <h2  id="pagetitle"> Sequences to attribute </h2>
@@ -111,7 +112,7 @@
         // Query to get the names and email of the annotators
         $list_annotator="SELECT U.first_name, U.last_name, U.email
         FROM database_projet.users U
-        WHERE U.role='annotator';";
+        WHERE U.role='nnotator';";
 
         // Execute the queries
         $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());

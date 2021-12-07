@@ -18,12 +18,12 @@ connect_db(); ?>
   <div class="topnav">
     <a href="./search.php">New search</a>
     <?php
-    if ($_SESSION['role'] == 'validator') {
+    if ($_SESSION['role'] == 'Validator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
       echo "<a href=\"./forum.php\">Forum</a>";
     }
-    if ($_SESSION['role'] == 'administrator') {
+    if ($_SESSION['role'] == 'Administrator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
       echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
@@ -33,6 +33,7 @@ connect_db(); ?>
     ?>
     <a href="about.php">About</a>
     <a class="disc" href="disconnect.php">Disconnect</a>
+    <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
   </div>
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
@@ -40,7 +41,7 @@ connect_db(); ?>
   <?php
 
   //----------------------------------------------------------------------------------------------------------
-  //                                        Actions of the validator 
+  //                                        Actions of the validator
   //          The validator either accepts this attempt of the sequence's annotation or rejects
   //                                it and assigns the annotator a new attempt
   //----------------------------------------------------------------------------------------------------------
@@ -51,8 +52,8 @@ connect_db(); ?>
   if (isset($_POST['accept_button'])) {
 
     //Retrieve last attempt number by a query getting the attempt's number with the waiting status (last attempt) :
-    $query_attempt = "SELECT a.attempt 
-      FROM database_projet.annotations a 
+    $query_attempt = "SELECT a.attempt
+      FROM database_projet.annotations a
       WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status= 'waiting';";
     $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
     $attempt = pg_fetch_result($result_attempt, 0, 0);
@@ -96,7 +97,7 @@ connect_db(); ?>
     }
 
 //------------------------------The validator rejects the annotation with a comment-------------------------------
- 
+
   } else if (isset($_POST['reject_button'])) {
     //Retrieve value of comment, genome_id, sequence_id of the reviewed annotation and annotator of last attempt:
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
@@ -106,7 +107,7 @@ connect_db(); ?>
 
     //Retrieve last attempt number :
     $query_attempt = "SELECT a.attempt
-      FROM database_projet.annotations a 
+      FROM database_projet.annotations a
       WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $sequence_id . "' AND status='waiting';";
     $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
     $attempt = pg_fetch_result($result_attempt, 0, 0);
@@ -158,7 +159,7 @@ connect_db(); ?>
   ?>
 
 <!------------------------------------------------------------------------------------------------------------
-  //                      Display of the list of annotations to be validated by the validator, after being 
+  //                      Display of the list of annotations to be validated by the validator, after being
   //                                 annotated by the annotator in charge of this sequence
   //------------------------------------------------------------------------------------------------------------->
 
