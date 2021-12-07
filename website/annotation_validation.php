@@ -196,7 +196,7 @@ connect_db(); ?>
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo '<td><a href="./sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '">' . $rows["sequence_id"] . '</a></td>';
+            echo '<td><a href="./sequence_info.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '">' . $rows["sequence_id"] . '</a></td>';
             echo "<td>" . $rows["annotator"] . "</td>";
             //The form returns to the same page, with the sequence_id and the genome_id in the url if a submit button in pressed (cf actions of the validator)
             echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] .'&sid=' . $rows["sequence_id"] . '&annotator=' . $rows["annotator"] . '" method = "post">';
