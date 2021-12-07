@@ -49,7 +49,7 @@
       // add message in the database
       if (isset($_POST["send_message"])) {
         $new_message = array();
-        $new_message['topic_name'] = $_GET['topic'];
+        $new_message['topic_name'] = urldecode($_GET['topic']);
         $new_message['user_email'] = $_SESSION['user'];
         $new_message['message'] = $_POST['message'];
         $result_insert = pg_insert($db_conn, 'database_projet.messages', $new_message);
@@ -165,7 +165,7 @@
         echo '</tr>';
         echo '<tr>';
         echo '<td colspan="2" class="dark_cell">';
-        echo '<form action="./WIP.php?topic=' . $topic["name"] . '" method = "post">';
+        echo '<form action="./WIP.php?topic=' . urlencode($topic["name"]) . '" method = "post">';
         echo '<input type="text" name="message" size="190%">';
         echo '<input type ="submit" value="Reply" name = "send_message">';
         echo '</form>';
