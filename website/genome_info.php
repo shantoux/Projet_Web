@@ -1,9 +1,11 @@
 <!-- Web page to get information about genome -->
+
 <?php session_start();?>
 
 <!DOCTYPE html>
 <html>
 
+  <!-- Page header -->
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Genome information </title>
@@ -37,6 +39,7 @@
         <a class="disc" href="disconnect.php">Disconnect</a>
     </div>
 
+
     <div id="pagetitle">
       Genome information
     </div>
@@ -61,6 +64,7 @@
           <col span="1" style="width: 7%;">
           <col span="1" style="width: 16%;">
         </colgroup>
+        <!-- display header line -->
         <thead>
           <tr>
             <th colspan=2 class="type2"  align='left'>Genome's name : Ecoli</th>

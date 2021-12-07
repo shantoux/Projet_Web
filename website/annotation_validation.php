@@ -83,55 +83,54 @@ if (isset($_POST['accept_button'])) {
   }
 } else if (isset($_POST['reject_button'])) {
   //Retrieve value of comment :
-  $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
-  $sequence_id = "'".$_GET['seq']."'";
-  //Query on postgres
-  $query = "UPDATE database_projet.annotations
+    $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
+    $sequence_id = "'".$_GET['seq']."'";
+    //Retrieve last attempt number :
+    $query_attempt = "SELECT a.attempt, a.annotator 
+      FROM database_projet.annotations a 
+      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
+    $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+    $attempt = pg_fetch_result($result_attempt, 0, 0);
+    //Query on postgres
+    $query = "UPDATE database_projet.annotations
               SET status = 'rejected',
               comments = ". $comments .
     " WHERE sequence_id =" . $sequence_id . 
     " AND attempt = " . $attempt . ";";
-  $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
   //Retrieve informations to add a new attempt to the annotation
 
-  //Retrieve last attempt number :
-  $query_attempt = "SELECT a.attempt, a.annotator 
-      FROM database_projet.annotations a 
-      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
-  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-  $attempt = pg_fetch_result($result_attempt, 0, 0);
+    $values_attempt = array();
+    $values_attempt['genome_id'] = $_GET['gid'];
+    $values_attempt['sequence_id'] = $_GET['gid'];
+    $values_attempt['annotator'] = $_GET['annotator'];
+    $values_attempt['attempt'] = $attempt + 1;
 
-  $values_attempt = array();
-  $values_attempt['genome_id'] = $_GET['gid'];
-  $values_attempt['sequence_id'] = $_GET['gid'];
-  $values_attempt['annotator'] = $_GET['annotator'];
-  $values_attempt['attempt'] = $attempt + 1;
+    $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());;
 
-  $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt);
+    if ($result and $result_insert) {
+      echo "Annotation successfully rejected -_-";
 
-  if ($result and $result_insert) {
-    echo "Annotation successfully rejected -_-";
-
-    $to = $_POST["adress"]; // Send email to our user
-    $subject = "Your annotation has been rejected."; // Give the email a subject
-    $emessage = "Your annotation has been rejected <br>
-    You can try again next time.";
+      $to = $_POST["adress"]; // Send email to our user
+      $subject = "Your annotation has been rejected."; // Give the email a subject
+      $emessage = "Your annotation has been rejected <br>
+      You can try again next time.";
 
     // if emessage is more than 70 chars
-    $emessage = wordwrap($emessage, 70, "\r\n");
+      $emessage = wordwrap($emessage, 70, "\r\n");
 
     // Our emessage above including the link
-    $headers   = array();
-    $headers[] = "MIME-Version: 1.0";
-    $headers[] = "Content-type: text/plain; charset=iso-8859-1";
-    $headers[] = "From: no-reply <noreply@yourdomain.com>";
-    $headers[] = "Subject: {$subject}";
-    $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: no-reply <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
 
-    mail($to, $subject, $emessage, implode("\r\n", $headers));
-  } else {
-    echo "something went wrong in the query";
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
+    } else {
+      echo "something went wrong in the query";
   }
 }
 ?>

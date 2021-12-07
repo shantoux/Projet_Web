@@ -55,7 +55,7 @@
 
       /////Retrieve latest attempt number
       $query_attempt = "SELECT a.attempt 
-      FROM database_projet a 
+      FROM database_projet.annotations a 
       WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
       $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
       $attempt = pg_fetch_result($result_attempt, 0, 0);
@@ -144,7 +144,7 @@
       </table>
     </div>
 
-    Past attempts :
+    <h3 id="pageundertitle" class="center"> Past attempts </h3>
     <div id="element1">
     <?php
     $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status
