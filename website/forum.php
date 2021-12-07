@@ -90,6 +90,7 @@
         $result_insert_1 = pg_insert($db_conn, 'database_projet.topics', $new_topic);
 
         // add all involved annotators...
+        echo $_POST['selected_users'];
         foreach ($_POST['selected_users'] as $user_email) {
           $new_conv_member = array();
           $new_conv_member['topic_name'] = $_POST['topic_name'];
@@ -142,7 +143,7 @@
         echo '</span>';
         echo '</th>';
         echo '<td class="dark_cell" align="center" horizontal-align="middle">';
-        echo 'Topic created on' . $topic["creation_date"];
+        echo 'Topic created on ' . $topic["creation_date"];
         echo '</td>';
         echo '</tr>';
         echo '</thead>';
