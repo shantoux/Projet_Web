@@ -120,7 +120,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       <?php
       $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt
       FROM database_projet.annotations a
-      WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is not null;";
+      WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is not null
+      ORDER BY status;";
       $result = pg_query($db_conn, $query);
       if ($result != false) {
         while ($rows = pg_fetch_array($result)) {
