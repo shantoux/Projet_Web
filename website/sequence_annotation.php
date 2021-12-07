@@ -47,14 +47,14 @@
       $values_annotations['gene_description'] = $_POST["gene_description"];
       $values_annotations['status'] = 'waiting';
 
-      $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
+      //$result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
 
       $condition_pkey = array();
       $condition_pkey['genome_id']=$_GET['gid'];
       $condition_pkey['sequence_id']=$_GET['sid'];
       $condition_pkey['annotator']=$_GET['annotator'];
 
-      $result_insert = pg_update($db_conn, 'annotation_seq.users', $condition_pkey) or die('Query failed with exception: ' . pg_last_error());
+      $result_insert = pg_update($db_conn, 'annotation_seq.annotations', $values_annotations, $condition_pkey) or die('Query failed with exception: ' . pg_last_error());
 
       if ($result_insert) {
         echo "Annotation has been set. Wait for validation.";
@@ -130,8 +130,7 @@
         </tr>
 
         <tr>
-          <td colspan=2> <input type ="submit" value="Save" name = "save_annotation"> </td>
-          <td colspan=2> <input type ="submit" value="Send" name = "send_annotation"> </td>
+          <td> <input type ="submit" value="Send" name = "send_annotation"> </td>
         </tr>
 
       </table>
