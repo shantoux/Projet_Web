@@ -73,7 +73,7 @@
               ## Only get annotations that were updated
               $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator
               FROM database_projet.annotations
-              WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "' AND status = 'validated';";
+              WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "' AND status != 'rejected';";
               $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
               if(pg_num_rows($result_annot) > 0){
                 $annotator="SELECT U.first_name, U.last_name
