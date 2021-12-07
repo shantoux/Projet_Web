@@ -144,7 +144,7 @@
       </table>
     </div>
 
-    Past attempts :
+    <h3 id="pageundertitle" class="center"> Past attempts </h3>
     <div id="element1">
     <?php
     $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status
