@@ -1,5 +1,9 @@
+<!-- Web page to login or access the registration page -->
+
+<!DOCTYPE html>
 <html>
 
+  <!-- Page header -->
   <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Website_title</title>
@@ -7,12 +11,13 @@
   </head>
   <body class="center">
 
-    <h1> Welcome to the Symposium on Biology and Sequences </h1>
+    <!-- Page header -->
+    <h1> Welcome to Bio Search Sequences </h1>
     <div id="menu">
-      Welcome to our brand new website login page!<br>
-      Everything will be up and runing soon.
+      Please log in and let's annotate!<br>
     </div>
 
+    <!-- Login form -->
     <div id="element1">
       <form action="<?php echo $_SERVER['PHP_SELF'];?>" method = "post">
         <table class="center">
@@ -29,30 +34,31 @@
             <td colspan=2> <input type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
           </tr>
         </table>
-
       </form>
 
-      <br> <br> <span class="small_text">Not already registered? <a href="./registration.php">Click here</a> to submit a new account.</span>
+      <br> <br> <span class="small_text"> Not already registered? <a href="./registration.php">Click here</a> to submit a new account.</span>
     </div>
 
-<!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
-
+    <!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
+    <!-- -->
     <?php
     include_once 'libphp/dbutils.php';
 
     if(isset($_POST['submit'])){
-    //essai connexion postgres
       connect_db();
-      //Récupération du nom et password rempli dans le formulaire de connexion
+
+      //Get email and password filled in the connexion form
       $user_name = $_POST["name"];
       $user_password = $_POST["pass"];
 
-      // Ex�cution de la requ�te SQL
+      // Query : Select all user info for a specified email and password
       $query = "SELECT * FROM database_projet.users WHERE email = '$user_name' AND pw = '$user_password';";
-      $result = pg_query($db_conn, $query)
-					or die('Query failed with exception: ' . pg_last_error());
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+
+
     	if(pg_num_rows($result) == 1){
-        $validated= pg_fetch_result($result,0, 6) == 'validated';
+        //If there's only one result to the query
+        $validated= pg_fetch_result($result,0, 6) == 'validated'; //get the result of the 7th column (Status) for the 1st row
         if($validated){
           echo '<script>location.href="search.php"</script>';
 
@@ -67,11 +73,6 @@
             Your account has not been validated by an admin yet.
           </div>";
           }
-        //libère le résultat de la query
-        //pg_free_result($result);
-
-        //ferme la connexion
-        //disconnect_db();
 
       }
       else{
