@@ -77,11 +77,11 @@
           </tr>
           <tr>
             <td> Nucleotides sequence: </td>
-            <td> <input type="text" name="nucl_sequence" minlength="3" maxlength="916"> </td>
+            <td> <input type="text" name="nucl_sequence" minlength="3" maxlength="916" size="50"> </td>
           </tr>
           <tr>
             <td> Peptides sequence: </td>
-            <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304"> </td>
+            <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304" size="50"> </td>
           </tr>
           <tr>
             <td> Genes names: </td>
