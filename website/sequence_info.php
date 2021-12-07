@@ -12,9 +12,15 @@
 
   <body>
     <?php
-      # TODO: un-hardcode the user role, check in database for the actual role
-      $role = "administrator";
-      $roles = array("annotator", "validator", "administrator");
+      if (isset($_POST["websites"])) {
+        if ($_POST["websites"] == "Uniprot") {
+          echo '<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>';
+        }
+        elseif ($_POST["websites"] == "Embl") {
+          echo "meh";
+        }
+      }
+
     ?>
 
     <!-- display menu options depending of the user's role -->
@@ -137,9 +143,9 @@
         <option value="Uniprot"> Uniprot </option>
         <option value="Embl"> Embl </option>
       </select>
-      <?php echo '<a href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score" target="_blank">';?>
-           <button type="button">Search</button>
-           </a>
+      <a href=<?php echo "sequence_info.php?id=" . $seq_id;?> target="_blank">
+        <button type="button">Search</button>
+      </a>
     </div>
   </body>
 </html>
