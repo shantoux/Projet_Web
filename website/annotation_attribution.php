@@ -61,7 +61,7 @@
           $to = $_POST["selected_annotator"];  // Get the annotator's email
           $subject = "A new annotation is waiting for you"; // Email subject
           $emessage = "A new sequence has been attributed to you!\n
-          Sequence identifier : '.$_GET['gid'].'
+          Sequence identifier : "'.$_GET['sid'].'"
           Genome identifier : $_GET['gid']
           Thank you for your contribution.";
 
