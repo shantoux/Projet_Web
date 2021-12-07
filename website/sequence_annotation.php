@@ -44,17 +44,16 @@
       $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
       $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
       $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
-      $values_annotations['gene_description'] = $_POST["gene_description"];
+      $values_annotations['description'] = $_POST["gene_description"];
       $values_annotations['status'] = 'waiting';
 
-      $result_insert = pg_insert($db_conn, 'annotation_seq.annotations', $values_annotations);
-
       $condition_pkey = array();
-      $condition_pkey['genome_id']=$_GET['gid'];
+      $condition_pkey['genome_id']= $_GET['gid'];
       $condition_pkey['sequence_id']=$_GET['sid'];
-      $condition_pkey['annotator']=$_GET['annotator'];
+      $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
 
-      $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_annotations, $condition) or die('Query failed with exception: ' . pg_last_error());
+      $result_update = pg_update($db_conn, 'annotation_seq.annotations', $values_annotations, $condition_pkey)
+      or die('Query failed with exception: ' . pg_last_error());
 
       if ($result_insert) {
         echo "Annotation has been set. Wait for validation.";
@@ -84,6 +83,7 @@
       ?>
 
     <div class="center">
+      <form action="./sequence_annotation.php" method = "post">
       <table class="table_type3">
         <tr colspan=2>
           <td>
@@ -92,11 +92,11 @@
               echo "<b>Specie:</b> $gid<br>";
               echo "<b>Chromosome:</b> $chromosome<br>";
               echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
-              echo '<b>Gene identifier : </b><input type="text" name="gene_id"><br>';
-              echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
-              echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
-              echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
-              echo '<b> Description : </b><input type ="text" name = "description"><br>';
+              echo '<b>Gene identifier : </b><input type="text" required name="gene_id"><br>';
+              echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
+              echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
+              echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
+              echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
               ?>
         </td>
         </tr>
@@ -130,11 +130,11 @@
         </tr>
 
         <tr>
-          <td colspan=2> <input type ="submit" value="Save" name = "save_annotation"> </td>
-          <td colspan=2> <input type ="submit" value="Send" name = "send_annotation"> </td>
+          <td align = 'center'> <input type ="submit" value="Send" name = "send_annotation"> </td>
         </tr>
 
       </table>
+      </form>
     </div>
   </body>
 </html>

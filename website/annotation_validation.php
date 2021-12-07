@@ -34,8 +34,6 @@
 
 
 
-
-  <!-- TODO: retrieve anotations from the database. The following is hardcoded data to display pages in the meantime. -->
   <div id="element1">
     <table class="table_type1">
       <colgroup>
@@ -106,6 +104,25 @@
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
     if ($result) {
       echo "Annotation validated :)";
+
+      $to = $_POST["adress"]; // Send email to our user
+      $subject = "Your annotation has been validated."; // Give the email a subject
+      $emessage = "Your annotation has been validated. <br>
+      Thank you for your contribution.";
+
+      // if emessage is more than 70 chars
+      $emessage = wordwrap($emessage, 70, "\r\n");
+
+      // Our emessage above including the link
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: no-reply <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
+
     } else {
       echo "something went wrong in the query";
     }
@@ -121,6 +138,24 @@
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
     if ($result) {
       echo "Annotation successfully rejected -_-";
+
+      $to = $_POST["adress"]; // Send email to our user
+      $subject = "Your annotation has been rejected."; // Give the email a subject
+      $emessage = "Your annotation has been rejected <br>
+      You can try again next time.";
+
+      // if emessage is more than 70 chars
+      $emessage = wordwrap($emessage, 70, "\r\n");
+
+      // Our emessage above including the link
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: no-reply <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
     } else {
       echo "something went wrong in the query";
     }

@@ -92,7 +92,7 @@ connect_db();?>
       //Display users waiting to be validated
       echo '<tbody>';
       $query = "SELECT last_name, first_name, email, role, status
-      FROM annotation_seq.users WHERE status='waiting' ORDER BY last_name;";
+      FROM annotation_seq.users WHERE status='waiting' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
       if(pg_num_rows($result) > 0){
@@ -126,7 +126,7 @@ connect_db();?>
       //Display users already in database
       echo '<tbody>';
       $query = "SELECT last_name, first_name, email, role, status
-      FROM annotation_seq.users WHERE status='validated' ORDER BY last_name;";
+      FROM annotation_seq.users WHERE status='validated' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
       if(pg_num_rows($result) > 0){
