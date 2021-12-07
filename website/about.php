@@ -47,19 +47,9 @@
 
     <!-- Personnal informations about website developers /!\ attention il faut s'assumer !!-->
     <br>
-    <div id="shanti">
-      <img src="./images/shanti.jpg" alt="Sandra Pijeaud" style="width:360px;height:490px;">
-      <br>Shanti
-    </div>
-
-    <div id="soun">
-      <img src="./images/soundous.jpg" alt="Soundous Bella Baci" style="width:400px;height:400px;">
-      <br>Soundous
-    </div>
-
-    <div id="ben">
-      <img src="./images/benjamin.jpeg" alt="Benjamin Vacus" style="width:228px;height:408px;">
-      <br>Benjamin
+    <div>
+      <img src="./images/group_image.jpg" alt="Group picture" style="width:600px;height:600px;">
+      <br>From left to right : Soundous Bella Baci, Benjamin Vacus, Sandra Pijeaud
     </div>
 
   </body>
