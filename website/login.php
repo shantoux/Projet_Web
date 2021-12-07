@@ -71,6 +71,8 @@
           session_start();
           $_SESSION['user'] = $_POST['name'];
           $_SESSION['role'] = pg_fetch_result($result, 0, 5);
+          $_SESSION['first_name'] = pg_fetch_result($result, 0, 3);
+          $_SESSION['last_name'] = pg_fetch_result($result, 0, 2);
         }
         else {
           // If the user has not been approved yet
