@@ -48,7 +48,7 @@
       $user_password = $_POST["pass"];
 
       // Ex�cution de la requ�te SQL
-      $query = "SELECT * FROM annotation_seq.users WHERE email = '$user_name' AND pw = '$user_password';";
+      $query = "SELECT * FROM database_projet.users WHERE email = '$user_name' AND pw = '$user_password';";
       $result = pg_query($db_conn, $query)
 					or die('Query failed with exception: ' . pg_last_error());
     	if(pg_num_rows($result) == 1){

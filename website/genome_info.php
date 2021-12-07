@@ -79,7 +79,7 @@
             # retrieve genome sequence
             include_once 'libphp/dbutils.php';
             connect_db();
-            $query = "SELECT genome_seq FROM annotation_seq.genome WHERE genome_id = '" . $genome_id . "';";
+            $query = "SELECT genome_seq FROM database_projet.genome WHERE genome_id = '" . $genome_id . "';";
             $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
             $genome_whole_seq = pg_fetch_result($result, 0, 0);
             $genome_size = strlen($genome_whole_seq);
@@ -98,7 +98,7 @@
             # extend query max time because it takes quite some time to retrieve and display whole genome
             ini_set('max_execution_time', '300'); //300 seconds = 5 minutes
             # retrieve all genes
-            $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
+            $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM database_projet.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
             $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
             $nucl_ind_count = 0;
             $count = $char_per_line;
@@ -128,7 +128,7 @@
 
                 echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
                 # check if gene is annotated
-                $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
+                $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM database_projet.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
                 $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
                 # if it's not...
                 if(pg_num_rows($result_annot) == 0) {
@@ -188,7 +188,7 @@
           <td>
             <?php
               $line_ind = 0;
-              $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM annotation_seq.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
+              $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM database_projet.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
               $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
               $gene_on_line = false;
               for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
@@ -209,7 +209,7 @@
                 echo 'style="color:blue;" title="Clik to see sequence page.">&#8592;';
                 echo $seq_id;
                 # check if gene has gene_symbol
-                $query_annot = "SELECT gene_symbol FROM annotation_seq.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
+                $query_annot = "SELECT gene_symbol FROM database_projet.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
                 $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
                 # if it's not...
                 if(pg_num_rows($result_annot) > 0) {

@@ -52,7 +52,7 @@
       $condition_pkey['sequence_id']=$_GET['sid'];
       $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
 
-      $result_update = pg_update($db_conn, 'annotation_seq.annotations', $values_annotations, $condition_pkey)
+      $result_update = pg_update($db_conn, 'database_projet.annotations', $values_annotations, $condition_pkey)
       or die('Query failed with exception: ' . pg_last_error());
 
       if ($result_insert) {
@@ -65,7 +65,7 @@
       $genome_id = $_GET['gid'];
       $sequence_id = $_GET['sid'];
 
-      $query1 = "SELECT a.genome_id, a.sequence_id FROM annotation_seq.annotations a
+      $query1 = "SELECT a.genome_id, a.sequence_id FROM database_projet.annotations a
       WHERE a.annotator = '" . $_SESSION['user'] . "'
       AND a.genome_id = '" . $genome_id . "'
       AND a.sequence_id = '"  . $sequence_id . "';";
@@ -73,7 +73,7 @@
       $gid = pg_fetch_result($result1, 0, 0);
       $sid = pg_fetch_result($result1, 0, 1);
 
-      $query2 = "SELECT gene_seq, prot_seq, start_seq, end_seq, chromosome FROM annotation_seq.gene g WHERE sequence_id = '"  . $sequence_id . "';";
+      $query2 = "SELECT gene_seq, prot_seq, start_seq, end_seq, chromosome FROM database_projet.gene g WHERE sequence_id = '"  . $sequence_id . "';";
       $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
       $nt = pg_fetch_result($result2, 0, 0);
       $prot = pg_fetch_result($result2, 0, 1);

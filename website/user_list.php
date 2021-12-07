@@ -48,7 +48,7 @@ connect_db();?>
         $condition = array();
         $condition['email']=$_GET['mail'];
 
-        $result_insert = pg_update($db_conn, 'annotation_seq.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
+        $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
           echo 'User added to the database';
         } else {
@@ -56,12 +56,12 @@ connect_db();?>
         }
       }
 
-      $query_verif = "SELECT a.annotator FROM annotation_seq.annotations a WHERE a.annotator = '" .$_GET['mail']. "';";
+      $query_verif = "SELECT a.annotator FROM database_projet.annotations a WHERE a.annotator = '" .$_GET['mail']. "';";
       $result = pg_query($db_conn, $query_verif) or die('Query failed with exception: ' . pg_last_error());
 
       if(pg_num_rows($result) == 0){
         if($_POST['selected_action']=='delete'){
-          $query_delete = "DELETE FROM annotation_seq.users WHERE email = '" .$_GET['mail']. "';";
+          $query_delete = "DELETE FROM database_projet.users WHERE email = '" .$_GET['mail']. "';";
           $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
           if ($result_delete){
             echo 'User removed from the database';
@@ -92,7 +92,7 @@ connect_db();?>
       //Display users waiting to be validated
       echo '<tbody>';
       $query = "SELECT last_name, first_name, email, role, status
-      FROM annotation_seq.users WHERE status='waiting' ORDER BY role;";
+      FROM database_projet.users WHERE status='waiting' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
       if(pg_num_rows($result) > 0){
@@ -126,7 +126,7 @@ connect_db();?>
       //Display users already in database
       echo '<tbody>';
       $query = "SELECT last_name, first_name, email, role, status
-      FROM annotation_seq.users WHERE status='validated' ORDER BY role;";
+      FROM database_projet.users WHERE status='validated' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
       if(pg_num_rows($result) > 0){

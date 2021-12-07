@@ -56,3 +56,30 @@ CREATE TABLE annotations(
   FOREIGN KEY (genome_id) REFERENCES genome(genome_id),
   FOREIGN KEY (sequence_id) REFERENCES gene(sequence_id)
 );
+
+-- stores all topics of the annotator forum
+CREATE TABLE topics(
+  name VARCHAR,
+  creation_date DATETIME DEFAULT now(),
+  PRIMARY KEY (name),
+);
+
+-- stores who can talk in which conversation in the annotator forum
+CREATE TABLE correspondents(
+  topic_name VARCHAR,
+  user_email VARCHAR,
+  PRIMARY KEY (topic_name, user_email),
+  FOREIGN KEY (topic_name) REFERENCES topics(name),
+  FOREIGN KEY (user_email) REFERENCES users(email)
+);
+
+-- stores messages of all conversations in the annotator forum
+CREATE TABLE messages(
+  topic_name VARCHAR,
+  user_email VARCHAR,
+  message VARCHAR,
+  emission_date DATETIME DEFAULT now(),
+  PRIMARY KEY (topic_name, user_email, emission_date),
+  FOREIGN KEY (topic_name) REFERENCES topics(name),
+  FOREIGN KEY (user_email) REFERENCES users(email)
+);
