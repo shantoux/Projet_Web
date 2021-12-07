@@ -15,15 +15,19 @@
         <?php
           if ($_SESSION['status'] == 'annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
+            echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
           }
           if ($_SESSION['status'] == 'validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
           }
           if ($_SESSION['status'] == 'administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+            echo "<a class=\"active\" href=\"./forum.php\">Forum</a>";
+            echo "<a href=\"./user_list.php\">Users' List</a>";
           }
         ?>
         <a href="about.php">About</a>
