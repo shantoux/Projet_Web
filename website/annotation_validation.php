@@ -50,10 +50,10 @@ connect_db(); ?>
 
   if (isset($_POST['accept_button'])) {
 
-    //Retrieve last attempt number by a query getting the attempt's number with the null status (last attempt) :
+    //Retrieve last attempt number by a query getting the attempt's number with the waiting status (last attempt) :
     $query_attempt = "SELECT a.attempt 
       FROM database_projet.annotations a 
-      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status is null;";
+      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status= 'waiting';";
     $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
     $attempt = pg_fetch_result($result_attempt, 0, 0);
 
@@ -105,9 +105,9 @@ connect_db(); ?>
     $annotator = $_GET['annotator'];
 
     //Retrieve last attempt number :
-    $query_attempt = "SELECT a.attempt, a.annotator 
+    $query_attempt = "SELECT a.attempt
       FROM database_projet.annotations a 
-      WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $sequence_id . "' AND status is null;";
+      WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $sequence_id . "' AND status='waiting';";
     $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
     $attempt = pg_fetch_result($result_attempt, 0, 0);
 
