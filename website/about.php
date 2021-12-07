@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html>
-
+  <!-- Page header -->
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>About </title>
@@ -45,10 +45,10 @@
 
     <h2>Learn more about us!</h2>
 
-    <!-- Personnal informations about website developers /!\ attention il faut s'assumer !!-->
+    <!-- Personnal informations about website developers -->
     <br>
     <div>
-      From left to right : Soundous Bella Baci, Benjamin Vacus, Sandra Pijeaud<br>
+      <i>From left to right : Soundous Bella Baci, Benjamin Vacus, Sandra Pijeaud</i><br><br>
       <img src="./images/group_image.jpg" alt="Group picture" style="width:800px;height:600px;">
     </div>
 
