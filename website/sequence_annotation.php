@@ -92,10 +92,10 @@
               echo "<b>Chromosome:</b> $chromosome<br>";
               echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
               echo '<b>Gene identifier : </b><input type="text" name="gene_id"><br>';
-              echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
-              echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
-              echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
-              echo '<b> Description : </b><input type ="text" name = "gene_description"><br>';
+              echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
+              echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
+              echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
+              echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
               ?>
         </td>
         </tr>
