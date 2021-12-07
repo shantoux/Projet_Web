@@ -12,6 +12,7 @@
 
   <body>
     <?php
+      $seq_id = $_GET['id'];
       if (isset($_POST["websites"])) {
         if ($_POST["websites"] == "Uniprot") {
           echo '<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>';
@@ -139,13 +140,12 @@
       </table>
 
       Search other websites :
+      <?php echo '<form action="sequence_info.php?id=' . $seq_id . '" method="post" target="blank">';?>
       <select name="websites">
         <option value="Uniprot"> Uniprot </option>
         <option value="Embl"> Embl </option>
       </select>
-      <a href=<?php echo "sequence_info.php?id=" . $seq_id;?> target="_blank">
-        <button type="button">Search</button>
-      </a>
+      <input type="submit" name="search" value="Search">
     </div>
   </body>
 </html>
