@@ -41,6 +41,7 @@ body {
 .undertopnav {
   height: 10px;
   float:right;
+  text-align: right;
 }
 /* Style of navigation top bar */
 .topnav {
