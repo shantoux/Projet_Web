@@ -85,6 +85,12 @@ if (isset($_POST['accept_button'])) {
   //Retrieve value of comment :
   $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
   $sequence_id = "'".$_GET['seq']."'";
+  //Retrieve last attempt number :
+  $query_attempt = "SELECT a.attempt, a.annotator 
+      FROM database_projet.annotations a 
+      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
+  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+  $attempt = pg_fetch_result($result_attempt, 0, 0);
   //Query on postgres
   $query = "UPDATE database_projet.annotations
               SET status = 'rejected',
@@ -94,14 +100,7 @@ if (isset($_POST['accept_button'])) {
   $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
   //Retrieve informations to add a new attempt to the annotation
-
-  //Retrieve last attempt number :
-  $query_attempt = "SELECT a.attempt, a.annotator 
-      FROM database_projet.annotations a 
-      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
-  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-  $attempt = pg_fetch_result($result_attempt, 0, 0);
-
+  
   $values_attempt = array();
   $values_attempt['genome_id'] = $_GET['gid'];
   $values_attempt['sequence_id'] = $_GET['gid'];
