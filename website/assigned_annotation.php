@@ -81,7 +81,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       } else {
         echo "
         <tr>
-        <td colspan='3'>Something went wrong with the query</td>
+        <td colspan='4'>Something went wrong with the query</td>
         </tr>
     ";
       }
@@ -126,12 +126,13 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           # Review annotation
           echo "<td>" . $rows["comments"] . "</td>";
           echo '<td>' . $rows["status"] . '</td>';
+          echo '<td>' . $rows["attempt"] . '</td>';
           echo "</tr>";
         }
       } else {
         echo "
         <tr>
-        <td colspan='3'>Something went wrong with the query</td>
+        <td colspan='4'>Something went wrong with the query</td>
         </tr>
     ";
       }
