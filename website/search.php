@@ -69,27 +69,27 @@
           </tr>
           <tr>
             <td> Specie / Name / Strain: </td>
-            <td> <input type="text" name="specie"> </td>
+            <td> <input type="text" name="specie" size="100"> </td>
           </tr>
           <tr>
             <td> Sequence identifier: </td>
-            <td> <input type="text" name="seq_id"> </td>
+            <td> <input type="text" name="seq_id" size="100"> </td>
           </tr>
           <tr>
             <td> Nucleotides sequence: </td>
-            <td> <input type="text" name="nucl_sequence" minlength="3" maxlength="916" size="50"> </td>
+            <td> <input type="text" name="nucl_sequence" minlength="3" maxlength="916" size="100"> </td>
           </tr>
           <tr>
             <td> Peptides sequence: </td>
-            <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304" size="50"> </td>
+            <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304" size="100"> </td>
           </tr>
           <tr>
             <td> Genes names: </td>
-            <td> <input type="text" name="genes"> </td>
+            <td> <input type="text" name="genes" size="100"> </td>
           </tr>
           <tr>
             <td> Description: </td>
-            <td> <textarea cols="29" rows="5" name="description"></textarea> </td>
+            <td> <textarea cols="80" rows="5" name="description"></textarea> </td>
           </tr>
           <tr>
             <td colspan=2> <br> <br> <input type ="submit" value="Search!" name = "submit"> </td>
