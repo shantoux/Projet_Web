@@ -103,6 +103,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
         <col style="width: 10%">
         <col style="width: 10%">
         <col style="width: 10%">
+        <col style="width: 10%">
       </colgroup>
     <thead>
       <tr>
