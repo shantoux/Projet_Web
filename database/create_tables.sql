@@ -45,7 +45,7 @@ CREATE TABLE annotations(
   annotator VARCHAR,
   status VARCHAR,
   comments VARCHAR,
-  tries TIMESTAMP DEFAULT now(),
+  tries INTEGER,
   CHECK (status IN ('waiting', 'validated', 'rejected')),
   PRIMARY KEY (annotator, genome_id, sequence_id, tries),
   FOREIGN KEY (annotator) REFERENCES users(email),
