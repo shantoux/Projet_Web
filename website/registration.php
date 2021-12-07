@@ -5,7 +5,7 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Registration form</title>
+    <title>Registration</title>
     <link rel="stylesheet" type="text/css" href="style.css" /s>
   </head>
 
@@ -130,4 +130,3 @@ if(isset($_POST['submit_registration'])){
 
 </body>
 </html>
-
