@@ -123,7 +123,7 @@
         // display conversation participants
         $query_participants = "SELECT U.last_name, U.first_name
         FROM database_projet.topics T, database_projet.correspondents C, database_projet.users U
-        WHERE U.email = C.user_email AND C.topic_name = T.name AND T.name = '" . $topic["name"]; . "';";
+        WHERE U.email = C.user_email AND C.topic_name = T.name AND T.name = '" . $topic["name"] . "';";
         $result_participants = pg_query($db_conn, $query_participants) or die('Query failed with exception: ' . pg_last_error());
         $title = "";
         while ($participant = pg_fetch_array($result_topics)) {
