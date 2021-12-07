@@ -58,8 +58,8 @@ if ($_POST["extracted"]){
     $characters_left_on_line = 60;
     while (strlen($seq) > $characters_left_on_line) {
       $file_text .= substr($seq, 0, $characters_left_on_line);
+      $file_text .= "\n";
       $seq = substr($seq, $characters_left_on_line);
-      $characters_left_on_line = 60;
     }
     $file_text .= $seq;
   }
