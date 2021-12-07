@@ -1,7 +1,7 @@
 <!-- Web page to validate sequence annotations -->
-<?php session_start(); 
+<?php session_start();
 include_once 'libphp/dbutils.php';
-connect_db();?>
+connect_db(); ?>
 
 <!DOCTYPE html>
 <html>
@@ -39,69 +39,68 @@ connect_db();?>
 
   <?php
 
-//Ici faire le résultat du submit
-if (isset($_POST['accept_button'])) {
+  //Ici faire le résultat du submit
+  if (isset($_POST['accept_button'])) {
 
-  //Retrieve last attempt number :
-  $query_attempt = "SELECT a.attempt 
-      FROM database_projet a 
-      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
-  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-  $attempt = pg_fetch_result($result_attempt, 0, 0);
+    //Retrieve last attempt number :
+    $query_attempt = "SELECT a.attempt 
+      FROM database_projet.annotations a 
+      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status is null;";
+    $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+    $attempt = pg_fetch_result($result_attempt, 0, 0);
 
-  //Retrieve value of comment :
-  $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
-  $sequence_id = "'".$_GET['seq']."'";
-  //Query on postgres
-  $query = "UPDATE database_projet.annotations
+    //Retrieve value of comment :
+    $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
+    $sequence_id = "'" . $_GET['seq'] . "'";
+    //Query on postgres
+    $query = "UPDATE database_projet.annotations
               SET status = 'validated',
               comments = " . $comments .
-    " WHERE sequence_id =" . $sequence_id . 
-    " AND attempt = " . $attempt . ";";
-  $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-  if ($result) {
-    echo "Annotation validated. An email was sent to the annotator.";
+      " WHERE sequence_id =" . $sequence_id .
+      " AND attempt = " . $attempt . ";";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+    if ($result) {
+      echo "Annotation validated. An email was sent to the annotator.";
 
-    $to = $_GET["annotator"]; // Send email to the annotator
-    $subject = "Your annotation has been validated."; // Give the email a subject
-    $emessage = "Your annotation has been validated. <br>
+      $to = $_GET["annotator"]; // Send email to the annotator
+      $subject = "Your annotation has been validated."; // Give the email a subject
+      $emessage = "Your annotation has been validated. <br>
     Thank you for your contribution.";
 
-    // if emessage is more than 70 chars
-    $emessage = wordwrap($emessage, 70, "\r\n");
+      // if emessage is more than 70 chars
+      $emessage = wordwrap($emessage, 70, "\r\n");
 
-    // Our emessage above including the link
-    $headers   = array();
-    $headers[] = "MIME-Version: 1.0";
-    $headers[] = "Content-type: text/plain; charset=iso-8859-1";
-    $headers[] = "From: no-reply <noreply@yourdomain.com>";
-    $headers[] = "Subject: {$subject}";
-    $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+      // Our emessage above including the link
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: no-reply <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
 
-    mail($to, $subject, $emessage, implode("\r\n", $headers));
-
-  } else {
-    echo "something went wrong in the query";
-  }
-} else if (isset($_POST['reject_button'])) {
-  //Retrieve value of comment :
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
+    } else {
+      echo "something went wrong in the query";
+    }
+  } else if (isset($_POST['reject_button'])) {
+    //Retrieve value of comment :
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
-    $sequence_id = "'".$_GET['seq']."'";
+    $sequence_id = "'" . $_GET['seq'] . "'";
     //Retrieve last attempt number :
     $query_attempt = "SELECT a.attempt, a.annotator 
       FROM database_projet.annotations a 
-      WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
+      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status is null;";
     $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
     $attempt = pg_fetch_result($result_attempt, 0, 0);
     //Query on postgres
     $query = "UPDATE database_projet.annotations
               SET status = 'rejected',
-              comments = ". $comments .
-    " WHERE sequence_id =" . $sequence_id . 
-    " AND attempt = " . $attempt . ";";
+              comments = " . $comments .
+      " WHERE sequence_id =" . $sequence_id .
+      " AND attempt = " . $attempt . ";";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
-  //Retrieve informations to add a new attempt to the annotation
+    //Retrieve informations to add a new attempt to the annotation
 
     $values_attempt = array();
     $values_attempt['genome_id'] = $_GET['gid'];
@@ -119,23 +118,23 @@ if (isset($_POST['accept_button'])) {
       $emessage = "Your annotation has been rejected <br>
       You can try again next time.";
 
-    // if emessage is more than 70 chars
+      // if emessage is more than 70 chars
       $emessage = wordwrap($emessage, 70, "\r\n");
 
-    // Our emessage above including the link
+      // Our emessage above including the link
       $headers   = array();
       $headers[] = "MIME-Version: 1.0";
       $headers[] = "Content-type: text/plain; charset=iso-8859-1";
       $headers[] = "From: no-reply <noreply@yourdomain.com>";
       $headers[] = "Subject: {$subject}";
-      $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+      $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
 
       mail($to, $subject, $emessage, implode("\r\n", $headers));
     } else {
       echo "something went wrong in the query";
+    }
   }
-}
-?>
+  ?>
 
   <div id="element1">
     <table class="table_type1">
@@ -165,10 +164,10 @@ if (isset($_POST['accept_button'])) {
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo '<td><a href="./sequence_annotation.php?gid=' .$rows['genome_id']. '&sid=' . $rows['sequence_id'] . '">' . $rows["sequence_id"] . '</a></td>';
+            echo '<td><a href="./sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '">' . $rows["sequence_id"] . '</a></td>';
             echo "<td>" . $rows["annotator"] . "</td>";
             # Review annotation
-            echo '<td> <form action="annotation_validation.php?seq=' .$rows["sequence_id"]. '&annotator=' .$rows["annotator"] . '" method = "post">';
+            echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] .'&sid=' . $rows["sequence_id"] . '&annotator=' . $rows["annotator"] . '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
