@@ -117,7 +117,7 @@
         echo '</colgroup>';
         echo '<thead>';
         echo '<tr>';
-        echo '<th class="type2"  align='left'>';
+        echo '<th class="type2"  align="left">';
         // display topic name
         echo $topic["name"];
         // display conversation participants
