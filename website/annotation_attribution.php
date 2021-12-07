@@ -1,4 +1,5 @@
 <!-- Web page to attribute annotation to annotator -->
+
 <?php session_start();?>
 
 <!DOCTYPE html>
@@ -88,7 +89,7 @@
       <?php
         echo '<table class = "table_type1">';
 
-        # display first line
+        # display header line
         echo '<thead>';
         echo '<tr>';
         echo '<th>Genome</th>';
