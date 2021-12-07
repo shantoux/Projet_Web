@@ -12,7 +12,7 @@
 <body>
   <!-- display menu option -->
   <div class="topnav">
-        <a href="login.php">Back to login screen</a>
+        <a href="disconnect.php">Back to login screen</a>
     </div>
 
   <div id="menu">
