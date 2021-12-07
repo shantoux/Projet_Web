@@ -90,7 +90,6 @@
         $result_insert_1 = pg_insert($db_conn, 'database_projet.topics', $new_topic);
 
         // add all involved annotators...
-        echo $_POST['selected_users'];
         foreach ($_POST['selected_users'] as $user_email) {
           $new_conv_member = array();
           $new_conv_member['topic_name'] = $_POST['topic_name'];
@@ -135,7 +134,7 @@
         WHERE U.email = C.user_email AND C.topic_name = T.name AND T.name = '" . $topic["name"] . "';";
         $result_participants = pg_query($db_conn, $query_participants) or die('Query failed with exception: ' . pg_last_error());
         $title = "";
-        while ($participant = pg_fetch_array($result_topics)) {
+        while ($participant = pg_fetch_array($result_participants)) {
           $title .= $participant["first_name"] . " " . $participant["last_name"] . "\n";
         }
         echo '<span style="float:right;color:grey;" title="' . $title . '">';
