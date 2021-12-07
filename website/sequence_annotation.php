@@ -83,6 +83,7 @@
       ?>
 
     <div class="center">
+      <form action="./sequence_annotation.php" method = "post">
       <table class="table_type3">
         <tr colspan=2>
           <td>
@@ -91,7 +92,7 @@
               echo "<b>Specie:</b> $gid<br>";
               echo "<b>Chromosome:</b> $chromosome<br>";
               echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
-              echo '<b>Gene identifier : </b><input type="text" name="gene_id"><br>';
+              echo '<b>Gene identifier : </b><input type="text" required name="gene_id"><br>';
               echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
               echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
               echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
@@ -133,6 +134,7 @@
         </tr>
 
       </table>
+      </form>
     </div>
   </body>
 </html>
