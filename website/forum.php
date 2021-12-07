@@ -149,7 +149,7 @@
         // display all messages
         while ($message = pg_fetch_array($result_messages)) {
           echo '<span class="small_text">';
-          echo 'On ' . $message["emission_date"] . ', ' $message["first_name"] . ' ' . $message["last_name"] . ' (' . $message["user_email"] . ') wrote:<br>';
+          echo 'On ' . $message["emission_date"] . ', ' . $message["first_name"] . ' ' . $message["last_name"] . ' (' . $message["user_email"] . ') wrote:<br>';
           echo '</span>';
           echo $message["message"] . '<br>';
         }
