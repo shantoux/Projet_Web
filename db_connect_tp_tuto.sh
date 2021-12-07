@@ -1,11 +1,13 @@
 # 1 - se connecter en ssh
 ssh -X sandra.pijeaud@ssh1.pgip.universite-paris-saclay.fr
 ssh -X benjamin.vacus@ssh1.pgip.universite-paris-saclay.fr
+ssh -X soundous.bella-baci@ssh1.pgip.universite-paris-saclay.fr
+
 #mot de passe de session saclay
 
 # 2 - déplacer les fichiers dont vous avez besoin pour le tp sur public_html en ssh
-# demo_php_postgres c'est le fichier à dl et dezip sur ecampus 
-# DEPUIS UN TERMINAL DE VOTRE PROPRE MACHINE 
+# demo_php_postgres c'est le fichier à dl et dezip sur ecampus
+# DEPUIS UN TERMINAL DE VOTRE PROPRE MACHINE
 scp -r /path-where-this-file-is/demo_php_postgres/ sandra.pijeaud@ssh1.pgip.universite-paris-saclay.fr:$~//path-where-this-directory-is/public_html
 scp -r /path-where-this-file-is/demo_php_postgres/ benjamin.vacus@ssh1.pgip.universite-paris-saclay.fr:$~//path-where-this-directory-is/public_html
 
@@ -35,6 +37,8 @@ psql -h tp-postgres -U spijeau_a
 #mdp : spijeau_a
 psql -h tp-postgres -U bvacus_a
 #mdp : bvacus_a
+psql -h tp-postgres -U sbellab_a
+
 
 # charger les tables et les instances
 \i /home/tp-home006/sbellab/public_html/demo_php_postgres/sql/createTables.sql
@@ -44,6 +48,7 @@ psql -h tp-postgres -U bvacus_a
 # 6 - Le moment de vérité
 https://ssh1.pgip.universite-paris-saclay.fr/~spijeau/
 https://ssh1.pgip.universite-paris-saclay.fr/~bvacus/
+https://ssh1.pgip.universite-paris-saclay.fr/~sbellab/
 
 # aller dans demo_php_postgres
 # ouvrir chacuun des formulaires et faire une recherche des noms TUTU ou TITI (en all caps, c'est comme ça qu'ils sont entrés dans la base)

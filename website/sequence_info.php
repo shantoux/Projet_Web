@@ -21,21 +21,22 @@
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
-          if ($_SESSION['status'] == 'annotator'){
+          if ($_SESSION['role'] == 'annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
           }
-          if ($_SESSION['status'] == 'validator'){
+          if ($_SESSION['role'] == 'validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
           }
-          if ($_SESSION['status'] == 'administrator'){
+          if ($_SESSION['role'] == 'administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+            echo "<a href=\"./user_list.php\">Users' List</a>";
           }
         ?>
         <a href="about.php">About</a>
-        <a class="disc" href="login.php">Disconnect</a>
+        <a class="disc" href="disconnect.php">Disconnect</a>
     </div>
 
     <div id="pagetitle">
@@ -66,7 +67,10 @@
               echo "<b>Chromosome:</b> $chromosome<br>";
               echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position <b>" . $start_seq . "</b> and ends on position <b>" . $end_seq . "</b>.<br><br>";
               ## check for annotations
-              $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator FROM database_projet.annotations WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "';";
+              ## Only get annotations that were updated
+              $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator
+              FROM database_projet.annotations
+              WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "' AND status = 'validated';";
               $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
               if(pg_num_rows($result_annot) > 0){
                 $annotator="SELECT U.first_name, U.last_name

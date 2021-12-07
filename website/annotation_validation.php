@@ -16,18 +16,19 @@
   <div class="topnav">
     <a href="./search.php">New search</a>
     <?php
-    if ($_SESSION['status'] == 'validator') {
+    if ($_SESSION['role'] == 'validator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
     }
-    if ($_SESSION['status'] == 'administrator') {
+    if ($_SESSION['role'] == 'administrator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a class=\"active\" href=\"./annotation_validation.php\">Validate annotation</a>";
       echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+      echo "<a href=\"./user_list.php\">Users' List</a>";
     }
     ?>
     <a href="about.php">About</a>
-    <a class="disc" href="login.php">Disconnect</a>
+    <a class="disc" href="disconnect.php">Disconnect</a>
   </div>
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
