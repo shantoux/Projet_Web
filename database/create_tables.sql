@@ -10,7 +10,7 @@ CREATE TABLE users(
   phone VARCHAR,
   role VARCHAR,
   status VARCHAR,
-  CHECK (role IN ('reader', 'annotator', 'validator', 'administrator')),
+  CHECK (role IN ('Reader', 'Annotator', 'Validator', 'Administrator')),
   CHECK (status IN ('waiting', 'validated')),
   PRIMARY KEY (email)
 );

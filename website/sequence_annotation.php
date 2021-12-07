@@ -13,16 +13,16 @@
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
-          if ($_SESSION['role'] == 'annotator'){
+          if ($_SESSION['role'] == 'Annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['role'] == 'validator'){
+          if ($_SESSION['role'] == 'Validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./forum.php\">Forum</a>";
           }
-          if ($_SESSION['role'] == 'administrator'){
+          if ($_SESSION['role'] == 'Administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
@@ -32,6 +32,7 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="login.php">Disconnect</a>
+        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
     <div id="pagetitle">
@@ -54,8 +55,8 @@
       //Conditions for query
 
       /////Retrieve latest attempt number
-      $query_attempt = "SELECT a.attempt 
-      FROM database_projet.annotations a 
+      $query_attempt = "SELECT a.attempt
+      FROM database_projet.annotations a
       WHERE genome_id = '" . $_GET['gid'] ."' AND sequence_id = '" . $_GET['sid'] ."' AND status is null;";
       $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
       $attempt = pg_fetch_result($result_attempt, 0, 0);
@@ -63,7 +64,7 @@
       $condition_pkey = array();
       $condition_pkey['genome_id']= $_GET['gid'];
       $condition_pkey['sequence_id']=$_GET['sid'];
-      $condition_pkey['attempt']=$attempt; 
+      $condition_pkey['attempt']=$attempt;
       $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
 
       //Update database
@@ -180,7 +181,7 @@
         This is your first attempt
     ";
       }
-      
+
       echo '</tbody>';
       echo '</table>';
   ?>
