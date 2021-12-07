@@ -10,7 +10,7 @@ VALUES (
     'Dupont',
     'Bobby',
     '0671891726',
-    'administrator',
+    'Administrator',
     'validated');
 
 INSERT INTO users
@@ -20,7 +20,7 @@ VALUES (
     'Martin',
     'Shannon',
     '0671891724',
-    'validator',
+    'Validator',
     'validated');
 
 INSERT INTO users
@@ -30,7 +30,7 @@ VALUES (
     'Bertrand',
     'Olivia',
     '0671891713',
-    'annotator',
+    'Annotator',
     'validated');
 
 INSERT INTO users
@@ -40,7 +40,7 @@ VALUES (
     'Hanaux',
     'Melina',
     '0671491712',
-    'annotator',
+    'Annotator',
     'validated');
 
 INSERT INTO users
@@ -50,7 +50,7 @@ VALUES (
     'Bertrand',
     'Joshua',
     '0671891756',
-    'reader',
+    'Reader',
     'validated');
 
 end transaction;
