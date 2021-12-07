@@ -144,7 +144,7 @@
         // retrieve all messages for this conversation
         $query_messages = "SELECT M.message, M.emission_date, M.user_email, U.last_name, U.first_name
         FROM database_projet.topics T, database_projet.messages M, database_projet.users U
-        WHERE T.name = M.topic_name AND M.user_email = U.email AND T.name = '" . $topic["name"]; . "' ORDER BY M.emission_date ASC;";
+        WHERE T.name = M.topic_name AND M.user_email = U.email AND T.name = '" . $topic["name"] . "' ORDER BY M.emission_date ASC;";
         $result_messages = pg_query($db_conn, $query_messages) or die('Query failed with exception: ' . pg_last_error());
         // display all messages
         while ($message = pg_fetch_array($result_messages)) {
