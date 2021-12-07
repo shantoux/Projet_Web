@@ -60,10 +60,7 @@
 
           $to = $_POST["selected_annotator"];  // Get the annotator's email
           $subject = "A new annotation is waiting for you"; // Email subject
-          $emessage = "A new sequence has been attributed to you! \r\n
-          Sequence identifier : " .$_GET['sid']. " \r\n
-          Genome identifier : " .$_GET['gid']. " \r\n
-          Thank you for your contribution.";
+          $emessage = "A new sequence has been attributed to you! \r\n Sequence identifier : " .$_GET['sid']. " \r\n Genome identifier : " .$_GET['gid']. " \r\n Thank you for your contribution.";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
