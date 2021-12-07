@@ -80,20 +80,20 @@
       ?>
 
     <div class="center">
-      <form action="<?php echo "./sequence_annotation.php?gid='".$genome_id."'&sid='".$sequence_id."'";?>" method = "post">
-        <table class="table_type3">
-          <tr colspan=2>
-            <td>
-            <?php
-              echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
-              echo "<b>Specie:</b> $genome_id<br>";
-              echo "<b>Chromosome:</b> $chromosome<br>";
-              echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
-              echo '<b>Gene identifier : </b><input type="text" required name="gene_id"><br>';
-              echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
-              echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
-              echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
-              echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
+      <?php 
+        echo'<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';        
+        echo '<table class="table_type3">';
+        echo '<tr colspan=2>';
+        echo '<td>';
+        echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
+        echo "<b>Specie:</b> $genome_id<br>";
+        echo "<b>Chromosome:</b> $chromosome<br>";
+        echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
+        echo '<b>Gene identifier : </b><input type="text" required name="gene_id"><br>';
+        echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
+        echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
+        echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
+        echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
               ?>
             </td>
           </tr>
