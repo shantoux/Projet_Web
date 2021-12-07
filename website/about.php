@@ -26,6 +26,7 @@
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
+            echo "<a href=\"./user_list.php\">Users' List</a>";
           }
         ?>
         <a class="active" href="about.php">About</a>
