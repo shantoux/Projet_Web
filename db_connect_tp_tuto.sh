@@ -16,6 +16,8 @@ scp -r /path-where-this-file-is/demo_php_postgres/ benjamin.vacus@ssh1.pgip.univ
 # 3 - lien pour vérifier depuis un navigateur que tout est là
 https://ssh1.pgip.universite-paris-saclay.fr/~spijeau/
 https://ssh1.pgip.universite-paris-saclay.fr/~bvacus/
+https://ssh1.pgip.universite-paris-saclay.fr/~sbellab/
+
 
 # sur le public_html navigateur, vous ne verrez que les fichiers html et php mais le reste des fichiers est bien là
 # allons trouver ces fichiers depuis le terminal
