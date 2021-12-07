@@ -5,14 +5,14 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Registration form</title>
+    <title>Registration</title>
     <link rel="stylesheet" type="text/css" href="style.css" /s>
   </head>
 
 <body>
   <!-- display menu option -->
   <div class="topnav">
-        <a href="login.php">Back to login screen</a>
+        <a href="disconnect.php">Back to login screen</a>
     </div>
 
   <div id="menu">
