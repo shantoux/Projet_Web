@@ -105,7 +105,6 @@
 
       ### Display all conversations
       // retrieve conversations in which user is involved
-      $_SESSION['user']
       $query_topics = "SELECT T.name, T.creation_date FROM database_projet.topics T, database_projet.correspondents C
       WHERE T.name = C.topic_name AND C.user_email = '" . $_SESSION['user'] . "' ORDER BY T.creation_date DESC;";
       $result_topics = pg_query($db_conn, $query_topics) or die('Query failed with exception: ' . pg_last_error());
