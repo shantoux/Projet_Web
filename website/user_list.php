@@ -109,7 +109,7 @@ connect_db();?>
           echo $first_name;
           echo '</td><td>';
           echo $email;
-          echo '</td><td>"';
+          echo '</td><td>';
           echo $role;
           echo '</td><td><b>';
           echo $status;
