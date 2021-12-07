@@ -28,6 +28,7 @@
             echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
             echo "<a href=\"./user_list.php\">Users' List</a>";
           }
+          
         ?>
         <a class="active" href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
