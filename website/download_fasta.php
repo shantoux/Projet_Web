@@ -13,7 +13,7 @@ if ($_POST["extracted"]){
   // run through selected sequences
   foreach ($_POST['extracted_seq'] as $seq_id) {
     if (!$first_seq) {
-      $file_text .= '\n;\n';
+      $file_text .= "\n;\n";
     }
     $first_seq = false;
     $query_gene = "SELECT genome_id, start_seq, end_seq, chromosome, gene_seq FROM database_projet.gene WHERE  sequence_id = '" . $seq_id . "';";
@@ -54,7 +54,7 @@ if ($_POST["extracted"]){
         $file_text .= ' description:' . pg_fetch_result($result_annot, 0, 4);
       }
     }
-    $file_text .= '\n';
+    $file_text .= "\n";
     $characters_left_on_line = 60;
     while (strlen($seq) > $characters_left_on_line) {
       $file_text .= substr($seq, 0, $characters_left_on_line);
