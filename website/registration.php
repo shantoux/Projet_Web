@@ -98,10 +98,10 @@ if(isset($_POST['submit_registration'])){
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
             Registration succeeded, wait for validation by an admin.
           </div>";
+
           $to = $_POST["adress"]; // Send email to our user
           $subject = "Confirmation of registration"; // Give the email a subject
-          $emessage = "Thank you for wanting to use our website. <br>
-          The administrator will review your application very soon.";
+          $emessage = "Thank you for signing up for our platform. \r\n The administrator will review your application very soon. \r\n Expect an update very soon!";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
@@ -110,7 +110,7 @@ if(isset($_POST['submit_registration'])){
           $headers   = array();
           $headers[] = "MIME-Version: 1.0";
           $headers[] = "Content-type: text/plain; charset=iso-8859-1";
-          $headers[] = "From: no-reply <noreply@yourdomain.com>";
+          $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
           $headers[] = "Subject: {$subject}";
           $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
 
