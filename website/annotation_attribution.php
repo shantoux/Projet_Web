@@ -152,7 +152,7 @@
                 $annotator_email= pg_fetch_result($result2, $res2_nb, 2);
 
                 # display results of query
-                echo '<option value="'. $annotator_email . '">';
+                echo '<option value="'. $annotator_email . '" text-align-last:center;>';
                 echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
 
@@ -161,12 +161,11 @@
               # display button to choose which annotator will annotate the sequence
               echo '</select><input type="submit" value="Attribute" name="Attribute"></td></form>';
 
-            } // exit the if condition for the presence of annotator in the database
+            }
             echo '</tr>';
+          }
 
-          } // exit the loop over un-annotated sequences
-
-        } // exit the if condition for the presence of un-annotated sequences in the database
+        }
         else {
           // if all the sequences in the database are annotated
 
