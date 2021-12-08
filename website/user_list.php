@@ -60,7 +60,7 @@ connect_db();?>
           //Send email to inform user that their account has been validated
           $to = $_GET['mail']; // Send email to our user
           $subject = "Your account is ready!"; // Give the email a subject
-          $emessage = "Your account is ready to use ! \r\n Your information:\r\n Email : " .$_GET['mail']. "\r\n Password: <br>";
+          $emessage = "Your account is ready to use ! \r\n Your information:\r\n Email : " .$_GET['mail']. "\r\n Password: $pw";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
@@ -116,7 +116,7 @@ connect_db();?>
 
       //Display users waiting to be validated
       echo '<tbody>';
-      $query = "SELECT last_name, first_name, email, role, status, phone
+      $query = "SELECT last_name, first_name, email, role, status, phone, pw
       FROM database_projet.users WHERE status='waiting' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
@@ -128,6 +128,7 @@ connect_db();?>
           $role = pg_fetch_result($result, $res_nb, 3);
           $status = pg_fetch_result($result, $res_nb, 4);
           $phone = pg_fetch_result($result, $res_nb, 5);
+          $pw = pg_fetch_result($result, $res_nb, 6);
 
           echo '<tr><td>';
           echo $last_name;
