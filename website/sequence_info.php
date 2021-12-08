@@ -214,10 +214,13 @@
     $adress = 'https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score';
     echo $adress . '<br>';
     $html = file_get_html($adress);
+    $uniprot_protein_name = $html->find(".entryID", 0);
+
+    $adress = 'https://www.uniprot.org/uniprot/' . $uniprot_protein_name;
 
 
     echo '<div class="center">';
-    echo $html->find(".entryID", 0);
+    echo $adress;
     echo '</div>';
 
     ?>
