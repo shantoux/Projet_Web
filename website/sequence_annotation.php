@@ -1,5 +1,12 @@
 <!-- Web page to get information about gene or protein -->
-<?php session_start();?>
+<?php session_start();
+
+  // check if user is logged in: else, redirect to login page
+  if (!isset($_SESSION['user'])) {
+    echo '<script>location.href="login.php"</script>';
+  }
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +72,7 @@
       $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
       $attempt = pg_fetch_result($result_attempt, 0, 0);
 
-    
+
 
       //Retrieve status of sequence annotation
       $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
@@ -96,7 +103,7 @@
         echo '<b> Description : </b><input type ="text" required name = "gene_description"><br></form>';
         }
         else if ($status == 'waiting'){
-          
+
         }
               ?>
             </td>
@@ -137,7 +144,7 @@
     </div>
 
 
-      
+
 
 
 
@@ -146,7 +153,7 @@
       Sequence Annotation
     </div>
     <?php
-    
+
 
     if(isset($_POST['send_annotation']) | isset($POST['save_annotation'])){
       //Retrieve informations from form
@@ -180,11 +187,11 @@
         echo "Error : the annotation has not been sent.";
       }
     }
-      
+
       ?>
 
 
-    
+
 
     <h3 id="pageundertitle" class="center"> Past attempts </h3>
     <div id="element1">
