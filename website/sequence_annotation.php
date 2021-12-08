@@ -65,12 +65,7 @@
       $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
       $attempt = pg_fetch_result($result_attempt, 0, 0);
 
-      $values_annotations = array();
-      $values_annotations['gene_id'] = $_POST["gene_id"];
-      $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
-      $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
-      $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
-      $values_annotations['description'] = $_POST["gene_description"];
+    
 
       //Retrieve status of sequence annotation
       $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
@@ -78,11 +73,11 @@
       WHERE sequence_id = '" . $_GET['sid'] ."' AND attempt ='" .$attempt."' ;";
       $result_info = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
       $status= pg_fetch_result($result_info, 0, 0);
-      $gene_id = pg_fetch_result($result_attempt, 0, 1);
-      $gene_biotype = pg_fetch_result($result_attempt, 0, 2);
-      $transcript_biotype = pg_fetch_result($result_attempt, 0, 3);
-      $gene_symbol = pg_fetch_result($result_attempt, 0, 4);
-      $description = pg_fetch_result($result_attempt, 0, 5);
+      $gene_id = pg_fetch_result($result_info, 0, 1);
+      $gene_biotype = pg_fetch_result($result_info, 0, 2);
+      $transcript_biotype = pg_fetch_result($result_info, 0, 3);
+      $gene_symbol = pg_fetch_result($result_info, 0, 4);
+      $description = pg_fetch_result($result_info, 0, 5);
 
         echo'<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
         echo '<table class="table_type3">';
