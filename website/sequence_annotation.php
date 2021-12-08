@@ -71,7 +71,7 @@
       $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
       FROM database_projet.annotations a
       WHERE sequence_id = '" . $_GET['sid'] ."' AND attempt ='" .$attempt."' ;";
-      $result_info = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+      $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
       $status= pg_fetch_result($result_info, 0, 0);
       $gene_id = pg_fetch_result($result_info, 0, 1);
       $gene_biotype = pg_fetch_result($result_info, 0, 2);
