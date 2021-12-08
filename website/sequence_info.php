@@ -211,7 +211,9 @@
     <?php
 
     include_once 'libphp/simplehtmldom/simple_html_dom.php';
-    $html = file_get_html('https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score');
+    $adress = 'https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score';
+    echo $adress . '<br>';
+    $html = file_get_html($adress);
 
 
     echo '<div class="center">';
