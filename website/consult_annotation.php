@@ -93,7 +93,6 @@
 
           // display annotator
           echo "<td>" . $annotation["annotator"] . "</td>";
-          echo '<br>' . $annotation["assignation_date"];
 
           // display genome name
           echo '<td>' . $annotation["genome_id"] . '</td>';
@@ -126,8 +125,6 @@
           if ($diff > 14) {
             echo '<span style="color:red;">';
           }
-          echo $interval->format('%d days %H hours %i minutes %s seconds');
-          echo '<br>';
           echo substr($annotation["assignation_date"], 0, 19);
           if ($diff > 2) {
             echo '</span>';
