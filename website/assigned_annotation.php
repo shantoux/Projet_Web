@@ -1,5 +1,12 @@
 <!-- Web page to annotate sequences -->
-<?php session_start(); ?>
+<?php session_start();
+
+  // check if user is logged in: else, redirect to login page
+  if (!isset($_SESSION['user'])) {
+    echo '<script>location.href="login.php"</script>';
+  }
+
+?>
 
 <!DOCTYPE html>
 <html>

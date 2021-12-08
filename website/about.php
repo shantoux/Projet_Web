@@ -1,5 +1,12 @@
 <!-- Web page containing infos about us and the project -->
-<?php session_start();?>
+<?php session_start();
+
+  // check if user is logged in: else, redirect to login page
+  if (!isset($_SESSION['user'])) {
+    echo '<script>location.href="login.php"</script>';
+  }
+
+?>
 
 <!DOCTYPE html>
 <html>

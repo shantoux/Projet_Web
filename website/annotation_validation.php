@@ -1,5 +1,11 @@
 <!-- Web page to validate or refuse a sequence's annotations -->
 <?php session_start();
+
+  // check if user is logged in: else, redirect to login page
+  if (!isset($_SESSION['user'])) {
+    echo '<script>location.href="login.php"</script>';
+  }
+
 include_once 'libphp/dbutils.php';
 connect_db(); ?>
 
