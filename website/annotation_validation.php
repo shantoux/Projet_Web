@@ -134,7 +134,7 @@ connect_db(); ?>
     //----------------Send an email to the annotator, informing them of the decision
 
 
-      $to = $_POST["adress"]; // Send email to our user
+      $to = $_GET["annotator"]; // Send email to our user
       $subject = "Your annotation has been rejected."; // Give the email a subject
       $emessage = "Your annotation has been rejected \r\n Please review the validator's comment and submit another annotation. ".$comments." ";
 
