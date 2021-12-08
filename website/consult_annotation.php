@@ -7,7 +7,9 @@
     echo '<script>location.href="login.php"</script>';
   }
 
-  //annotator, genome_id, sequence_id, attempt
+  // import db functions
+  include_once 'libphp/dbutils.php';
+  connect_db();
 
   // remove assignation on validator call
   if (isset($_POST["remove"])) {
@@ -89,9 +91,6 @@
     </div>
 
     <?php
-      // import db functions
-      include_once 'libphp/dbutils.php';
-      connect_db();
 
       // retrieve date of now;
       $query_time = "SELECT now();";
