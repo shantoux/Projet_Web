@@ -84,7 +84,7 @@ if(isset($_POST['submit_registration'])){
   //Retrieve informations
   $values_user = array();
   $values_user['email'] = $_POST["adress"];
-  $values_user['pw'] = crypt($_POST["pass_registration");
+  $values_user['pw'] = crypt('.$_POST["pass_registration"].');
   //$values_user['pw'] = $_POST["pass_registration"];
   $values_user['last_name'] = $_POST["lastname"];
   $values_user['first_name'] = $_POST["firstname"];
