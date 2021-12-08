@@ -16,7 +16,7 @@ connect_db();?>
 
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
-      <a href="./user_.php">New search</a>
+      <a href="./search.php">New search</a>
         <?php
           if ($_SESSION['role'] == 'Annotator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
