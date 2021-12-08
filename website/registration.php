@@ -56,9 +56,9 @@
       <td> <div>
         <label>Role : </label></td>
       <td><select name="role">
-        <option value="reader"> Reader </option>
-        <option value="validator"> Validator </option>
-        <option value="annotator"> Annotator </option>
+        <option value="Reader"> Reader </option>
+        <option value="Validator"> Validator </option>
+        <option value="Annotator"> Annotator </option>
       </select>
     </td>
     </tr>
