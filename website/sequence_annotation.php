@@ -71,7 +71,7 @@
       $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
       FROM database_projet.annotations a
       WHERE sequence_id = '" . $_GET['sid'] ."' AND attempt ='" .$attempt."' ;";
-      $result_info = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+      $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
       $status= pg_fetch_result($result_info, 0, 0);
       $gene_id = pg_fetch_result($result_info, 0, 1);
       $gene_biotype = pg_fetch_result($result_info, 0, 2);
@@ -88,14 +88,14 @@
         echo "<b>Chromosome:</b> $chromosome<br>";
         echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
 
-        if ($status_last_attempt == 'null'){
-        echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value = "'.$gene_id.'"><br>';
+        if ($status == 'null'){
+        echo '<b>Gene identifier : </b><input type="text" required readonly=false name="gene_id" value = "'.$gene_id.'"><br>';
         echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
         echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
         echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
         echo '<b> Description : </b><input type ="text" required name = "gene_description"><br></form>';
         }
-        else if ($status_last_attempt == 'waiting'){
+        else if ($status == 'waiting'){
           
         }
               ?>
