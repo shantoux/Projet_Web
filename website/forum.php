@@ -60,7 +60,36 @@
         $new_message['user_email'] = $_SESSION['user'];
         $new_message['message'] = $_POST['message'];
         $result_insert = pg_insert($db_conn, 'database_projet.messages', $new_message);
+
+        $query_correspondents = "SELECT c.user_email
+        FROM database_projet.correspondents c, database_projet.message m
+        WHERE c.topic_name = m.topic_name
+        AND m.topic_name = '".$new_message['topic_name']."'";
+        $result = pg_query($db_conn, $query_correspondents) or die('Query failed with exception: ' . pg_last_error());
+
+
+        for($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+          $corres= pg_fetch_result($result, $res_nb, 0);
+
+          $to = $corres; // Send email to our user
+          $subject = "Forum - topic discussion"; // Give the email a subject
+          $emessage = " ".$_SESSION['user']." opened the forum discussion ".$new_message['topic_name']." with you. \r\n Come see what it says!";
+
+          // if emessage is more than 70 chars
+          $emessage = wordwrap($emessage, 70, "\r\n");
+
+          // Our emessage above including the link
+          $headers   = array();
+          $headers[] = "MIME-Version: 1.0";
+          $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+          $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
+          $headers[] = "Subject: {$subject}";
+          $headers[] = "X-Mailer: PHP/".phpversion(); // Set from headers
+
+          mail($to, $subject, $emessage, implode("\r\n", $headers));
+        }
       }
+
 
       echo '<div class="center">';
       // add button to instanciate new conversation
