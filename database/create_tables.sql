@@ -7,7 +7,7 @@ CREATE TABLE users(
   pw VARCHAR,
   last_name VARCHAR,
   first_name VARCHAR,
-  phone VARCHAR,
+  phone VARCHAR DEFAULT,
   role VARCHAR,
   status VARCHAR,
   CHECK (role IN ('Reader', 'Annotator', 'Validator', 'Administrator')),
