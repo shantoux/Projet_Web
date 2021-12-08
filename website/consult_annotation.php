@@ -54,7 +54,7 @@
     </div>
 
     <div class="center">
-      Bientôt. Le 09/12/2021. Note la date.
+      <br><br>
     </div>
 
     <?php
