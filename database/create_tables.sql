@@ -1,6 +1,7 @@
 CREATE SCHEMA database_projet;
 SET SCHEMA 'database_projet';
 
+CREATE EXTENSION pgcrypto;
 
 CREATE TABLE users(
   email VARCHAR,
