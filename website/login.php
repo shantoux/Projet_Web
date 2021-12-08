@@ -1,4 +1,12 @@
 <!-- Web page to login or access the registration page -->
+<?php session_start();
+
+  // check if user is logged in: else, redirect to login page
+  if (!isset($_SESSION['user'])) {
+    echo '<script>location.href="login.php"</script>';
+  }
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -71,8 +79,8 @@
       }
     } else if (isset($_POST['submit'])) {
       //Get email and password filled in the connexion form
-      $user_name = $_POST["name"];
-      $user_password = $_POST["pass"];
+      //$user_name = $_POST["name"];
+      //$user_password = $_POST["pass"];
       // Query : Select all user info for a specified email and password
       $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';"; // AND pw = '$user_password';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
