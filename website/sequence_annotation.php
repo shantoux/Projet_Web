@@ -89,7 +89,7 @@
         echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
 
         if ($status == 'null'){
-        echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value = "'.$gene_id.'"><br>';
+        echo '<b>Gene identifier : </b><input type="text" required readonly=false name="gene_id" value = "'.$gene_id.'"><br>';
         echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
         echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
         echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
