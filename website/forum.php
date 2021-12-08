@@ -62,7 +62,7 @@
         $result_insert = pg_insert($db_conn, 'database_projet.messages', $new_message);
 
         $query_correspondents = "SELECT c.user_email
-        FROM database_projet.correspondents c, database_projet.message m
+        FROM database_projet.correspondents c, database_projet.messages m
         WHERE c.topic_name = m.topic_name
         AND m.topic_name = '".$new_message['topic_name']."'";
         $result = pg_query($db_conn, $query_correspondents) or die('Query failed with exception: ' . pg_last_error());
