@@ -1,22 +1,32 @@
 <!-- Web page to get information about gene or protein -->
+
 <?php session_start();?>
 
 <!DOCTYPE html>
 <html>
 
+  <!-- Page header -->
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gene/Protein information </title>
+    <title>Gene/Protein information</title>
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
   <body>
+
     <?php
+      // retrieve the sequence identifier through GET method
       $seq_id = $_GET['sid'];
+
+      // if specified, open alternative database
       if (isset($_POST["websites"])) {
+
+        // load uniprot
         if ($_POST["websites"] == "Uniprot") {
           echo '<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>';
         }
+
+        // load EMBL-EBI
         elseif ($_POST["websites"] == "Embl") {
           echo '<script>location.href="https://www.ebi.ac.uk/ebisearch/search.ebi?db=allebi&query=' . $seq_id . '&requestFrom=searchBox"</script>';
         }
@@ -50,14 +60,17 @@
         <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
+    <!-- Display page title -->
     <div id="pagetitle">
       Gene/Protein information
     </div>
 
     <?php
+      // import db functions
       include_once 'libphp/dbutils.php';
       connect_db();
-      $seq_id = $_GET['sid'];
+
+      // retrieve gene informations
       $query = "SELECT sequence_id, genome_id, start_seq, end_seq, chromosome, prot_seq, gene_seq FROM database_projet.gene WHERE sequence_id = '" . $seq_id . "';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
       $genome_id = pg_fetch_result($result, 0, 1);
@@ -69,41 +82,71 @@
     ?>
 
     <div class="center">
+
+      <!-- Display page title -->
       <table class="table_type3">
         <tr colspan=2>
           <td>
+
             <?php
+              // display basic gene information
               echo "<b>Sequence identifier:</b> $seq_id<br><br>";
               echo "<b>Specie:</b> $genome_id<br>";
               echo "<b>Chromosome:</b> $chromosome<br>";
               echo "Sequence is " . strlen($gene_seq) . " nucleotides long - it starts on position <b>" . $start_seq . "</b> and ends on position <b>" . $end_seq . "</b>.<br><br>";
-              ## check for annotations
-              ## Only get annotations that were updated
-              $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator
+
+              // look for annotations
+              $query_annot = "SELECT genome_id, gene_id, sequence_id, gene_biotype, transcript_biotype, gene_symbol, description, annotator, status
               FROM database_projet.annotations
-              WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "' AND status != 'rejected';";
+              WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $seq_id . "' AND status != 'rejected' ORDER BY attempt DESC;";
               $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
+
+              // check if there is an annotation
               if(pg_num_rows($result_annot) > 0){
+                // retrieve name of annotator
                 $annotator="SELECT U.first_name, U.last_name
                 FROM database_projet.users U
                 WHERE U.email='" . pg_fetch_result($result_annot, 0, 7) . "';";
                 $result2 = pg_query($db_conn, $annotator) or die('Query failed with exception: ' . pg_last_error());
                 $annotator_first_name= pg_fetch_result($result2, 0, 0);
                 $annotator_last_name= pg_fetch_result($result2, 0, 1);
+
+                // display annotator name
                 echo "This sequence has been annotated by " . $annotator_first_name . " " . $annotator_last_name . ".<br>";
+
+                $waiting = false;
+                // display warning if annotation is not validated yet
+                if (pg_fetch_result($result_annot, 0, 8) == 'waiting') {
+                  $waiting = true;
+                  echo '<span style="color:#A3423C;">' . "<br><b>WARNING</b>: THIS ANNOTATION HAS NOT BEEN VALIDATED YET! Use with caution.<br><br>";
+                }
+
+                // display gene biotype
                 if (pg_fetch_result($result_annot, 0, 3) != "") {
                   echo "<b>Gene biotype:</b> " . pg_fetch_result($result_annot, 0, 3) . "<br>";
                 }
+
+                // display transcript biotype
                 if (pg_fetch_result($result_annot, 0, 4) != "") {
                   echo "<b>Transcript biotype:</b> " . pg_fetch_result($result_annot, 0, 4) . "<br>";
                 }
+
+                // display gene symbol
                 if (pg_fetch_result($result_annot, 0, 5) != "") {
                   echo "<b>Gene symbol:</b> " . pg_fetch_result($result_annot, 0, 5) . "<br>";
                 }
+
+                // display description
                 if (pg_fetch_result($result_annot, 0, 6) != "") {
                   echo "<b>Description:</b> " . pg_fetch_result($result_annot, 0, 6) . "<br>";
                 }
+
+                if ($waiting) {
+                  echo '</span>';
+                }
               }
+
+              // warn if gene is not annotated
               else {
                 echo "This gene is not annotated.<br>";
               }
@@ -113,12 +156,15 @@
         <tr>
         </tr>
 
+        <!-- Display nucleotidic sequence -->
         <tr>
           <td>
             Gene sequence<br>
             <textarea id="seq" name="seq"
             rows="8" cols="80" readonly><?php echo $gene_seq;?></textarea>
           </td>
+
+          <!-- display button for automative blast alignment of the nucleotidic sequence -->
           <td>
             <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $gene_seq . "&type=nucl\" target=\"_blank\">"?>
                  <button type="button">Align with Blast</button>
@@ -126,12 +172,15 @@
           </td>
         </tr>
 
+        <!-- Display peptidic sequence -->
         <tr>
           <td>
             Peptide sequence<br>
             <textarea id="seq" name="seq"
             rows="8" cols="80" readonly><?php echo $prot_seq;?> </textarea>
           </td>
+
+          <!-- display button for automative blast alignment of the peptidic sequence -->
           <td>
             <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot_seq . "&type=prot\" target=\"_blank\">"?>
                  <button type="button">Align with Blast</button>
@@ -140,6 +189,7 @@
 
       </table>
 
+      <!-- Display button to search in other bases with the sequence identifier -->
       Search other websites :
       <?php echo '<form action="sequence_info.php?sid=' . $seq_id . '" method="post" target="blank">';?>
       <select name="websites">

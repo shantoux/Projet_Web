@@ -345,7 +345,6 @@
           }
           ### query finally is complete! Add last ';'
           $query = $query . ";";
-          echo '<td>' . $query . '</td>';
 
           // send the query to the DB
           $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());

@@ -123,6 +123,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is not null
       ORDER BY status;";
       $result = pg_query($db_conn, $query);
+      $status = pg_fetch_result($result, 0,3);
+
       if ($result != false) {
         while ($rows = pg_fetch_array($result)) {
           echo "<tr>";
@@ -130,7 +132,11 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
           echo "<td>" . $rows["comments"] . "</td>";
-          echo '<td>' . $rows["status"] . '</td>';
+          if($status == 'rejected'){
+            echo '<td><span style="color:red;">' . $rows["status"] . '</span></td>';
+          } else {
+            echo '<td>' . $rows["status"] . '</td>';
+          }
           echo '<td>' . $rows["attempt"] . '</td>';
           echo "</tr>";
         }
