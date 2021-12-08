@@ -225,7 +225,7 @@
     echo '</form>';
 
     echo '<br>';
-    $lines_of_interest = file_get_html($adress)->find(".odd", 0)->plaintext;
+    $lines_of_interest = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->plaintext;
     echo $lines_of_interest;
 
 
