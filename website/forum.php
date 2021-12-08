@@ -67,7 +67,7 @@
         AND m.topic_name = '".$new_message['topic_name']."'";
         $result = pg_query($db_conn, $query_correspondents) or die('Query failed with exception: ' . pg_last_error());
 
-        $query_name = "SELECT first_name, last_name FROM database_projet.users WHERE email = ".$_SESSION['user']." ";
+        $query_name = "SELECT u.first_name, u.last_name FROM database_projet.users u WHERE u.email = ".$_SESSION['user']." ";
         $result2 = pg_query($db_conn, $query_name) or die('Query failed with exception: ' . pg_last_error());
         $first_name = pg_fetch_result($result2, 0, 0);
         $last_name = pg_fetch_result($result2, 0, 1);
