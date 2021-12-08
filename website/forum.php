@@ -49,7 +49,7 @@
     </div>
 
     <?php
-      // import db function
+      // import db functions
       include_once 'libphp/dbutils.php';
       connect_db();
 
