@@ -226,7 +226,9 @@
 
     echo '<br>';
     $lines_of_interest = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->plaintext;
-    echo $lines_of_interest;
+    echo $lines_of_interest . '<br>';
+    $lines_of_interest = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1)->plaintext;
+    echo $lines_of_interest . '<br>';
 
 
     echo '</div>';
