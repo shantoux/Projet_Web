@@ -153,7 +153,7 @@ connect_db();?>
 
       //Display users already in database
       echo '<tbody>';
-      $query = "SELECT last_name, first_name, email, role, status
+      $query = "SELECT last_name, first_name, email, role, status, phone
       FROM database_projet.users WHERE status='validated' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
