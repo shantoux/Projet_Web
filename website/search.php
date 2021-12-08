@@ -95,19 +95,19 @@
 
           <!-- Add a field for nucleotidic sequence -->
           <tr>
-            <td> Nucleotides sequence: </td>
+            <td> Nucleotide sequence: </td>
             <td> <input type="text" name="nucl_sequence" minlength="3" maxlength="916" size="100"> </td>
           </tr>
 
           <!-- Add a field for peptidic sequence -->
           <tr>
-            <td> Peptides sequence: </td>
+            <td> Peptide sequence: </td>
             <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304" size="100"> </td>
           </tr>
 
           <!-- Add a field for gene id -->
           <tr>
-            <td> Genes identifier: </td>
+            <td> Gene identifier: </td>
             <td> <input type="text" name="gene_id" size="100"> </td>
           </tr>
 
@@ -125,7 +125,7 @@
 
           <!-- Add a field for gene symbol -->
           <tr>
-            <td> Genes name: </td>
+            <td> Gene name: </td>
             <td> <input type="text" name="gene_symb" size="100"> </td>
           </tr>
 
