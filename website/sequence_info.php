@@ -234,7 +234,7 @@
 
     $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
     $try[] = $t->children(1);
-    printr($try);
+    print_r($try);
 
 
     echo '</div>';
