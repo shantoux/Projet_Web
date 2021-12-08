@@ -42,6 +42,10 @@
         <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
+    <div id="pagetitle">
+      Sequence Annotation
+    </div>
+
     <?php
 
     include_once 'libphp/dbutils.php';
@@ -152,9 +156,7 @@
 
 
 
-    <div id="pagetitle">
-      Sequence Annotation
-    </div>
+    
     <?php
 
 
