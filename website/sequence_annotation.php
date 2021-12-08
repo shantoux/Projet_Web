@@ -97,12 +97,11 @@ if (!isset($_SESSION['user'])) {
     echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
     echo "<b>Specie:</b> $genome_id<br>";
     echo "<b>Chromosome:</b> $chromosome<br>";
-    echo "<b> Status :</b> $status <br>";
     echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
 
     if (is_null($status)) {
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
-      echo '<b>Gene identifier : </b><textarea required name="gene_id >' . $gene_id . '"</textarea><br>';
+      echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value ="'. $gene_id .'"> <br>';
       echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
       echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
       echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
