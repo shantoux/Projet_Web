@@ -70,12 +70,12 @@
         echo '<form action="forum.php" method = "post">';
         echo '<select name="selected_users[]" ';
         // retrieve all users
-        $query_users = "SELECT email, last_name, first_name, role, status FROM database_projet.users;";
+        $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated';";
         $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
         echo 'multiple size = ' . pg_num_rows($result_users) . '>';
         while ($user = pg_fetch_array($result_users)) {
-          // check if user is validated and different from current user (who has to take part in the discussion)
-          if ($user["status"] == 'validated' && $user["email"] != $_SESSION['user']) {
+          // check if user is different from current user (who has no choice but to take part in the discussion)
+          if ($user["email"] != $_SESSION['user']) {
             echo '<option value=' . $user["email"] . '>' . $user["first_name"] . " " . $user["last_name"] . " (" . $user["role"] . ")" . '</option>';
           }
         }

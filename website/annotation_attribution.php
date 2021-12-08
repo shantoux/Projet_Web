@@ -112,7 +112,7 @@
         // Query to get the names and email of the annotators
         $list_annotator="SELECT U.first_name, U.last_name, U.email
         FROM database_projet.users U
-        WHERE U.role='Annotator';";
+        WHERE U.role='Annotator' AND U.status = 'validated';";
 
         // Execute the queries
         $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());

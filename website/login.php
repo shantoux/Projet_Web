@@ -58,7 +58,7 @@
 
     	if(pg_num_rows($result) == 1){
         //If there's only one result to the query = correct pair of email/pw
-        $validated= pg_fetch_result($result,0, 6) == 'validated';
+        $validated = pg_fetch_result($result,0, 6) == 'validated';
         //get the result of the 7th column (Status) for the 1st row
         // TODO : commenter le "==validated"
 
