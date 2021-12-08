@@ -12,7 +12,7 @@
 
   <body>
     <?php
-      $seq_id = $_GET['sid'];
+      $seq_id = $_GET['id'];
       if (isset($_POST["websites"])) {
         if ($_POST["websites"] == "Uniprot") {
           echo '<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>';
@@ -57,7 +57,7 @@
     <?php
       include_once 'libphp/dbutils.php';
       connect_db();
-      $seq_id = $_GET['sid'];
+      $seq_id = $_GET['id'];
       $query = "SELECT sequence_id, genome_id, start_seq, end_seq, chromosome, prot_seq, gene_seq FROM database_projet.gene WHERE sequence_id = '" . $seq_id . "';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
       $genome_id = pg_fetch_result($result, 0, 1);
