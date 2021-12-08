@@ -93,7 +93,6 @@
 
           // display annotator
           echo "<td>" . $annotation["annotator"] . "</td>";
-          echo '<br>' . $annotation["assignation_date"];
 
           // display genome name
           echo '<td>' . $annotation["genome_id"] . '</td>';
@@ -118,14 +117,15 @@
           // display assignation date
           echo '<td>';
           // compute time difference
-          $interval = $annotation["assignation_date"]->diff($current_date);
+          $date_1 = new DateTime(substr($annotation["assignation_date"], 0, 19));
+          $date_2 = new DateTime(substr($current_date, 0, 19));
+          $interval = $date_1->diff($date_2);
           $diff = $interval->format('%d');
           // change color to red if assigned more than 2 weeks ago
-          if ($diff > 2) {
+          if ($diff > 14) {
             echo '<span style="color:red;">';
           }
-          echo $diff;
-          echo $annotation["assignation_date"];
+          echo substr($annotation["assignation_date"], 0, 19);
           if ($diff > 2) {
             echo '</span>';
           }
