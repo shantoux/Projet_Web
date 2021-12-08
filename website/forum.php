@@ -78,7 +78,7 @@
 
           $to = $corres; // Send email to our user
           $subject = "Forum - topic discussion"; // Give the email a subject
-          $emessage = " ".$first_name." ".$last_name." opened the forum discussion ".$new_message['topic_name']." with you. \r\n Come see what it says and interact!";
+          $emessage = " ".$first_name." ".$last_name." sent a message in '".$new_message['topic_name']."'. \r\n Come see what it says and interact!";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
