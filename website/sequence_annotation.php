@@ -101,7 +101,7 @@ if (!isset($_SESSION['user'])) {
 
     if (is_null($status)) {
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
-      echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value ="'. $gene_id .'" <br>';
+      echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value ="'. $gene_id .'"> <br>';
       echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
       echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
       echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
