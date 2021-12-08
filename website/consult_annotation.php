@@ -70,7 +70,7 @@
       // retrieve all pending annotations
       $query_annots = "SELECT genome_id, sequence_id, annotator, attempt, assignation_date
       FROM database_projet.annotations
-      WHERE status = 'assigned';";
+      WHERE status = 'assigned' ORDER BY assignation_date ASC;";
       $result_annots = pg_query($db_conn, $query_annots) or die('Query failed with exception: ' . pg_last_error());
 
       //display table with all pending annotations
