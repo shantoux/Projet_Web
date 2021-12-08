@@ -59,6 +59,7 @@
         $values_annotations['genome_id'] = $_GET['gid'];
         $values_annotations['sequence_id'] = $_GET['sid'];
         $values_annotations['annotator'] = $_POST["selected_annotator"]; //annotator's email;
+        $values_annotations['status'] = $_POST["assigned"];
         //$values_annotations['attempt'] = '0'; // Set the number of annotation attempt to 0 when the sequence is attributed
 
         // Insert in the annotations table
