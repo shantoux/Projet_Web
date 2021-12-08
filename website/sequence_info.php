@@ -206,6 +206,7 @@
         <option value="Embl"> Embl </option>
       </select>
       <input type="submit" name="search" value="Search">
+    </form>
     </div>
 
     <?php
@@ -221,6 +222,7 @@
     echo $adress . '<br>';
     echo '<form action="' . $adress . '" method="post" target="blank">';
     echo '<input type="submit" name="reach_uni" value="du_tres_tres_sale">';
+    echo '</form>';
 
 
     echo '</div>';
