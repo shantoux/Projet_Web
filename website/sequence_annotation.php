@@ -97,7 +97,7 @@ if (!isset($_SESSION['user'])) {
     echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
     echo "<b>Specie:</b> $genome_id<br>";
     echo "<b>Chromosome:</b> $chromosome<br>";
-    echo "<b> Status :</b> $status <br>";
+    echo "<b> Status :</b>". is_null($status)." <br>";
     echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
 
     if (is_null($status)) {
