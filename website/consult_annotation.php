@@ -7,6 +7,8 @@
     echo '<script>location.href="login.php"</script>';
   }
 
+  //annotator, genome_id, sequence_id, attempt
+
 ?>
 
 <!DOCTYPE html>
@@ -131,8 +133,9 @@
           }
           echo '</td>';
 
-          // display annotator
-          echo '<td>' . "REMOVE" . '</td>';
+          // display remove button
+          echo '<form action="consult_annotation.php?sid="' . $annotation["sequence_id"] . '"" method="post">';
+          echo '<td><input type="submit" name="submit" value="&#10008"></td>';
           echo "</tr>";
         }
 
