@@ -19,13 +19,12 @@
     Please log in and let's annotate!<br>
   </div>
 
-
   <!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
   <!-- -->
+
   <?php
   include_once 'libphp/dbutils.php';
   connect_db(); // connexion to database
-
 
   //Get email and password filled in the connexion form
   $user_name = $_POST["name"];
@@ -36,7 +35,7 @@
   $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
   $hash = pg_fetch_result($result, 0, 1);
-  
+
   if (isset($_POST['submit']) && password_verify($user_password, $hash)) {
       if (pg_num_rows($result) == 1) {
         //If there's only one result to the query = correct pair of email/pw
@@ -70,16 +69,13 @@
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
           Wrong Username or Password.</div>";
       }
-    }
-
-  if (isset($_POST['submit'])) {
-    //Get email and password filled in the connexion form
-    $user_name = $_POST["name"];
-    $user_password = $_POST["pass"];
-
-    // Query : Select all user info for a specified email and password
-    $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';"; // AND pw = '$user_password';";
-    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+    } else if (isset($_POST['submit'])) {
+      //Get email and password filled in the connexion form
+      $user_name = $_POST["name"];
+      $user_password = $_POST["pass"];
+      // Query : Select all user info for a specified email and password
+      $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';"; // AND pw = '$user_password';";
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
       if (pg_num_rows($result) == 1) {
         //If there's only one result to the query = correct pair of email/pw
@@ -107,16 +103,14 @@
             </div>";
           }
         } else {
-        // If there's no result to the query : wrong pair of email/pw
-        echo "<div class=\"alert_bad\">
+          // If there's no result to the query : wrong pair of email/pw
+          echo "<div class=\"alert_bad\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Wrong Username or Password.
-        </div>";
+          Wrong Username or Password.</div>";
+        }
       }
-    }
-    ?>
-
+      ?>
 
   <!-- Login form -->
   <div id="element1">
@@ -139,7 +133,5 @@
 
     <br> <br> <span class="small_text"> Not already registered? <a href="./registration.php">Click here</a> to submit a new account.</span>
   </div>
-
 </body>
-
 </html>
