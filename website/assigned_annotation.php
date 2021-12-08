@@ -131,18 +131,26 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           $comment = pg_fetch_result($result, $res_nb,2);
           $status = pg_fetch_result($result, $res_nb,3);
           $attempt = pg_fetch_result($result, $res_nb,4);
-          echo "<tr>";
-          echo "<td>" $genome_id"</td>";
-          echo '<td>' $seq_id'</td>';
+          echo '<tr><td>';
+          echo $genome_id;
+          echo '</td><td>';
+          echo $seq_id;
+          echo '</td><td>';
           # Review annotation
-          echo "<td>" $comment "</td>";
+          echo $comment;
+          echo '</td>';
           if($status == 'rejected'){
-            echo '<td><span style="color:red;">' $status '</span></td>';
+            echo '<td><span style="color:red;">';
+            echo $status;
+            echo '</span></td>';
           } else {
-            echo '<td>' $status '</td>';
+            echo '<td>';
+            echo $status;
+            echo '</td>';
           }
-          echo '<td>' $attempt '</td>';
-          echo "</tr>";
+          echo '<td>';
+          echo $attempt;
+          echo '</td></tr>';
         }
       } else {
         echo "
