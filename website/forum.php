@@ -67,13 +67,18 @@
         AND m.topic_name = '".$new_message['topic_name']."'";
         $result = pg_query($db_conn, $query_correspondents) or die('Query failed with exception: ' . pg_last_error());
 
+        $query_name = "SELECT first_name, last_name FROM database_projet.users WHERE email = ".$_SESSION['user']." ";
+        $result2 = pg_query($db_conn, $query_name) or die('Query failed with exception: ' . pg_last_error());
+        $first_name = pg_fetch_result($result2, 0, 0);
+        $last_name = pg_fetch_result($result2, 0, 1);
+
 
         for($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
           $corres= pg_fetch_result($result, $res_nb, 0);
 
           $to = $corres; // Send email to our user
           $subject = "Forum - topic discussion"; // Give the email a subject
-          $emessage = " ".$_SESSION['user']." opened the forum discussion ".$new_message['topic_name']." with you. \r\n Come see what it says!";
+          $emessage = " ".$first_name." ".$last_name." opened the forum discussion ".$new_message['topic_name']." with you. \r\n Come see what it says and interact!";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
