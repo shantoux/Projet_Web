@@ -139,7 +139,7 @@
         </tr>
 
         <tr>
-          <td align = 'center'> <input type ="submit" value="Send" name = "send_annotation" onclick="location.href=assigned_annotation.php"> </td>
+          <td align = 'center'> <input type ="submit" value="Send" name = "send_annotation"> </td>
         </tr>
 
       </table>
