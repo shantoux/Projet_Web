@@ -12,7 +12,7 @@
 
   <body>
     <?php
-      $seq_id = $_GET['id'];
+      $seq_id = $_GET['sid'];
       if (isset($_POST["websites"])) {
         if ($_POST["websites"] == "Uniprot") {
           echo '<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>';
