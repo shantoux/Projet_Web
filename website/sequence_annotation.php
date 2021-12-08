@@ -83,7 +83,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
   if (isset($_POST['send_annotation'])) {
     $values_annotations['status'] = 'waiting';
   } else if (isset($_POST['save_annotation'])) {
-    $values_annotations['status'] = null;
+    $values_annotations['status'] = 'assigned';
   }
   //Conditions for query
 
@@ -91,7 +91,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
   $condition_pkey['genome_id'] = $_GET['gid'];
   $condition_pkey['sequence_id'] = $_GET['sid'];
   $condition_pkey['attempt'] = $attempt;
-  $condition_pkey['annotator'] = $_SESSION['user']; //$_GET['annotator'];
+  $condition_pkey['annotator'] = $annotator; //$_GET['annotator'];
 
   //Update database
   $result_update = pg_update($db_conn, 'database_projet.annotations', $values_annotations, $condition_pkey)
@@ -106,7 +106,6 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
 
 ?>
 
-
   <div class="center">
     <?php
 
@@ -118,9 +117,8 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     $attempt = pg_fetch_result($result_attempt, 0, 0);
 
 
-
     //Retrieve status of sequence annotation
-    $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
+    $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.annotator
       FROM database_projet.annotations a
       WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' ;";
     $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
@@ -130,6 +128,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     $transcript_biotype = pg_fetch_result($result_info, 0, 3);
     $gene_symbol = pg_fetch_result($result_info, 0, 4);
     $description = pg_fetch_result($result_info, 0, 5);
+    $annotator = pg_fetch_result($result_info, 0, 6);
 
     echo '<table class="table_type3">';
     echo '<tr colspan=2>';
@@ -141,11 +140,11 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
 
     if ($status == 'assigned'){
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
-      echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value ="'. $gene_id .'"> <br>';
-      echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
-      echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
-      echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
-      echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
+      echo '<b>Gene identifier : </b><input type="text" name="gene_id" value ="'. $gene_id .'"> <br>';
+      echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
+      echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
+      echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
+      echo '<b> Description : </b><input type ="text" name = "gene_description"><br>';
       echo '</form>';
       echo '</td>';
     } 
