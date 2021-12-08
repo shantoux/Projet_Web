@@ -22,16 +22,19 @@
     WHERE status = 'assigned' AND sequence_id = '" . $_GET["sid"] . "';";
     $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
 
-    $values_status = array();
-    $values_status['status'] = 'rejected';
+    if (pg_num_rows($result_annot) > 0) {
 
-    $condition = array();
-    $condition['genome_id'] = pg_fetch_result($result_annot, 0, 0);
-    $condition['sequence_id'] = pg_fetch_result($result_annot, 0, 1);
-    $condition['annotator'] = pg_fetch_result($result_annot, 0, 2);
-    $condition['attempt'] = pg_fetch_result($result_annot, 0, 3);
+      $values_status = array();
+      $values_status['status'] = 'rejected';
 
-    $update = pg_update($db_conn, 'database_projet.annotations', $values_status, $condition) or die('Query failed with exception: ' . pg_last_error());
+      $condition = array();
+      $condition['genome_id'] = pg_fetch_result($result_annot, 0, 0);
+      $condition['sequence_id'] = pg_fetch_result($result_annot, 0, 1);
+      $condition['annotator'] = pg_fetch_result($result_annot, 0, 2);
+      $condition['attempt'] = pg_fetch_result($result_annot, 0, 3);
+
+      $update = pg_update($db_conn, 'database_projet.annotations', $values_status, $condition) or die('Query failed with exception: ' . pg_last_error());
+    }
   }
 
 ?>
