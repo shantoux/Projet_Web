@@ -125,8 +125,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       $result = pg_query($db_conn, $query);
 
       if ($result != false) {
-        while ($rows = pg_fetch_array($result)) {
-          $status = pg_fetch_result($result, $rows,3);
+        for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+          $status = pg_fetch_result($result, $res_nb,3);
           echo "<tr>";
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
