@@ -72,7 +72,7 @@ if (!isset($_SESSION['user'])) {
 <?php
 
 
-if (isset($_POST['send_annotation']) | isset($POST['save_annotation'])) {
+if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
   //Retrieve informations from form
   $values_annotations = array();
   $values_annotations['gene_id'] = $_POST["gene_id"];
