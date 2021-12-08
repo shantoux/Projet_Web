@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <html>
+
   <!-- Page header -->
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -184,7 +185,7 @@
         }
         echo '</td>';
         echo '</tr>';
-        
+
         // add reply text input and button
         echo '<tr>';
         echo '<td colspan="2" class="dark_cell">';
