@@ -99,7 +99,7 @@ connect_db();?>
 
 
       // If the user is an annotator
-      if($_POST['selected_action']=='delete' || $role == 'Annotator' || $role == 'Validator' || $role == 'Administrator'){
+      if($_POST['selected_action']=='delete' && $role == 'Annotator' || $role == 'Validator' || $role == 'Administrator'){
         $values_user = array();
         $values_user['role'] = 'Reader';
 
