@@ -69,7 +69,7 @@
           echo '<thead>';
           echo '<tr>';
           echo '<th>Specie / Name / Strain</th>';
-          echo '<th>Size of stored genome</th>';
+          echo '<th>Size of stored genome (nb of nucl)</th>';
           echo '</tr>';
           echo '</thead>';
 
