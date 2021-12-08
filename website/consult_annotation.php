@@ -11,6 +11,8 @@
   include_once 'libphp/dbutils.php';
   connect_db();
 
+  $update = false;
+
   // remove assignation on validator call
   if (isset($_POST["remove"])) {
 
@@ -30,14 +32,6 @@
     $condition['attempt'] = pg_fetch_result($result_annot, 0, 3);
 
     $update = pg_update($db_conn, 'database_projet.annotations', $values_status, $condition) or die('Query failed with exception: ' . pg_last_error());
-
-    if ($update) {
-      echo "<br> <div class=\"alert_good\">
-        <span class=\"closebtn\"
-        onclick=\"this.parentElement.style.display='none';\">&times;</span>
-        Successfully removed assignation.
-      </div>";
-    }
   }
 
 ?>
@@ -91,6 +85,14 @@
     </div>
 
     <?php
+      // display good alert if an annotation has been successfully removed
+      if ($update) {
+        echo "<br> <div class=\"alert_good\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Successfully removed assignation.
+        </div>";
+      }
 
       // retrieve date of now;
       $query_time = "SELECT now();";
