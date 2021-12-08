@@ -41,7 +41,7 @@ connect_db();?>
     </div>
 
     <h2 id="pagetitle">
-      Users' list
+      Users list
     </h2>
 
     <?php
@@ -109,7 +109,7 @@ connect_db();?>
       echo '<th>Last Name</th>';
       echo '<th>First Name</th>';
       echo '<th>User Email</th>';
-      echo '<th> User Number<th>';
+      echo '<th>User Number</th>';
       echo '<th>Role</th>';
       echo '<th>Status</th>';
       echo '<th>Action</th></tr></thead>';
@@ -176,7 +176,7 @@ connect_db();?>
           echo $phone;
           echo '</td><td>';
           echo $role;
-          echo '</td><td><b>';
+          echo '</td><td>';
           echo $status;
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';

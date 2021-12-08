@@ -89,9 +89,6 @@ if(isset($_POST['submit_registration'])){
   $values_user['first_name'] = $_POST["firstname"];
   if (isset($_POST["phone"])){
     $values_user['phone'] = $_POST["phone"];}
-  // } else {
-  //   $values_user['phone'] = $_POST["phone"];
-  // }
   $values_user['role'] = $_POST["role"];
   $values_user['status'] = 'waiting';
 
