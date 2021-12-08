@@ -215,7 +215,8 @@
     $html = file_get_html($adress);
     $uniprot_protein_name = $html->find(".entryID", 0);
 
-    $adress = __toString('https://www.uniprot.org/uniprot/' . $uniprot_protein_name);
+    $adress = 'https://www.uniprot.org/uniprot/' . $uniprot_protein_name;
+    $adress = (string) $adress->name;
 
 
     echo '<div class="center">';
