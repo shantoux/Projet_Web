@@ -17,7 +17,7 @@
     // update annotation status
     $query_annot = "SELECT genome_id, sequence_id, annotator, attempt
     FROM database_projet.annotations
-    WHERE status = 'assigned' AND sequence_id = '" . $_GET["sid"] . "' ORDER BY assignation_date ASC;";
+    WHERE status = 'assigned' AND sequence_id = '" . $_GET["sid"] . "';";
     $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
 
     $values_status = array();
@@ -162,7 +162,7 @@
           echo '</td>';
 
           // display remove button
-          echo '<form action="consult_annotation.php?sid="' . $annotation["sequence_id"] . '"" method="post">';
+          echo '<form action="consult_annotation.php?sid=' . $annotation["sequence_id"] . '" method="post">';
           echo '<td><input type="submit" name="remove" value="&#10008"></td>';
           echo "</tr>";
         }
