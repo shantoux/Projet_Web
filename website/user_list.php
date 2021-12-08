@@ -41,7 +41,7 @@ connect_db();?>
     </div>
 
     <h2 id="pagetitle">
-      Users' list
+      Users list
     </h2>
 
     <?php
@@ -60,7 +60,7 @@ connect_db();?>
           //Send email to inform user that their account has been validated
           $to = $_GET['mail']; // Send email to our user
           $subject = "Your account is ready!"; // Give the email a subject
-          $emessage = "Your account is ready to use ! \r\n Your information:\r\n Email : " .$_GET['mail']. "\r\n Password: <br>";
+          $emessage = "Your account is ready to use !";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
@@ -108,14 +108,15 @@ connect_db();?>
       echo '<tr>';
       echo '<th>Last Name</th>';
       echo '<th>First Name</th>';
-      echo '<th>User email</th>';
+      echo '<th>User Email</th>';
+      echo '<th>User Number</th>';
       echo '<th>Role</th>';
       echo '<th>Status</th>';
       echo '<th>Action</th></tr></thead>';
 
       //Display users waiting to be validated
       echo '<tbody>';
-      $query = "SELECT last_name, first_name, email, role, status
+      $query = "SELECT last_name, first_name, email, role, status, phone, pw
       FROM database_projet.users WHERE status='waiting' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
@@ -126,6 +127,8 @@ connect_db();?>
           $email = pg_fetch_result($result, $res_nb, 2);
           $role = pg_fetch_result($result, $res_nb, 3);
           $status = pg_fetch_result($result, $res_nb, 4);
+          $phone = pg_fetch_result($result, $res_nb, 5);
+          $pw = pg_fetch_result($result, $res_nb, 6);
 
           echo '<tr><td>';
           echo $last_name;
@@ -133,6 +136,8 @@ connect_db();?>
           echo $first_name;
           echo '</td><td>';
           echo $email;
+          echo '</td><td>';
+          echo $phone;
           echo '</td><td>';
           echo $role;
           echo '</td><td><b>';
@@ -149,7 +154,7 @@ connect_db();?>
 
       //Display users already in database
       echo '<tbody>';
-      $query = "SELECT last_name, first_name, email, role, status
+      $query = "SELECT last_name, first_name, email, role, status, phone
       FROM database_projet.users WHERE status='validated' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
@@ -160,6 +165,7 @@ connect_db();?>
           $email = pg_fetch_result($result, $res_nb, 2);
           $role = pg_fetch_result($result, $res_nb, 3);
           $status = pg_fetch_result($result, $res_nb, 4);
+          $phone = pg_fetch_result($result, $res_nb, 5);
 
           echo '<tr><td>';
           echo $last_name;
@@ -167,6 +173,8 @@ connect_db();?>
           echo $first_name;
           echo '</td><td>';
           echo $email;
+          echo '</td><td>';
+          echo $phone;
           echo '</td><td>';
           echo $role;
           echo '</td><td>';
