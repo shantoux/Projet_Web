@@ -172,8 +172,10 @@ connect_db();?>
           echo '</td><td>';
           echo $email;
           echo '</td><td>';
-          echo $role;
+          echo $phone;
           echo '</td><td>';
+          echo $role;
+          echo '</td><td><b>';
           echo $status;
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
