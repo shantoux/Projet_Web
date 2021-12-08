@@ -128,7 +128,7 @@
           }
           echo $interval->format('%d days %H hours %i minutes %s seconds');
           echo '<br>';
-          echo $annotation["assignation_date"];
+          echo substr($annotation["assignation_date"], 0, 19);
           if ($diff > 2) {
             echo '</span>';
           }
