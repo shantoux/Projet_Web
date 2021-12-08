@@ -123,10 +123,10 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status is not null
       ORDER BY status;";
       $result = pg_query($db_conn, $query);
-      $status = pg_fetch_result($result, 0,3);
 
       if ($result != false) {
-        while ($rows = pg_fetch_array($result)) {
+        for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+          $status = pg_fetch_result($result, $res_nb,3);
           echo "<tr>";
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
