@@ -130,7 +130,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
           echo "<td>" . $rows["comments"] . "</td>";
-          echo '<td>' . $rows["status"] . '</td>';
+          echo '<td><span style="color:#A3423C;">' . $rows["status"] . '</span></td>';
           echo '<td>' . $rows["attempt"] . '</td>';
           echo "</tr>";
         }
