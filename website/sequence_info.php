@@ -212,7 +212,6 @@
 
     include_once 'libphp/simplehtmldom/simple_html_dom.php';
     $adress = 'https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score';
-    echo $adress . '<br>';
     $html = file_get_html($adress);
     $uniprot_protein_name = $html->find(".entryID", 0);
 
@@ -220,7 +219,11 @@
 
 
     echo '<div class="center">';
-    echo $adress;
+    echo $adress . <br>;
+    echo '<form action="' . $adress . '" method="post" target="blank">';
+    echo '<input type="submit" name="reach_uni" value="du_tres_tres_sale">';
+
+
     echo '</div>';
 
     ?>
