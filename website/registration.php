@@ -36,13 +36,13 @@
 
     <tr>
       <td> <div>
-        <label>Last name : </label></td>
+        <label>Last name :<span style="color:red;">*</span></label></td>
       <td> <input type="text" name="lastname"> </td>
     </tr>
 
     <tr>
       <td> <div>
-        <label>First name : </label></td>
+        <label>First name : <span style="color:red;">*</span></label></td>
       <td> <input type="text" name="firstname"> </td>
     </tr>
 
