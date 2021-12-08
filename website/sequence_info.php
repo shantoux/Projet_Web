@@ -224,6 +224,10 @@
     echo '<input type="submit" name="reach_uni" value="du_tres_tres_sale">';
     echo '</form>';
 
+    echo '<br>';
+    $lines_of_interest = file_get_html($adress)->find(".odd", 0)->plaintext;
+    echo $lines_of_interest;
+
 
     echo '</div>';
 
