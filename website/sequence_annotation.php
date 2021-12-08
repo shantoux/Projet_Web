@@ -35,24 +35,28 @@
         <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
-    <div id="pagetitle">
-      Sequence Annotation
-    </div>
     <?php
+
     include_once 'libphp/dbutils.php';
     connect_db();
+    // Retrieve the information already in the database
+    $genome_id = $_GET['gid'];
+    $sequence_id = $_GET['sid'];
 
-    if(isset($_POST['send_annotation'])){
-      //Retrieve informations from form
-      $values_annotations = array();
-      $values_annotations['gene_id'] = $_POST["gene_id"];
-      $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
-      $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
-      $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
-      $values_annotations['description'] = $_POST["gene_description"];
-      $values_annotations['status'] = 'waiting';
+    $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
+    FROM database_projet.gene g
+    WHERE g.sequence_id = '" . $sequence_id . "';";
+    $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
+    $nt = pg_fetch_result($result2, 0, 0);
+    $prot = pg_fetch_result($result2, 0, 1);
+    $start = pg_fetch_result($result2, 0, 2);
+    $end = pg_fetch_result($result2,0,3);
+    $chromosome = pg_fetch_result($result2,0,4);
 
-      //Conditions for query
+    ?>
+
+<div class="center">
+      <?php
 
       /////Retrieve latest attempt number
       $query_attempt = "SELECT a.attempt
@@ -61,40 +65,20 @@
       $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
       $attempt = pg_fetch_result($result_attempt, 0, 0);
 
-      $condition_pkey = array();
-      $condition_pkey['genome_id']= $_GET['gid'];
-      $condition_pkey['sequence_id']=$_GET['sid'];
-      $condition_pkey['attempt']=$attempt;
-      $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
+    
 
-      //Update database
-      $result_update = pg_update($db_conn, 'database_projet.annotations', $values_annotations, $condition_pkey)
-      or die('Query failed with exception: ' . pg_last_error());
+      //Retrieve status of sequence annotation
+      $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
+      FROM database_projet.annotations a
+      WHERE sequence_id = '" . $_GET['sid'] ."' AND attempt ='" .$attempt."' ;";
+      $result_info = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+      $status= pg_fetch_result($result_info, 0, 0);
+      $gene_id = pg_fetch_result($result_info, 0, 1);
+      $gene_biotype = pg_fetch_result($result_info, 0, 2);
+      $transcript_biotype = pg_fetch_result($result_info, 0, 3);
+      $gene_symbol = pg_fetch_result($result_info, 0, 4);
+      $description = pg_fetch_result($result_info, 0, 5);
 
-      if ($result_update) {
-        echo "Annotation has been sent. Wait for validation.";
-      } else {
-        echo "Error : the annotation has not been sent.";
-      }
-    }
-      // Fill the information already in the database
-      $genome_id = $_GET['gid'];
-      $sequence_id = $_GET['sid'];
-
-      $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
-      FROM database_projet.gene g
-      WHERE g.sequence_id = '" . $sequence_id . "';";
-      $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
-      $nt = pg_fetch_result($result2, 0, 0);
-      $prot = pg_fetch_result($result2, 0, 1);
-      $start = pg_fetch_result($result2, 0, 2);
-      $end = pg_fetch_result($result2,0,3);
-      $chromosome = pg_fetch_result($result2,0,4);
-      ?>
-
-
-    <div class="center">
-      <?php
         echo'<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
         echo '<table class="table_type3">';
         echo '<tr colspan=2>';
@@ -103,11 +87,17 @@
         echo "<b>Specie:</b> $genome_id<br>";
         echo "<b>Chromosome:</b> $chromosome<br>";
         echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
-        echo '<b>Gene identifier : </b><input type="text" required name="gene_id"><br>';
+
+        if ($status_last_attempt == 'null'){
+        echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value = "'.$gene_id.'"><br>';
         echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
         echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
         echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
         echo '<b> Description : </b><input type ="text" required name = "gene_description"><br></form>';
+        }
+        else if ($status_last_attempt == 'waiting'){
+          
+        }
               ?>
             </td>
           </tr>
@@ -140,10 +130,61 @@
 
         <tr>
           <td align = 'center'> <input type ="submit" value="Send" name = "send_annotation"> </td>
+          <td align = 'center'> <input type ="submit" value="Save" name = "save_annotation"> </td>
         </tr>
 
       </table>
     </div>
+
+
+      
+
+
+
+
+    <div id="pagetitle">
+      Sequence Annotation
+    </div>
+    <?php
+    
+
+    if(isset($_POST['send_annotation']) | isset($POST['save_annotation'])){
+      //Retrieve informations from form
+      $values_annotations = array();
+      $values_annotations['gene_id'] = $_POST["gene_id"];
+      $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
+      $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
+      $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
+      $values_annotations['description'] = $_POST["gene_description"];
+      if (isset($_POST['send_annotation'])){
+        $values_annotations['status'] = 'waiting';
+      }
+      else if (isset($_POST['save_annotation'])){
+        $values_annotations['status'] = null;
+      }
+      //Conditions for query
+
+      $condition_pkey = array();
+      $condition_pkey['genome_id']= $_GET['gid'];
+      $condition_pkey['sequence_id']=$_GET['sid'];
+      $condition_pkey['attempt']=$attempt;
+      $condition_pkey['annotator']=$_SESSION['user'];//$_GET['annotator'];
+
+      //Update database
+      $result_update = pg_update($db_conn, 'database_projet.annotations', $values_annotations, $condition_pkey)
+      or die('Query failed with exception: ' . pg_last_error());
+
+      if ($result_update) {
+        echo "Annotation has been sent. Wait for validation.";
+      } else {
+        echo "Error : the annotation has not been sent.";
+      }
+    }
+      
+      ?>
+
+
+    
 
     <h3 id="pageundertitle" class="center"> Past attempts </h3>
     <div id="element1">
