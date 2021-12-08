@@ -46,6 +46,7 @@ VALUES (
 INSERT INTO users
 VALUES (
     'joshua@gmail.com',
+    crypt('johnspassword', gen_salt('bf')),
     'cestmoijoshua',
     'Bertrand',
     'Joshua',
