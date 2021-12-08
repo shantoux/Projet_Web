@@ -207,5 +207,18 @@
       </select>
       <input type="submit" name="search" value="Search">
     </div>
+
+    <?php
+
+    include_once 'libphp/simple_html_dom.php';
+    $html = file_get_html('<script>location.href="https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score"</script>');
+
+
+    echo '<div class="center">';
+    echo $html->find(".entryID", 0);
+    echo '</div>';
+
+    ?>
+
   </body>
 </html>
