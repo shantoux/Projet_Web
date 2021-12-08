@@ -28,14 +28,14 @@ if (!isset($_SESSION['user'])) {
     if ($_SESSION['role'] == 'Validator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
-      echo "<a href=\"./consult_annotation.php\">Consult annotation</a>";
+      echo "<a href=\"./consult_annotation.php\">Consult</a>";
       echo "<a href=\"./forum.php\">Forum</a>";
     }
     if ($_SESSION['role'] == 'Administrator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
       echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
-      echo "<a href=\"./consult_annotation.php\">Consult annotation</a>";
+      echo "<a href=\"./consult_annotation.php\">Consult</a>";
       echo "<a href=\"./forum.php\">Forum</a>";
       echo "<a href=\"./user_list.php\">Users' List</a>";
     }
@@ -111,10 +111,18 @@ if (!isset($_SESSION['user'])) {
       echo '</form>';
       echo '</td>';
     } else if ($status == 'waiting') {
-
+      echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
+      echo '<b>Gene identifier : </b><input type="text" name="gene_id" value ="'. $gene_id .' disabled"> <br>';
+      echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype" disabled><br>';
+      echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype" disabled><br>';
+      echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol" disabled><br>';
+      echo '<b> Description : </b><input type ="text" required name = "gene_description" disabled><br>';
+      echo '</form>';
+      echo '</td>';
+      
     }
     ?>
-    
+
     </tr>
     <tr></tr>
 
@@ -143,8 +151,8 @@ if (!isset($_SESSION['user'])) {
     </tr>
 
     <tr>
-      <td align='center'> <input type="submit" value="Send" name="send_annotation"> </td>
-      <td align='center'> <input type="submit" value="Save" name="save_annotation"> </td>
+      <td align='center'> <input type="submit" value="Send" name="send_annotation">
+      <input type="submit" value="Save" name="save_annotation"> </td>
     </tr>
 
     </table>
@@ -193,9 +201,6 @@ if (!isset($_SESSION['user'])) {
   }
 
   ?>
-
-
-
 
   <h3 id="pageundertitle" class="center"> Past attempts </h3>
   <div id="element1">
