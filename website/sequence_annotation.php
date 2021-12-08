@@ -108,11 +108,12 @@ if (!isset($_SESSION['user'])) {
       echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
       echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
       echo '</form>';
+      echo '</td>';
     } else if ($status == 'waiting') {
 
     }
     ?>
-    </td>
+    
     </tr>
     <tr></tr>
 
