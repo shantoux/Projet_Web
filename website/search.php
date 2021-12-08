@@ -106,13 +106,13 @@
 
           <!-- Add a field for gene biotype -->
           <tr>
-            <td> Genes identifier: </td>
+            <td> Gene biotype: </td>
             <td> <input type="text" name="gene_biotype" size="100"> </td>
           </tr>
 
           <!-- Add a field for transcript biotype -->
           <tr>
-            <td> Genes identifier: </td>
+            <td> Transcript biotype: </td>
             <td> <input type="text" name="transcript_biotype" size="100"> </td>
           </tr>
 
