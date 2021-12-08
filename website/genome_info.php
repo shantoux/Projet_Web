@@ -225,37 +225,55 @@
           <!-- display the sequence id (and gene symbol when available) for each sequence in the right-most cell -->
           <td>
             <?php
+
+              // store the line we are at
               $line_ind = 0;
+
+              // retrieve gene location
               $query = "SELECT sequence_id, start_seq, end_seq, gene_seq FROM database_projet.gene WHERE genome_id = '" . $genome_id . "' ORDER BY start_seq;";
               $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+
+              // make sure two genes are not displayed on the same line
               $gene_on_line = false;
+
+              // loop on all genes
               for ($gene_ind = 0; $gene_ind < pg_num_rows($result); $gene_ind++) {
                 $seq_id = pg_fetch_result($result, $gene_ind, 0);
                 $seq_start = pg_fetch_result($result, $gene_ind, 1);
                 $gene_line = intdiv($seq_start, $char_per_line);
+
+                // reach the line of the beginning of the gene sequence
                 while ($line_ind < $gene_line) {
                   $line_ind = $line_ind + 1;
                   $gene_on_line = false;
                   echo "<br>";
                 }
+
+                // skip one more line if a gene is already displayed there
                 if ($gene_on_line) {
                   echo "<br>";
                   $line_ind = $line_ind + 1;
                 }
                 $gene_on_line = true;
+
+                // display gene with mouse-over text and hyperlink
                 echo "<a href=\"./sequence_info.php?sid=" . $seq_id . "\" ";
                 echo 'style="color:blue;" title="Clik to see sequence page.">&#8592;';
                 echo $seq_id;
-                # check if gene has gene_symbol
+
+                // check if gene has gene_symbol
                 $query_annot = "SELECT gene_symbol FROM database_projet.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
                 $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
-                # if it's not...
+
+                // if yes, display it between parenthesis
                 if(pg_num_rows($result_annot) > 0) {
                   $gene_symb = pg_fetch_result($result_annot, 0, 0);
                   echo "($gene_symb)";
                 }
                 echo '</a> ';
               }
+
+              // print empty lines until the end of genome whole sequence
               $nb_of_lines = intdiv($genome_size, $char_per_line) + 1;
               while ($line_ind < $nb_of_lines) {
                 $line_ind = $line_ind + 1;
@@ -266,11 +284,5 @@
         </tbody>
       </table>
     </div>
-
-    Extract:
-    <a href="path_to_file" download="name_file">
-         <button type="button">Download</button>
-         </a>
-
   </body>
 </html>
