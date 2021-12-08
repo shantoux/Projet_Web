@@ -52,16 +52,11 @@
       $user_password = $_POST["pass"];
 
       // Query : Select all user info for a specified email and password
-      $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';" // AND pw = '$user_password';";
+      $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';"; // AND pw = '$user_password';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
       $hash = pg_fetch_result($result, 0, 1);
 
-      if(password_verify($_POST["pass"], $hash)){
-        echo 'mot de passe valide';
-      }
-
-
-    	if(pg_num_rows($result) == 1){
+    	if(pg_num_rows($result) == 1 || password_verify($user_password, $hash) ){
         //If there's only one result to the query = correct pair of email/pw
         $validated = pg_fetch_result($result,0, 6) == 'validated';//get the result of the 7th column (Status) for the 1st row
 
