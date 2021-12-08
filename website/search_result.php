@@ -144,7 +144,7 @@
           $g_id = pg_fetch_result($result, $res_nb, 0); //récupère le résultat de la 1e colonne (0), $res_nb ieme ligne ($res_nb)
           $g_size = strlen(pg_fetch_result($result, $res_nb, 1));
           echo '<tr><td>';
-          echo "<a href=\"./genome_info.php?id=" . $g_id . "\">$g_id</a></td><td>$g_size";
+          echo "<a href=\"./genome_info.php?gid=" . $g_id . "\">$g_id</a></td><td>$g_size";
           echo '</td></tr>';
         }
       }
@@ -249,9 +249,9 @@
             $s_size = strlen(pg_fetch_result($result, $res_nb, 2));
             // display sequence id
             echo '<tr><td>';
-            echo "<a href=\"./sequence_info.php?id=" . $s_id . "\">$s_id</a></td>";
+            echo "<a href=\"./sequence_info.php?sid=" . $s_id . "\">$s_id</a></td>";
             // display genome / specie / strain
-            echo "<td><a href=\"./genome_info.php?id=" . $g_id . "\">$g_id</a></td>";
+            echo "<td><a href=\"./genome_info.php?gid=" . $g_id . "\">$g_id</a></td>";
             // display size of nucleotidic sequence
             echo "<td>$s_size</td><td>";
             // display a character indicating wether the sequence is annotated, not annotated or with an annotation waiting for validation

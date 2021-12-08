@@ -53,7 +53,7 @@
         $char_per_line = $_POST["nb_nucl_per_line"];
       }
       # retrieve genome informations
-      $genome_id = $_GET['id'];
+      $genome_id = $_GET['gid'];
       echo "<br>";
     ?>
 
@@ -71,7 +71,7 @@
             <th colspan=2 class="type2"  align='left'>Genome's name : Ecoli</th>
             <th colspan=2 text-align='right' horizontal-align="middle">
               <?php
-                $url_suffix = "?id=" . $genome_id;
+                $url_suffix = "?gid=" . $genome_id;
                 echo '<form action="genome_info.php' . $url_suffix . '" method="post">';
               ?>
                 Nb of nucl. per line:
@@ -135,7 +135,7 @@
                 $count = $count - strlen($seq_to_display);
                 echo '</span>';
 
-                echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
+                echo "<a href=\"./sequence_info.php?sid=" . $seq_id . "\" ";
                 # check if gene is annotated
                 $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM database_projet.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
                 $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
@@ -214,7 +214,7 @@
                   $line_ind = $line_ind + 1;
                 }
                 $gene_on_line = true;
-                echo "<a href=\"./sequence_info.php?id=" . $seq_id . "\" ";
+                echo "<a href=\"./sequence_info.php?sid=" . $seq_id . "\" ";
                 echo 'style="color:blue;" title="Clik to see sequence page.">&#8592;';
                 echo $seq_id;
                 # check if gene has gene_symbol
