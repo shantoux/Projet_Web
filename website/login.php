@@ -53,7 +53,7 @@
 
       // Query : Select all user info for a specified email and password
       $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';"; // AND pw = '$user_password';";
-      $result = pg_query($db_conn, $query);
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
       $hash = pg_fetch_result($result, 0, 1);
 
     	if(pg_num_rows($result) == 1 || password_verify($user_password, $hash) ){
