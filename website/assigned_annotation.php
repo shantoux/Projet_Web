@@ -132,9 +132,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
           echo "<td>" . $rows["comments"] . "</td>";
-
           if($status == 'rejected'){
-            echo '<td><span style="red;">' . $rows["status"] . '</span></td>';
+            echo '<td><span style="color:red;">' . $rows["status"] . '</span></td>';
           } else {
             echo '<td>' . $rows["status"] . '</td>';
           }
