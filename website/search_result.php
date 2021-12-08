@@ -36,7 +36,7 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
-        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>lais
+        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
       </div>
     <br>
 
@@ -100,7 +100,7 @@
           }
 
           // if condition on the genes id or description, add the 'annotations' table to the query
-          foreach (array("genes", "description") as $token) {
+          foreach (array("gene_symb", "gene_id", "gene_biotype", "transcript_biotype", "description") as $token) {
             if ($_POST[$token] != "") {
               $conditions = true;
               $query = $query . ", database_projet.annotations AS A";
@@ -121,7 +121,7 @@
             }
 
             // if condition on the genes id or description, join tables 'genome' and 'annotations' and control annotation status
-            if ($_POST["genes"] != "" || $_POST["description"] != "") {
+            if ($_POST["gene_symb"] != "" || $_POST["gene_id"] != "" || $_POST["gene_biotype"] != "" || $_POST["transcript_biotype"] != "" || $_POST["description"] != "") {
               if (!$first_cond) {$query = $query . " AND ";}
               else {$first_cond = false;}
               $query = $query . "GENO.genome_id = A.genome_id AND A.status != 'rejected'";
@@ -156,10 +156,31 @@
             }
 
             // check for condition on genes id and add it to the query
-            if ($_POST["genes"] != "") {
+            if ($_POST["gene_id"] != "") {
               if (!$first_cond) {$query = $query . " AND ";}
               else {$first_cond = false;}
               $query = $query . "A.gene_id LIKE '%" . $_POST["genes"] . "%'";
+            }
+
+            // check for condition on gene symbol id and add it to the query
+            if ($_POST["gene_symb"] != "") {
+              if (!$first_cond) {$query = $query . " AND ";}
+              else {$first_cond = false;}
+              $query = $query . "A.gene_symbol LIKE '%" . $_POST["gene_symb"] . "%'";
+            }
+
+            // check for condition on genes biotype and add it to the query
+            if ($_POST["gene_biotype"] != "") {
+              if (!$first_cond) {$query = $query . " AND ";}
+              else {$first_cond = false;}
+              $query = $query . "A.gene_biotype LIKE '%" . $_POST["gene_biotype"] . "%'";
+            }
+
+            // check for condition on transcript biotype and add it to the query
+            if ($_POST["transcript_biotype"] != "") {
+              if (!$first_cond) {$query = $query . " AND ";}
+              else {$first_cond = false;}
+              $query = $query . "A.transcript_biotype LIKE '%" . $_POST["transcript_biotype"] . "%'";
             }
 
             // check for condition on genes descriptions and add it to the query
@@ -239,7 +260,7 @@
           }
 
           // if condition on the genes id or description, add the 'annotations' table to the query
-          foreach (array("genes", "description") as $token) {
+          foreach (array("gene_symb", "gene_id", "gene_biotype", "transcript_biotype", "description") as $token) {
             if ($_POST[$token] != "") {
               $conditions = true;
               $query = $query . ", database_projet.annotations AS A";
@@ -254,9 +275,9 @@
 
             // joint the tables
             // if condition on the genes id or description, join tables 'gene' and 'annotations' and control annotation status
-            if ($_POST["genes"] != "" || $_POST["description"] != "") {
+            if ($_POST["gene_symb"] != "" || $_POST["gene_id"] != "" || $_POST["gene_biotype"] != "" || $_POST["transcript_biotype"] != "" || $_POST["description"] != "") {
               $first_cond = false;
-              $query = $query . "GENE.genome_id = A.genome_id AND GENE.sequence_id = A.sequence_id AND A.status != 'rejected'";
+              $query = $query . "GENE.sequence_id = A.sequence_id AND A.status != 'rejected'";
             }
 
             // check for condition on specie name and add it to the query
@@ -288,10 +309,31 @@
             }
 
             // check for condition on genes id and add it to the query
-            if ($_POST["genes"] != "") {
+            if ($_POST["gene_id"] != "") {
               if (!$first_cond) {$query = $query . " AND ";}
               else {$first_cond = false;}
               $query = $query . "A.gene_id LIKE '%" . $_POST["genes"] . "%'";
+            }
+
+            // check for condition on gene symbol id and add it to the query
+            if ($_POST["gene_symb"] != "") {
+              if (!$first_cond) {$query = $query . " AND ";}
+              else {$first_cond = false;}
+              $query = $query . "A.gene_symbol LIKE '%" . $_POST["gene_symb"] . "%'";
+            }
+
+            // check for condition on genes biotype and add it to the query
+            if ($_POST["gene_biotype"] != "") {
+              if (!$first_cond) {$query = $query . " AND ";}
+              else {$first_cond = false;}
+              $query = $query . "A.gene_biotype LIKE '%" . $_POST["gene_biotype"] . "%'";
+            }
+
+            // check for condition on transcript biotype and add it to the query
+            if ($_POST["transcript_biotype"] != "") {
+              if (!$first_cond) {$query = $query . " AND ";}
+              else {$first_cond = false;}
+              $query = $query . "A.transcript_biotype LIKE '%" . $_POST["transcript_biotype"] . "%'";
             }
 
             // check for condition on genes descriptions and add it to the query

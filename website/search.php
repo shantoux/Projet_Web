@@ -98,10 +98,28 @@
             <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304" size="100"> </td>
           </tr>
 
-          <!-- Add a field for nucleotidic sequence -->
+          <!-- Add a field for gene id -->
           <tr>
-            <td> Genes names: </td>
-            <td> <input type="text" name="genes" size="100"> </td>
+            <td> Genes identifier: </td>
+            <td> <input type="text" name="gene_id" size="100"> </td>
+          </tr>
+
+          <!-- Add a field for gene biotype -->
+          <tr>
+            <td> Genes identifier: </td>
+            <td> <input type="text" name="gene_biotype" size="100"> </td>
+          </tr>
+
+          <!-- Add a field for transcript biotype -->
+          <tr>
+            <td> Genes identifier: </td>
+            <td> <input type="text" name="transcript_biotype" size="100"> </td>
+          </tr>
+
+          <!-- Add a field for gene symbol -->
+          <tr>
+            <td> Genes name: </td>
+            <td> <input type="text" name="gene_symb" size="100"> </td>
           </tr>
 
           <!-- Add a field for gene identifier -->
