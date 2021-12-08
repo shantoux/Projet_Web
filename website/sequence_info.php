@@ -118,7 +118,7 @@
                 // display warning if annotation is not validated yet
                 if (pg_fetch_result($result_annot, 0, 8) == 'waiting') {
                   $waiting = true;
-                  echo '<span style="color:#A3423C;">' . "<br>WARNING: THIS ANNOTATION HAS NOT BEEN VALIDATED YET! Use with caution.<br><br>";
+                  echo '<span style="color:#A3423C;">' . "<br><b>WARNING</b>: THIS ANNOTATION HAS NOT BEEN VALIDATED YET! Use with caution.<br><br>";
                 }
 
                 // display gene biotype
