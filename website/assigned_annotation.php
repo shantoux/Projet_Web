@@ -126,19 +126,31 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 
       if ($result != false) {
         for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+          $genome_id = pg_fetch_result($result, $res_nb,0);
+          $seq_id = pg_fetch_result($result, $res_nb,1);
+          $comment = pg_fetch_result($result, $res_nb,2);
           $status = pg_fetch_result($result, $res_nb,3);
-          echo "<tr>";
-          echo "<td>" . $rows["genome_id"] . "</td>";
-          echo '<td>' . $rows["sequence_id"] . '</td>';
+          $attempt = pg_fetch_result($result, $res_nb,4);
+          echo '<tr><td>';
+          echo $genome_id;
+          echo '</td><td>';
+          echo $seq_id;
+          echo '</td><td>';
           # Review annotation
-          echo "<td>" . $rows["comments"] . "</td>";
+          echo $comment;
+          echo '</td>';
           if($status == 'rejected'){
-            echo '<td><span style="color:red;">' . $rows["status"] . '</span></td>';
+            echo '<td><span style="color:red;">';
+            echo $status;
+            echo '</span></td>';
           } else {
-            echo '<td>' . $rows["status"] . '</td>';
+            echo '<td>';
+            echo $status;
+            echo '</td>';
           }
-          echo '<td>' . $rows["attempt"] . '</td>';
-          echo "</tr>";
+          echo '<td>';
+          echo $attempt;
+          echo '</td></tr>';
         }
       } else {
         echo "

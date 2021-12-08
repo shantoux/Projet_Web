@@ -1,7 +1,6 @@
 CREATE SCHEMA database_projet;
 SET SCHEMA 'database_projet';
 
-
 CREATE TABLE users(
   email VARCHAR,
   pw VARCHAR,
