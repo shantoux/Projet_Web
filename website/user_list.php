@@ -59,7 +59,7 @@ connect_db();?>
         $condition = array();
         $condition['email']=$_GET['mail'];
 
-        $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die('Query failed with exception: ' . pg_last_error());
+        $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die ('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
           echo 'User added to the database';
 
@@ -86,25 +86,40 @@ connect_db();?>
         }
       }
 
+      // Query to get ????????
       $query_verif = "SELECT a.annotator FROM database_projet.annotations a WHERE a.annotator = '" .$_GET['mail']. "';";
       $result = pg_query($db_conn, $query_verif) or die('Query failed with exception: ' . pg_last_error());
 
-      if(pg_num_rows($result) == 0){
-        if($_POST['selected_action']=='delete'){
-          $query_delete = "DELETE FROM database_projet.users WHERE email = '" .$_GET['mail']. "';";
-          $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
-          if ($result_delete){
-            echo 'User removed from the database';
-          } else {
-            echo 'Error';
-          }
+      // Query to retrieve the status of the user
+      $query_role = "SELECT u.role FROM database_projet.users u WHERE u.email = '" .$_GET['mail']. "';";
+      $result_role = pg_query($db_conn, $query_role) or die('Query failed with exception: ' . pg_last_error());
+      $role = pg_fetch_result($result_role, 0,0);
+
+
+      // If the user is an annotator
+      if($_POST['selected_action']=='delete' || $role == 'Annotator'){
+        $values_user = array();
+        $values_user['role'] = 'Reader';
+
+        $condition = array();
+        $condition['email']=$_GET['mail'];
+
+        $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die ('Query failed with exception: ' . pg_last_error());
+        if ($result_insert){
+          echo 'User role changed to reader.';
+        } else {
+          echo 'Error : user role was not changed.';
         }
-      } else {
-        if($_POST['selected_action']=='delete'){
-          echo 'This user can not be removed.';
+      } else if ($_POST['selected_action']=='delete'){
+        $query_delete = "DELETE FROM database_projet.users WHERE email = '" .$_GET['mail']. "';";
+        $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
+        if ($result_delete){
+          echo 'User removed from the database';
+        } else {
+          echo 'Error';
+        }
       }
     }
-  }
     ?>
 
     <div id = "element1">
