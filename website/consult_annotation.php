@@ -118,14 +118,17 @@
           // display assignation date
           echo '<td>';
           // compute time difference
-          $interval = $annotation["assignation_date"]->diff($current_date);
+          $date_1 = new DateTime($annotation["assignation_date"]);
+          $date_1 = new DateTime($current_date);
+          $interval = $date_1->diff($date_1);
           $diff = $interval->format('%d');
           // change color to red if assigned more than 2 weeks ago
-          if ($diff > 2) {
+          if ($diff > 14) {
             echo '<span style="color:red;">';
           }
-          echo $diff;
-          echo $annotation["assignation_date"];
+          echo $interval->format('%d days %H hours %i minutes %s seconds');
+          echo '<br>';
+          echo substr($annotation["assignation_date"], 0, 19);
           if ($diff > 2) {
             echo '</span>';
           }
