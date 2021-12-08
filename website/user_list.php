@@ -60,7 +60,7 @@ connect_db();?>
           //Send email to inform user that their account has been validated
           $to = $_GET['mail']; // Send email to our user
           $subject = "Your account is ready!"; // Give the email a subject
-          $emessage = "Your account is ready to use ! \r\n Your information:\r\n Email : " .$_GET['mail']. "\r\n Password: " .$pw. "";
+          $emessage = "Your account is ready to use ! \r\n Your information:\r\n Email : " .$_GET['mail']. "\r\n Password: $pw ";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
