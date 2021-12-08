@@ -215,7 +215,7 @@
     $html = file_get_html($adress);
     $uniprot_protein_name = $html->find(".entryID", 0)->plaintext;
 
-    $adress = 'http://pfam.xfam.org/protein/' . $uniprot_protein_name;
+    $adress = 'https://pfam.xfam.org/protein/' . $uniprot_protein_name;
 
     echo '<div class="center">';
     echo $adress . '<br>';
