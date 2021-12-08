@@ -80,7 +80,7 @@
       WHERE sequence_id = '" . $_GET['sid'] ."' AND attempt ='" .$attempt."' ;";
       $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
       $status= pg_fetch_result($result_info, 0, 0);
-      echo $status;
+     
       $gene_id = pg_fetch_result($result_info, 0, 1);
       $gene_biotype = pg_fetch_result($result_info, 0, 2);
       $transcript_biotype = pg_fetch_result($result_info, 0, 3);
@@ -94,6 +94,7 @@
         echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
         echo "<b>Specie:</b> $genome_id<br>";
         echo "<b>Chromosome:</b> $chromosome<br>";
+        echo "<b>$status</b>";
         echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
 
         if ($status == 'null'){
