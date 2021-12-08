@@ -1,11 +1,6 @@
 <!-- Web page to login or access the registration page -->
 <?php session_start();
 
-  // check if user is logged in: else, redirect to login page
-  if (!isset($_SESSION['user'])) {
-    echo '<script>location.href="login.php"</script>';
-  }
-
 ?>
 
 <!DOCTYPE html>
@@ -33,16 +28,17 @@
   <?php
   include_once 'libphp/dbutils.php';
   connect_db(); // connexion to database
+  if (isset($_POST['submit'])){
+    //Get email and password filled in the connexion form
+    $user_name = $_POST["name"];
+    $user_password = $_POST["pass"];
 
-  //Get email and password filled in the connexion form
-  $user_name = $_POST["name"];
-  $user_password = $_POST["pass"];
+    // Query : Select all user info for a specified email and password
+    $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';"; // AND pw = '$user_password';";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
-  // Query : Select all user info for a specified email and password
-  $query = "SELECT * FROM database_projet.users WHERE email = '$user_name';"; // AND pw = '$user_password';";
-  $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
-
-  $hash = pg_fetch_result($result, 0, 1);
+    $hash = pg_fetch_result($result, 0, 1);
+  }
 
   if (isset($_POST['submit']) && password_verify($user_password, $hash)) {
       if (pg_num_rows($result) == 1) {
