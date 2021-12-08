@@ -213,10 +213,9 @@
     include_once 'libphp/simplehtmldom/simple_html_dom.php';
     $adress = 'https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score';
     $html = file_get_html($adress);
-    $uniprot_protein_name = $html->find(".entryID", 0);
+    $uniprot_protein_name = $html->find(".entryID", 0)->plaintext;
 
     $adress = 'https://www.uniprot.org/uniprot/' . $uniprot_protein_name;
-    $adress = (string) $adress->name;
 
 
     echo '<div class="center">';
