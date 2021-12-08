@@ -75,7 +75,7 @@ if (!isset($_SESSION['user'])) {
     /////Retrieve latest attempt number
     $query_attempt = "SELECT a.attempt
       FROM database_projet.annotations a
-      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status is null;";
+      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status == 'assigned';";
     $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
     $attempt = pg_fetch_result($result_attempt, 0, 0);
 
@@ -101,7 +101,7 @@ if (!isset($_SESSION['user'])) {
     echo "<b>Chromosome:</b> $chromosome<br>";
     echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
 
-    if ($status == 'assigned') {
+    if ($status == 'assigned'){
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
       echo '<b>Gene identifier : </b><input type="text" required name="gene_id" value ="'. $gene_id .'"> <br>';
       echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
@@ -110,7 +110,8 @@ if (!isset($_SESSION['user'])) {
       echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
       echo '</form>';
       echo '</td>';
-    } else if ($status == 'waiting') {
+    } 
+    else if ($status == 'waiting') {
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
       echo '<b>Gene identifier : </b><input type="text" name="gene_id" value ="'. $gene_id .' disabled"> <br>';
       echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype" disabled><br>';
