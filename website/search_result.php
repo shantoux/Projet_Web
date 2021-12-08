@@ -235,7 +235,7 @@
           echo '<tr>';
           echo '<th>Sequence identifier</th>';
           echo '<th>Specie</th>';
-          echo '<th>Size of sequence</th>';
+          echo '<th>Size of sequence (nb of nucl)</th>';
           echo '<th>Annotated</th>';
           echo '<th>Extract</th>';
           echo '</tr>';
