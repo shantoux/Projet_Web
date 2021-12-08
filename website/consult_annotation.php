@@ -93,6 +93,7 @@
 
           // display annotator
           echo "<td>" . $annotation["annotator"] . "</td>";
+          echo '<br>' . $annotation["assignation_date"];
 
           // display genome name
           echo '<td>' . $annotation["genome_id"] . '</td>';
