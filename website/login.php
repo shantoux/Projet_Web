@@ -1,7 +1,4 @@
 <!-- Web page to login or access the registration page -->
-<?php session_start();
-
-?>
 
 <!DOCTYPE html>
 <html>
