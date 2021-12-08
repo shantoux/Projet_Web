@@ -127,7 +127,7 @@ connect_db();?>
           $email = pg_fetch_result($result, $res_nb, 2);
           $role = pg_fetch_result($result, $res_nb, 3);
           $status = pg_fetch_result($result, $res_nb, 4);
-          $phone = pg_fetch_result($result, $res_nb, 5);
+          $phone = pg_fetch_result($result, $res_nb, 5)
 
           echo '<tr><td>';
           echo $last_name;
