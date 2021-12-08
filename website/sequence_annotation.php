@@ -92,7 +92,6 @@ if (!isset($_SESSION['user'])) {
     $gene_symbol = pg_fetch_result($result_info, 0, 4);
     $description = pg_fetch_result($result_info, 0, 5);
 
-    echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
     echo '<table class="table_type3">';
     echo '<tr colspan=2>';
     echo '<td>';
@@ -108,8 +107,10 @@ if (!isset($_SESSION['user'])) {
       echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype"><br>';
       echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype"><br>';
       echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol"><br>';
-      echo '<b> Description : </b><input type ="text" required name = "gene_description"><br></form>';
+      echo '<b> Description : </b><input type ="text" required name = "gene_description"><br>';
     } else if ($status == 'waiting') {
+      echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
+      echo '</form>';
     }
     ?>
     </td>
