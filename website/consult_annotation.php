@@ -123,10 +123,11 @@
           $interval = $date_1->diff($date_1);
           $diff = $interval->format('%d');
           // change color to red if assigned more than 2 weeks ago
-          if ($diff > 2) {
+          if ($diff > 14) {
             echo '<span style="color:red;">';
           }
-          echo $diff . '<br>';
+          echo $interval->format('%d days %H hours %i minutes %s seconds');
+          echo '<br>';
           echo $annotation["assignation_date"];
           if ($diff > 2) {
             echo '</span>';
