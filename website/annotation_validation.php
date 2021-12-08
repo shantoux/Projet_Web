@@ -49,7 +49,7 @@ connect_db(); ?>
 
   //------------------------------The validator accepts the annotation with a comment -------------------------
 
-  if (isset($_POST['accept_button'])) {
+  if (isset($_POST['Accept_button'])) {
 
     //Retrieve last attempt number by a query getting the attempt's number with the waiting status (last attempt) :
     $query_attempt = "SELECT a.attempt
@@ -77,7 +77,7 @@ connect_db(); ?>
 
       $to = $_GET["annotator"]; // Send email to the annotator
       $subject = "Your annotation has been validated."; // Give the email a subject
-      $emessage = "Your annotation has been validated. \r\n Thank you for your contribution.";
+      $emessage = "Your annotation has been validated. \r\n Thank you for your contribution. \r\n The validator's comment :  ".$comments."";
 
       // if emessage is more than 70 chars
       $emessage = wordwrap($emessage, 70, "\r\n");
@@ -97,7 +97,7 @@ connect_db(); ?>
 
 //------------------------------The validator rejects the annotation with a comment-------------------------------
 
-  } else if (isset($_POST['reject_button'])) {
+} else if (isset($_POST['Reject_button'])) {
     //Retrieve value of comment, genome_id, sequence_id of the reviewed annotation and annotator of last attempt:
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
     $genome_id = $_GET['gid'];
@@ -136,7 +136,7 @@ connect_db(); ?>
 
       $to = $_GET["annotator"]; // Send email to our user
       $subject = "Your annotation has been rejected."; // Give the email a subject
-      $emessage = "Your annotation has been rejected \r\n Please review the validator's comment and submit another annotation. ".$comments." ";
+      $emessage = "Your annotation has been rejected \r\n Please review the validator's comment and submit another annotation. \r\n The validator's comment :  ".$comments." ";
 
       // if emessage is more than 70 chars
       $emessage = wordwrap($emessage, 70, "\r\n");
@@ -201,9 +201,9 @@ connect_db(); ?>
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";
-            echo '<input type="submit" name="accept_button" value="accept"></div>';
+            echo '<input type="submit" name="Accept_button" value="Accept"></div>';
             echo "<div style=\"float: left; width: auto;\">";
-            echo '<input type="submit" name="reject_button" value="reject"> </form> </div>';
+            echo '<input type="submit" name="Reject_button" value="Reject"> </form> </div>';
             echo "</td>";
             echo "</tr>";
           }
