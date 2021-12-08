@@ -9,6 +9,35 @@
 
   //annotator, genome_id, sequence_id, attempt
 
+  // remove assignation on validator call
+  if (isset($_POST["remove"])) {
+
+    // update annotation status
+    $query_annot = "SELECT genome_id, sequence_id, annotator, attempt
+    FROM database_projet.annotations
+    WHERE status = 'assigned' AND sequence_id = '" . $_GET["sid"] . "' ORDER BY assignation_date ASC;";
+    $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
+
+    $values_status = array();
+    $values_status['status'] = 'rejected';
+
+    $condition = array();
+    $condition['genome_id'] = pg_fetch_result($result_annot, 0, 0);
+    $condition['sequence_id'] = pg_fetch_result($result_annot, 0, 1);
+    $condition['annotator'] = pg_fetch_result($result_annot, 0, 2);
+    $condition['attempt'] = pg_fetch_result($result_annot, 0, 3);
+
+    $update = pg_update($db_conn, 'database_projet.annotations', $values_status, $condition) or die('Query failed with exception: ' . pg_last_error());
+
+    if ($update) {
+      echo "<br> <div class=\"alert_good\">
+        <span class=\"closebtn\"
+        onclick=\"this.parentElement.style.display='none';\">&times;</span>
+        Successfully removed assignation.
+      </div>";
+    }
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -135,7 +164,7 @@
 
           // display remove button
           echo '<form action="consult_annotation.php?sid="' . $annotation["sequence_id"] . '"" method="post">';
-          echo '<td><input type="submit" name="submit" value="&#10008"></td>';
+          echo '<td><input type="submit" name="remove" value="&#10008"></td>';
           echo "</tr>";
         }
 
