@@ -28,8 +28,7 @@
   <?php
   include_once 'libphp/dbutils.php';
   connect_db(); // connexion to database
-
-  if (isset($_POST['submit']){
+  if (isset($_POST['submit'])){
     //Get email and password filled in the connexion form
     $user_name = $_POST["name"];
     $user_password = $_POST["pass"];
