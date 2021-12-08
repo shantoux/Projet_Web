@@ -69,6 +69,44 @@ if (!isset($_SESSION['user'])) {
 
   ?>
 
+<?php
+
+
+if (isset($_POST['send_annotation']) | isset($POST['save_annotation'])) {
+  //Retrieve informations from form
+  $values_annotations = array();
+  $values_annotations['gene_id'] = $_POST["gene_id"];
+  $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
+  $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
+  $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
+  $values_annotations['description'] = $_POST["gene_description"];
+  if (isset($_POST['send_annotation'])) {
+    $values_annotations['status'] = 'waiting';
+  } else if (isset($_POST['save_annotation'])) {
+    $values_annotations['status'] = null;
+  }
+  //Conditions for query
+
+  $condition_pkey = array();
+  $condition_pkey['genome_id'] = $_GET['gid'];
+  $condition_pkey['sequence_id'] = $_GET['sid'];
+  $condition_pkey['attempt'] = $attempt;
+  $condition_pkey['annotator'] = $_SESSION['user']; //$_GET['annotator'];
+
+  //Update database
+  $result_update = pg_update($db_conn, 'database_projet.annotations', $values_annotations, $condition_pkey)
+    or die('Query failed with exception: ' . pg_last_error());
+
+  if ($result_update) {
+    echo "Annotation has been sent. Wait for validation.";
+  } else {
+    echo "Error : the annotation has not been sent.";
+  }
+}
+
+?>
+
+
   <div class="center">
     <?php
 
@@ -165,43 +203,7 @@ if (!isset($_SESSION['user'])) {
 
 
 
-  <?php
-
-
-  if (isset($_POST['send_annotation']) | isset($POST['save_annotation'])) {
-    //Retrieve informations from form
-    $values_annotations = array();
-    $values_annotations['gene_id'] = $_POST["gene_id"];
-    $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
-    $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
-    $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
-    $values_annotations['description'] = $_POST["gene_description"];
-    if (isset($_POST['send_annotation'])) {
-      $values_annotations['status'] = 'waiting';
-    } else if (isset($_POST['save_annotation'])) {
-      $values_annotations['status'] = null;
-    }
-    //Conditions for query
-
-    $condition_pkey = array();
-    $condition_pkey['genome_id'] = $_GET['gid'];
-    $condition_pkey['sequence_id'] = $_GET['sid'];
-    $condition_pkey['attempt'] = $attempt;
-    $condition_pkey['annotator'] = $_SESSION['user']; //$_GET['annotator'];
-
-    //Update database
-    $result_update = pg_update($db_conn, 'database_projet.annotations', $values_annotations, $condition_pkey)
-      or die('Query failed with exception: ' . pg_last_error());
-
-    if ($result_update) {
-      echo "Annotation has been sent. Wait for validation.";
-    } else {
-      echo "Error : the annotation has not been sent.";
-    }
-  }
-
-  ?>
-
+  
   <h3 id="pageundertitle" class="center"> Past attempts </h3>
   <div id="element1">
     <?php
