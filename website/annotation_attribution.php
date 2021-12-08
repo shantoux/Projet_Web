@@ -30,12 +30,14 @@
           if ($_SESSION['role'] == 'Validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a href=\"./consult_annotation.php\">Consult annotation</a>";
             echo "<a href=\"./forum.php\">Forum</a>";
           }
           if ($_SESSION['role'] == 'Administrator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
             echo "<a class=\"active\" href=\"./annotation_attribution.php\">Attribute annotation</a>";
+            echo "<a href=\"./consult_annotation.php\">Consult annotation</a>";
             echo "<a href=\"./forum.php\">Forum</a>";
             echo "<a href=\"./user_list.php\">Users' List</a>";
           }
@@ -119,7 +121,7 @@
         // Query to get the names and email of the annotators
         $list_annotator="SELECT U.first_name, U.last_name, U.email
         FROM database_projet.users U
-        WHERE U.role='Annotator' AND U.status = 'validated';";
+        WHERE U.status = 'validated' AND (U.role='Annotator' OR U.role='Validator' OR U.role='Administrator');";
 
         // Execute the queries
         $result1 = pg_query($db_conn, $seq_attribution) or die('Query failed with exception: ' . pg_last_error());
@@ -150,7 +152,7 @@
                 $annotator_email= pg_fetch_result($result2, $res2_nb, 2);
 
                 # display results of query
-                echo '<option value="'. $annotator_email . '">';
+                echo '<option value="'. $annotator_email . '" text-align-last:center;>';
                 echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
 
@@ -159,12 +161,11 @@
               # display button to choose which annotator will annotate the sequence
               echo '</select><input type="submit" value="Attribute" name="Attribute"></td></form>';
 
-            } // exit the if condition for the presence of annotator in the database
+            }
             echo '</tr>';
+          }
 
-          } // exit the loop over un-annotated sequences
-
-        } // exit the if condition for the presence of un-annotated sequences in the database
+        }
         else {
           // if all the sequences in the database are annotated
 
