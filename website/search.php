@@ -137,7 +137,7 @@
             <!-- Add a field for gene identifier -->
             <tr>
               <td> Description: </td>
-              <td> <textarea cols="92" rows="5" name="description"></textarea> </td>
+              <td> <textarea cols="92" rows="5" name="description" style="border-radius:10px;"></textarea> </td>
             </tr>
 
             <!-- Display search buttton -->
