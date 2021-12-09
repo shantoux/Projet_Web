@@ -77,7 +77,7 @@
       if ($result != false) {
         while ($rows = pg_fetch_array($result)) {
           echo "<tr>";
-          echo "<td>" . date('d-m-o H\h i', $rows["assignation_date"]) . "</td>";
+          echo "<td>" . date('d-m-o H\hi', strtotime($rows["assignation_date"])) . "</td>";
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
@@ -152,7 +152,7 @@
           echo '<td>';
           echo $attempt;
           echo '</td><td>';
-          echo $assignation_date;
+          echo date('d-m-o H\hi', strtotime($rows["assignation_date"]));
           echo '</td></tr>';
         }
       } else {
