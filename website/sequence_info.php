@@ -231,7 +231,7 @@
     $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
 
     // loop on all of its lines
-    for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++;) {
+    for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
 
       // retrieve the domains informations
       $domain = array();
