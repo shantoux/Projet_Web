@@ -273,7 +273,7 @@ body {
   margin-left: -33px;
 }
 
-.search-button button.disc:hover {
+.search-button button:hover {
   background-color: white;
 }
 
