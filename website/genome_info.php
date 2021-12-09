@@ -163,19 +163,24 @@
                 echo "<a href=\"./sequence_info.php?sid=" . $seq_id . "\" ";
 
                 // check if gene is annotated
-                $query_annot = "SELECT gene_id, gene_symbol, description, annotator FROM database_projet.annotations WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "';";
+                $query_annot = "SELECT gene_id, gene_symbol, description, annotator, status
+                FROM database_projet.annotations
+                WHERE sequence_id = '" . $seq_id . "' AND genome_id = '" . $genome_id . "' AND status != 'rejected' AND status != 'assigned';";
                 $result_annot = pg_query($db_conn, $query_annot) or die('Query failed with exception: ' . pg_last_error());
 
-                // if it's not, display warning in mouse-over text and set color to red
+                // if it's not, display warning in mouse-over text and set color to red or orange -if the annotation is written but not validated yet
                 if(pg_num_rows($result_annot) == 0) {
                   $color = "red";
                   $info = ' title="' . "WARNING: Unannotated gene";
                   echo 'style="font-family:Consolas;color:' . $color . ';"' . $info . '">';
                 }
 
-                // if it is, display informations in mouse-over text and set color to blue
+                // if it is annotated, display informations in mouse-over text and set color to blue (or orange -if the annotation is written but not validated yet)
                 else {
                   $color = "blue";
+                  if (pg_fetch_result($result_annot, 0, 4) == 'waiting') {
+                    $color = '#A3423C';
+                  }
                   $info = ' title="';
                   // add gene symbol if it exists
                   if (pg_fetch_result($result_annot, 0, 1) != "") {
