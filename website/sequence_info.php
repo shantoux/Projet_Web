@@ -243,7 +243,7 @@
 
     echo '<br><br>';
 
-    echo file_get_html($adress)->getElementsByClassName("resultTable details")->childNodes(1)->childElementCount;
+    echo sizeof($t->children);
 
 
     echo '</div>';
