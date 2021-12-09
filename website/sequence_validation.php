@@ -284,7 +284,7 @@ if (!isset($_SESSION['user'])) {
         echo "</tr>";
       }
     } else {
-      echo "This is your first attempt";
+      echo "This is the first attempt";
     }
 
     echo '</tbody>';
