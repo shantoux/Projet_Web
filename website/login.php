@@ -25,6 +25,7 @@
   <?php
   include_once 'libphp/dbutils.php';
   connect_db(); // connexion to database
+
   if (isset($_POST['submit'])){
     //Get email and password filled in the connexion form
     $user_name = $_POST["name"];
@@ -35,6 +36,7 @@
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
     $hash = pg_fetch_result($result, 0, 1);
+
 
     if(password_verify($user_password, $hash)){
       if (pg_num_rows($result) == 1) {
@@ -67,6 +69,8 @@
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
             Wrong Username or Password.</div>";
           }
+
+
         } else {
           //Get email and password filled in the connexion form
           //$user_name = $_POST["name"];
