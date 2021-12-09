@@ -69,10 +69,11 @@
 
       <!-- Display page title -->
       <div id="pagetitle"> Search our database </div>
+      <br> <br>
       Search for a gene / proteine sequence, or for a whole genome.
 
       <!-- Display search form -->
-      <br> <br> <br>
+      <br> <br>
       <div id="element1">
         <form action="search_result.php" method = "post">
           <table class="center">
