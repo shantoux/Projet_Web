@@ -42,7 +42,7 @@
 
       // build hashed pw
       $hash = pg_fetch_result($result, 0, 0);
-      
+
       // check if user is validated by admin
       $validated = pg_fetch_result($result, 0, 1) == 'validated';
 
@@ -59,6 +59,15 @@
         $_SESSION['role'] = pg_fetch_result($result, 0, 2);
         $_SESSION['first_name'] = pg_fetch_result($result, 0, 3);
         $_SESSION['last_name'] = pg_fetch_result($result, 0, 4);
+
+        // update last login
+        $login_time = array();
+        $login_time['last_login'] = 'now()';
+
+        $condition = array();
+        $condition['user_email'] = $_POST['name'];
+
+        $update = pg_update($db_conn, 'database_projet.users', $login_time, $condition) or die('Query failed with exception: ' . pg_last_error());
 
       }
 

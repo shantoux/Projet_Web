@@ -124,10 +124,20 @@ connect_db();?>
     }
     ?>
 
-    <div id = "element1">
+    <div class = "center">
       <?php
-      echo '<table class = "center">';
+      echo '<table class = "table_type_gene_inf">';
       echo '<thead>';
+      echo '<colgroup>';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 12.5%;">';
+      echo '</colgroup>';
       echo '<tr>';
       echo '<th>Last Name</th>';
       echo '<th>First Name</th>';
@@ -135,11 +145,12 @@ connect_db();?>
       echo '<th>User Number</th>';
       echo '<th>Role</th>';
       echo '<th>Status</th>';
+      echo '<th>Last login</th>';
       echo '<th>Action</th></tr></thead>';
 
       //Display users waiting to be validated
       echo '<tbody>';
-      $query = "SELECT last_name, first_name, email, role, status, phone, pw
+      $query = "SELECT last_name, first_name, email, role, status, phone, pw, last_login
       FROM database_projet.users WHERE status='waiting' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
@@ -152,6 +163,7 @@ connect_db();?>
           $status = pg_fetch_result($result, $res_nb, 4);
           $phone = pg_fetch_result($result, $res_nb, 5);
           $pw = pg_fetch_result($result, $res_nb, 6);
+          $last_login = pg_fetch_result($result, $res_nb, 7);
 
           echo '<tr><td>';
           echo $last_name;
@@ -166,6 +178,8 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
+          echo substr($last_login, 0, 19);
+          echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="validate">Validate</option>';
           echo '<option value="delete">Delete</option>';
@@ -177,7 +191,7 @@ connect_db();?>
 
       //Display users already in database
       echo '<tbody>';
-      $query = "SELECT last_name, first_name, email, role, status, phone
+      $query = "SELECT last_name, first_name, email, role, status, phone, last_login
       FROM database_projet.users WHERE status='validated' ORDER BY role;";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
@@ -189,6 +203,7 @@ connect_db();?>
           $role = pg_fetch_result($result, $res_nb, 3);
           $status = pg_fetch_result($result, $res_nb, 4);
           $phone = pg_fetch_result($result, $res_nb, 5);
+          $last_login = pg_fetch_result($result, $res_nb, 6);
 
           echo '<tr><td>';
           echo $last_name;
@@ -202,6 +217,8 @@ connect_db();?>
           echo $role;
           echo '</td><td>';
           echo $status;
+          echo '</td><td>';
+          echo substr($last_login, 0, 19);
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="change">Change role to reader</option>';
