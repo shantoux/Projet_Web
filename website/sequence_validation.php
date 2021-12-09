@@ -207,7 +207,19 @@ if (!isset($_SESSION['user'])) {
 
       <!-- display description -->
       <b>Description: </b> <?php echo $description ?> <br><br>
-      </td>
+      </td><td>
+      <?php if ($_SESSION['role'] == ('Validator' ||'Administrator') && $_SESSION['user']!=$annotator) : ?>
+        <form action="./sequence_validation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
+          <tr>
+            <td>
+              Comment to validate or reject <br>
+              <textarea name="comments" cols="40" rows="3" required></textarea> <br>
+               <input type="submit" value="Validate" name="validate_annotation">
+            <input type="submit" value="Reject" name="reject_annotation"> 
+            </td><td>
+          </tr>
+        </form>
+        <?php endif;?>
       </tr>
       <tr></tr>
       <tr>
@@ -233,18 +245,7 @@ if (!isset($_SESSION['user'])) {
           <button type="button">Align with Blast</button>
           </a>
       </tr>
-        <?php if ($_SESSION['role'] == ('Validator' ||'Administrator') && $_SESSION['user']!=$annotator) : ?>
-        <form action="./sequence_validation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
-          <tr>
-            <td>
-              Comment to validate or reject <br>
-              <textarea name="comments" cols="40" rows="3" required></textarea> <br>
-               <input type="submit" value="Validate" name="validate_annotation">
-            <input type="submit" value="Reject" name="reject_annotation"> 
-            </td>
-          </tr>
-        </form>
-        <?php endif;?>
+        
     <?php endif; ?>
 
 
