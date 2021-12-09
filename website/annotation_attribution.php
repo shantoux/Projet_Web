@@ -78,7 +78,11 @@
         $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_annotations);
         if ($result_insert) {
           // If the insertion was done successfully : print a message informing the user and send an email to the annotator
-          echo "<td> Attribution successfully added.</td>";
+          echo "<td> Attribution successfully added.</td><br>";
+          echo "<td> <div class=\"alert_good\"><span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Attribution successfully added.
+          </div></td>";
 
           // Send email to the annotator to inform them they were attributed a new sequence
 
