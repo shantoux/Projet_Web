@@ -127,16 +127,16 @@ connect_db();?>
         }
       } else if ($_POST['selected_action']=='delete'){
         $query_delete2 = "DELETE FROM database_projet.correspondents WHERE user_email = '" .$_GET['mail']. "';";
-        $result_delete2 = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
+        $result_delete2 = pg_query($db_conn, $query_delete2) or die('Query failed with exception: ' . pg_last_error());
 
         $query_delete3 = "DELETE FROM database_projet.messages WHERE user_email = '" .$_GET['mail']. "';";
-        $result_delete3 = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
+        $result_delete3 = pg_query($db_conn, $query_delete3) or die('Query failed with exception: ' . pg_last_error());
 
         $query_delete = "DELETE FROM database_projet.users WHERE email = '" .$_GET['mail']. "';";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
 
 
-        if ($result_delete && $result2 && $result3){
+        if ($result_delete && $result_delete2 && $result_delete3){
           echo "<br> <div class=\"alert_good\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
