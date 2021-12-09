@@ -222,7 +222,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
       </tr>
         <?php if ($_SESSION['role'] == 'Validator'):?>
 
-        <form action="./sequence_annotation.php?gid= <?php echo $genome_id ?> &sid= <?php echo $genome_id ?>" method="post">
+        <form action="./sequence_annotation.php?gid= <?php echo $genome_id ?> &sid= <?php echo $sequence_id ?>" method="post">
         <tr>
         <td>
         <textarea name="comments" cols="40" rows="3" required></textarea></td>
