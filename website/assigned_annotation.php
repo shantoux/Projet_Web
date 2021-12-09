@@ -45,8 +45,8 @@
 </div>
 
 <h3 id="pagetitle"> Sequences annotation </h3>
-Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
-<br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
+<div id="element1">Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
+<br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.</div>
 <br>
 <br>
 <h3 id="pageundertitle" class="center"> Sequences waiting to be annotated </h3>
@@ -77,7 +77,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       if ($result != false) {
         while ($rows = pg_fetch_array($result)) {
           echo "<tr>";
-          echo "<td>" . $rows["assignation_date"] . "</td>";
+          echo "<td>" . date('d-m-o H\h i', $rows["assignation_date"]) . "</td>";
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
