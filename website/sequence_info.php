@@ -272,9 +272,9 @@
                 if ($domains[$domain_ind]["name"] != "n/a") {
                   $no_know_domain = false;
                   $color = $colors[$domain_ind % sizeof($colors)];
-                  echo '<span style="background-color:' . $color . '";>';
+                  echo '<a href="https://pfam.xfam.org/family/' . $domains[$domain_ind]["name"] . '" style="background-color:' . $color . '";>';
                   echo $domains[$domain_ind]["name"];
-                  echo '</span><br>';
+                  echo '</a><br>';
                 }
               }
 
