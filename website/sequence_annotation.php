@@ -130,18 +130,20 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     $gene_symbol = pg_fetch_result($result_info, 0, 4);
     $description = pg_fetch_result($result_info, 0, 5);
     $annotator = pg_fetch_result($result_info, 0, 6);
+    ?>
 
-    echo '<table class="table_type3">';
-    echo '<tr colspan=2>';
-    echo '<td>';
-    echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
-    echo "<b>Specie:</b> $genome_id<br>";
-    echo "<b>Chromosome:</b> $chromosome<br>";
-    echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
+    <table class="table_type3">
+    <tr colspan=2>
+    <td>
+    <b>Sequence identifier:</b> $sequence_id<br><br>
+    <b>Specie:</b> $genome_id<br>
+    <b>Chromosome:</b> $chromosome<br>
+    <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>';?>
 
-    if ($status == 'assigned'){
+    <?php if ($status == 'assigned'){
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
-      echo '<b>Gene identifier : </b><input type="text" name="gene_id" value ="'. $gene_id .'"> <br>';
+      echo '<b>Gene identifier : </b><input type="text" name="gene_id" 
+                    value = '(isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) :''. $gene_id .'> <br>';
       echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
       echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
       echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
@@ -261,3 +263,10 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
 </body>
 
 </html>
+
+<input type="text" name="textfieldname"
+  value="<?php
+  echo (isset($_POST['textfieldname'])) ?
+    htmlspecialchars($_POST['textfieldname']) :
+    'default value';
+  ?>" />
