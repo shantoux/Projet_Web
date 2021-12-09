@@ -243,7 +243,7 @@
 
     echo '<br><br>';
 
-    echo sizeof($try["nodes"]);
+    echo sizeof($try[0]["nodes"]);
 
 
     echo '</div>';
