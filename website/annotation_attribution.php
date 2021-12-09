@@ -62,7 +62,7 @@
         $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
 
         // if it is the first time this sequence is assigned to this user, set attempt to 1
-        $attempt = 1
+        $attempt = 1;
         if (pg_num_rows($result_attempt) > 0) {
           $attempt = pg_fetch_result($result_attempt, 0, 0) + 1;
         }
