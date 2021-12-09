@@ -79,7 +79,7 @@ if (!isset($_SESSION['user'])) {
   //Retrieve status of sequence annotation
   $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
   FROM database_projet.annotations a
-  WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' AND annotator ='".$annotator."' ;";
+  WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt =" . $attempt . " AND annotator ='".$annotator."' ;";
   $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
   $status = pg_fetch_result($result_info, 0, 0);
   $gene_id = pg_fetch_result($result_info, 0, 1);
