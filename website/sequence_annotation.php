@@ -73,7 +73,7 @@ if (!isset($_SESSION['user'])) {
 <?php
 
 
-if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
+if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
   echo "On est bien allé dans la boucle";
   //Retrieve informations from form
   $values_annotations = array();
