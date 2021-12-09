@@ -110,25 +110,7 @@
           Attribution NOT added. Something went wrong.</div></td>";
         }
       }
-    ?>
-
-
-    <!-- Display table of results for the search -->
-    <div id="element1"> <!-- <div class = "center"> -->
-      <?php
-        echo '<table class = "table_type1">';
-
-        # display header line
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th>Genome</th>';
-        echo '<th>Sequence</th>';
-        echo '<th>Annotators</th>';
-        echo '</tr>';
-        echo '</thead>'; #end of title line
-
-        # display results of search
-        echo '<tbody>';
+################################################################################
 
         // Query to only get the un-annotated sequences :
         // retrieve all the sequences except for the one already in the annotations table
@@ -149,6 +131,25 @@
 
         if(pg_num_rows($result1) > 0){
           // If there is un-annotated sequences
+
+          # Display table of results for the search
+
+          echo '<div id="element1">';
+          echo '<table class = "table_type1">';
+
+          # display header line
+          echo '<thead>';
+          echo '<tr>';
+          echo '<th>Genome</th>';
+          echo '<th>Sequence</th>';
+          echo '<th>Annotators</th>';
+          echo '</tr>';
+          echo '</thead>'; #end of title line
+
+          # display results of search
+          echo '<tbody>';
+
+
           for ($res_nb = 0; $res_nb < pg_num_rows($result1); $res_nb++) {
             // Loop over each un-annotated sequences
             $genome_id = pg_fetch_result($result1, $res_nb, 0); //get the result of the first column (0) for the row in question
@@ -189,10 +190,10 @@
           // if all the sequences in the database are annotated
 
           # display message
-          echo "<div class=\"alert_bad\">
+          echo "<div class=\"alert_neutral\">
           <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
           There is no new sequences to attribute.</div>";
-        }
+        } //<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
         echo '</tbody>';
         echo '</table>';
 

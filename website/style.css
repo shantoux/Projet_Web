@@ -106,6 +106,18 @@ body {
   text-align: center;
 }
 
+.alert_neutral {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  padding: 20px;
+  background-color: orange; /* Orange */
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: center;
+}
+
 /* The close button */
 .closebtn {
   margin-left: 15px;
@@ -232,6 +244,22 @@ body {
   color:black;
   white-space: normal;
   overflow-wrap: break-word;
+}
+
+.fancy_box{
+  border: solid 6px #4F8E8D;
+  border-radius: 50px;
+  background-color: #E9F2F2;
+  width: 60%;
+  padding: 20px 20px;
+  margin: 50px 0px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+
+.search_input{
+  border-radius: 10px;
 }
 
 .table_type_seq_inf{
