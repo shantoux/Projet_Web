@@ -83,10 +83,10 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
   $values_annotations['description'] = $_POST["gene_description"];
   if (isset($_POST['send_annotation'])) {
     $values_annotations['status'] = 'waiting';
-    print_r("On va bien dans la boucle");
+    echo "on va bien dans la boucle";
   } else if (isset($_POST['save_annotation'])) {
     $values_annotations['status'] = 'assigned';
-    print_r("On va bien dans la boucle save");
+    echo "On va bien dans la boucle save";
   }
   //Conditions for query
 
