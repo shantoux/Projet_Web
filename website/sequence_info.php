@@ -243,7 +243,12 @@
 
     echo '<br><br>';
 
-    echo $t->childNodes->length;
+    $count = 0;
+    foreach($t->childNodes as $node)
+      if(!($node instanceof \DomText))
+        $count++;
+
+    echo $count;
 
 
     echo '</div>';
