@@ -264,12 +264,11 @@ body {
 
 .search-button {
   border: solid 1px black;
-  background-color: #4F8E8D;
+  background-color: #9dc8c2;
   width: 40px;
   height: 40px;
   outline-style: initial;
   border-radius: 20px;
-  cursor: pointer;
   margin-left: -33px;
 }
 
