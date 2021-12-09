@@ -59,24 +59,19 @@ connect_db(); ?>
   <?php
   if (isset($_POST['Accept_button'])) {
 
-    //Retrieve last attempt number by a query getting the attempt's number with the waiting status (last attempt) :
-    $query_attempt = "SELECT a.attempt
-      FROM database_projet.annotations a
-      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status= 'waiting';";
-    $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-    $attempt = pg_fetch_result($result_attempt, 0, 0);
-
     //Retrieve value of comment, genome_id and sequence_id of the reviewed annotation :
     $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
     $genome_id = $_GET['gid'];
     $sequence_id = $_GET['sid'];
+    $annotator = $_GET['annotator'];
+    $attempt = $_GET['attempt'];
 
     //Updating the status of the annotation to 'validated' by the validator
     $query = "UPDATE database_projet.annotations
               SET status = 'validated',
               comments = " . $comments .
       " WHERE sequence_id ='" . $sequence_id .
-      "' AND attempt = " . $attempt . ";";
+      "' AND attempt = " . $attempt . "' AND annotator = '".$annotator."';";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
     //----------------Send an email to the annotator, informing them of the decision
@@ -111,13 +106,7 @@ connect_db(); ?>
     $genome_id = $_GET['gid'];
     $sequence_id = $_GET['sid'];
     $annotator = $_GET['annotator'];
-
-    //Retrieve last attempt number :
-    $query_attempt = "SELECT a.attempt
-      FROM database_projet.annotations a
-      WHERE genome_id = '" . $genome_id . "' AND sequence_id = '" . $sequence_id . "' AND status='waiting';";
-    $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-    $attempt = pg_fetch_result($result_attempt, 0, 0);
+    $attempt = $_GET['att'];
 
     //Set this attempt's status to 'rejected'
     $query = "UPDATE database_projet.annotations
@@ -203,10 +192,10 @@ connect_db(); ?>
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo '<td><a href="./sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '&att=' .$rows['attempt'].'">' . $rows["sequence_id"] . '</a></td>';
+            echo '<td><a href="./sequence_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '&att=' .$rows['attempt'].'&annotator='. $rows["annotator"] .'">' . $rows["sequence_id"] . '</a></td>';
             echo "<td>" . $rows["annotator"] . "</td>";
             //The form returns to the same page, with the sequence_id and the genome_id in the url if a submit button in pressed (cf actions of the validator)
-            echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] .'&sid=' . $rows["sequence_id"] . '&annotator=' . $rows["annotator"] . '" method = "post">';
+            echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] .'&sid=' . $rows["sequence_id"] . '&att=' .$rows['attempt']. '&annotator=' . $rows["annotator"] . '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
             echo "<div style=\"float:left; width: 50%;\">";

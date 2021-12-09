@@ -75,7 +75,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       <?php
       include_once 'libphp/dbutils.php';
       connect_db();
-      $query = "SELECT a.genome_id, a.sequence_id, a.attempt
+      $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator
         FROM database_projet.annotations a
         WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned';";
       $result = pg_query($db_conn, $query);
@@ -85,7 +85,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
-          echo '<td> <input type="button" class="button_active" value="Annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'&att='.$rows['attempt'].'\';"/></td>';
+          echo '<td> <input type="button" class="button_active" value="Annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'&att='.$rows['attempt'].'&annotator='.$rows['annotator'].'\';"/></td>';
           echo '<td>' . $rows["attempt"] . '</td>';
           echo "</tr>";
         }

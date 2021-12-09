@@ -47,7 +47,7 @@ if (!isset($_SESSION['user'])) {
   </div>
 
   <div id="pagetitle">
-    Sequence Annotation
+    Sequence Annotation Validation
   </div>
 
   <?php
@@ -77,9 +77,9 @@ if (!isset($_SESSION['user'])) {
 
 
   //Retrieve status of sequence annotation
-  $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.annotator
+  $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
   FROM database_projet.annotations a
-  WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' ;";
+  WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' AND annotator ='".$annotator."' ;";
   $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
   $status = pg_fetch_result($result_info, 0, 0);
   $gene_id = pg_fetch_result($result_info, 0, 1);
@@ -87,49 +87,97 @@ if (!isset($_SESSION['user'])) {
   $transcript_biotype = pg_fetch_result($result_info, 0, 3);
   $gene_symbol = pg_fetch_result($result_info, 0, 4);
   $description = pg_fetch_result($result_info, 0, 5);
-  $annotator = pg_fetch_result($result_info, 0, 6);
   ?>
 
-  <?php
 
+<?php
+  if (isset($_POST['validate_annotation'])) {
 
-  if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
-    echo "On est bien allé dans la boucle";
-    //Retrieve informations from form
-    $values_annotations = array();
-    $values_annotations['gene_id'] = $_POST["gene_id"];
-    $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
-    //$values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
-    $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
-    $values_annotations['description'] = $_POST["description"];
-    if (isset($_POST['send_annotation'])) {
-      $values_annotations['status'] = 'waiting';
-      echo "on va bien dans la boucle";
-    } else if (isset($_POST['save_annotation'])) {
-      $values_annotations['status'] = 'assigned';
-      echo "On va bien dans la boucle save";
+    //Retrieve value of comment, genome_id and sequence_id of the reviewed annotation :
+    $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
+
+    //Updating the status of the annotation to 'validated' by the validator
+    $query = "UPDATE database_projet.annotations
+              SET status = 'validated',
+              comments = " . $comments .
+      " WHERE sequence_id ='" . $sequence_id .
+      "' AND attempt = " . $attempt . " AND annotator ='".$annotator."';";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+
+    //----------------Send an email to the annotator, informing them of the decision
+    if ($result) {
+      echo "Annotation validated. An email was sent to the annotator.";
+
+      $to = $_GET["annotator"]; // Send email to the annotator
+      $subject = "Your annotation has been validated."; // Give the email a subject
+      $emessage = "Your annotation has been validated. \r\n Thank you for your contribution. \r\n The validator's comment :  ".$comments."";
+
+      // if emessage is more than 70 chars
+      $emessage = wordwrap($emessage, 70, "\r\n");
+
+      // Our emessage above including the link
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
+
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
+    } else {
+      echo "something went wrong in the query";
     }
-    //Conditions for query
 
-    $condition_pkey = array();
-    $condition_pkey['genome_id'] = $_GET['gid'];
-    $condition_pkey['sequence_id'] = $_GET['sid'];
-    $condition_pkey['attempt'] = $attempt;
-    $condition_pkey['annotator'] = $annotator; //$_GET['annotator'];
+//------------------------------The validator rejects the annotation with a comment-------------------------------
 
-    //Update database
-    $result_update = pg_update($db_conn, 'database_projet.annotations', $values_annotations, $condition_pkey)
-      or die('Query failed with exception: ' . pg_last_error());
+} else if (isset($_POST['reject_annotation'])) {
+    //Retrieve value of comment, genome_id, sequence_id of the reviewed annotation and annotator of last attempt:
+    $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
 
-    if ($result_update) {
-      if (isset($_POST['send_annotation'])) {
-        echo "Annotation has been sent. Wait for validation.";
-      } else if (isset($_POST['save_annotation'])) {
-        echo "Annotation has been saved.";
-      }
+    //Set this attempt's status to 'rejected'
+    $query = "UPDATE database_projet.annotations
+              SET status = 'rejected',
+              comments = " . $comments .
+      " WHERE sequence_id ='" . $sequence_id .
+      "' AND attempt = " . $attempt . " AND annotator='" .$annotator."';";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+
+    //Retrieve informations to add a new attempt to that sequence's annotation
+    $values_attempt = array();
+    $values_attempt['genome_id'] = $genome_id;
+    $values_attempt['sequence_id'] = $sequence_id;
+    $values_attempt['annotator'] = $annotator;
+    $values_attempt['attempt'] = $attempt + 1; //Incrementation of the attempt's number
+    $values_attempt['status'] = 'assigned';
+
+    $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());
+
+    if ($result and $result_insert) {
+      echo "Annotation successfully rejected. Please go back to validation page";
+
+    //----------------Send an email to the annotator, informing them of the decision
+
+
+      $to = $_GET["annotator"]; // Send email to our user
+      $subject = "Your annotation has been rejected."; // Give the email a subject
+      $emessage = "Your annotation has been rejected \r\n Please review the validator's comment and submit another annotation. \r\n The validator's comment :  ".$comments." ";
+
+      // if emessage is more than 70 chars
+      $emessage = wordwrap($emessage, 70, "\r\n");
+
+      // Our emessage above including the link
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
+
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
+    } else {
+      echo "something went wrong in the query";
     }
   }
-
   ?>
 
   <div class="center">
@@ -143,13 +191,20 @@ if (!isset($_SESSION['user'])) {
           <b>Chromosome:</b> <?php echo $chromosome; ?><br>
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
 
-  
-            <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>" method="post">
-              <b>Gene identifier : </b><input type="text" name="gene_id" required value="<?php echo (isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
-              <b>Gene biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['gene_biotype'])) ? htmlspecialchars($_POST['gene_biotype']) : $gene_biotype ?>"> <br>
-              <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br>
-              <b>Description : </b><input type="text" name="description" required value="<?php echo (isset($_POST['description'])) ? htmlspecialchars($_POST['description']) : $description ?>"> <br>
-        </td>
+          
+    <?php if ($status == 'waiting') : ?>
+      <!-- display gene biotype -->
+      <b>Gene identifier: </b> <?php echo $gene_id ?> <br>
+
+      <!-- display transcript biotype -->
+      <b>Gene biotype: </b> <?php echo $gene_biotype ?> <br>
+
+      <!-- display gene symbol -->
+      <b>Gene symbol: </b> <?php echo $gene_symbol ?> <br>
+
+      <!-- display description -->
+      <b>Description: </b> <?php echo $description ?> <br>
+      </td>
       </tr>
       <tr></tr>
       <tr>
@@ -175,18 +230,23 @@ if (!isset($_SESSION['user'])) {
           <button type="button">Align with Blast</button>
           </a>
       </tr>
+        <?php if ($_SESSION['role'] == 'Annotator') : ?>
+        <form action="./sequence_validation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
+          <tr>
+            <td>
+              <textarea name="comments" cols="40" rows="3" required></textarea>
+            </td>
 
-      <tr>
-        <td align='center'> <input type="submit" value="Send" name="send_annotation">
-          <input type="submit" value="Save" name="save_annotation">
-        </td>
-      </tr>
-      </form>
+            <td> <input type="submit" value="Validate" name="validate_annotation"></td>
+            <td> <input type="submit" value="Reject" name="reject_annotation"> </td>
+          </tr>
+        </form>
+        <?php endif;?>
+    <?php endif; ?>
+
 
     </table>
   </div>
-
-
 
 
   <h3 id="pageundertitle" class="center"> Past attempts </h3>
@@ -221,7 +281,7 @@ if (!isset($_SESSION['user'])) {
         echo "</tr>";
       }
     } else {
-      echo "This is the first attempt";
+      echo "This is your first attempt";
     }
 
     echo '</tbody>';
