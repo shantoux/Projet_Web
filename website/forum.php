@@ -180,7 +180,7 @@
 
           // initiate conversation table div
           echo '<div class="center">';
-          echo '<table class="table_type_gene_inf">';
+          echo '<table class="table_type_gene_inf" style="border:solid 2px #4F8E8D;">';
           echo '<colgroup>';
           echo '<col span="1" style="width: 80%;">';
           echo '<col span="1" style="width: 20%;">';
