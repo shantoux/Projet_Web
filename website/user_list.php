@@ -205,7 +205,7 @@ connect_db();?>
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="delete">Change role to reader</option>';
-          echo '</select>';
+          echo '<option value="delete">Delete</option>';
           echo '</select><input type="submit" value="submit" name="submit">';
           echo '</td></form></tr>';
         }
