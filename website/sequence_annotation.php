@@ -57,6 +57,7 @@ if (!isset($_SESSION['user'])) {
   // Retrieve the information already in the database
   $genome_id = $_GET['gid'];
   $sequence_id = $_GET['sid'];
+  $attempt = $_GET['att'];
 
   $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
     FROM database_projet.gene g
@@ -72,13 +73,6 @@ if (!isset($_SESSION['user'])) {
 
   <?php
 
-  /////Retrieve latest attempt number
-  $query_attempt = "SELECT a.attempt
-  FROM database_projet.annotations a
-  WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status !='rejected';";
-  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-  $attempt = pg_fetch_result($result_attempt, 0, 0);
-  print_r("attempt number :" . $attempt);
 
 
   //Retrieve status of sequence annotation
@@ -200,7 +194,7 @@ if (!isset($_SESSION['user'])) {
     $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());
 
     if ($result and $result_insert) {
-      echo "Annotation successfully rejected.";
+      echo "Annotation successfully rejected. Please go back to validation page";
 
     //----------------Send an email to the annotator, informing them of the decision
 
