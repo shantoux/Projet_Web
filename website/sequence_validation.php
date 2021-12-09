@@ -189,7 +189,7 @@ if (!isset($_SESSION['user'])) {
           <b>Sequence identifier:</b> <?php echo $sequence_id; ?><br><br>
           <b>Specie:</b> <?php echo $genome_id; ?><br>
           <b>Chromosome:</b> <?php echo $chromosome; ?><br>
-          <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long <br>it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
+          <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
 
 
     <?php if ($status == 'waiting') : ?>
