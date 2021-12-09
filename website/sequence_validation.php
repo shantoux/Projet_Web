@@ -230,7 +230,7 @@ if (!isset($_SESSION['user'])) {
           <button type="button">Align with Blast</button>
           </a>
       </tr>
-        <?php if ($_SESSION['role'] == 'Validator') : ?>
+        <?php if ($_SESSION['role'] == 'Validator' && $_SESSION['user']!=$annotator) : ?>
         <form action="./sequence_validation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
           <tr>
             <td>
