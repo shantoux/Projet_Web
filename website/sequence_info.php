@@ -218,8 +218,7 @@
         <tr>
           <td>
             Peptide sequence<br>
-            <textarea id="seq" name="seq"
-            rows="8" cols="80" readonly>
+            <div rows="8" cols="80">
             <?php
               // build list of background colors
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
@@ -248,7 +247,7 @@
                 echo substr($prot_seq, $last_domain_end);
               }
             ?>
-            </textarea>
+          </div>
           </td>
 
           <!-- display button for automative blast alignment of the peptidic sequence -->
