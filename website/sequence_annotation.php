@@ -57,6 +57,7 @@ if (!isset($_SESSION['user'])) {
   // Retrieve the information already in the database
   $genome_id = $_GET['gid'];
   $sequence_id = $_GET['sid'];
+  $attempt = $_GET['att'];
 
   $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
     FROM database_projet.gene g
@@ -72,13 +73,6 @@ if (!isset($_SESSION['user'])) {
 
   <?php
 
-  /////Retrieve latest attempt number
-  $query_attempt = "SELECT a.attempt
-  FROM database_projet.annotations a
-  WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status !='rejected';";
-  $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-  $attempt = pg_fetch_result($result_attempt, 0, 0);
-  print_r("attempt number :" . $attempt);
 
 
   //Retrieve status of sequence annotation
@@ -200,7 +194,7 @@ if (!isset($_SESSION['user'])) {
     $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());
 
     if ($result and $result_insert) {
-      echo "Annotation successfully rejected.";
+      echo "Annotation successfully rejected. Please go back to validation page";
 
     //----------------Send an email to the annotator, informing them of the decision
 
@@ -239,7 +233,7 @@ if (!isset($_SESSION['user'])) {
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
 
           <?php if ($status == 'assigned') : ?>
-            <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>" method="post">
+            <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>" method="post">
               <b>Gene identifier : </b><input type="text" name="gene_id" required value="<?php echo (isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
               <b>Gene biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['gene_biotype'])) ? htmlspecialchars($_POST['gene_biotype']) : $gene_biotype ?>"> <br>
               <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br>
@@ -317,7 +311,7 @@ if (!isset($_SESSION['user'])) {
       </tr>
       <?php if ($_SESSION['role'] == 'Validator') : ?>
 
-        <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>" method="post">
+        <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>" method="post">
           <tr>
             <td>
               <textarea name="comments" cols="40" rows="3" required></textarea>
