@@ -241,11 +241,11 @@
                   echo $color;
                   echo '<span style="background-color:' . $color . '";>';
                   echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
+                  echo '<br>';
                   echo '</span>';
                   $last_domain_end = $domains[$domain_ind]["end_pos"];
                 }
               }
-
               echo substr($prot_seq, $last_domain_end);
             ?>
           </div>
