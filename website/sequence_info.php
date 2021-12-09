@@ -238,7 +238,8 @@
 
                   // display background colors based on domains
                   $color = $colors[$domain_ind % sizeof($colors)];
-                  echo '<span style="color:' . $color . '";>';
+                  echo $color;
+                  echo '<span style="background-color:' . $color . '";>';
                   echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
                   echo '</span>';
                   $last_domain_end = $domains[$domain_ind]["end_pos"];
