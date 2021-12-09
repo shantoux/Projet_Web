@@ -124,6 +124,8 @@ if (!isset($_SESSION['user'])) {
     if ($result_update) {
       if (isset($_POST['send_annotation'])) {
         echo "Annotation has been sent. Wait for validation.";
+        echo '<meta http-equiv = "refresh" content = " 0 ; url = ./sequence_annotation.php?gid='.$genome_id.'&sid='.$sequence_id.'&att='.$attempt.'&annotator='.$annotator.'"/>';
+
       } else if (isset($_POST['save_annotation'])) {
         echo "Annotation has been saved.";
       }
