@@ -110,7 +110,7 @@
         Wrong Username or Password.</div>";
       }
     }
-  }
+  //}
   ?>
 
   <!-- Login form -->
