@@ -244,9 +244,9 @@
                   echo '</span>';
                   $last_domain_end = $domains[$domain_ind]["end_pos"];
                 }
-
-                echo substr($prot_seq, $last_domain_end);
               }
+
+              echo substr($prot_seq, $last_domain_end);
             ?>
           </div>
           </td>
