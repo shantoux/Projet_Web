@@ -168,7 +168,7 @@
             if ($_POST["gene_id"] != "") {
               if (!$first_cond) {$query = $query . " AND ";}
               else {$first_cond = false;}
-              $query = $query . "A.gene_id LIKE '%" . $_POST["genes"] . "%'";
+              $query = $query . "A.gene_id LIKE '%" . $_POST["gene_id"] . "%'";
             }
 
             // check for condition on gene symbol id and add it to the query
@@ -321,7 +321,7 @@
             if ($_POST["gene_id"] != "") {
               if (!$first_cond) {$query = $query . " AND ";}
               else {$first_cond = false;}
-              $query = $query . "A.gene_id LIKE '%" . $_POST["genes"] . "%'";
+              $query = $query . "A.gene_id LIKE '%" . $_POST["gene_id"] . "%'";
             }
 
             // check for condition on gene symbol id and add it to the query
