@@ -70,9 +70,9 @@
     </div>
 
     <!-- Display page title -->
-    <div id="pagetitle">
+    <h2 id="pagetitle">
       Gene/Protein information
-    </div>
+    </h2>
 
     <?php
       // import db functions
