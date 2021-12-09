@@ -135,7 +135,7 @@ connect_db();?>
       echo '<th>User Number</th>';
       echo '<th>Role</th>';
       echo '<th>Status</th>';
-      echo '<th>Lost login</th>';
+      echo '<th>Last login</th>';
       echo '<th>Action</th></tr></thead>';
 
       //Display users waiting to be validated
