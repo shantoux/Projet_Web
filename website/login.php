@@ -42,13 +42,13 @@
 
       // build hashed pw
       $hash = pg_fetch_result($result, 0, 0);
-      echo $hash . '<br>' . $user_password . '<br>' . password_verify($user_password, $hash) . '<br>';
+      echo $hash . '<br>' . $user_password . '<br>' . password_verify($user_password, $hash) . '<br>' . password_hash($user_password) . '<br>';
 
       // check if user is validated by admin
       $validated = pg_fetch_result($result, 0, 1) == 'validated';
 
       // check if hashed pw matches
-      if ((password_verify($user_password, $hash) == true || $user_password == pg_fetch_result($result, 0, 0)) && $validated) {
+      if ((password_verify($user_password, $hash) || $user_password == pg_fetch_result($result, 0, 0)) && $validated) {
 
         // Go to the search page
         echo '<script>location.href="search.php"</script>';
