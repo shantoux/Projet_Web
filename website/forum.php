@@ -49,7 +49,7 @@
     </div>
 
     <!-- Display fancy box -->
-    <div class="fancy_box">
+    <div class="fancy_box" style="width:80%;">
 
       <!-- Display page title -->
       <div id="pagetitle">
