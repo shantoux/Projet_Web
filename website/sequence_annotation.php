@@ -233,7 +233,7 @@ if (!isset($_SESSION['user'])) {
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
 
           <?php if ($status == 'assigned') : ?>
-            <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>" method="post">
+            <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>" method="post">
               <b>Gene identifier : </b><input type="text" name="gene_id" required value="<?php echo (isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
               <b>Gene biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['gene_biotype'])) ? htmlspecialchars($_POST['gene_biotype']) : $gene_biotype ?>"> <br>
               <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br>
@@ -311,7 +311,7 @@ if (!isset($_SESSION['user'])) {
       </tr>
       <?php if ($_SESSION['role'] == 'Validator') : ?>
 
-        <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>" method="post">
+        <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>" method="post">
           <tr>
             <td>
               <textarea name="comments" cols="40" rows="3" required></textarea>
