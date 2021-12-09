@@ -102,7 +102,7 @@ if(isset($_POST['submit_registration'])){
 
           $to = $_POST["adress"]; // Send email to our user
           $subject = "Confirmation of registration"; // Give the email a subject
-          $emessage = "Thank you for signing up for our platform. \r\n The administrator will review your application very soon. \r\n Expect an update very soon!";
+          $emessage = "Thank you for signing up for our platform.\n The administrator will review your application.\n Expect an update very soon!";
 
           // if emessage is more than 70 chars
           $emessage = wordwrap($emessage, 70, "\r\n");
