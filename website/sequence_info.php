@@ -239,7 +239,7 @@
 
                   // display background colors based on domains
                   $color = $colors[$domain_ind % sizeof($colors)];
-                  echo '<span style="background-color:' . $color . '";>';
+                  echo '<span style="background-color:' . $color . ';">';
                   echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
                   echo '</span>';
                   $last_domain_end = $domains[$domain_ind]["end_pos"];
@@ -272,7 +272,7 @@
                 if ($domains[$domain_ind]["name"] != "n/a") {
                   $no_know_domain = false;
                   $color = $colors[$domain_ind % sizeof($colors)];
-                  echo '<a href="https://pfam.xfam.org/family/' . $domains[$domain_ind]["name"] . '" style="background-color:' . $color . '";>';
+                  echo '<a href="https://pfam.xfam.org/family/' . $domains[$domain_ind]["name"] . '" style="background-color:' . $color . ';" target="_blank">';
                   echo $domains[$domain_ind]["name"];
                   echo '</a><br>';
                 }
