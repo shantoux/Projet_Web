@@ -70,7 +70,7 @@
         $new_message['message'] = $_POST['message'];
         $result_insert = pg_insert($db_conn, 'database_projet.messages', $new_message);
 
-        // Query to get email of the correspondents 
+        // Query to get email of the correspondents
         $query_correspondents = "SELECT c.user_email
         FROM database_projet.correspondents c, database_projet.messages m
         WHERE c.topic_name = m.topic_name
@@ -121,7 +121,7 @@
         echo '<form action="forum.php" method = "post">';
         echo '<select name="selected_users[]" ';
         // retrieve all validated users and display multiple-selection menu
-        $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated';";
+        $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated' AND role != 'Reader';";
         $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
         echo 'multiple size = ' . pg_num_rows($result_users) . '>';
         while ($user = pg_fetch_array($result_users)) {
@@ -205,7 +205,7 @@
 
         // display topic creation date
         echo '<td class="dark_cell" align="center" horizontal-align="middle">';
-        echo 'Topic created on ' . $topic["creation_date"];
+        echo 'Topic created on ' . date('d-m-o H:i', strtotime($topic["creation_date"])) .'';
         echo '</td>';
         echo '</tr>';
         echo '</thead>';
