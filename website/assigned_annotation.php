@@ -75,13 +75,14 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       <?php
       include_once 'libphp/dbutils.php';
       connect_db();
-      $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator
+      $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator, a.assignation_date
         FROM database_projet.annotations a
         WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned';";
       $result = pg_query($db_conn, $query);
       if ($result != false) {
         while ($rows = pg_fetch_array($result)) {
           echo "<tr>";
+          echo "<td>" . $rows["assignation_date"] . "</td>";
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
@@ -127,7 +128,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 
     <tbody>
       <?php
-      $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt
+      $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
       FROM database_projet.annotations a
       WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status!='assigned'
       ORDER BY status;";
@@ -140,6 +141,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           $comment = pg_fetch_result($result, $res_nb,2);
           $status = pg_fetch_result($result, $res_nb,3);
           $attempt = pg_fetch_result($result, $res_nb,4);
+          $assignation_date = pg_fetch_result($result, $res_nb,5);
           echo '<tr><td>';
           echo $genome_id;
           echo '</td><td>';
@@ -159,6 +161,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           }
           echo '<td>';
           echo $attempt;
+          echo '</td><td>';
+          echo $assignation_date;
           echo '</td></tr>';
         }
       } else {
