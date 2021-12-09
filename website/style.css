@@ -241,8 +241,8 @@ body {
   border-collapse:separate;
   white-space: normal;
   width: auto;
-  max-width: 95%;
-  table-layout: auto;
+  width: 50%;
+  table-layout: fixed;
   text-align:left;
   border-spacing: 0 15px;
 }
