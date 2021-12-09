@@ -46,9 +46,9 @@ if (!isset($_SESSION['user'])) {
     <a class="disc"><?php echo $_SESSION['first_name'] ?> - <?php echo $_SESSION['role'] ?> </a>
   </div>
 
-  <div id="pagetitle">
+  <h2 id="pagetitle">
     Sequence Annotation
-  </div>
+  </h2>
 
   <?php
 
@@ -213,9 +213,9 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
 </table>
 </div>
 
-  
 
-  
+
+
 
 
 

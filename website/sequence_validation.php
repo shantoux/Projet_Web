@@ -46,9 +46,9 @@ if (!isset($_SESSION['user'])) {
     <a class="disc"><?php echo $_SESSION['first_name'] ?> - <?php echo $_SESSION['role'] ?> </a>
   </div>
 
-  <div id="pagetitle">
+  <h2 id="pagetitle">
     Sequence Annotation Validation
-  </div>
+  </h2>
 
   <?php
 
@@ -191,7 +191,7 @@ if (!isset($_SESSION['user'])) {
           <b>Chromosome:</b> <?php echo $chromosome; ?><br>
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
 
-          
+
     <?php if ($status == 'waiting') : ?>
       <!-- display gene biotype -->
       <b>Gene identifier: </b> <?php echo $gene_id ?> <br><br>
@@ -215,7 +215,7 @@ if (!isset($_SESSION['user'])) {
               Comment to validate or reject <br>
               <textarea name="comments" cols="40" rows="3" required></textarea> <br>
                <input type="submit" value="Validate" name="validate_annotation">
-            <input type="submit" value="Reject" name="reject_annotation"> 
+            <input type="submit" value="Reject" name="reject_annotation">
             </td><td>
 
         </form>
@@ -245,7 +245,7 @@ if (!isset($_SESSION['user'])) {
           <button type="button">Align with Blast</button>
           </a>
       </tr>
-        
+
     <?php endif; ?>
 
 

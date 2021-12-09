@@ -79,9 +79,9 @@
     </div>
 
     <!-- Display page title -->
-    <div id="pagetitle">
+    <h2 id="pagetitle">
       Consult all assigned annotations
-    </div>
+    </h2>
 
     <div class="center">
       <br><br>

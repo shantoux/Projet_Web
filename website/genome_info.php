@@ -50,9 +50,9 @@
     </div>
 
 
-    <div id="pagetitle">
+    <h2 id="pagetitle">
       Genome information
-    </div>
+    </h2>
 
     <!-- store genome -->
     <?php

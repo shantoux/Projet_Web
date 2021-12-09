@@ -50,9 +50,9 @@
     <br>
 
     <!-- Display page title -->
-    <div id="pagetitle">
+    <h2 id="pagetitle">
       Search results
-    </div>
+    </h2>
 
     <?php
     // import db functions
