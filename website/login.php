@@ -57,10 +57,9 @@
 
           # display message
           echo "<div class=\"alert_bad\">
-            <span class=\"closebtn\"
-            onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Your account has not been validated by an admin yet.
-            </div>";
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Your account has not been validated by an admin yet.</div>";
 
           } else {
             // If there's no result to the query : wrong pair of email/pw
