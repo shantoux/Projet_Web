@@ -112,8 +112,8 @@ if (!isset($_SESSION['user'])) {
     //Conditions for query
 
     $condition_pkey = array();
-    $condition_pkey['genome_id'] = $_GET['gid'];
-    $condition_pkey['sequence_id'] = $_GET['sid'];
+    $condition_pkey['genome_id'] = $genome_id;
+    $condition_pkey['sequence_id'] = $sequence_id;
     $condition_pkey['attempt'] = $attempt;
     $condition_pkey['annotator'] = $annotator; //$_GET['annotator'];
 
