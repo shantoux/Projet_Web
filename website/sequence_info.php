@@ -225,7 +225,7 @@
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
 
               // loop on all domains
-              foreach ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
+              for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
 
                 // check if domain is known
                 if ($domains[$domain_ind]["name"] != "n/a") {
