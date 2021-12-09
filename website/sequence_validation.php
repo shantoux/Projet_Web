@@ -194,16 +194,19 @@ if (!isset($_SESSION['user'])) {
           
     <?php if ($status == 'waiting') : ?>
       <!-- display gene biotype -->
-      <b>Gene identifier: </b> <?php echo $gene_id ?> <br>
+      <b>Gene identifier: </b> <?php echo $gene_id ?> <br><br>
 
       <!-- display transcript biotype -->
-      <b>Gene biotype: </b> <?php echo $gene_biotype ?> <br>
+      <b>Gene biotype: </b> <?php echo $gene_biotype ?> <br><br>
+
+      <!-- display transcript biotype -->
+      <b>Transcript biotype: </b> <?php echo $transcript_biotype ?> <br><br>
 
       <!-- display gene symbol -->
-      <b>Gene symbol: </b> <?php echo $gene_symbol ?> <br>
+      <b>Gene symbol: </b> <?php echo $gene_symbol ?> <br><br>
 
       <!-- display description -->
-      <b>Description: </b> <?php echo $description ?> <br>
+      <b>Description: </b> <?php echo $description ?> <br><br>
       </td>
       </tr>
       <tr></tr>
@@ -281,7 +284,7 @@ if (!isset($_SESSION['user'])) {
         echo "</tr>";
       }
     } else {
-      echo "This is your first attempt";
+      echo "This is the first attempt";
     }
 
     echo '</tbody>';
