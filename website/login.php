@@ -74,7 +74,7 @@
           Wrong Username or Password.</div>";
         }
       }
-    } else {
+      else {
       //Get email and password filled in the connexion form
       //$user_name = $_POST["name"];
       //$user_password = $_POST["pass"];
