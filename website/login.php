@@ -48,6 +48,10 @@
 
       // check if hashed pw matches
       if ((password_verify($user_password, $hash) || $user_password == pg_fetch_result($result, 0, 0)) && $validated) {
+
+        // Go to the search page
+        echo '<script>location.href="search.php"</script>';
+
         // If the user's status is "validated" (approved by the site's admin)
         // Start a session and store variables email and role
         session_start();
@@ -55,9 +59,6 @@
         $_SESSION['role'] = pg_fetch_result($result, 0, 2);
         $_SESSION['first_name'] = pg_fetch_result($result, 0, 3);
         $_SESSION['last_name'] = pg_fetch_result($result, 0, 4);
-
-        // Go to the search page
-        echo '<script>location.href="search.php"</script>';
 
       }
 
