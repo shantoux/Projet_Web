@@ -48,14 +48,14 @@ connect_db(); ?>
 
  
 
-  //----------------------------------------------------------------------------------------------------------
+ <!-- //----------------------------------------------------------------------------------------------------------
   //                                        Actions of the validator
   //          The validator either accepts this attempt of the sequence's annotation or rejects
   //                                it and assigns the annotator a new attempt
   //----------------------------------------------------------------------------------------------------------
 
 
-  //------------------------------The validator accepts the annotation with a comment -------------------------
+  //------------------------------The validator accepts the annotation with a comment ------------------------- -->
   <?php
   if (isset($_POST['Accept_button'])) {
 
