@@ -234,7 +234,7 @@
                   // display protein region since last domain
                   echo substr($prot_seq, $last_domain_end, $domains[$domain_ind]["start_pos"]);
 
-                  $prot_seq = substr($prot_seq, $domains[$domain_ind]["start_pos"]);
+                  $prot_seq = substr($prot_seq, $last_domain_end, $domains[$domain_ind]["start_pos"] -$last_domain_end);
 
                   // display background colors based on domains
                   $color = $colors[$domain_ind % sizeof($colors)];
