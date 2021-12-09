@@ -127,10 +127,12 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
     or die('Query failed with exception: ' . pg_last_error());
 
   if ($result_update) {
-    print_r("Annotation has been sent. Wait for validation.");
-  } else {
-    print_r("Error : the annotation has not been sent.");
-  }
+    if (isset($_POST['send_annotation'])) {
+      echo "Annotation has been sent. Wait for validation.";
+    } else if (isset($_POST['save_annotation'])) {
+      echo "Annotation has been saved.";
+    }
+}
 }
 
 ?>
