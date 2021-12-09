@@ -262,6 +262,19 @@ body {
   border-radius: 10px;
 }
 
+.search-button {
+  background-color: #4F8E8D;
+  border: none;
+  outline: none;
+  margin-left: -33px;
+}
+
+.search-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
 .table_type_seq_inf{
   border: solid 1px #DDEEEE;
   margin:auto;

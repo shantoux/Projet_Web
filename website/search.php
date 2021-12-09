@@ -142,7 +142,12 @@
 
             <!-- Display search buttton -->
             <tr>
-              <td colspan=2> <br> <br> <input type ="submit" value="Search!" name = "submit"> </td>
+              <td colspan=2> <br> <br>
+                <input type ="submit" value="" name = "submit">
+                <button type="submit" class="search-button">
+                  <img src="images/search.png">
+                </button>
+              </td>
             </tr>
 
           </table>
