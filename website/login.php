@@ -31,7 +31,7 @@
     $user_password = $_POST["pass"];
 
     // Query : Select all user info for a specified email and password
-    $query = "SELECT * FROM database_projet.users WHERE email = '$user_name' AND pw = '$user_password';";
+    $query = "SELECT u.pw FROM database_projet.users WHERE email = '$user_name' AND pw = '$user_password';";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
     $hash = pg_fetch_result($result, 0, 1);
