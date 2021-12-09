@@ -99,7 +99,7 @@ connect_db();?>
 
 
       // If the user is an annotator
-      if($_POST['selected_action']=='delete' && $role == 'Annotator' || $role == 'Validator' || $role == 'Administrator'){
+      if($_POST['selected_action']=='change' && $role == 'Annotator' || $role == 'Validator' || $role == 'Administrator'){
         $values_user = array();
         $values_user['role'] = 'Reader';
 
@@ -204,7 +204,7 @@ connect_db();?>
           echo $status;
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
-          echo '<option value="delete">Change role to reader</option>';
+          echo '<option value="change">Change role to reader</option>';
           echo '<option value="delete">Delete</option>';
           echo '</select><input type="submit" value="submit" name="submit">';
           echo '</td></form></tr>';
