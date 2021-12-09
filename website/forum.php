@@ -59,7 +59,7 @@
       <br> <br>
 
       <div class="center">
-        This is the annotation forum. Create a conversation with other annotators to help on any question or difficulty.<br><br><br>
+        This is the annotation forum. Create a conversation with other annotators to help on any question or difficulty.<br><br>
       </div>
 
       <?php
