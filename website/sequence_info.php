@@ -234,7 +234,6 @@
 
     $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
     $try[] = $t;
-    print_r($try);
 
     echo '<br><br>';
 
@@ -244,7 +243,12 @@
 
     echo '<br><br>';
 
-    echo sizeof($try);
+    $count = 0;
+    foreach($t->childNodes as $node)
+      if(!($node instanceof \DomText))
+        $count++;
+
+    echo $count;
 
 
     echo '</div>';
@@ -256,6 +260,8 @@
 <!--
 PfamPALP8337235.0035.0085.3084.805.7e-208.1e-20
 
+
+$try[] = $t->children(1); ########### Ca c'est le premier <tr class="odd">
 Array (
   [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tr [attributes] => Array ( [class] => odd )
     [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => pfama_PF00291 ) [nodes] => none )
@@ -269,4 +275,27 @@ Array (
   [7] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
   [8] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
   [9] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none ) ) ) )
+
+  $try[] = $t; ############# Ca c'est le tbody
+  print_r($try);
+
+  Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tbody [attributes] => none
+              [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tr [attributes] => Array ( [class] => odd )
+                                        [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => pfama_PF14821 ) [nodes] => none )
+                                                          [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none
+                                                                    [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => a [attributes] => Array ( [href] => /family/Thr_synth_N ) [nodes] => none ) ) )
+                                                          [2] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
+                                                          [3] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none ) ) )
+                                  [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tr [attributes] => Array ( [class] => odd )
+                                        [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => pfama_PF00291 ) [nodes] => none )
+                                                          [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none
+                                                                      [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => a [attributes] => Array ( [href] => /family/PALP ) [nodes] => none ) ) )
+                                                          [2] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
+                                                          [3] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none ) ) ) ) ) )
+
+
+
+
+
+
 -->
