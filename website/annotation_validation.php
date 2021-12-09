@@ -71,7 +71,7 @@ connect_db(); ?>
               SET status = 'validated',
               comments = " . $comments .
       " WHERE sequence_id ='" . $sequence_id .
-      "' AND attempt = " . $attempt . "' AND annotator = '".$annotator."';";
+      "' AND attempt = " . $attempt . " AND annotator = '".$annotator."';";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
     //----------------Send an email to the annotator, informing them of the decision
@@ -113,7 +113,7 @@ connect_db(); ?>
               SET status = 'rejected',
               comments = " . $comments .
       " WHERE sequence_id ='" . $sequence_id .
-      "' AND attempt = " . $attempt . ";";
+      "' AND attempt = " . $attempt . " AND annotator = '".$annotator."';";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
     //Retrieve informations to add a new attempt to that sequence's annotation
