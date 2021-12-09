@@ -83,6 +83,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
   $values_annotations['description'] = $_POST["gene_description"];
   if (isset($_POST['send_annotation'])) {
     $values_annotations['status'] = 'waiting';
+    print_r("On va bien dans la boucle");
   } else if (isset($_POST['save_annotation'])) {
     $values_annotations['status'] = 'assigned';
   }
@@ -99,9 +100,9 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     or die('Query failed with exception: ' . pg_last_error());
 
   if ($result_update) {
-    echo "Annotation has been sent. Wait for validation.";
+    print_r("Annotation has been sent. Wait for validation.");
   } else {
-    echo "Error : the annotation has not been sent.";
+    print_r("Error : the annotation has not been sent.");
   }
 }
 
