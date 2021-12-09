@@ -48,7 +48,7 @@
       $validated = pg_fetch_result($result, 0, 1) == 'validated';
 
       // check if hashed pw matches
-      if ((password_verify($user_password, $hash) || $user_password == pg_fetch_result($result, 0, 0)) && $validated) {
+      if ((password_verify($user_password, $hash) == true || $user_password == pg_fetch_result($result, 0, 0)) && $validated) {
 
         // Go to the search page
         echo '<script>location.href="search.php"</script>';
