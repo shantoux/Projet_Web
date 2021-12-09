@@ -46,17 +46,17 @@ connect_db(); ?>
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
-  <?php
+ 
 
-  //----------------------------------------------------------------------------------------------------------
+ <!-- //----------------------------------------------------------------------------------------------------------
   //                                        Actions of the validator
   //          The validator either accepts this attempt of the sequence's annotation or rejects
   //                                it and assigns the annotator a new attempt
   //----------------------------------------------------------------------------------------------------------
 
 
-  //------------------------------The validator accepts the annotation with a comment -------------------------
-
+  //------------------------------The validator accepts the annotation with a comment ------------------------- -->
+  <?php
   if (isset($_POST['Accept_button'])) {
 
     //Retrieve last attempt number by a query getting the attempt's number with the waiting status (last attempt) :
@@ -133,6 +133,7 @@ connect_db(); ?>
     $values_attempt['sequence_id'] = $sequence_id;
     $values_attempt['annotator'] = $annotator;
     $values_attempt['attempt'] = $attempt + 1; //Incrementation of the attempt's number
+    $values_attempt['status'] = 'assigned';
 
     $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());;
 
