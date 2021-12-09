@@ -134,9 +134,9 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     <table class="table_type3">
     <tr colspan=2>
     <td>
-    <b>Sequence identifier:</b> <?echo $sequence_id;?><br><br>
-    <b>Specie:</b><? echo $genome_id;?><br>
-    <b>Chromosome:</b> <?echo $chromosome;?><br>
+    <b>Sequence identifier:</b> <?php echo $sequence_id;?><br><br>
+    <b>Specie:</b><?php echo $genome_id;?><br>
+    <b>Chromosome:</b> <?php echo $chromosome;?><br>
     <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>';?>
 
     <?php if ($status == 'assigned'){
