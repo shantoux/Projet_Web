@@ -90,6 +90,74 @@ if (!isset($_SESSION['user'])) {
   $annotator = pg_fetch_result($result_info, 0, 6);
   ?>
 
+<div class="center">
+
+
+<table class="table_type3">
+  <tr colspan=2>
+    <td>
+      <b>Sequence identifier:</b> <?php echo $sequence_id; ?><br><br>
+      <b>Specie:</b> <?php echo $genome_id; ?><br>
+      <b>Chromosome:</b> <?php echo $chromosome; ?><br>
+      <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
+      <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt ?>&annotator=<?php echo $annotator ?>" method="post">
+
+        <?php if ($status == 'assigned') : ?>
+          <b>Gene identifier : </b><input type="text" name="gene_id" required value="<?php echo (isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
+          <b>Gene biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['gene_biotype'])) ? htmlspecialchars($_POST['gene_biotype']) : $gene_biotype ?>"> <br>
+          <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br>
+          <b>Description : </b><input type="text" name="description" required value="<?php echo (isset($_POST['description'])) ? htmlspecialchars($_POST['description']) : $description ?>"> <br>
+        <?php elseif ($status == 'waiting') : ?>
+          <!-- display gene biotype -->
+          <b>Gene identifier: </b> <?php echo $gene_id ?> <br>
+
+          <!-- display transcript biotype -->
+          <b>Gene biotype: </b> <?php echo $gene_biotype ?> <br>
+
+          <!-- display gene symbol -->
+          <b>Gene symbol: </b> <?php echo $gene_symbol ?> <br>
+
+          <!-- display description -->
+          <b>Description: </b> <?php echo $description ?> <br>
+        <?php endif; ?>
+
+    </td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td>
+      Gene sequence<br>
+      <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $nt ?></textarea>
+    </td>
+
+    <td>
+      <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">" ?>
+      <button type="button">Align with Blast</button>
+      </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Peptide sequence<br>
+      <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $prot; ?> </textarea>
+    </td>
+    <td>
+      <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
+      <button type="button">Align with Blast</button>
+      </a>
+  </tr>
+
+  <tr>
+    <td align='center'> <input type="submit" value="Send" name="send_annotation">
+      <input type="submit" value="Save" name="save_annotation">
+    </td>
+  </tr>
+  </form>
+
+</table>
+</div>
+
   <?php
 
 
@@ -133,73 +201,7 @@ if (!isset($_SESSION['user'])) {
 
   ?>
 
-  <div class="center">
-
-
-    <table class="table_type3">
-      <tr colspan=2>
-        <td>
-          <b>Sequence identifier:</b> <?php echo $sequence_id; ?><br><br>
-          <b>Specie:</b> <?php echo $genome_id; ?><br>
-          <b>Chromosome:</b> <?php echo $chromosome; ?><br>
-          <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
-          <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt ?>&annotator=<?php echo $annotator ?>" method="post">
-
-            <?php if ($status == 'assigned') : ?>
-              <b>Gene identifier : </b><input type="text" name="gene_id" required value="<?php echo (isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
-              <b>Gene biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['gene_biotype'])) ? htmlspecialchars($_POST['gene_biotype']) : $gene_biotype ?>"> <br>
-              <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br>
-              <b>Description : </b><input type="text" name="description" required value="<?php echo (isset($_POST['description'])) ? htmlspecialchars($_POST['description']) : $description ?>"> <br>
-            <?php elseif ($status == 'waiting') : ?>
-              <!-- display gene biotype -->
-              <b>Gene identifier: </b> <?php echo $gene_id ?> <br>
-
-              <!-- display transcript biotype -->
-              <b>Gene biotype: </b> <?php echo $gene_biotype ?> <br>
-
-              <!-- display gene symbol -->
-              <b>Gene symbol: </b> <?php echo $gene_symbol ?> <br>
-
-              <!-- display description -->
-              <b>Description: </b> <?php echo $description ?> <br>
-            <?php endif; ?>
-
-        </td>
-      </tr>
-      <tr></tr>
-      <tr>
-        <td>
-          Gene sequence<br>
-          <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $nt ?></textarea>
-        </td>
-
-        <td>
-          <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">" ?>
-          <button type="button">Align with Blast</button>
-          </a>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          Peptide sequence<br>
-          <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $prot; ?> </textarea>
-        </td>
-        <td>
-          <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
-          <button type="button">Align with Blast</button>
-          </a>
-      </tr>
-
-      <tr>
-        <td align='center'> <input type="submit" value="Send" name="send_annotation">
-          <input type="submit" value="Save" name="save_annotation">
-        </td>
-      </tr>
-      </form>
-
-    </table>
-  </div>
+  
 
 
 
