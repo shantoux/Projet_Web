@@ -128,7 +128,7 @@ connect_db();?>
       <?php
       echo '<table class = "table_type_gene_inf">';
       echo '<thead>';
-      echo '<colgroup>'
+      echo '<colgroup>';
       echo '<col span="1" style="width: 12.5%;">';
       echo '<col span="1" style="width: 12.5%;">';
       echo '<col span="1" style="width: 12.5%;">';
