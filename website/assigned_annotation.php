@@ -72,7 +72,8 @@
       connect_db();
       $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator, a.assignation_date
         FROM database_projet.annotations a
-        WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned';";
+        WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned'
+        ORDER BY assignation_date;";
       $result = pg_query($db_conn, $query);
       if ($result != false) {
         while ($rows = pg_fetch_array($result)) {
@@ -121,7 +122,7 @@
       $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
       FROM database_projet.annotations a
       WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status!='assigned'
-      ORDER BY status;";
+      ORDER BY assignation_date;";
       $result = pg_query($db_conn, $query);
 
       if ($result != false) {
