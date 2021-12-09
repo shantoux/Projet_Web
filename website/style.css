@@ -269,10 +269,11 @@ body {
   height: 40px;
   outline-style: initial;
   border-radius: 20px;
+  cursor: pointer;
   margin-left: -33px;
 }
 
-.search-button button:hover {
+.search-button button:hover{
   background-color: white;
 }
 
