@@ -246,6 +246,17 @@ body {
   overflow-wrap: break-word;
 }
 
+.fancy_box{
+  border: solid 6px #ccdee5;
+  border-radius: 5px;
+  background-color: #E9F2F2;
+  width:auto;
+  padding: 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+
 .table_type_seq_inf{
   border: solid 1px #DDEEEE;
   margin:auto;
