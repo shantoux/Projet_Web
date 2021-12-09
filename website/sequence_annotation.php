@@ -143,7 +143,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     <?php if ($status == 'assigned'){
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
       echo '<b>Gene identifier : </b><input type="text" name="gene_id" 
-                    value = '(isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) :''. $gene_id .'> <br>';
+                    value = "'(isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) :''. $gene_id .'"> <br>';
       echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
       echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
       echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
