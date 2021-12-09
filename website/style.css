@@ -264,8 +264,11 @@ body {
 
 .search-button {
   background-color: #4F8E8D;
-  border: none;
-  outline: none;
+  width: 40px;
+  height: 40px;
+  outline-style: initial;
+  border-radius: 20px;
+  cursor: pointer;
   margin-left: -33px;
 }
 
