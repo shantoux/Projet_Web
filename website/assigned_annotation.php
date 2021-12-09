@@ -54,16 +54,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 
 <!-- Table to display sequences assignated for annotation -->
 
-<div id="element1" style="width : 70%">
+<div id="element1">
   <table class="table_type1">
-  <colgroup>
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-
-      </colgroup>
     <thead>
       <tr>
       <th>Assigned on</th>
@@ -110,15 +102,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
 <h3 id="pageundertitle" class="center"> Sequences already annotated </h3>
 <br>
 
-<div id="element1" style="width : 70%">
+<div id="element1">
   <table class="table_type1">
-  <colgroup>
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-        <col style="width: 10%">
-      </colgroup>
     <thead>
       <tr>
         <th>Genomes</th>
