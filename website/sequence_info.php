@@ -211,39 +211,37 @@
 
     <?php
 
+    // we look for the known domains of the protein
+    $domains = array();
+
+    // retrieve the simple html dom functions (thank you very much to the original git creator!!!)
     include_once 'libphp/simplehtmldom/simple_html_dom.php';
+
+    // build html element corresponding to the adress of the uniprot page of the protein
     $adress = 'https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score';
     $html = file_get_html($adress);
+
+    // retrieve the Uniprot identifier of the protein
     $uniprot_protein_name = $html->find(".entryID", 0)->plaintext;
 
+    // use it to build the PFAM adress for the protein
     $adress = 'https://pfam.xfam.org/protein/' . $uniprot_protein_name;
 
-    echo '<div class="center">';
-    echo $adress . '<br>';
-    echo '<form action="' . $adress . '" method="post" target="blank">';
-    echo '<input type="submit" name="reach_uni" value="du_tres_tres_sale">';
-    echo '</form>';
-
-    echo '<br>';
-    $lines_of_interest = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->plaintext;
-    echo $lines_of_interest . '<br>';
-    $lines_of_interest = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1)->children(1)->plaintext;
-    echo $lines_of_interest . '<br>';
-
-    echo '<br><br>';
-
+    // retrieve the <tbody> element in which the domains are stored on the PFAM page
     $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
-    $try[] = $t;
 
-    echo '<br><br>';
+    // loop on all of its lines
+    for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
 
-    echo $t->children(1)->children(1)->plaintext . '<br>';
-    echo $t->children(1)->children(2)->plaintext . '<br>';
-    echo $t->children(1)->children(3)->plaintext . '<br>';
+      // retrieve the domains informations
+      $domain = array();
+      $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
+      $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
+      $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
+      $domains[$domain_index] = $domain;
+    }
 
-    echo '<br><br>';
-
-    echo sizeof($t->children);
+    print_r($domains);
 
 
     echo '</div>';
