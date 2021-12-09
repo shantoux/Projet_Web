@@ -224,7 +224,7 @@
               // build list of background colors
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
 
-              $last_domain_end = 0
+              $last_domain_end = 0;
 
               // loop on all domains
               for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
