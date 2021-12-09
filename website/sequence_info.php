@@ -93,7 +93,11 @@
     <div class="center">
 
       <!-- Display page title -->
-      <table class="table_type3">
+      <table class="table_type_seq_inf">
+        <colgroup>
+          <col span="1" style="width: 80%;">
+          <col span="1" style="width: 10%;">
+        </colgroup>
         <tr colspan=2>
           <td>
 
@@ -236,10 +240,8 @@
 
                   // display background colors based on domains
                   $color = $colors[$domain_ind % sizeof($colors)];
-                  echo $color;
                   echo '<span style="background-color:' . $color . '";>';
                   echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
-                  echo '<br>';
                   echo '</span>';
                   $last_domain_end = $domains[$domain_ind]["end_pos"];
                 }
