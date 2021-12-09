@@ -237,6 +237,7 @@ if (!isset($_SESSION['user'])) {
         <form action="./sequence_validation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
           <tr>
             <td>
+              Comment to validate or reject <br>
               <textarea name="comments" cols="40" rows="3" required></textarea>
             </td>
 
