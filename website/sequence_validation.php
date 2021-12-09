@@ -241,8 +241,8 @@ if (!isset($_SESSION['user'])) {
               <textarea name="comments" cols="40" rows="3" required></textarea>
             </td>
 
-            <td> <input type="submit" value="Validate" name="validate_annotation"></td>
-            <td> <input type="submit" value="Reject" name="reject_annotation"> </td>
+            <td> <input type="submit" value="Validate" name="validate_annotation">
+            <input type="submit" value="Reject" name="reject_annotation"> </td>
           </tr>
         </form>
         <?php endif;?>
