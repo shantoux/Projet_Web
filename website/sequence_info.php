@@ -218,13 +218,12 @@
         <tr>
           <td>
             Peptide sequence<br>
-            <textarea id="seq" name="seq"
-            rows="8" cols="80" readonly>
+            <div rows="8" cols="80">
             <?php
               // build list of background colors
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
 
-              $last_domain_end = 0
+              $last_domain_end = 0;
 
               // loop on all domains
               for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
@@ -239,16 +238,17 @@
 
                   // display background colors based on domains
                   $color = $colors[$domain_ind % sizeof($colors)];
-                  echo '<span style="color:' . $color . '";>';
+                  echo $color;
+                  echo '<span style="background-color:' . $color . '";>';
                   echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
+                  echo '<br>';
                   echo '</span>';
                   $last_domain_end = $domains[$domain_ind]["end_pos"];
                 }
-
-                echo substr($prot_seq, $last_domain_end);
               }
+              echo substr($prot_seq, $last_domain_end);
             ?>
-            </textarea>
+          </div>
           </td>
 
           <!-- display button for automative blast alignment of the peptidic sequence -->
