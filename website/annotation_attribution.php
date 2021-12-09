@@ -191,6 +191,7 @@
 
           # display message
           echo "<div class=\"alert_neutral\">
+          <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
           There is no new sequences to attribute.</div>";
         } //<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
         echo '</tbody>';
