@@ -173,7 +173,7 @@
         <tr>
           <td>
             Gene sequence<br>
-            <div style="font-family:Consolas;border:solid 1px black;"><?php echo $gene_seq;?></div>
+            <div style="font-family:Consolas;border:solid 1px black;background-color:white;"><?php echo $gene_seq;?></div>
           </td>
 
           <!-- display button for automative blast alignment of the nucleotidic sequence -->
@@ -221,7 +221,7 @@
         <tr>
           <td>
             Peptide sequence<br>
-            <div style="font-family:Consolas;border:solid 1px black;">
+            <div style="font-family:Consolas;border:solid 1px black;background-color:white;">
             <?php
               // build list of background colors
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
