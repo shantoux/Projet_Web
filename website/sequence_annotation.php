@@ -232,8 +232,8 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
         <td> <input type="submit" value="Reject" name="reject_annotation"> </td>
         </tr>
         </form>
-        <? endif ?>
-    <? endif ?>
+        <?php endif; ?>
+    <?php endif ;?>
 
     
     </table>
