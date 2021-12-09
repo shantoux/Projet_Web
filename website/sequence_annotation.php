@@ -195,6 +195,7 @@ if (!isset($_SESSION['user'])) {
     $values_attempt['sequence_id'] = $sequence_id;
     $values_attempt['annotator'] = $annotator;
     $values_attempt['attempt'] = $attempt + 1; //Incrementation of the attempt's number
+    $values_attempt['status'] = 'assigned';
 
     $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());
 
