@@ -135,14 +135,14 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     <tr colspan=2>
     <td>
     <b>Sequence identifier:</b> <?php echo $sequence_id;?><br><br>
-    <b>Specie:</b><?php echo $genome_id;?><br>
+    <b>Specie:</b> <?php echo $genome_id;?><br>
     <b>Chromosome:</b> <?php echo $chromosome;?><br>
     <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>';?>
 
     <?php if ($status == 'assigned'){
       echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';?>
       <b>Gene identifier : </b><input type="text" name="gene_id" 
-                    value = "<?php echo(isset($_POST['gene_id']))? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
+                    value = "<?php echo(isset($_POST['gene_id']))? htmlspecialchars($_POST['gene_id']) : 'test value' ?>"> <br>
       <?php
       echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
       echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
@@ -211,11 +211,6 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
 
 
 
-
-
-
-
-
   
   <h3 id="pageundertitle" class="center"> Past attempts </h3>
   <div id="element1">
@@ -249,9 +244,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
         echo "</tr>";
       }
     } else {
-      echo "
-        This is your first attempt
-    ";
+      echo "This is your first attempt";
     }
 
     echo '</tbody>';
@@ -264,9 +257,3 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
 
 </html>
 
-<input type="text" name="textfieldname"
-  value="<?php
-  echo (isset($_POST['textfieldname'])) ?
-    htmlspecialchars($_POST['textfieldname']) :
-    'default value';
-  ?>" />
