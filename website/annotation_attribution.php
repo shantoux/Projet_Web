@@ -190,7 +190,7 @@
           // if all the sequences in the database are annotated
 
           # display message
-          echo "<div class=\"alert_bad\">
+          echo "<div class=\"alert_neutral\">
           There is no new sequences to attribute.</div>";
         } //<span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
         echo '</tbody>';

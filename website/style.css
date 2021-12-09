@@ -106,6 +106,18 @@ body {
   text-align: center;
 }
 
+.alert_neutral {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  padding: 20px;
+  background-color: #F5CA7B; /* Orange */
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: center;
+}
+
 /* The close button */
 .closebtn {
   margin-left: 15px;
