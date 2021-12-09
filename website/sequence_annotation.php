@@ -46,9 +46,9 @@ if (!isset($_SESSION['user'])) {
     <a class="disc"><?php echo $_SESSION['first_name'] ?> - <?php echo $_SESSION['role'] ?> </a>
   </div>
 
-  <div id="pagetitle">
+  <h2 id="pagetitle">
     Sequence Annotation
-  </div>
+  </h2>
 
   <?php
 
@@ -102,10 +102,18 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
 
   if ($result_update) {
     if (isset($_POST['send_annotation'])) {
-      echo "Annotation has been sent. Wait for validation.";
+      echo "<br> <div class=\"alert_good\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Your annotation has been sent !
+        </div>";
       //echo '<meta http-equiv = "refresh" content = " 0 ; url = ./sequence_validation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '&att=' . $attempt . '&annotator=' . $annotator . '"/>';
     } else if (isset($_POST['save_annotation'])) {
-      echo "Annotation has been saved.";
+      echo "<br> <div class=\"alert_good\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Your annotation has been saved !
+        </div>";
     }
   }
 }
@@ -205,9 +213,9 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
 </table>
 </div>
 
-  
 
-  
+
+
 
 
 

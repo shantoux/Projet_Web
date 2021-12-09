@@ -49,9 +49,9 @@
     </div>
 
     <!-- Display page title -->
-    <div id="pagetitle">
+    <h2 id="pagetitle">
       Annotators Forum
-    </div>
+    </h2>
 
     <div class="center">
       This is the annotation forum. Create a conversation with other annotators to help on any question or difficulty.
