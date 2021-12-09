@@ -86,6 +86,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     print_r("On va bien dans la boucle");
   } else if (isset($_POST['save_annotation'])) {
     $values_annotations['status'] = 'assigned';
+    print_r("On va bien dans la boucle save");
   }
   //Conditions for query
 
