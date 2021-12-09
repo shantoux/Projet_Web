@@ -55,12 +55,24 @@
 
       // attribute annotation
       if(isset($_POST["selected_annotator"])){
+
+        // retrieve the current number of attempts for this annotation and this user
+        $query_attempt = "SELECT MAX(attempt) FROM database_projet.annotations
+        WHERE annotator = '" . $_POST['selected_annotator'] . "' AND sequence_id = '" . $_GET['sid'] . "';";
+        $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+
+        // if it is the first time this sequence is assigned to this user, set attempt to 1
+        $attempt = 1
+        if (pg_num_rows($result_attempt) > 0) {
+          $attempt = pg_fetch_result($result_attempt, 0, 0) + 1;
+        }
+
         $values_annotations = array(); // List of columns to fill in the annotations table : all the primary keys
         $values_annotations['genome_id'] = $_GET['gid'];
         $values_annotations['sequence_id'] = $_GET['sid'];
         $values_annotations['annotator'] = $_POST["selected_annotator"]; //annotator's email;
         $values_annotations['status'] = "assigned";
-        //$values_annotations['attempt'] = '0'; // Set the number of annotation attempt to 0 when the sequence is attributed
+        $values_annotations['attempt'] = $attempt;
 
         // Insert in the annotations table
         $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_annotations);
