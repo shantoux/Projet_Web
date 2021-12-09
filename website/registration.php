@@ -106,7 +106,6 @@
     //Query to test if email already in database
     $email_exists = "SELECT u.email FROM database_projet.users u WHERE email = '" . $_POST["adress"] . "';";
     $result_email = pg_query($db_conn, $email_exists);
-    $result_insert = pg_insert($db_conn, 'database_projet.users', $values_user);
     if (pg_num_rows($result_email) > 0) {
       echo "<div class=\"alert_bad\">
               <span class=\"closebtn\"
@@ -114,6 +113,7 @@
               Error during registration. This email already exists.
             </div>";
     } else {
+      $result_insert = pg_insert($db_conn, 'database_projet.users', $values_user);
       if ($result_insert) {
         echo "<div class=\"alert_good\">
             <span class=\"closebtn\"
