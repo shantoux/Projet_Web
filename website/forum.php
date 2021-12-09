@@ -70,6 +70,7 @@
         $new_message['message'] = $_POST['message'];
         $result_insert = pg_insert($db_conn, 'database_projet.messages', $new_message);
 
+        // Query to get email of the correspondents 
         $query_correspondents = "SELECT c.user_email
         FROM database_projet.correspondents c, database_projet.messages m
         WHERE c.topic_name = m.topic_name
