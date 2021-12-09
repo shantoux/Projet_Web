@@ -65,7 +65,7 @@
         $login_time['last_login'] = 'now()';
 
         $condition = array();
-        $condition['user_email'] = $_POST['name'];
+        $condition['email'] = $_POST['name'];
 
         $update = pg_update($db_conn, 'database_projet.users', $login_time, $condition) or die('Query failed with exception: ' . pg_last_error());
 
