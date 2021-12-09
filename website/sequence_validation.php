@@ -199,6 +199,9 @@ if (!isset($_SESSION['user'])) {
       <!-- display transcript biotype -->
       <b>Gene biotype: </b> <?php echo $gene_biotype ?> <br>
 
+      <!-- display transcript biotype -->
+      <b>Transcript biotype: </b> <?php echo $transcript_biotype ?> <br>
+
       <!-- display gene symbol -->
       <b>Gene symbol: </b> <?php echo $gene_symbol ?> <br>
 
