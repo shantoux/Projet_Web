@@ -237,12 +237,14 @@ body {
 }
 
 .table_type_gene_inf thead th{
+  border: solid 1px #4F8E8D;
   background-color: #ccdee5;
   padding: 10px 10px;
   overflow-wrap: break-word;
 }
 
 .table_type_gene_inf tbody td{
+  border: solid 1px #4F8E8D;
   color:black;
   white-space: normal;
   overflow-wrap: break-word;
