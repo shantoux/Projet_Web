@@ -205,7 +205,7 @@
 
         // display topic creation date
         echo '<td class="dark_cell" align="center" horizontal-align="middle">';
-        echo 'Topic created on ' . $topic["creation_date"];
+        echo 'Topic created on ' . date('d-m-o H:i', strtotime($topic["creation_date"])) .'';
         echo '</td>';
         echo '</tr>';
         echo '</thead>';
