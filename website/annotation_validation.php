@@ -64,7 +64,7 @@ connect_db(); ?>
     $genome_id = $_GET['gid'];
     $sequence_id = $_GET['sid'];
     $annotator = $_GET['annotator'];
-    $attempt = $_GET['attempt'];
+    $attempt = $_GET['att'];
 
     //Updating the status of the annotation to 'validated' by the validator
     $query = "UPDATE database_projet.annotations
