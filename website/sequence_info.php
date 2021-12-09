@@ -233,7 +233,7 @@
     echo '<br><br>';
 
     $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
-    $try[] = $t->children(1);
+    $try[] = $t;
     print_r($try);
 
     echo '<br><br>';
@@ -244,9 +244,7 @@
 
     echo '<br><br>';
 
-    echo $try[1]->plaintext . '<br>';
-    echo $try[2]->plaintext . '<br>';
-    echo $try[3]->plaintext . '<br>';
+    echo sizeof($try);
 
 
     echo '</div>';
