@@ -64,6 +64,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
       </colgroup>
     <thead>
       <tr>
+      <th>Assigned on</th>
         <th>Genomes</th>
         <th>Sequences</th>
         <th>Action</th>
@@ -123,6 +124,8 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
         <th>Validator's comment</th>
         <th>Annotation status</th>
         <th>Attempt</th>
+        <th>Assignation date</th>
+
       </tr>
     </thead>
 
