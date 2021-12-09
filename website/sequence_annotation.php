@@ -137,6 +137,95 @@ if (!isset($_SESSION['user'])) {
 
   ?>
 
+<?php
+  if (isset($_POST['validate_annotation'])) {
+
+    //Retrieve value of comment, genome_id and sequence_id of the reviewed annotation :
+    $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
+
+    //Updating the status of the annotation to 'validated' by the validator
+    $query = "UPDATE database_projet.annotations
+              SET status = 'validated',
+              comments = " . $comments .
+      " WHERE sequence_id ='" . $sequence_id .
+      "' AND attempt = " . $attempt . ";";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+
+    //----------------Send an email to the annotator, informing them of the decision
+    if ($result) {
+      echo "Annotation validated. An email was sent to the annotator.";
+
+      $to = $_GET["annotator"]; // Send email to the annotator
+      $subject = "Your annotation has been validated."; // Give the email a subject
+      $emessage = "Your annotation has been validated. \r\n Thank you for your contribution. \r\n The validator's comment :  ".$comments."";
+
+      // if emessage is more than 70 chars
+      $emessage = wordwrap($emessage, 70, "\r\n");
+
+      // Our emessage above including the link
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
+
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
+    } else {
+      echo "something went wrong in the query";
+    }
+
+//------------------------------The validator rejects the annotation with a comment-------------------------------
+
+} else if (isset($_POST['reject_annotation'])) {
+    //Retrieve value of comment, genome_id, sequence_id of the reviewed annotation and annotator of last attempt:
+    $comments = "'" . htmlspecialchars($_POST["comments"], ENT_QUOTES) . "'";
+
+    //Set this attempt's status to 'rejected'
+    $query = "UPDATE database_projet.annotations
+              SET status = 'rejected',
+              comments = " . $comments .
+      " WHERE sequence_id ='" . $sequence_id .
+      "' AND attempt = " . $attempt . ";";
+    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+
+    //Retrieve informations to add a new attempt to that sequence's annotation
+    $values_attempt = array();
+    $values_attempt['genome_id'] = $genome_id;
+    $values_attempt['sequence_id'] = $sequence_id;
+    $values_attempt['annotator'] = $annotator;
+    $values_attempt['attempt'] = $attempt + 1; //Incrementation of the attempt's number
+
+    $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());
+
+    if ($result and $result_insert) {
+      echo "Annotation successfully rejected.";
+
+    //----------------Send an email to the annotator, informing them of the decision
+
+
+      $to = $_GET["annotator"]; // Send email to our user
+      $subject = "Your annotation has been rejected."; // Give the email a subject
+      $emessage = "Your annotation has been rejected \r\n Please review the validator's comment and submit another annotation. \r\n The validator's comment :  ".$comments." ";
+
+      // if emessage is more than 70 chars
+      $emessage = wordwrap($emessage, 70, "\r\n");
+
+      // Our emessage above including the link
+      $headers   = array();
+      $headers[] = "MIME-Version: 1.0";
+      $headers[] = "Content-type: text/plain; charset=iso-8859-1";
+      $headers[] = "From: Bio Search Sequences <noreply@yourdomain.com>";
+      $headers[] = "Subject: {$subject}";
+      $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
+
+      mail($to, $subject, $emessage, implode("\r\n", $headers));
+    } else {
+      echo "something went wrong in the query";
+    }
+  }
+  ?>
+
   <div class="center">
 
 
