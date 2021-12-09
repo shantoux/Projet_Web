@@ -63,7 +63,10 @@ connect_db();?>
 
         $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die ('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
-          echo 'User added to the database<br>';
+          echo "<br> <div class=\"alert_good\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            User added to the database</div><br>";
 
           //Send email to inform user that their account has been validated
           $to = $_GET['mail']; // Send email to our user
@@ -84,7 +87,10 @@ connect_db();?>
           mail($to, $subject, $emessage, implode("\r\n", $headers));
 
         } else {
-          echo 'Error : user has not been added.';
+          echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Error : user has not been added.</div><br>";
         }
       }
 
@@ -108,17 +114,30 @@ connect_db();?>
 
         $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die ('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
-          echo 'User role changed to reader.';
+          echo "<br> <div class=\"alert_good\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            User role changed to reader.</div><br>";
+
         } else {
-          echo 'Error : user role was not changed.';
+          echo "<br> <div class=\"alert_bad\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Error : user role was not changed.</div><br>";
         }
       } else if ($_POST['selected_action']=='delete'){
         $query_delete = "DELETE FROM database_projet.users WHERE email = '" .$_GET['mail']. "';";
         $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
         if ($result_delete){
-          echo 'User removed from the database';
+          echo "<br> <div class=\"alert_good\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            User removed from the database.</div><br>";
         } else {
-          echo 'Error';
+          echo "<br> <div class=\"alert_bad\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Error.</div><br>";
         }
       }
     }
