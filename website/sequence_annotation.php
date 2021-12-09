@@ -72,6 +72,31 @@ if (!isset($_SESSION['user'])) {
 
 <?php
 
+/////Retrieve latest attempt number
+$query_attempt = "SELECT a.attempt
+  FROM database_projet.annotations a
+  WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status = 'assigned';";
+$result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
+$attempt = pg_fetch_result($result_attempt, 0, 0);
+print_r("attempt number :" .$attempt);
+
+
+//Retrieve status of sequence annotation
+$query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.annotator
+  FROM database_projet.annotations a
+  WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' ;";
+$result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
+$status = pg_fetch_result($result_info, 0, 0);
+$gene_id = pg_fetch_result($result_info, 0, 1);
+$gene_biotype = pg_fetch_result($result_info, 0, 2);
+$transcript_biotype = pg_fetch_result($result_info, 0, 3);
+$gene_symbol = pg_fetch_result($result_info, 0, 4);
+$description = pg_fetch_result($result_info, 0, 5);
+$annotator = pg_fetch_result($result_info, 0, 6);
+?>
+
+<?php
+
 
 if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
   echo "On est bien allé dans la boucle";
@@ -111,30 +136,7 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
 ?>
 
 <div class="center">
-    <?php
-
-    /////Retrieve latest attempt number
-    $query_attempt = "SELECT a.attempt
-      FROM database_projet.annotations a
-      WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status = 'assigned';";
-    $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
-    $attempt = pg_fetch_result($result_attempt, 0, 0);
-    print_r("attempt number :" .$attempt);
-
-
-    //Retrieve status of sequence annotation
-    $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.annotator
-      FROM database_projet.annotations a
-      WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' ;";
-    $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
-    $status = pg_fetch_result($result_info, 0, 0);
-    $gene_id = pg_fetch_result($result_info, 0, 1);
-    $gene_biotype = pg_fetch_result($result_info, 0, 2);
-    $transcript_biotype = pg_fetch_result($result_info, 0, 3);
-    $gene_symbol = pg_fetch_result($result_info, 0, 4);
-    $description = pg_fetch_result($result_info, 0, 5);
-    $annotator = pg_fetch_result($result_info, 0, 6);
-    ?>
+    
 
     <table class="table_type3">
     <tr colspan=2>
