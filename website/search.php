@@ -89,49 +89,49 @@
             <!-- Add a field for name of specie / strain -->
             <tr>
               <td> Specie / Name / Strain: </td>
-              <td> <input type="text" name="specie" size="100"> </td>
+              <td> <input type="text" name="specie" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for sequence id -->
             <tr>
               <td> Sequence identifier: </td>
-              <td> <input type="text" name="seq_id" size="100"> </td>
+              <td> <input type="text" name="seq_id" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for nucleotidic sequence -->
             <tr>
               <td> Nucleotide sequence: </td>
-              <td> <input type="text" name="nucl_sequence" minlength="3" maxlength="916" size="100"> </td>
+              <td> <input type="text" name="nucl_sequence" minlength="3" maxlength="916" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for peptidic sequence -->
             <tr>
               <td> Peptide sequence: </td>
-              <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304" size="100"> </td>
+              <td> <input type="text" name="pep_sequence" minlength="3" maxlength="304" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for gene id -->
             <tr>
               <td> Gene identifier: </td>
-              <td> <input type="text" name="gene_id" size="100"> </td>
+              <td> <input type="text" name="gene_id" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for gene biotype -->
             <tr>
               <td> Gene biotype: </td>
-              <td> <input type="text" name="gene_biotype" size="100"> </td>
+              <td> <input type="text" name="gene_biotype" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for transcript biotype -->
             <tr>
               <td> Transcript biotype: </td>
-              <td> <input type="text" name="transcript_biotype" size="100"> </td>
+              <td> <input type="text" name="transcript_biotype" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for gene symbol -->
             <tr>
               <td> Gene name: </td>
-              <td> <input type="text" name="gene_symb" size="100"> </td>
+              <td> <input type="text" name="gene_symb" size="100" class="search_input"> </td>
             </tr>
 
             <!-- Add a field for gene identifier -->

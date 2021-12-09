@@ -258,6 +258,10 @@ body {
   text-align:center;
 }
 
+.search_input{
+  border-radius: 10px;
+}
+
 .table_type_seq_inf{
   border: solid 1px #DDEEEE;
   margin:auto;
