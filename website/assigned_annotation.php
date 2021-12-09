@@ -85,7 +85,7 @@ Welcome to the annotations factory. Here you will find a list of sequences of wh
           echo "<td>" . $rows["genome_id"] . "</td>";
           echo '<td>' . $rows["sequence_id"] . '</td>';
           # Review annotation
-          echo '<td> <input type="button" class="button_active" value="annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'\';"/></td>';
+          echo '<td> <input type="button" class="button_active" value="Annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'\';"/></td>';
           echo '<td>' . $rows["attempt"] . '</td>';
           echo "</tr>";
         }
