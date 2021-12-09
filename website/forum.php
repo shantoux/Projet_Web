@@ -57,7 +57,7 @@
       </div>
 
       <div class="center">
-        This is the annotation forum. Create a conversation with other annotators to help on any question or difficulty.
+        This is the annotation forum. Create a conversation with other annotators to help on any question or difficulty.<br>
       </div>
 
       <?php
@@ -119,8 +119,8 @@
         }
         // chose conversation participants and topic name if the topic instanciation button has been clicked
         else {
-          echo 'Chose who will be part of the conversation:<br>';
-          echo '<span class="small_text"  style="margin:25px 0px;">Hold \'ctrl\' to select multiple users</span><br>';
+          echo 'Chose who will be part of the conversation:<br><br><br>';
+          echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>';
           echo '<form action="forum.php" method = "post">';
           echo '<select name="selected_users[]" ';
           // retrieve all validated users and display multiple-selection menu
