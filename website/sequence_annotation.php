@@ -124,8 +124,7 @@ if (!isset($_SESSION['user'])) {
     if ($result_update) {
       if (isset($_POST['send_annotation'])) {
         echo "Annotation has been sent. Wait for validation.";
-        echo '<meta http-equiv = "refresh" content = " 0 ; url = ./sequence_validation.php?gid='.$genome_id.'&sid='.$sequence_id.'&att='.$attempt.'&annotator='.$annotator.'"/>';
-
+        echo '<meta http-equiv = "refresh" content = " 0 ; url = ./sequence_validation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '&att=' . $attempt . '&annotator=' . $annotator . '"/>';
       } else if (isset($_POST['save_annotation'])) {
         echo "Annotation has been saved.";
       }
@@ -144,13 +143,27 @@ if (!isset($_SESSION['user'])) {
           <b>Specie:</b> <?php echo $genome_id; ?><br>
           <b>Chromosome:</b> <?php echo $chromosome; ?><br>
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
+          <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt ?>&annotator=<?php echo $annotator ?>" method="post">
 
-  
-          <form action="./sequence_annotation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
+            <?php if ($status == 'assigned') : ?>
               <b>Gene identifier : </b><input type="text" name="gene_id" required value="<?php echo (isset($_POST['gene_id'])) ? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
               <b>Gene biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['gene_biotype'])) ? htmlspecialchars($_POST['gene_biotype']) : $gene_biotype ?>"> <br>
               <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br>
               <b>Description : </b><input type="text" name="description" required value="<?php echo (isset($_POST['description'])) ? htmlspecialchars($_POST['description']) : $description ?>"> <br>
+            <?php elseif ($status == 'waiting') : ?>
+              <!-- display gene biotype -->
+              <b>Gene identifier: </b> <?php echo $gene_id ?> <br>
+
+              <!-- display transcript biotype -->
+              <b>Gene biotype: </b> <?php echo $gene_biotype ?> <br>
+
+              <!-- display gene symbol -->
+              <b>Gene symbol: </b> <?php echo $gene_symbol ?> <br>
+
+              <!-- display description -->
+              <b>Description: </b> <?php echo $description ?> <br>
+            <?php endif; ?>
+
         </td>
       </tr>
       <tr></tr>
