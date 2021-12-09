@@ -144,7 +144,7 @@
         if (isset($_POST["create"])) {
 
           // verify that a topic with this name is not already present
-          $query_name = "SELECT name FROM database_projet.topics WHERE name = '" . $_POST['topic_name'] . "';"
+          $query_name = "SELECT name FROM database_projet.topics WHERE name = '" . $_POST['topic_name'] . "';";
           $result_name = pg_query($db_conn, $query_name) or die('Query failed with exception: ' . pg_last_error());
           if (pg_num_rows($result_name) > 0) {
 
