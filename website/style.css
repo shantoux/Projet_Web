@@ -226,7 +226,9 @@ body {
 
 .table_type_gene_inf{
   border: solid 1px #DDEEEE;
-  margin:10px 50px;
+  margin:10px 0px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #E9F2F2;
   border-collapse:separate;
   white-space: normal;
