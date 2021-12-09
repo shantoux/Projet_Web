@@ -192,9 +192,11 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
   </tr>
 
   <tr>
+    <?php if ($status == 'assigned'): ?>
     <td align='center'> <input type="submit" value="Send" name="send_annotation">
       <input type="submit" value="Save" name="save_annotation">
     </td>
+    <?php endif;?>
   </tr>
   </form>
 
