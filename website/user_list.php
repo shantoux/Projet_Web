@@ -63,7 +63,7 @@ connect_db();?>
 
         $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die ('Query failed with exception: ' . pg_last_error());
         if ($result_insert){
-          echo 'User added to the database';
+          echo 'User added to the database<br>';
 
           //Send email to inform user that their account has been validated
           $to = $_GET['mail']; // Send email to our user
