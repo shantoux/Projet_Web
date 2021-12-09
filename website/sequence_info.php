@@ -257,30 +257,32 @@
                  </a>
         </tr>
         <tr colspan=2>
-          <?php
+          <td>
+            <?php
 
-            // display protein domain names
-            echo '<b> Found protein domains are:</b><br>';
+              // display protein domain names
+              echo '<b> Found protein domains are:</b><br>';
 
-            $no_know_domain = true;
+              $no_know_domain = true;
 
-            // loop on domain
-            for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
+              // loop on domain
+              for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
 
-              // check if domain is known
-              if ($domains[$domain_ind]["name"] != "n/a") {
-                $no_know_domain = false;
-                $color = $colors[$domain_ind % sizeof($colors)];
-                echo '<span style="background-color:' . $color . '";>';
-                echo $domains[$domain_ind]["name"];
-                echo '</span><br>';
+                // check if domain is known
+                if ($domains[$domain_ind]["name"] != "n/a") {
+                  $no_know_domain = false;
+                  $color = $colors[$domain_ind % sizeof($colors)];
+                  echo '<span style="background-color:' . $color . '";>';
+                  echo $domains[$domain_ind]["name"];
+                  echo '</span><br>';
+                }
               }
-            }
 
-            if ($no_know_domain) {
-              echo "No domain found for this protein.";
-            }
-          ?>
+              if ($no_know_domain) {
+                echo "No domain found for this protein.";
+              }
+            ?>
+          </td>
         </tr>
 
       </table>
