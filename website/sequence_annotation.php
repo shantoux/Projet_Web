@@ -122,7 +122,6 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
       FROM database_projet.annotations a
       WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' ;";
     $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
-    print_r($result_info);
     $status = pg_fetch_result($result_info, 0, 0);
     $gene_id = pg_fetch_result($result_info, 0, 1);
     $gene_biotype = pg_fetch_result($result_info, 0, 2);
