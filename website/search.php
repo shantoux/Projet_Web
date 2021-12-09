@@ -65,7 +65,7 @@
     ?>
 
     <!-- Display fancy box -->
-    <div class="fancy_box">
+    <div class="fancy_box" style="background-color:#E9F2F2;">
 
       <!-- Display page title -->
       <div id="pagetitle"> Search our database </div>
