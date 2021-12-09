@@ -184,7 +184,7 @@ connect_db(); ?>
         <?php
 
         //Postgres query to get all the sequences that have a status of "waiting" in the annotations table, after annotation
-        $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt FROM database_projet.annotations as a WHERE status = 'waiting';";
+        $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt FROM database_projet.annotations as a WHERE status = 'waiting' AND annotator != '".$_SESSION['user']."';";
         $result = pg_query($db_conn, $query);
         if ($result != false) { //If the query succeeded
 
