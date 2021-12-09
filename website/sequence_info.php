@@ -233,8 +233,18 @@
     echo '<br><br>';
 
     $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
-    $try[] = $t->children(1);
+    $try[] = $t;
     print_r($try);
+
+    echo '<br><br>';
+
+    echo $t->children(1)->children(1)->plaintext . '<br>';
+    echo $t->children(1)->children(2)->plaintext . '<br>';
+    echo $t->children(1)->children(3)->plaintext . '<br>';
+
+    echo '<br><br>';
+
+    echo sizeof($try);
 
 
     echo '</div>';
@@ -243,3 +253,20 @@
 
   </body>
 </html>
+<!--
+PfamPALP8337235.0035.0085.3084.805.7e-208.1e-20
+
+Array (
+  [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tr [attributes] => Array ( [class] => odd )
+    [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => pfama_PF00291 ) [nodes] => none )
+  [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none
+    [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => a [attributes] => Array ( [href] => /family/PALP ) [nodes] => none ) ) )
+  [2] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
+  [3] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
+  [4] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
+  [5] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
+  [6] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
+  [7] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
+  [8] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
+  [9] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none ) ) ) )
+-->

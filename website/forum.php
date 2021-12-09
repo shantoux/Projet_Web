@@ -73,7 +73,7 @@
         $query_correspondents = "SELECT c.user_email
         FROM database_projet.correspondents c, database_projet.messages m
         WHERE c.topic_name = m.topic_name
-        AND m.topic_name = '".$new_message['topic_name']."'";
+        AND m.topic_name = '".$new_message['topic_name']."';";
         $result = pg_query($db_conn, $query_correspondents) or die('Query failed with exception: ' . pg_last_error());
 
         $query_name = "SELECT u.first_name, u.last_name FROM database_projet.users u WHERE u.email = '".$_SESSION['user']."' ";
