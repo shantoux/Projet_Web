@@ -234,6 +234,25 @@ body {
   overflow-wrap: break-word;
 }
 
+.table_type_seq_inf{
+  border: solid 1px #DDEEEE;
+  margin:auto;
+  background-color: #E9F2F2;
+  border-collapse:separate;
+  white-space: normal;
+  width: auto;
+  width: 50%;
+  table-layout: fixed;
+  text-align:left;
+  border-spacing: 0 15px;
+}
+
+.table_type_seq_inf tbody td{
+  color:black;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .dark_cell{
   background-color: #ccdee5;
   padding: 10px 10px;
@@ -250,8 +269,7 @@ body {
   table-layout: auto;
   text-align:left;
   border-spacing: 0 15px;
-
-  }
+}
 
   input:invalid {
     box-shadow: 0 0 5px 1px red;

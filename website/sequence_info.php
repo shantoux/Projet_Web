@@ -93,7 +93,11 @@
     <div class="center">
 
       <!-- Display page title -->
-      <table class="table_type3">
+      <table class="table_type_seq_inf">
+        <colgroup>
+          <col span="1" style="width: 80%;">
+          <col span="1" style="width: 10%;">
+        </colgroup>
         <tr colspan=2>
           <td>
 
@@ -169,8 +173,7 @@
         <tr>
           <td>
             Gene sequence<br>
-            <textarea id="seq" name="seq"
-            rows="8" cols="80" readonly><?php echo $gene_seq;?></textarea>
+            <div style="font-family:Consolas;border:solid 1px black;background-color:white;"><?php echo $gene_seq;?></div>
           </td>
 
           <!-- display button for automative blast alignment of the nucleotidic sequence -->
@@ -218,7 +221,7 @@
         <tr>
           <td>
             Peptide sequence<br>
-            <div rows="8" cols="80">
+            <div style="font-family:Consolas;border:solid 1px black;background-color:white;">
             <?php
               // build list of background colors
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
@@ -236,10 +239,8 @@
 
                   // display background colors based on domains
                   $color = $colors[$domain_ind % sizeof($colors)];
-                  echo $color;
                   echo '<span style="background-color:' . $color . '";>';
                   echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
-                  echo '<br>';
                   echo '</span>';
                   $last_domain_end = $domains[$domain_ind]["end_pos"];
                 }
