@@ -76,7 +76,11 @@ connect_db(); ?>
 
     //----------------Send an email to the annotator, informing them of the decision
     if ($result) {
-      echo "Annotation validated. An email was sent to the annotator.";
+      echo "<br> <div class=\"alert_good\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Annotation <b>validated<b>. An email was sent to the annotator.
+        </div>";
 
       $to = $_GET["annotator"]; // Send email to the annotator
       $subject = "Your annotation has been validated."; // Give the email a subject
@@ -127,7 +131,11 @@ connect_db(); ?>
     $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());;
 
     if ($result and $result_insert) {
-      echo "Annotation successfully rejected.";
+      echo "<br> <div class=\"alert_good\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Annotation successfully <b>rejected<b>.
+        </div>";
 
     //----------------Send an email to the annotator, informing them of the decision
 
