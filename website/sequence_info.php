@@ -243,7 +243,12 @@
 
     echo '<br><br>';
 
-    echo sizeof($try[0]["nodes"]);
+    $count = 0;
+    foreach($t->childNodes as $node)
+      if(!($node instanceof \DomText))
+        $count++;
+
+    echo $count;
 
 
     echo '</div>';
