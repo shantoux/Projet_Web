@@ -182,11 +182,74 @@
         </tr>
 
         <!-- Display peptidic sequence -->
+
+        <?php
+        // we look for the known domains of the protein
+        $domains = array();
+
+        // retrieve the simple html dom functions (thank you very much to the original git creator!!!)
+        include_once 'libphp/simplehtmldom/simple_html_dom.php';
+
+        // build html element corresponding to the adress of the uniprot page of the protein
+        $adress = 'https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score';
+        $html = file_get_html($adress);
+
+        // retrieve the Uniprot identifier of the protein with simple dom functions
+        $uniprot_protein_name = $html->find(".entryID", 0)->plaintext;
+
+        // use it to build the PFAM adress for the protein
+        $adress = 'https://pfam.xfam.org/protein/' . $uniprot_protein_name;
+
+        // retrieve the <tbody> element in which the domains are stored on the PFAM page
+        $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
+
+        // loop on all of its lines
+        for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
+
+          // retrieve the domains informations
+          $domain = array();
+          $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
+          $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
+          $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
+          $domains[$domain_index] = $domain;
+        }
+        ?>
+
         <tr>
           <td>
             Peptide sequence<br>
             <textarea id="seq" name="seq"
-            rows="8" cols="80" readonly><?php echo $prot_seq;?> </textarea>
+            rows="8" cols="80" readonly>
+            <?php
+              // build list of background colors
+              $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6")
+
+              // stores position in the peptidic sequence
+              $pos = 0;
+
+              // loop on all domains
+              foreach ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
+
+                // check if domain is known
+                if ($domains[$domain_ind]["name"] != "n/a") {
+
+                  // display protein region since last domain
+                  echo substr($prot_seq, $pos, $domains[$domain_ind]["start_pos"]);
+
+                  $prot_seq = substr($prot_seq, $domains[$domain_ind]["start_pos"]);
+
+                  // display background colors based on domains
+                  $color = $colors[$domain_ind % sizeof($colors)];
+                  echo '<span style="color:' . $color . '";>';
+                  echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
+                  echo '</span>';
+                  $last_domain_end = $domains[$domain_ind]["end_pos"];
+                }
+
+                echo substr($prot_seq, $last_domain_end);
+              }
+            ?>
+            </textarea>
           </td>
 
           <!-- display button for automative blast alignment of the peptidic sequence -->
@@ -209,86 +272,6 @@
     </form>
     </div>
 
-    <?php
-
-    // we look for the known domains of the protein
-    $domains = array();
-
-    // retrieve the simple html dom functions (thank you very much to the original git creator!!!)
-    include_once 'libphp/simplehtmldom/simple_html_dom.php';
-
-    // build html element corresponding to the adress of the uniprot page of the protein
-    $adress = 'https://www.uniprot.org/uniprot/?query=' . $seq_id . '&sort=score';
-    $html = file_get_html($adress);
-
-    // retrieve the Uniprot identifier of the protein
-    $uniprot_protein_name = $html->find(".entryID", 0)->plaintext;
-
-    // use it to build the PFAM adress for the protein
-    $adress = 'https://pfam.xfam.org/protein/' . $uniprot_protein_name;
-
-    // retrieve the <tbody> element in which the domains are stored on the PFAM page
-    $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
-
-    // loop on all of its lines
-    for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
-
-      // retrieve the domains informations
-      $domain = array();
-      $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
-      $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
-      $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
-      $domains[$domain_index] = $domain;
-    }
-
-    print_r($domains);
-
-
-    echo '</div>';
-
-    ?>
 
   </body>
 </html>
-<!--
-PfamPALP8337235.0035.0085.3084.805.7e-208.1e-20
-
-
-$try[] = $t->children(1); ########### Ca c'est le premier <tr class="odd">
-Array (
-  [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tr [attributes] => Array ( [class] => odd )
-    [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => pfama_PF00291 ) [nodes] => none )
-  [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none
-    [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => a [attributes] => Array ( [href] => /family/PALP ) [nodes] => none ) ) )
-  [2] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
-  [3] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
-  [4] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
-  [5] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
-  [6] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
-  [7] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
-  [8] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none )
-  [9] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => sh [style] => display: none ) [nodes] => none ) ) ) )
-
-  $try[] = $t; ############# Ca c'est le tbody
-  print_r($try);
-
-  Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tbody [attributes] => none
-              [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tr [attributes] => Array ( [class] => odd )
-                                        [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => pfama_PF14821 ) [nodes] => none )
-                                                          [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none
-                                                                    [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => a [attributes] => Array ( [href] => /family/Thr_synth_N ) [nodes] => none ) ) )
-                                                          [2] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
-                                                          [3] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none ) ) )
-                                  [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => tr [attributes] => Array ( [class] => odd )
-                                        [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => Array ( [class] => pfama_PF00291 ) [nodes] => none )
-                                                          [1] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none
-                                                                      [nodes] => Array ( [0] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => a [attributes] => Array ( [href] => /family/PALP ) [nodes] => none ) ) )
-                                                          [2] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none )
-                                                          [3] => simplehtmldom\HtmlNode Object ( [nodetype] => HDOM_TYPE_ELEMENT (1) [tag] => td [attributes] => none [nodes] => none ) ) ) ) ) )
-
-
-
-
-
-
--->
