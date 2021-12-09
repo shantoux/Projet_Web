@@ -157,10 +157,10 @@ connect_db();?>
       echo '<colgroup>';
       echo '<col span="1" style="width: 12.5%;">';
       echo '<col span="1" style="width: 12.5%;">';
-      echo '<col span="1" style="width: 12.5%;">';
-      echo '<col span="1" style="width: 12.5%;">';
-      echo '<col span="1" style="width: 12.5%;">';
-      echo '<col span="1" style="width: 12.5%;">';
+      echo '<col span="1" style="width: 20%;">';
+      echo '<col span="1" style="width: 10%;">';
+      echo '<col span="1" style="width: 10%;">';
+      echo '<col span="1" style="width: 9%;">';
       echo '<col span="1" style="width: 12.5%;">';
       echo '<col span="1" style="width: 12.5%;">';
       echo '</colgroup>';
@@ -205,7 +205,7 @@ connect_db();?>
           echo '</td><td><b>';
           echo $status;
           echo '</b></td><td>';
-          echo substr($last_login, 0, 19);
+          echo substr($last_login, 0, 16);
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="validate">Validate</option>';
@@ -245,7 +245,7 @@ connect_db();?>
           echo '</td><td>';
           echo $status;
           echo '</td><td>';
-          echo substr($last_login, 0, 19);
+          echo substr($last_login, 0, 16);
           echo '</td><td>';
           echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
           echo '<option value="change">Change role to reader</option>';
