@@ -76,7 +76,6 @@ if (!isset($_SESSION['user'])) {
 
 
 if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
-  echo "On est bien allé dans la boucle";
   //Retrieve informations from form
   $values_annotations = array();
   $values_annotations['gene_id'] = $_POST["gene_id"];
@@ -86,10 +85,8 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
   $values_annotations['description'] = $_POST["description"];
   if (isset($_POST['send_annotation'])) {
     $values_annotations['status'] = 'waiting';
-    echo "on va bien dans la boucle";
   } else if (isset($_POST['save_annotation'])) {
     $values_annotations['status'] = 'assigned';
-    echo "On va bien dans la boucle save";
   }
   //Conditions for query
 
