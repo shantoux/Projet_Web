@@ -224,6 +224,8 @@
               // build list of background colors
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
 
+              $last_domain_end = 0
+
               // loop on all domains
               for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
 
@@ -231,7 +233,7 @@
                 if ($domains[$domain_ind]["name"] != "n/a") {
 
                   // display protein region since last domain
-                  echo substr($prot_seq, $pos, $domains[$domain_ind]["start_pos"]);
+                  echo substr($prot_seq, $last_domain_end, $domains[$domain_ind]["start_pos"]);
 
                   $prot_seq = substr($prot_seq, $domains[$domain_ind]["start_pos"]);
 
