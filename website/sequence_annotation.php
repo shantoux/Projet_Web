@@ -141,7 +141,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>';?>
 
     <?php if ($status == 'assigned') :?>
-      <form action="./sequence_annotation.php?gid= <?php echo $genome_id ?> &sid= <?php echo $sequence_id ?>" method="post">
+      <form action="./sequence_annotation.php?gid= <?php $genome_id ?> &sid= <?php $sequence_id ?>" method="post">
       <b>Gene identifier : </b><input type="text" name="gene_id" required 
                     value = "<?php echo(isset($_POST['gene_id']))? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
       <b>Gene biotype : </b><input type="text" name="gene_id" required
@@ -222,7 +222,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
       </tr>
         <?php if ($_SESSION['role'] == 'Validator'):?>
 
-        <form action="./sequence_annotation.php?gid= <?php echo $genome_id ?> &sid= <?php echo $sequence_id ?>" method="post">
+        <form action="./sequence_annotation.php?gid= <?php $genome_id ?> &sid= <?php $sequence_id ?>" method="post">
         <tr>
         <td>
         <textarea name="comments" cols="40" rows="3" required></textarea></td>
