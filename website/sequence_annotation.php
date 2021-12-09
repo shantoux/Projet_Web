@@ -146,7 +146,6 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
       echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
       echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
       echo '<b> Description : </b><input type ="text" name = "gene_description"><br>';
-      echo '</form>';
       echo '</td>';
     } 
     else if ($status == 'waiting') {
@@ -203,6 +202,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
       <td align='center'> <input type="submit" value="Send" name="send_annotation">
       <input type="submit" value="Save" name="save_annotation"> </td>
     </tr>
+  </form>
 
     </table>
   </div>
