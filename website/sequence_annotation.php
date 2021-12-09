@@ -14,6 +14,7 @@ if (!isset($_SESSION['user'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Annotation </title>
   <link rel="stylesheet" type="text/css" href="./style.css" /s>
+  <script type = "text/javascript" src="function.js"></script> 
 </head>
 
 <body>
@@ -129,41 +130,31 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
     $gene_symbol = pg_fetch_result($result_info, 0, 4);
     $description = pg_fetch_result($result_info, 0, 5);
     $annotator = pg_fetch_result($result_info, 0, 6);
-
-    echo '<table class="table_type3">';
-    echo '<tr colspan=2>';
-    echo '<td>';
-    echo "<b>Sequence identifier:</b> $sequence_id<br><br>";
-    echo "<b>Specie:</b> $genome_id<br>";
-    echo "<b>Chromosome:</b> $chromosome<br>";
-    echo "Sequence is " . strlen($nt) . " nucleotides long - it starts on position <b>" . $start . "</b> and ends on position <b>" . $end . "</b>.<br><br>";
-
-    if ($status == 'assigned'){
-      echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
-      echo '<b>Gene identifier : </b><input type="text" name="gene_id" value ="'. $gene_id .'"> <br>';
-      echo '<b>Gene biotype : </b><input type="text" name="gene_biotype"><br>';
-      echo '<b>Transcript biotype : </b><input type="text" name="transcript_biotype"><br>';
-      echo '<b> Gene symbol : </b><input type ="text" name = "gene_symbol"><br>';
-      echo '<b> Description : </b><input type ="text" name = "gene_description"><br>';
-      echo '</form>';
-      echo '</td>';
-    } 
-    else if ($status == 'waiting') {
-      echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
-      echo '<b>Gene identifier : </b><input type="text" name="gene_id" value ="'. $gene_id .' disabled"> <br>';
-      echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype" disabled><br>';
-      echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype" disabled><br>';
-      echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol" disabled><br>';
-      echo '<b> Description : </b><input type ="text" required name = "gene_description" disabled><br>';
-      echo '</form>';
-      echo '</td>';
-    }
     ?>
 
-    </tr>
-    <tr></tr>
+    <table class="table_type3">
+    <tr colspan=2>
+    <td>
+    <b>Sequence identifier:</b> <?php echo $sequence_id;?><br><br>
+    <b>Specie:</b> <?php echo $genome_id;?><br>
+    <b>Chromosome:</b> <?php echo $chromosome;?><br>
+    <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>';?>
 
-    <tr>
+    <?php if ($status == 'assigned') :?>
+      <form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">
+      <b>Gene identifier : </b><input type="text" name="gene_id" required 
+                    value = "<?php echo(isset($_POST['gene_id']))? htmlspecialchars($_POST['gene_id']) : $gene_id ?>"> <br>
+      <b>Gene biotype : </b><input type="text" name="gene_id" required
+                    value = "<?php echo(isset($_POST['gene_id']))? htmlspecialchars($_POST['gene_id']) : $gene_biotype ?>"> <br>
+      <b>Gene symbol : </b><input type="text" name="gene_id" required
+                    value = "<?php echo(isset($_POST['gene_id']))? htmlspecialchars($_POST['gene_id']) : $gene_symbol ?>"> <br>
+      <b>Description : </b><input type="text" name="gene_id" required
+                    value = "<?php echo(isset($_POST['gene_id']))? htmlspecialchars($_POST['gene_id']) : $description ?>"> <br>  
+     </td>
+      </tr>
+      <tr></tr>
+
+      <tr> 
       <td>
         Gene sequence<br>
         <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $nt ?></textarea>
@@ -174,9 +165,9 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
         <button type="button">Align with Blast</button>
         </a>
       </td>
-    </tr>
+      </tr>
 
-    <tr>
+      <tr>
       <td>
         Peptide sequence<br>
         <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $prot; ?> </textarea>
@@ -185,20 +176,39 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
         <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
         <button type="button">Align with Blast</button>
         </a>
-    </tr>
+      </tr>
 
-    <tr>
+      <tr>
       <td align='center'> <input type="submit" value="Send" name="send_annotation">
-      <input type="submit" value="Save" name="save_annotation"> </td>
-    </tr>
+      <input type="submit" value="Save" name="save_annotation" onClick="removeRequired(this.form)"> </td>
+      </tr>
+      </form>
+   
+  <?php elseif ($status == 'waiting'):
+      // display gene biotype
+      if (pg_fetch_result($result_annot, 0, 3) != "") {
+        echo "<b>Gene biotype:</b> " . pg_fetch_result($result_annot, 0, 3) . "<br>";
+      }
+
+      // display transcript biotype
+      if (pg_fetch_result($result_annot, 0, 4) != "") {
+        echo "<b>Transcript biotype:</b> " . pg_fetch_result($result_annot, 0, 4) . "<br>";
+      }
+
+      // display gene symbol
+      if (pg_fetch_result($result_annot, 0, 5) != "") {
+        echo "<b>Gene symbol:</b> " . pg_fetch_result($result_annot, 0, 5) . "<br>";
+      }
+
+      // display description
+      if (pg_fetch_result($result_annot, 0, 6) != "") {
+        echo "<b>Description:</b> " . pg_fetch_result($result_annot, 0, 6) . "<br>";
+      }
+    ?>
+  <? endif ?>
 
     </table>
   </div>
-
-
-
-
-
 
 
 
@@ -235,9 +245,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
         echo "</tr>";
       }
     } else {
-      echo "
-        This is your first attempt
-    ";
+      echo "This is your first attempt";
     }
 
     echo '</tbody>';
@@ -249,3 +257,4 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
 </body>
 
 </html>
+
