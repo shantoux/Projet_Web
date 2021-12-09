@@ -242,6 +242,12 @@
     echo $t->children(1)->children(2)->plaintext . '<br>';
     echo $t->children(1)->children(3)->plaintext . '<br>';
 
+    echo '<br><br>';
+
+    echo $try[1]->plaintext . '<br>';
+    echo $try[2]->plaintext . '<br>';
+    echo $try[3]->plaintext . '<br>';
+
 
     echo '</div>';
 
