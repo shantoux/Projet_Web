@@ -173,8 +173,7 @@
         <tr>
           <td>
             Gene sequence<br>
-            <textarea id="seq" name="seq"
-            rows="8" cols="80" readonly><?php echo $gene_seq;?></textarea>
+            <div style="font-family:Consolas;border:solid 1px black;"><?php echo $gene_seq;?></div>
           </td>
 
           <!-- display button for automative blast alignment of the nucleotidic sequence -->
