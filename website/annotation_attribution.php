@@ -78,7 +78,10 @@
         $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_annotations);
         if ($result_insert) {
           // If the insertion was done successfully : print a message informing the user and send an email to the annotator
-          echo "<td> Attribution successfully added.</td>";
+          echo "<td> <div class=\"alert_good\"><span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Attribution successfully added.
+          </div></td>";
 
           // Send email to the annotator to inform them they were attributed a new sequence
 
@@ -101,7 +104,10 @@
 
         } else {
           // If the insertion failed : print a message to inform the user
-          echo "<td> Attribution NOT added.</td>";
+          echo "<td><div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Attribution NOT added. Something went wrong.</div></td>";
         }
       }
     ?>
