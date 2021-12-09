@@ -316,7 +316,7 @@ if (!isset($_SESSION['user'])) {
       </tr>
       <?php if ($_SESSION['role'] == 'Validator') : ?>
 
-        <form action="./annotation_validation" method="post">
+        <form action="./annotation_validation.php" method="post">
           <tr>
             <td>
               <textarea name="comments" cols="40" rows="3" required></textarea>
