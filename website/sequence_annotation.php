@@ -119,7 +119,7 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
       WHERE genome_id = '" . $_GET['gid'] . "' AND sequence_id = '" . $_GET['sid'] . "' AND status = 'assigned';";
     $result_attempt = pg_query($db_conn, $query_attempt) or die('Query failed with exception: ' . pg_last_error());
     $attempt = pg_fetch_result($result_attempt, 0, 0);
-    print_r($attempt);
+    print_r("attempt number :" .$attempt);
 
 
     //Retrieve status of sequence annotation
