@@ -42,7 +42,7 @@
 
       // build hashed pw
       $hash = pg_fetch_result($result, 0, 0);
-      echo $hash . '<br>' . $user_password . '<br>' . password_verify($user_password, $hash) . '<br>' . password_hash($user_password) . '<br>';
+      echo $hash . '<br>' . $user_password . '<br>' . password_verify($user_password, $hash) . '<br>' . password_hash($user_password, PASSWORD_DEFAULT) . '<br>';
 
       // check if user is validated by admin
       $validated = pg_fetch_result($result, 0, 1) == 'validated';
