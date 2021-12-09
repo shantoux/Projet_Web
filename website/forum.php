@@ -57,7 +57,7 @@
       </div>
 
       <br> <br>
-      
+
       <div class="center">
         This is the annotation forum. Create a conversation with other annotators to help on any question or difficulty.<br><br><br>
       </div>
@@ -142,30 +142,47 @@
         }
         // create the new topic if the Create button has been clicked
         if (isset($_POST["create"])) {
-          // create topic in DB
-          $new_topic = array();
-          $new_topic['name'] = $_POST['topic_name'];
-          $result_insert_1 = pg_insert($db_conn, 'database_projet.topics', $new_topic);
 
-          // add all involved annotators...
-          foreach ($_POST['selected_users'] as $user_email) {
-            $new_conv_member = array();
-            $new_conv_member['topic_name'] = $_POST['topic_name'];
-            $new_conv_member['user_email'] = $user_email;
-            $result_insert_2 = pg_insert($db_conn, 'database_projet.correspondents', $new_conv_member);
+          // verify that a topic with this name is not already present
+          $query_name = "SELECT name FROM database_projet.topics WHERE name = '" . $_POST['topic_name'] . "';"
+          $result_name = pg_query($db_conn, $query_name) or die('Query failed with exception: ' . pg_last_error());
+          if (pg_num_rows($result_name) > 0) {
+
+            // display alert message box
+            echo "<div class=\"alert_bad\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            A topic with this name already exists.
+            </div>";
           }
 
-          // ...including current user
-          $new_conv_member = array();
-          $new_conv_member['topic_name'] = $_POST['topic_name'];
-          $new_conv_member['user_email'] = $_SESSION['user'];
-          $result_insert_2 = pg_insert($db_conn, 'database_projet.correspondents', $new_conv_member);
+          else {
 
-          // check if all went well
-          if ($result_insert_1 && $result_insert_2) {
-            echo "<td> Successfully added</td>";
-          } else {
-            echo "<td> Something went wrong.</td>";
+            // create topic in DB
+            $new_topic = array();
+            $new_topic['name'] = $_POST['topic_name'];
+            $result_insert_1 = pg_insert($db_conn, 'database_projet.topics', $new_topic);
+
+            // add all involved annotators...
+            foreach ($_POST['selected_users'] as $user_email) {
+              $new_conv_member = array();
+              $new_conv_member['topic_name'] = $_POST['topic_name'];
+              $new_conv_member['user_email'] = $user_email;
+              $result_insert_2 = pg_insert($db_conn, 'database_projet.correspondents', $new_conv_member);
+            }
+
+            // ...including current user
+            $new_conv_member = array();
+            $new_conv_member['topic_name'] = $_POST['topic_name'];
+            $new_conv_member['user_email'] = $_SESSION['user'];
+            $result_insert_2 = pg_insert($db_conn, 'database_projet.correspondents', $new_conv_member);
+
+            // check if all went well
+            if ($result_insert_1 && $result_insert_2) {
+              echo "<td> Successfully added</td>";
+            } else {
+              echo "<td> Something went wrong.</td>";
+            }
           }
         }
         echo '</div>';
