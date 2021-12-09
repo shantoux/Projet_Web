@@ -120,13 +120,13 @@
         // chose conversation participants and topic name if the topic instanciation button has been clicked
         else {
           echo 'Chose who will be part of the conversation:<br>';
-          echo '<span class="small_text">Hold \'ctrl\' to select multiple users</span><br>';
+          echo '<span class="small_text"  style="margin:25px 0px;">Hold \'ctrl\' to select multiple users</span><br>';
           echo '<form action="forum.php" method = "post">';
           echo '<select name="selected_users[]" ';
           // retrieve all validated users and display multiple-selection menu
           $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated' AND role != 'Reader';";
           $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
-          echo 'multiple size = ' . pg_num_rows($result_users) . '  style="margin:20px 0px;" required>';
+          echo 'multiple size = ' . pg_num_rows($result_users) . ' required>';
           while ($user = pg_fetch_array($result_users)) {
             // check if user is different from current user (who has no choice but to take part in the discussion)
             if ($user["email"] != $_SESSION['user']) {
