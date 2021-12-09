@@ -122,6 +122,7 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
       FROM database_projet.annotations a
       WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt ='" . $attempt . "' ;";
     $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
+    print_r($result_info);
     $status = pg_fetch_result($result_info, 0, 0);
     $gene_id = pg_fetch_result($result_info, 0, 1);
     $gene_biotype = pg_fetch_result($result_info, 0, 2);
@@ -149,14 +150,25 @@ if (isset($_POST['send_annotation']) || isset($POST['save_annotation'])) {
       echo '</td>';
     } 
     else if ($status == 'waiting') {
-      echo '<form action="./sequence_annotation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '" method="post">';
-      echo '<b>Gene identifier : </b><input type="text" name="gene_id" value ="'. $gene_id .' disabled"> <br>';
-      echo '<b>Gene biotype : </b><input type="text" required name="gene_biotype" disabled><br>';
-      echo '<b>Transcript biotype : </b><input type="text" required name="transcript_biotype" disabled><br>';
-      echo '<b> Gene symbol : </b><input type ="text" required name = "gene_symbol" disabled><br>';
-      echo '<b> Description : </b><input type ="text" required name = "gene_description" disabled><br>';
-      echo '</form>';
-      echo '</td>';
+      // display gene biotype
+      if (pg_fetch_result($result_annot, 0, 3) != "") {
+        echo "<b>Gene biotype:</b> " . pg_fetch_result($result_annot, 0, 3) . "<br>";
+      }
+
+      // display transcript biotype
+      if (pg_fetch_result($result_annot, 0, 4) != "") {
+        echo "<b>Transcript biotype:</b> " . pg_fetch_result($result_annot, 0, 4) . "<br>";
+      }
+
+      // display gene symbol
+      if (pg_fetch_result($result_annot, 0, 5) != "") {
+        echo "<b>Gene symbol:</b> " . pg_fetch_result($result_annot, 0, 5) . "<br>";
+      }
+
+      // display description
+      if (pg_fetch_result($result_annot, 0, 6) != "") {
+        echo "<b>Description:</b> " . pg_fetch_result($result_annot, 0, 6) . "<br>";
+      }
     }
     ?>
 
