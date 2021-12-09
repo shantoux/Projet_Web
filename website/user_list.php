@@ -124,10 +124,9 @@ connect_db();?>
     }
     ?>
 
-    <div class = "center">
+    <div class="center">
       <?php
-      echo '<table class = "table_type_gene_inf">';
-      echo '<thead>';
+      echo '<table class="table_type_gene_inf">';
       echo '<colgroup>';
       echo '<col span="1" style="width: 12.5%;">';
       echo '<col span="1" style="width: 12.5%;">';
@@ -138,6 +137,7 @@ connect_db();?>
       echo '<col span="1" style="width: 12.5%;">';
       echo '<col span="1" style="width: 12.5%;">';
       echo '</colgroup>';
+      echo '<thead>';
       echo '<tr>';
       echo '<th>Last Name</th>';
       echo '<th>First Name</th>';
