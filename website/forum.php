@@ -123,7 +123,7 @@
         // retrieve all validated users and display multiple-selection menu
         $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated' AND role != 'Reader';";
         $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
-        echo 'multiple size = ' . pg_num_rows($result_users) . '>';
+        echo 'multiple size = ' . pg_num_rows($result_users) . ' required>';
         while ($user = pg_fetch_array($result_users)) {
           // check if user is different from current user (who has no choice but to take part in the discussion)
           if ($user["email"] != $_SESSION['user']) {
