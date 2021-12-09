@@ -278,7 +278,7 @@
             }
 
             if ($no_know_domain) {
-              echo "No domain found for this protein."
+              echo "No domain found for this protein.";
             }
           ?>
         </tr>
