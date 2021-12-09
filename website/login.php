@@ -33,40 +33,38 @@
 
 
     // Query : Select all user info for a specified email and password
-    $query = "SELECT u.pw FROM database_projet.users u WHERE u.email = '$user_name';"; //AND u.pw = '$user_password';";
+    $query = "SELECT * FROM database_projet.users u WHERE u.email = '$user_name';"; //AND u.pw = '$user_password';";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
-    if (pg_num_rows($result) >0) {
-      $hash = pg_fetch_result($result, 0, 0);
+    if (pg_num_rows($result) == 0) {
+      $hash = pg_fetch_result($result, 0, 1);
 
       if (password_verify($user_password, $hash)) {
-        if (pg_num_rows($result) == 1) {
-          //If there's only one result to the query = correct pair of email/pw
-          $validated = pg_fetch_result($result, 0, 6) == 'validated'; //get the result of the 7th column (Status) for the 1st row
+        $validated = pg_fetch_result($result, 0, 6) == 'validated'; //get the result of the 7th column (Status) for the 1st row
 
-          if ($validated) {
-            // If the user's status is "validated" (approved by the site's admin)
-            // Go to the search page
-            echo '<script>location.href="search.php"</script>';
+        if ($validated) {
+          // If the user's status is "validated" (approved by the site's admin)
+          // Go to the search page
+          echo '<script>location.href="search.php"</script>';
 
-            // Start a session and store variables email and role
-            session_start();
-            $_SESSION['user'] = $_POST['name'];
-            $_SESSION['role'] = pg_fetch_result($result, 0, 5);
-            $_SESSION['first_name'] = pg_fetch_result($result, 0, 3);
-            $_SESSION['last_name'] = pg_fetch_result($result, 0, 2);
+          // Start a session and store variables email and role
+          session_start();
+          $_SESSION['user'] = $_POST['name'];
+          $_SESSION['role'] = pg_fetch_result($result, 0, 5);
+          $_SESSION['first_name'] = pg_fetch_result($result, 0, 3);
+          $_SESSION['last_name'] = pg_fetch_result($result, 0, 2);
 
-          } else { // If the user has not been approved yet
+        } else { // If the user has not been approved yet
 
-            # display message
-            echo "<div class=\"alert_bad\">
-            <span class=\"closebtn\"
-            onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Your account has not been validated by an admin yet.
-            </div>";
+          # display message
+          echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Your account has not been validated by an admin yet.
+          </div>";
           }
         } else {
-          // If there's no result to the query : wrong pair of email/pw
+          // fail password verify
           echo "<div class=\"alert_bad\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
@@ -74,9 +72,6 @@
         }
       }
     } else {
-      //Get email and password filled in the connexion form
-      //$user_name = $_POST["name"];
-      //$user_password = $_POST["pass"];
       // Query : Select all user info for a specified email and password
       $query = "SELECT * FROM database_projet.users WHERE email = '$user_name' AND pw = '$user_password';";
       $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
