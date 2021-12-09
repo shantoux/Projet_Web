@@ -112,7 +112,7 @@ if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
       echo "<br> <div class=\"alert_good\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Your annotation has been send !
+          Your annotation has been saved !
         </div>";
     }
   }
