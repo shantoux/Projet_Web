@@ -247,10 +247,10 @@ body {
 }
 
 .fancy_box{
-  border: solid 6px #ccdee5;
-  border-radius: 5px;
+  border: solid 6px #4F8E8D;
+  border-radius: 50px;
   background-color: #E9F2F2;
-  width:auto;
+  width: 60%;
   padding: 10px 10px;
   margin-left: auto;
   margin-right: auto;
