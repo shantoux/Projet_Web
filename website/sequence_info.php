@@ -206,27 +206,27 @@
         // retrieve the <tbody> element in which the domains are stored on the PFAM page
         $t = file_get_html($adress);
         $t = $t->find("table#imageKey.resultTable.details", 0);
+
+        // cehck if we find any domain
         $no_children = true;
         foreach($html->find('div.article') as $article) {
           $no_children = false;
           break;
         }
 
-        if ($no_children) {
-          echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
-        }
+        if (!$no_children) {
+          $t = $t->children(1);
 
-        $t = $t->children(1);
+          // loop on all of its lines
+          for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
 
-        // loop on all of its lines
-        for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
-
-          // retrieve the domains informations
-          $domain = array();
-          $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
-          $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
-          $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
-          $domains[$domain_index] = $domain;
+            // retrieve the domains informations
+            $domain = array();
+            $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
+            $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
+            $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
+            $domains[$domain_index] = $domain;
+          }
         }
         ?>
 
