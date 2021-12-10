@@ -108,7 +108,7 @@ if (!isset($_SESSION['user'])) {
           </div>";
         echo '<meta http-equiv = "refresh" content = " 2 ; url = assigned_annotation.php"/>';
 
-        
+
         //echo '<meta http-equiv = "refresh" content = " 0 ; url = ./sequence_validation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '&att=' . $attempt . '&annotator=' . $annotator . '"/>';
       } else if (isset($_POST['save_annotation'])) {
         echo "<br> <div class=\"alert_good\">
@@ -189,7 +189,7 @@ if (!isset($_SESSION['user'])) {
 
       <td>
         <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">" ?>
-        <button type="button">Align with Blast</button>
+        <button type="button" class="button_neutral">Align with Blast</button>
         </a>
       </td>
     </tr>
