@@ -73,7 +73,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan=2> <input class= "button_ok" type="submit" value="Submit" name="submit_registration"> </td>
+          <td colspan=2> <input class="button_ok" type="submit" value="Submit" name="submit_registration"> </td>
         </tr>
 
       </table>
@@ -110,7 +110,7 @@
       echo "<div class=\"alert_bad\">
               <span class=\"closebtn\"
               onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              Error during registration. The email ".$_POST["adress"]." already exists.
+              Error during registration. The email " . $_POST["adress"] . " already exists.
             </div>";
     } else {
       $result_insert = pg_insert($db_conn, 'database_projet.users', $values_user);
