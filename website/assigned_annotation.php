@@ -59,44 +59,47 @@
 
     <div id="element1">
       <table class="table_type1">
-        <thead>
-          <tr>
-          <th>Assigned on</th>
-            <th>Genomes</th>
-            <th>Sequences</th>
-            <th>Action</th>
-            <th>Attempt</th>
-          </tr>
-        </thead>
-
-        <tbody>
           <?php
           include_once 'libphp/dbutils.php';
           connect_db();
           $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator, a.assignation_date
-            FROM database_projet.annotations a
-            WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned'
-            ORDER BY assignation_date;";
+          FROM database_projet.annotations a
+          WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned'
+          ORDER BY assignation_date;";
           $result = pg_query($db_conn, $query);
-          if ($result != false) {
-            while ($rows = pg_fetch_array($result)) {
-              echo "<tr>";
-              echo "<td>" . date('d-m-o H:i', strtotime($rows["assignation_date"])) . "</td>";
-              echo "<td>" . $rows["genome_id"] . "</td>";
-              echo '<td>' . $rows["sequence_id"] . '</td>';
-              # Review annotation
-              echo '<td> <input type="button" class="button_active" value="Annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'&att='.$rows['attempt'].'&annotator='.$rows['annotator'].'\';"/></td>';
-              echo '<td>' . $rows["attempt"] . '</td>';
-              echo "</tr>";
+
+          if (pg_num_rows($result)>0){
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th>Assigned on</th>";
+            echo "<th>Genomes</th>";
+            echo "<th>Sequences</th>";
+            echo "<th>Action</th>";
+            echo "<th>Attempt</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+
+            if ($result != false) {
+              while ($rows = pg_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>" . date('d-m-o H:i', strtotime($rows["assignation_date"])) . "</td>";
+                echo "<td>" . $rows["genome_id"] . "</td>";
+                echo '<td>' . $rows["sequence_id"] . '</td>';
+                # Review annotation
+                echo '<td> <input type="button" class="button_active" value="Annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'&att='.$rows['attempt'].'&annotator='.$rows['annotator'].'\';"/></td>';
+                echo '<td>' . $rows["attempt"] . '</td>';
+                echo "</tr>";
+              }
+            } else {
+              echo "<tr><td colspan='4'>Something went wrong with the query</td></tr>";
             }
           } else {
-            echo "
-            <tr>
-            <td colspan='4'>Something went wrong with the query</td>
-            </tr>
-        ";
+            echo "<div class=\"alert_neutral\">
+            You were not assigned a sequence yet!</div>";
           }
           ?>
+
         </tbody>
       </table>
 
