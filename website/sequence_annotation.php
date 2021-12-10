@@ -105,8 +105,11 @@ if (!isset($_SESSION['user'])) {
         echo "<br> <div class=\"alert_good\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Your annotation has been sent !
+            Your annotation has been sent ! Redirection to Annotate Sequence page ...
           </div>";
+        echo '<meta http-equiv = "refresh" content = " 2 ; url = assigned_annotation.php"/>';
+
+        
         //echo '<meta http-equiv = "refresh" content = " 0 ; url = ./sequence_validation.php?gid=' . $genome_id . '&sid=' . $sequence_id . '&att=' . $attempt . '&annotator=' . $annotator . '"/>';
       } else if (isset($_POST['save_annotation'])) {
         echo "<br> <div class=\"alert_good\">

@@ -92,7 +92,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
 
     //----------------Send an email to the annotator, informing them of the decision
     if ($result) {
-      echo "Annotation validated. An email was sent to the annotator.";
+      
 
       $to = $_GET["annotator"]; // Send email to the annotator
       $subject = "Your annotation has been validated."; // Give the email a subject
@@ -110,6 +110,10 @@ $chromosome = pg_fetch_result($result2, 0, 4);
       $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
 
       mail($to, $subject, $emessage, implode("\r\n", $headers));
+      echo "<div class=\"alert_good\">
+      Annotation validated! An email was sent to the annotator. Redirection to validation page ...</div>";
+      echo '<meta http-equiv = "refresh" content = " 2 ; url = annotation_validation.php"/>';
+
     } else {
       echo "something went wrong in the query";
     }
@@ -139,8 +143,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
     $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());
 
     if ($result and $result_insert) {
-      echo "Annotation successfully rejected. Please go back to validation page";
-
+     
     //----------------Send an email to the annotator, informing them of the decision
 
 
@@ -160,6 +163,11 @@ $chromosome = pg_fetch_result($result2, 0, 4);
       $headers[] = "X-Mailer: PHP/" . phpversion(); // Set from headers
 
       mail($to, $subject, $emessage, implode("\r\n", $headers));
+
+      echo "<div class=\"alert_neutral\">
+      Annotation successfully rejected. Redirection to validation page ...</div>";
+      echo '<meta http-equiv = "refresh" content = " 2 ; url = annotation_validation.php"/>';
+
     } else {
       echo "something went wrong in the query";
     }
