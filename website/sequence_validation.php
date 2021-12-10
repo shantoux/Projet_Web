@@ -237,7 +237,7 @@ $description = pg_fetch_result($result_info, 0, 5);
       <tr>
         <td>
           Gene sequence<br>
-          <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $nt ?></textarea>
+          <textarea style="font-family:courier;" id="seq" name="seq" rows="8" cols="80" readonly><?php echo $nt ?></textarea>
         </td>
 
         <td>
@@ -250,7 +250,7 @@ $description = pg_fetch_result($result_info, 0, 5);
       <tr>
         <td>
           Peptide sequence<br>
-          <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $prot; ?> </textarea>
+          <textarea style="font-family:courier;" id="seq" name="seq" rows="8" cols="80" readonly><?php echo $prot; ?> </textarea>
         </td>
         <td>
           <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
