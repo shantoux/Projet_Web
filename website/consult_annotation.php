@@ -49,8 +49,8 @@
     <link rel="stylesheet" type="text/css" href="./style.css" /s>
   </head>
 
+  <!-- display menu options depending of the user's role -->
   <body class="center">
-    <!-- display menu options depending of the user's role -->
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
@@ -100,7 +100,7 @@
           </div>";
         }
 
-        // retrieve date of now;
+        // retrieve date of now
         $query_time = "SELECT now();";
         $result_time = pg_query($db_conn, $query_time) or die('Query failed with exception: ' . pg_last_error());
         $current_date = pg_fetch_result($result_time, 0, 0);

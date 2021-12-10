@@ -50,15 +50,23 @@ if (!isset($_SESSION['user'])) {
   <!-- Display fancy box -->
   <div class="fancy_box" style="width:80%;">
 
+    <!-- Display page title -->
     <div id="pagetitle"> Sequences annotation </div>
     <br><br>
+    <!-- Display introductory message -->
     <div id="element1">Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
       <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.
     </div>
+
     <br>
     <br>
 
-    <!-- Display page title -->
+    <!--////////////////////////////////////////////////////////////////////////
+    //              Annotation assigned to the logged-in annotator
+    ////////////////////////////////////////////////////////////////////////-->
+
+
+    <!--Display under title -->
     <h3 id="pageundertitle" class="center"> Sequences waiting to be annotated </h3>
     <br>
 
@@ -70,6 +78,9 @@ if (!isset($_SESSION['user'])) {
         // import db functions
         include_once 'libphp/dbutils.php';
         connect_db();
+
+        //Query to retrieve information about the assignation of an annotation
+        // to a specific annotator
         $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator, a.assignation_date
             FROM database_projet.annotations a
             WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned'
@@ -77,6 +88,8 @@ if (!isset($_SESSION['user'])) {
         $result = pg_query($db_conn, $query);
 
         if (pg_num_rows($result) > 0) {
+
+          // If the annotator have assigned sequences, display table
           echo "<thead>";
           echo "<tr>";
           echo "<th>Assigned on</th>";
@@ -113,13 +126,24 @@ if (!isset($_SESSION['user'])) {
 
     </div>
 
+    <!--////////////////////////////////////////////////////////////////////////
+    //                    Display of previous annotations
+    ////////////////////////////////////////////////////////////////////////-->
+
     <br>
+
+    <!--Display under title -->
     <h3 id="pageundertitle" class="center"> Sequences already annotated </h3>
+
     <br>
+
+    <!-- Table to display previously assigned annotations -->
 
     <div id="element1">
       <table class="table_type1">
         <?php
+        //Query to retrieve informations about annotations that are not currently
+        // assigned to the the logged-in annotator anymore
         $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
             FROM database_projet.annotations a
             WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status!='assigned'
@@ -127,6 +151,7 @@ if (!isset($_SESSION['user'])) {
         $result = pg_query($db_conn, $query);
 
         if (pg_num_rows($result) > 0) {
+          // If the annotator have had validated or rejected annotations, display table
           echo "<thead>";
           echo "<tr>";
           echo "<th>Genomes</th>";
@@ -140,7 +165,9 @@ if (!isset($_SESSION['user'])) {
           echo "<tbody>";
 
           if ($result != false) {
+
             for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++) {
+
               $genome_id = pg_fetch_result($result, $res_nb, 0);
               $seq_id = pg_fetch_result($result, $res_nb, 1);
               $comment = pg_fetch_result($result, $res_nb, 2);
@@ -181,11 +208,7 @@ if (!isset($_SESSION['user'])) {
 
         ?>
       </table>
-
     </div>
-
   </div>
-
 </body>
-
 </html>
