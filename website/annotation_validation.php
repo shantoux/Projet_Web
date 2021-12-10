@@ -198,7 +198,7 @@ connect_db(); ?>
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";
-            echo '<td><a href="./sequence_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '&att=' . $rows['attempt'] . '&annotator=' . $rows["annotator"] . '">' . $rows["sequence_id"] . '</a></td>';
+            echo '<td><a href="./sequence_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '&att=' . $rows['attempt'] . '&annotator=' . $rows["annotator"] . '"style="color: #4F8E8D">' . $rows["sequence_id"] . '</a></td>';
             echo "<td>" . $rows["annotator"] . "</td>";
             echo "<td>" . $rows["attempt"] . "</td>";
             echo "<td>" . date('d-m-o H:i', strtotime($rows['assignation_date'])) . "</td>";
