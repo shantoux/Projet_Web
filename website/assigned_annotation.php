@@ -167,10 +167,10 @@
             }
           } else {
             echo "<div class=\"alert_neutral\">
-            There is no new sequences to attribute.</div>";
+            You do not have any previous work yet!</div>";
           }
           echo "</tbody>";
-        
+
           ?>
       </table>
 
