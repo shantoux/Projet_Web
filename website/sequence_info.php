@@ -221,7 +221,7 @@
         <tr>
           <td>
             Peptide sequence<br>
-            <div style="font-family:Consolas;border:solid 1px black;background-color:white;">
+            <div style="font-family:courier;border:solid 1px black;background-color:white;">
             <?php
               // build list of background colors
               $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
