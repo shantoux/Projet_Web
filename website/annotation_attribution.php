@@ -179,7 +179,7 @@
               } // exit the loop over the annotator list
 
               # display button to choose which annotator will annotate the sequence
-              echo '</select><div class="button_ok"><input type="submit" value="Attribute" name="Attribute"></div></td></form>';
+              echo '</select><input class="button_ok" type="submit" value="Attribute" name="Attribute"></td></form>';
 
             }
             echo '</tr>';
