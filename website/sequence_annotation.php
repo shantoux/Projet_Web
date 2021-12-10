@@ -5,8 +5,8 @@
 if (!isset($_SESSION['user'])) {
   echo '<script>location.href="login.php"</script>';
 }
-
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -16,8 +16,8 @@ if (!isset($_SESSION['user'])) {
   <link rel="stylesheet" type="text/css" href="./style.css" /s>
 </head>
 
+<!-- display menu options depending of the user's role -->
 <body class="center">
-  <!-- display menu options depending of the user's role -->
   <div class="topnav">
     <a href="./search.php">New search</a>
     <?php
@@ -45,33 +45,34 @@ if (!isset($_SESSION['user'])) {
     <a class="disc"><?php echo $_SESSION['first_name'] ?> - <?php echo $_SESSION['role'] ?> </a>
   </div>
 
+  <!-- Display page title -->
   <h2 id="pagetitle">
     Sequence Annotation
   </h2>
 
   <?php
-
+  // import db functions
   include_once 'libphp/dbutils.php';
   connect_db();
+
   // Retrieve the information already in the database
   $genome_id = $_GET['gid'];
   $sequence_id = $_GET['sid'];
   $attempt = $_GET['att'];
   $annotator = $_GET['annotator'];
 
+  //Query to retrieve information about the sequence to annotate
   $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
       FROM database_projet.gene g
       WHERE g.sequence_id = '" . $sequence_id . "';";
   $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
+
   $nt = pg_fetch_result($result2, 0, 0);
   $prot = pg_fetch_result($result2, 0, 1);
   $start = pg_fetch_result($result2, 0, 2);
   $end = pg_fetch_result($result2, 0, 3);
   $chromosome = pg_fetch_result($result2, 0, 4);
 
-  ?>
-
-  <?php
 
 
   if (isset($_POST['send_annotation']) || isset($_POST['save_annotation'])) {
@@ -87,6 +88,7 @@ if (!isset($_SESSION['user'])) {
     } else if (isset($_POST['save_annotation'])) {
       $values_annotations['status'] = 'assigned';
     }
+
     //Conditions for query
 
     $condition_pkey = array();
@@ -121,10 +123,6 @@ if (!isset($_SESSION['user'])) {
     }
   }
 
-  ?>
-
-  <?php
-
 
 
   //Retrieve status of sequence annotation
@@ -133,6 +131,7 @@ if (!isset($_SESSION['user'])) {
     WHERE sequence_id ='" . $sequence_id .
     "' AND attempt = " . $attempt . " AND annotator = '" . $annotator . "';";
   $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
+
   $status = pg_fetch_result($result_info, 0, 0);
   $gene_id = pg_fetch_result($result_info, 0, 1);
   $gene_biotype = pg_fetch_result($result_info, 0, 2);
@@ -142,8 +141,8 @@ if (!isset($_SESSION['user'])) {
   $annotator = pg_fetch_result($result_info, 0, 6);
   ?>
 
-  <div class="center">
 
+  <div class="center">
 
     <table class="table_type3">
       <tr colspan=2>
@@ -220,11 +219,15 @@ if (!isset($_SESSION['user'])) {
   <h3 id="pageundertitle" class="center"> Past attempts </h3>
   <div id="element1">
     <?php
+    
+    //Query to retrieve information about the annotator's last attempt to annotator
+    //the same sequence they are annotating now
     $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status, a.assignation_date
         FROM database_projet.annotations as a
         WHERE sequence_id ='" . $sequence_id . "'and status = 'rejected'
         ORDER BY attempt DESC;";
     $result_attempts = pg_query($db_conn, $query_pastattempts);
+
     if (pg_num_rows($result_attempts) > 0) {
       echo '<table class="table_type1">';
       echo '<thead>';
