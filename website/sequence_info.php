@@ -179,7 +179,7 @@
           <!-- display button for automative blast alignment of the nucleotidic sequence -->
           <td>
             <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $gene_seq . "&type=nucl\" target=\"_blank\">"?>
-                 <button type="button">Align with Blast</button>
+                 <button class="button_neutral" type="button">Align with Blast</button>
                  </a>
           </td>
         </tr>
@@ -253,7 +253,7 @@
           <!-- display button for automative blast alignment of the peptidic sequence -->
           <td>
             <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot_seq . "&type=prot\" target=\"_blank\">"?>
-                 <button type="button">Align with Blast</button>
+                 <button class="button_neutral" type="button">Align with Blast</button>
                  </a>
         </tr>
         <tr colspan=2>
@@ -294,7 +294,7 @@
         <option value="Uniprot"> Uniprot </option>
         <option value="Embl"> Embl </option>
       </select>
-      <input type="submit" name="search" value="Search">
+      <input class="button_ok" type="submit" name="search" value="Search">
     </form>
     </div>
 
