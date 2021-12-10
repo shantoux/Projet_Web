@@ -13,10 +13,15 @@
 
 <body class="center">
 
-  <!-- Page header -->
-  <h1> Welcome to Bio Search Sequences </h1>
-  <div id="menu">
-    Please log in and let's annotate!<br>
+  <!-- Display fancy box -->
+  <div class="fancy_box" style="width:40%;">
+
+    <!-- Page header -->
+    <h1> Welcome to Bio Search Sequences </h1>
+    <div id="menu">
+      Please log in and let's annotate!<br>
+    </div>
+
   </div>
 
   <!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
@@ -103,26 +108,30 @@
 
   ?>
 
-  <!-- Login form -->
-  <div id="element1">
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-      <table class="center">
-        <tr>
-          <td> Login : </td>
-          <!-- #TODO: unhardcode login and pw -->
-          <td> <input type="text" name="name" value="bobby@gmail.com"> </td>
-        </tr>
-        <tr>
-          <td> Password : </td>
-          <td> <input type="password" name="pass" value="cestmoibobby"> </td>
-        </tr>
-        <tr>
-          <td colspan=2> <input type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
-        </tr>
-      </table>
-    </form>
+  <!-- Display fancy box -->
+  <div class="fancy_box" style="width:50%;">
 
-    <br> <br> <span class="small_text"> Not already registered? <a href="./registration.php">Click here</a> to submit a new account.</span>
+    <!-- Login form -->
+    <div id="element1">
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <table class="center">
+          <tr>
+            <td> Login : </td>
+            <!-- #TODO: unhardcode login and pw -->
+            <td> <input type="text" name="name" value="bobby@gmail.com"> </td>
+          </tr>
+          <tr>
+            <td> Password : </td>
+            <td> <input type="password" name="pass" value="cestmoibobby"> </td>
+          </tr>
+          <tr>
+            <td colspan=2> <input type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
+          </tr>
+        </table>
+      </form>
+
+      <br> <br> <span class="small_text"> Not already registered? <a href="./registration.php">Click here</a> to submit a new account.</span>
+    </div>
   </div>
 </body>
 </html>
