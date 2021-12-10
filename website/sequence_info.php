@@ -209,7 +209,7 @@
 
         // check if we find any domain
         $no_children = true;
-        if (is_array($t)) {
+        if (is_array($t) || $t instanceof Traversable ) {
           $no_children = false;
         }
 
