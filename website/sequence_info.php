@@ -209,7 +209,7 @@
 
         // cehck if we find any domain
         $no_children = true;
-        foreach($t->find("table#imageKey.resultTable.details", 0) as $article) {
+        foreach($t as $article) {
           $no_children = false;
           break;
         }
