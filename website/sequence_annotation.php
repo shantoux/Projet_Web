@@ -239,14 +239,14 @@ if (!isset($_SESSION['user'])) {
         echo '</colgroup>';
         echo '<thead>';
         echo '<tr>';
-        echo '<th>Attempt</th><th>Gene id</th><th>gene biotype</th><th>transcript_biotype</th><th>gene_symbol</th><th>description</th><th>Validator\'s comment</th>';
+        echo '<th>(Re)assigned on</th><th>Attempt</th><th>Gene id</th><th>gene biotype</th><th>transcript_biotype</th><th>gene_symbol</th><th>description</th><th>Validator\'s comment</th>';
         echo '</tr>';
         echo '</thead>';
         echo ' <tbody>';
 
         while ($rows = pg_fetch_array($result_attempts)) {
           echo "<tr>";
-          echo "<td>" . $rows["assignation_date"] . "</td>";
+          echo "<td>" . date('d-m-o H:i', strtotime($rows["assignation_date"])) . "</td>";
           echo "<td>" . $rows["attempt"] . "</td>";
           echo '<td>' . $rows["gene_id"] . '</td>';
           echo '<td>' . $rows["gene_biotype"] . '</td>';
