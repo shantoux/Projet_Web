@@ -100,7 +100,7 @@ connect_db(); ?>
 
       mail($to, $subject, $emessage, implode("\r\n", $headers));
     } else {
-      echo "something went wrong in the query";
+      echo "Something went wrong, please contact the administrator to inform them";
     }
 
     //------------------------------The validator rejects the annotation with a comment-------------------------------
@@ -158,7 +158,7 @@ connect_db(); ?>
 
       mail($to, $subject, $emessage, implode("\r\n", $headers));
     } else {
-      echo "something went wrong in the query";
+      echo "Something went wrong, please contact the administrator to inform them";
     }
   }
   ?>

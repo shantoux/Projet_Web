@@ -114,7 +114,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
       echo '<meta http-equiv = "refresh" content = " 2 ; url = annotation_validation.php"/>';
 
     } else {
-      echo "something went wrong in the query";
+      echo "Something went wrong, please contact the administrator to inform them";
     }
 
 //------------------------------The validator rejects the annotation with a comment-------------------------------
@@ -168,7 +168,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
       echo '<meta http-equiv = "refresh" content = " 2 ; url = annotation_validation.php"/>';
 
     } else {
-      echo "something went wrong in the query";
+      echo "Something went wrong, please contact the administrator to inform them";
     }
   }
   ?>
