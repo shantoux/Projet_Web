@@ -173,7 +173,7 @@ connect_db(); ?>
       <?php
 
       //Query to get all the sequences that have a status of "waiting" in the annotations table, after annotation
-      $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt
+      $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt, a_assignation_date
       FROM database_projet.annotations as a
       WHERE status = 'waiting' AND annotator != '" . $_SESSION['user'] . "';";
       $result = pg_query($db_conn, $query);
@@ -198,6 +198,8 @@ connect_db(); ?>
             echo "<td>" . $rows["genome_id"] . "</td>";
             echo '<td><a href="./sequence_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '&att=' . $rows['attempt'] . '&annotator=' . $rows["annotator"] . '">' . $rows["sequence_id"] . '</a></td>';
             echo "<td>" . $rows["annotator"] . "</td>";
+            echo "<td>" . $rows["attempt"] . "</td>";
+            echo "<td>" . date('d-m-o H:i', strtotime($rows['assignation_date'])) . "</td>";
             //The form returns to the same page, with the sequence_id and the genome_id in the url if a submit button in pressed (cf actions of the validator)
             echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] . '&att=' . $rows['attempt'] . '&annotator=' . $rows["annotator"] . '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
