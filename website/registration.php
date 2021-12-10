@@ -41,7 +41,7 @@
             <div>
               <label>Last name :<span style="color:red;">*</span></label>
           </td>
-          <td> <input type="text" name="lastname"> </td>
+          <td> <input type="text" required name="lastname"> </td>
         </tr>
 
         <tr>
@@ -49,7 +49,7 @@
             <div>
               <label>First name : <span style="color:red;">*</span></label>
           </td>
-          <td> <input type="text" name="firstname"> </td>
+          <td> <input type="text" required name="firstname"> </td>
         </tr>
 
         <tr>
