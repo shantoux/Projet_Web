@@ -46,7 +46,7 @@ connect_db(); ?>
 
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
- 
+
 
  <!-- //----------------------------------------------------------------------------------------------------------
   //                                        Actions of the validator
@@ -206,11 +206,8 @@ connect_db(); ?>
             echo "</tr>";
           }
         } else {
-          echo "
-        <tr>
-        <td colspan='3'>Something went wrong with the query</td>
-        </tr>
-    ";
+          echo "<tr><td colspan='3'>
+          Something went wrong with the query</td></tr>";
         }
         ?>
       <tbody>
