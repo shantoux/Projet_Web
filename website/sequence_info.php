@@ -209,7 +209,7 @@
 
         // check if we find any domain
         $no_children = true;
-        if (!__isset($t)) {
+        if (__isset($t)) {
           $no_children = false;
         }
 
