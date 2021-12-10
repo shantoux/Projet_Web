@@ -159,7 +159,7 @@ if (!isset($_SESSION['user'])) {
               <b>Gene biotype : </b><input type="text" name="transcript_biotype" required value="<?php echo (isset($_POST['gene_biotype'])) ? htmlspecialchars($_POST['gene_biotype']) : $gene_biotype ?>"> <br><br>
               <b>Transcript biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['transcript_biotype'])) ? htmlspecialchars($_POST['transcript_biotype']) : $gene_biotype ?>"> <br><br>
               <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br><br>
-              <b>Description : </b><input type="text" name="description" required value="<?php echo (isset($_POST['description'])) ? htmlspecialchars($_POST['description']) : $description ?>"> <br>
+              <b>Description : </b><input type="text" name="description" required size = "40" value="<?php echo (isset($_POST['description'])) ? htmlspecialchars($_POST['description']) : $description ?>"> <br>
             <?php elseif ($status == 'waiting') : ?>
               <!-- display gene identifier -->
               <b>Gene identifier: </b> <?php echo $gene_id ?> <br>
