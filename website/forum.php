@@ -147,7 +147,7 @@
           // verify that a topic with this name is not already present
           $query_name = "SELECT name FROM database_projet.topics WHERE name = '" . $_POST['topic_name'] . "';";
           $result_name = pg_query($db_conn, $query_name) or die('Query failed with exception: ' . pg_last_error());
-          
+
           if (pg_num_rows($result_name) > 0) {
 
             // display alert message box
@@ -260,7 +260,7 @@
           echo '<td colspan="2" class="dark_cell">';
           echo '<form action="./forum.php?topic=' . urlencode($topic["name"]) . '" method = "post">';
           echo '<input type="text" name="message" size="100%">';
-          echo '<input class="button_neutral" type ="submit" value="Reply" name = "send_message">';
+          echo '<input class="button_blue" type ="submit" value="Reply" name = "send_message">';
           echo '</form>';
           echo '</td>';
           echo '</tr>';
