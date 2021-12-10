@@ -5,7 +5,7 @@
 if (!isset($_SESSION['user'])) {
   echo '<script>location.href="login.php"</script>';
 }
-
+// import db functions
 include_once 'libphp/dbutils.php';
 connect_db(); ?>
 
