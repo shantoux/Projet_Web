@@ -316,7 +316,7 @@ if (!isset($_SESSION['user'])) {
       <tr colspan=2>
         <td>
         <?php if ($status == 'assigned') : ?>
-          <td colspan="2" align='center'> <input class="button_ok" type="submit" value="Send" name="send_annotation">
+          <td align='center'> <input class="button_ok" type="submit" value="Send" name="send_annotation">
             <input class="button_blue" type="submit" value="Save" name="save_annotation">
           </td>
         <?php endif; ?>
