@@ -205,9 +205,7 @@
 
         // retrieve the <tbody> element in which the domains are stored on the PFAM page
         $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0);
-
-        print_r($t);
-        echo '<br>';
+        echo sizeof($t->children) . '<br>';
 
         $t = $t->children(1);
 
