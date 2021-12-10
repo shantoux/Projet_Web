@@ -284,8 +284,8 @@ if (!isset($_SESSION['user'])) {
                <button class="button_neutral" type="button">Align with Blast</button>
                </a>
       </tr>
-      <tr colspan=2>
-        <td>
+      <tr>
+        <td colspan="2">
           <?php
 
             // display protein domain names
