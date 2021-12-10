@@ -211,7 +211,7 @@ $description = pg_fetch_result($result_info, 0, 5);
       <!-- display description -->
       <b>Description: </b> <?php echo $description ?> <br><br>
       </td><td>
-      <?php if ($_SESSION['role'] == ('Validator' ||'Administrator') && $_SESSION['user']!=$annotator && $status != 'waiting') : ?>
+      <?php if ($_SESSION['role'] == ('Validator' ||'Administrator') && $status != 'waiting') : ?>
         <form action="./sequence_validation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
           <tr>
             <td>
