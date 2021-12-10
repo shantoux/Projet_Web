@@ -81,6 +81,20 @@ body {
   color: black;
 }
 
+.topnav a.role {
+  float: right;
+  color: #bdbdbd;
+  background-color: rgb(19, 19, 19);
+  text-align: center;
+  padding: 6px 8px;
+  text-decoration: none;
+  font-size: 17px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+
 /* The alert message box */
 .alert_bad {
   margin-left: auto;
@@ -117,6 +131,7 @@ body {
   margin-top: 15px;
   text-align: center;
 }
+
 
 /* The close button */
 .closebtn {
