@@ -177,7 +177,7 @@ connect_db();?>
           or die ('Query failed with exception: ' . pg_last_error());
 
 
-          if (()$result_delete && $result_delete2 && $result_delete3) || $result_insert){
+          if (($result_delete && $result_delete2 && $result_delete3) || $result_insert){
             echo "<br> <div class=\"alert_good\">
               <span class=\"closebtn\"
               onclick=\"this.parentElement.style.display='none';\">&times;</span>
