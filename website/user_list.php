@@ -292,7 +292,9 @@ connect_db();?>
             echo '</td><td>';
             echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
             echo '<option value="change">Change role to reader</option>';
-            echo '<option value="delete">Delete</option>';
+            if ($role == 'Reader'){
+              echo '<option value="delete">Delete</option>';
+            }
             echo '</select><input class="button_blue" type="submit" value="Submit" name="submit">';
             echo '</td></form></tr>';
           }
