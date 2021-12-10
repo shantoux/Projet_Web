@@ -217,7 +217,7 @@ connect_db();?>
         // Query to get all the users except the admin
         $query = "SELECT last_name, first_name, email, role, status, phone, pw, last_login
         FROM database_projet.users
-        WHERE status='waiting' AND email != 'bobby@gmail.com'
+        WHERE status='waiting'
         ORDER BY role;";
 
         $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
@@ -261,7 +261,7 @@ connect_db();?>
         echo '<tbody>';
         $query = "SELECT last_name, first_name, email, role, status, phone, last_login
         FROM database_projet.users
-        WHERE status='validated'
+        WHERE status='validated' AND email != 'bobby@gmail.com'
         ORDER BY role;";
         $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
