@@ -10,6 +10,7 @@ ssh -X soundous.bella-baci@ssh1.pgip.universite-paris-saclay.fr
 # DEPUIS UN TERMINAL DE VOTRE PROPRE MACHINE
 scp -r /path-where-this-file-is/demo_php_postgres/ sandra.pijeaud@ssh1.pgip.universite-paris-saclay.fr:$~//path-where-this-directory-is/public_html
 scp -r /path-where-this-file-is/demo_php_postgres/ benjamin.vacus@ssh1.pgip.universite-paris-saclay.fr:$~//path-where-this-directory-is/public_html
+scp -r /Users/soundous/Desktop/ESSAI_PERMISSION/ soundous.bella-baci@ssh1.pgip.universite-paris-saclay.fr:$~//home/tp-home006/sbellab/public_html
 
 # -r pour transférer tout un directory, à enlever si on veut déplacer un fichier
 
