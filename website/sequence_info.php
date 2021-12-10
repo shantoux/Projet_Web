@@ -208,8 +208,9 @@
         $t = $t->find("table#imageKey.resultTable.details", 0);
 
         // check if we find any domain
+        include_once 'libphp/simplehtmldom/HtmlNode.php';
         $no_children = true;
-        if (is_array($t) || $t instanceof Traversable ) {
+        if (__isset($t)) {
           $no_children = false;
         }
 
