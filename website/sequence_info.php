@@ -207,7 +207,7 @@
         $t = file_get_html($adress);
         $t = $t->find("table#imageKey.resultTable.details", 0);
 
-        // cehck if we find any domain
+        // check if we find any domain
         $no_children = true;
         foreach($t as $article) {
           $no_children = false;
