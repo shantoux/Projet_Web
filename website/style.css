@@ -372,3 +372,17 @@ body {
   background-color: #FFC93C; /* Green */
   color: black;
 }
+
+.button_blue{
+  background-color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 2px solid #87CEFA; /* Blue */
+  transition-duration: 0.4s;
+  color: black;
+}
+
+.button_blue:hover {
+  background-color: #87CEFA; /* Blue */
+  color: black;
+}
