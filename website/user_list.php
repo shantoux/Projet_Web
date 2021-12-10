@@ -190,11 +190,7 @@ connect_db();?>
                 <span class=\"closebtn\"
                 onclick=\"this.parentElement.style.display='none';\">&times;</span>
                 User removed from the database.</div><br>";
-          } echo "<br> <div class=\"alert_bad\">
-            <span class=\"closebtn\"
-            onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Error.</div><br>";
-
+          }
 
         } else { // If the user never annotated anything
 
