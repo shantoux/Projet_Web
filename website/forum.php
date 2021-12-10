@@ -258,7 +258,7 @@
           echo '<td colspan="2" class="dark_cell">';
           echo '<form action="./forum.php?topic=' . urlencode($topic["name"]) . '" method = "post">';
           echo '<input type="text" name="message" size="100%">';
-          echo '<input type ="submit" value="Reply" name = "send_message">';
+          echo '<input class="button_neutral" type ="submit" value="Reply" name = "send_message">';
           echo '</form>';
           echo '</td>';
           echo '</tr>';
