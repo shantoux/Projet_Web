@@ -363,13 +363,13 @@ body {
   background-color: white;
   font-size: 12px;
   border-radius: 8px;
-  border: 2px solid #FFD700; /* Yellow */
+  border: 2px solid #FFC93C; /* Yellow */
   transition-duration: 0.4s;
   color: black;
 }
 
 .button_neutral:hover {
-  background-color: #FFC93C; /* Green */
+  background-color: #FFC93C;
   color: black;
 }
 
@@ -398,5 +398,5 @@ body {
 
 .button_red:hover {
   background-color: #FF0000; /* Red */
-  color: black;
+  color: white;
 }

@@ -72,7 +72,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
 
 ?>
 
-  
+
 
 
 <?php
@@ -91,7 +91,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
 
     //----------------Send an email to the annotator, informing them of the decision
     if ($result) {
-      
+
 
       $to = $_GET["annotator"]; // Send email to the annotator
       $subject = "Your annotation has been validated."; // Give the email a subject
@@ -142,7 +142,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
     $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_attempt) or die('Query failed with exception: ' . pg_last_error());
 
     if ($result and $result_insert) {
-     
+
     //----------------Send an email to the annotator, informing them of the decision
 
 
@@ -202,7 +202,7 @@ $description = pg_fetch_result($result_info, 0, 5);
           <b>Specie:</b> <?php echo $genome_id; ?><br>
           <b>Chromosome:</b> <?php echo $chromosome; ?><br><br>
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
-        <b>Annotator: <?php echo $annotator; ?></b><br><br> 
+        <b>Annotator: <?php echo $annotator; ?></b><br><br>
 
 
       <!-- display gene biotype -->
@@ -226,8 +226,8 @@ $description = pg_fetch_result($result_info, 0, 5);
             <td>
               Comment to validate or reject <br>
               <textarea name="comments" cols="40" rows="3" required></textarea> <br>
-               <input type="submit" value="Validate" name="validate_annotation">
-            <input type="submit" value="Reject" name="reject_annotation">
+               <input class="button_ok" type="submit" value="Validate" name="validate_annotation">
+            <input class="button_red" type="submit" value="Reject" name="reject_annotation">
             </td><td>
       </tr>
         </form>
@@ -242,7 +242,7 @@ $description = pg_fetch_result($result_info, 0, 5);
 
         <td>
           <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">" ?>
-          <button type="button">Align with Blast</button>
+          <button class = "button_neutral" type="button">Align with Blast</button>
           </a>
         </td>
       </tr>
@@ -254,7 +254,7 @@ $description = pg_fetch_result($result_info, 0, 5);
         </td>
         <td>
           <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
-          <button type="button">Align with Blast</button>
+          <button class = "button_neutral" type="button">Align with Blast</button>
           </a>
       </tr>
 
