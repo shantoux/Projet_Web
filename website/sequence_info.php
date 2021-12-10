@@ -209,9 +209,8 @@
 
         // cehck if we find any domain
         $no_children = true;
-        foreach($t as $article) {
+        if (is_array($point1['return'])) {
           $no_children = false;
-          break;
         }
 
         if (!$no_children) {
