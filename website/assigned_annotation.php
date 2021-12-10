@@ -111,19 +111,6 @@
 
     <div id="element1">
       <table class="table_type1">
-        <thead>
-          <tr>
-            <th>Genomes</th>
-            <th>Sequences</th>
-            <th>Validator's comment</th>
-            <th>Annotation status</th>
-            <th>Attempt</th>
-            <th>Assignation date</th>
-
-          </tr>
-        </thead>
-
-        <tbody>
           <?php
           $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
           FROM database_projet.annotations a
@@ -131,46 +118,60 @@
           ORDER BY assignation_date DESC;";
           $result = pg_query($db_conn, $query);
 
-          if ($result != false) {
-            for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
-              $genome_id = pg_fetch_result($result, $res_nb,0);
-              $seq_id = pg_fetch_result($result, $res_nb,1);
-              $comment = pg_fetch_result($result, $res_nb,2);
-              $status = pg_fetch_result($result, $res_nb,3);
-              $attempt = pg_fetch_result($result, $res_nb,4);
-              $assignation_date = pg_fetch_result($result, $res_nb,5);
-              echo '<tr><td>';
-              echo $genome_id;
-              echo '</td><td>';
-              echo $seq_id;
-              echo '</td><td>';
-              # Review annotation
-              echo $comment;
-              echo '</td>';
-              if($status == 'rejected'){
-                echo '<td><span style="color:red;">';
-                echo $status;
-                echo '</span></td>';
-              } else {
-                echo '<td>';
-                echo $status;
+          if (pg_num_rows($result) >0){
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th>Genomes</th>";
+            echo "<th>Sequences</th>";
+            echo "<th>Validator's comment</th>";
+            echo "<th>Annotation status</th>";
+            echo "<th>Attempt</th>";
+            echo "<th>Assignation date</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+
+            if ($result != false) {
+              for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+                $genome_id = pg_fetch_result($result, $res_nb,0);
+                $seq_id = pg_fetch_result($result, $res_nb,1);
+                $comment = pg_fetch_result($result, $res_nb,2);
+                $status = pg_fetch_result($result, $res_nb,3);
+                $attempt = pg_fetch_result($result, $res_nb,4);
+                $assignation_date = pg_fetch_result($result, $res_nb,5);
+                echo '<tr><td>';
+                echo $genome_id;
+                echo '</td><td>';
+                echo $seq_id;
+                echo '</td><td>';
+                # Review annotation
+                echo $comment;
                 echo '</td>';
+                if($status == 'rejected'){
+                  echo '<td><span style="color:red;">';
+                  echo $status;
+                  echo '</span></td>';
+                } else {
+                  echo '<td>';
+                  echo $status;
+                  echo '</td>';
+                }
+                echo '<td>';
+                echo $attempt;
+                echo '</td><td>';
+                echo date('d-m-o H:i', strtotime($assignation_date));
+                echo '</td></tr>';
               }
-              echo '<td>';
-              echo $attempt;
-              echo '</td><td>';
-              echo date('d-m-o H:i', strtotime($assignation_date));
-              echo '</td></tr>';
+            } else {
+              echo "<tr><td colspan='4'>Something went wrong with the query</td></tr>";
             }
           } else {
-            echo "
-            <tr>
-            <td colspan='4'>Something went wrong with the query</td>
-            </tr>
-        ";
+            echo "<div class=\"alert_neutral\">
+            There is no new sequences to attribute.</div>";
           }
+          echo "</tbody>";
+        
           ?>
-        </tbody>
       </table>
 
     </div>
