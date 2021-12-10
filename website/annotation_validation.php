@@ -5,7 +5,7 @@
 if (!isset($_SESSION['user'])) {
   echo '<script>location.href="login.php"</script>';
 }
-
+// import db functions
 include_once 'libphp/dbutils.php';
 connect_db(); ?>
 
@@ -44,18 +44,19 @@ connect_db(); ?>
     <a class="role"><?php echo $_SESSION['first_name'] ?> - <?php echo $_SESSION['role'] ?> </a>
   </div>
 
+  <!-- Display page title -->
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
 
 
-  <!-- //----------------------------------------------------------------------------------------------------------
-  //                                        Actions of the validator
-  //          The validator either accepts this attempt of the sequence's annotation or rejects
-  //                                it and assigns the annotator a new attempt
-  //----------------------------------------------------------------------------------------------------------
+  <!-- ////////////////////////////////////////////////////////////////////////////////////////////
+  //                                        Actions of the validator                             //
+  //          The validator either accepts this attempt of the sequence's annotation or rejects  //
+  //                                it and assigns the annotator a new attempt                  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  //------------------------------The validator accepts the annotation with a comment ------------------------- -->
+  /////The validator accepts the annotation with a comment -->
   <?php
   if (isset($_POST['Accept_button'])) {
 
@@ -69,9 +70,9 @@ connect_db(); ?>
     //Updating the status of the annotation to 'validated' by the validator
     $query = "UPDATE database_projet.annotations
               SET status = 'validated',
-              comments = " . $comments .
-      " WHERE sequence_id ='" . $sequence_id .
-      "' AND attempt = " . $attempt . " AND annotator = '" . $annotator . "';";
+              comments = " . $comments ."
+              WHERE sequence_id ='" . $sequence_id ."'
+              AND attempt = " . $attempt . " AND annotator = '" . $annotator . "';";
     $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
     //----------------Send an email to the annotator, informing them of the decision
@@ -162,19 +163,23 @@ connect_db(); ?>
   }
   ?>
 
-  <!------------------------------------------------------------------------------------------------------------
+  <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////
   //                      Display of the list of annotations to be validated by the validator, after being
   //                                 annotated by the annotator in charge of this sequence
-  //------------------------------------------------------------------------------------------------------------->
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
   <div id="element1">
     <table class="table_type1">
 
       <?php
 
-      //Postgres query to get all the sequences that have a status of "waiting" in the annotations table, after annotation
-      $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt FROM database_projet.annotations as a WHERE status = 'waiting' AND annotator != '" . $_SESSION['user'] . "';";
+      //Query to get all the sequences that have a status of "waiting" in the annotations table, after annotation
+      $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt
+      FROM database_projet.annotations as a
+      WHERE status = 'waiting' AND annotator != '" . $_SESSION['user'] . "';";
       $result = pg_query($db_conn, $query);
+
       if (pg_num_rows($result) > 0) {
+        //If there are annotations to validate, display the table
         echo "<thead>";
         echo "<tr>";
         echo "<th>Génomes</th>";
@@ -187,7 +192,7 @@ connect_db(); ?>
 
         if ($result != false) { //If the query succeeded
 
-          //Display by a table all the attempts of annotations waiting to be validated
+          //Display a table with all the attempts of annotations waiting to be validated
           while ($rows = pg_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $rows["genome_id"] . "</td>";

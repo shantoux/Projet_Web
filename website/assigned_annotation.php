@@ -57,6 +57,8 @@ if (!isset($_SESSION['user'])) {
     </div>
     <br>
     <br>
+
+    <!-- Display page title -->
     <h3 id="pageundertitle" class="center"> Sequences waiting to be annotated </h3>
     <br>
 
@@ -65,6 +67,7 @@ if (!isset($_SESSION['user'])) {
     <div id="element1">
       <table class="table_type1">
         <?php
+        // import db functions
         include_once 'libphp/dbutils.php';
         connect_db();
         $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator, a.assignation_date
