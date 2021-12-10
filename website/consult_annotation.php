@@ -179,7 +179,7 @@
 
       else {
         echo "<div class=\"alert_neutral\">
-        There is no pending annotation.</div>"
+        There is no pending annotation.</div>";
       }
 
 
