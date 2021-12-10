@@ -54,6 +54,7 @@ connect_db();?>
       <div id="pagetitle">
         Users list
       </div>
+      <br><br>
 
       <?php
       if(isset($_POST['submit'])){
@@ -262,6 +263,7 @@ connect_db();?>
         echo '</table>';
             ?>
       </div>
+      <br><br>
     </div>
   </body>
 </html>
