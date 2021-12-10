@@ -19,8 +19,8 @@
     <link rel="stylesheet" type="text/css" href="./style.css" /s>
   </head>
 
-  <body class="center">
     <!-- display menu options depending of the user's role -->
+  <body class="center">
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
@@ -128,6 +128,7 @@
           // retrieve all validated users and display multiple-selection menu
           $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated' AND role != 'Reader';";
           $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
+
           echo 'multiple size = ' . pg_num_rows($result_users) . ' required>';
           while ($user = pg_fetch_array($result_users)) {
             // check if user is different from current user (who has no choice but to take part in the discussion)
@@ -146,6 +147,7 @@
           // verify that a topic with this name is not already present
           $query_name = "SELECT name FROM database_projet.topics WHERE name = '" . $_POST['topic_name'] . "';";
           $result_name = pg_query($db_conn, $query_name) or die('Query failed with exception: ' . pg_last_error());
+          
           if (pg_num_rows($result_name) > 0) {
 
             // display alert message box
