@@ -178,7 +178,7 @@ if (!isset($_SESSION['user'])) {
               echo '<tr><td>';
               echo $genome_id;
               echo '</td><td>';
-              echo '<td><a href="./sequence_validation.php?gid=' . $genome_id . '&sid=' . $seq_id . '&att=' . $attempt . '&annotator=' . $annotator . '"style="color: #4F8E8D">' . $seq_id . '</a></td>';
+              echo '<a href="./sequence_validation.php?gid=' . $genome_id . '&sid=' . $seq_id . '&att=' . $attempt . '&annotator=' . $annotator . '"style="color: #4F8E8D">' . $seq_id . '</a>';
               echo '</td><td>';
               # Review annotation
               echo $comment;
