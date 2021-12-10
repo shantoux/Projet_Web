@@ -44,6 +44,7 @@ connect_db(); ?>
     <a class="role"><?php echo $_SESSION['first_name'] ?> - <?php echo $_SESSION['role'] ?> </a>
   </div>
 
+  <!-- Display page title -->
   <h2 id="pagetitle"> Annotations waiting for validation </h2>
 
 
