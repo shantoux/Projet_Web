@@ -10,15 +10,18 @@
 </head>
 
 <body>
+
   <!-- display menu option -->
   <div class="topnav">
     <a href="disconnect.php">Back to login screen</a>
   </div>
 
+  <!-- Display message -->
   <div id="menu">
     Please register so you can join in on the fun !
   </div>
 
+  <!-- Registration form -->
   <div id="element1">
     <form action="./registration.php" method="post">
       <table class="center">
@@ -63,7 +66,7 @@
         <tr>
           <td>
             <div>
-              <label>Role : </label>
+              <label> Role : </label>
           </td>
           <td><select name="role">
               <option value="Reader"> Reader </option>
@@ -118,9 +121,12 @@
         echo "<div class=\"alert_good\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Registration succeeded, wait for validation by an admin.
+            Registration succeeded, you should have received an email from us.<br>
+            Now just wait for validation by an admin.
           </div>";
 
+        // Send email to confirm the registration was succesfull,
+        // the user know they put in the right email
         $to = $_POST["adress"]; // Send email to our user
         $subject = "Confirmation of registration"; // Give the email a subject
         $emessage = "Thank you for signing up for our platform.\n The administrator will review your application.\n Expect an update very soon!";
@@ -147,8 +153,6 @@
     }
   }
   ?>
-
-
 
 </body>
 
