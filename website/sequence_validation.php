@@ -203,7 +203,7 @@ $description = pg_fetch_result($result_info, 0, 5);
           <b>Specie:</b> <?php echo $genome_id; ?><br>
           <b>Chromosome:</b> <?php echo $chromosome; ?><br><br>
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
-        <b>Annotator:</b> <?php echo $annotator; ?><br> 
+        <b>Annotator: <?php echo $annotator; ?></b><br><br> 
 
 
       <!-- display gene biotype -->
