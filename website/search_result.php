@@ -53,11 +53,12 @@
     <!-- Display fancy box -->
     <div class="fancy_box" style="width:60%;">
 
-      <br><br>
+      <br>
       <!-- Display page title -->
       <div id="pagetitle">
         Search results
       </div>
+      <br>
 
       <?php
       // import db functions
