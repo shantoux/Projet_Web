@@ -386,3 +386,17 @@ body {
   background-color: #87CEFA; /* Blue */
   color: black;
 }
+
+.button_red{
+  background-color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 2px solid #FF0000; /* Red */
+  transition-duration: 0.4s;
+  color: black;
+}
+
+.button_red:hover {
+  background-color: #FF0000; /* Red */
+  color: black;
+}

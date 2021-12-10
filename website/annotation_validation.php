@@ -198,7 +198,7 @@ connect_db(); ?>
               echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
               echo "<td>";
               echo "<div style=\"float:left; width: 50%;\">";
-              echo '<input type="submit" name="Accept_button" value="Accept"></div>';
+              echo '<input class="button_ok" ype="submit" name="Accept_button" value="Accept"></div>';
               echo "<div style=\"float: left; width: auto;\">";
               echo '<input type="submit" name="Reject_button" value="Reject"> </form> </div>';
               echo "</td>";
@@ -212,7 +212,7 @@ connect_db(); ?>
         } else {
           # display message
           echo "<div class=\"alert_neutral\">
-          There is no new sequences to attribute.</div>";
+          Wait for an annotator to submit their work.</div>";
         }
 
         echo "</tbody>";
