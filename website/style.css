@@ -329,3 +329,17 @@ body {
   input:invalid {
     box-shadow: 0 0 5px 1px red;
   }
+
+.button_ok{
+  background-color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 2px solid #4CAF50;
+  transition-duration: 0.4s;
+  color: black;
+}
+
+.button_ok:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
