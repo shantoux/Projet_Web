@@ -116,7 +116,7 @@
         // add button to instanciate new conversation
         if (!isset($_POST["creating"])) {
           echo '<form action="forum.php" method = "post">';
-          echo '<input type="submit" value="Create new topic" name="creating" style="margin:20px 0px;">';
+          echo '<input class="button_ok" type="submit" value="Create new topic" name="creating" style="margin:20px 0px;">';
           echo '</form>';
         }
         // chose conversation participants and topic name if the topic instanciation button has been clicked
@@ -137,7 +137,7 @@
           }
           echo '</select><br><br>';
           echo '<br><input type="text" id="name" name="topic_name" required> <label for="name">Chose topic name</label><br><br>';
-          echo '<br><br><input type="submit" value="Create" name="create">';
+          echo '<br><br><input class="button_ok" type="submit" value="Create" name="create">';
           echo '</form>';
         }
         // create the new topic if the Create button has been clicked
