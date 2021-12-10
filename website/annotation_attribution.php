@@ -18,8 +18,8 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
+<!-- display menu options depending of the user's role -->
   <body class="center">
-    <!-- display menu options depending of the user's role -->
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
@@ -47,13 +47,18 @@
         <a class="role"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
+    <!-- Display page title -->
     <h2  id="pagetitle"> Sequences to attribute </h2>
 
     <?php
+      // import db functions
       include_once 'libphp/dbutils.php';
       connect_db();
 
-      // attribute annotation
+      //////////////////////////////////////////////////////////////////////////
+      //                          Attribute annotation                        //
+      //////////////////////////////////////////////////////////////////////////
+
       if(isset($_POST["selected_annotator"])){
 
         // retrieve the current number of attempts for this annotation and this user
@@ -67,7 +72,8 @@
           $attempt = pg_fetch_result($result_attempt, 0, 0) + 1;
         }
 
-        $values_annotations = array(); // List of columns to fill in the annotations table : all the primary keys
+        // List of columns to fill in the annotations table : all the primary keys
+        $values_annotations = array();
         $values_annotations['genome_id'] = $_GET['gid'];
         $values_annotations['sequence_id'] = $_GET['sid'];
         $values_annotations['annotator'] = $_POST["selected_annotator"]; //annotator's email;
@@ -76,15 +82,14 @@
 
         // Insert in the annotations table
         $result_insert = pg_insert($db_conn, 'database_projet.annotations', $values_annotations);
+
         if ($result_insert) {
           // If the insertion was done successfully : print a message informing the user and send an email to the annotator
           echo "<td> <div class=\"alert_good\"><span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Attribution successfully added.
-          </div></td>";
+            Attribution successfully added.</div></td>";
 
           // Send email to the annotator to inform them they were attributed a new sequence
-
           $to = $_POST["selected_annotator"];  // Get the annotator's email
           $subject = "A new annotation is waiting for you"; // Email subject
           $emessage = "A new sequence has been attributed to you! \r\n Sequence identifier : " .$_GET['sid']. " \r\n Genome identifier : " .$_GET['gid']. " \r\n Thank you for your contribution.";
@@ -110,7 +115,10 @@
           Attribution NOT added. Something went wrong.</div></td>";
         }
       }
-################################################################################
+
+        //////////////////////////////////////////////////////////////////////////
+        //                      Retrieve un-annotated sequences                 //
+        //////////////////////////////////////////////////////////////////////////
 
         // Query to only get the un-annotated sequences :
         // retrieve all the sequences except for the one already in the annotations table
@@ -133,7 +141,6 @@
           // If there is un-annotated sequences
 
           # Display table of results for the search
-
           echo '<div id="element1">';
           echo '<table class = "table_type1">';
 
@@ -176,18 +183,15 @@
                 echo $annotator_first_name." ". $annotator_last_name;
                 echo '</option>';
 
-              } // exit the loop over the annotator list
-
+              }
               # display button to choose which annotator will annotate the sequence
               echo '</select><input class="button_ok" type="submit" value="Attribute" name="Attribute"></td></form>';
-
             }
             echo '</tr>';
           }
 
         }
-        else {
-          // if all the sequences in the database are annotated
+        else { // if all the sequences in the database are annotated
 
           # display message
           echo "<div class=\"alert_neutral\">
