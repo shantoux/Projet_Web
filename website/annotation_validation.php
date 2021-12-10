@@ -166,7 +166,8 @@ connect_db(); ?>
   //                      Display of the list of annotations to be validated by the validator, after being
   //                                 annotated by the annotator in charge of this sequence
   //------------------------------------------------------------------------------------------------------------->
-  <div id="element1">"
+  <div id="element1">
+    <table class="table_type1">
 
         <?php
 
@@ -174,7 +175,6 @@ connect_db(); ?>
         $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt FROM database_projet.annotations as a WHERE status = 'waiting' AND annotator != '".$_SESSION['user']."';";
         $result = pg_query($db_conn, $query);
         if ($result){
-          echo "<table class="table_type1">";
           echo "<thead>";
           echo "<tr>";
           echo "<th>Génomes</th>";
@@ -216,9 +216,9 @@ connect_db(); ?>
         }
 
         echo "</tbody>";
-        echo "</table>";
-
         ?>
+
+        </table>
       </div>
     </body>
     </html>
