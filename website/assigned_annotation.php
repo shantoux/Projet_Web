@@ -144,7 +144,7 @@ if (!isset($_SESSION['user'])) {
         <?php
         //Query to retrieve informations about annotations that are not currently
         // assigned to the the logged-in annotator anymore
-        $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
+        $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date, a.annotator
             FROM database_projet.annotations a
             WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status!='assigned'
             ORDER BY assignation_date DESC;";
@@ -174,10 +174,11 @@ if (!isset($_SESSION['user'])) {
               $status = pg_fetch_result($result, $res_nb, 3);
               $attempt = pg_fetch_result($result, $res_nb, 4);
               $assignation_date = pg_fetch_result($result, $res_nb, 5);
+              $annotator = pg_fetch_result($result, $res_nb, 6);
               echo '<tr><td>';
               echo $genome_id;
               echo '</td><td>';
-              echo $seq_id;
+              echo '<td><a href="./sequence_validation.php?gid=' . $genome_id . '&sid=' . $seq_id . '&att=' . $attempt . '&annotator=' . $annotator . '"style="color: #4F8E8D">' . $seq_id . '</a></td>';
               echo '</td><td>';
               # Review annotation
               echo $comment;
