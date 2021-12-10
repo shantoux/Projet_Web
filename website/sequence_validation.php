@@ -201,9 +201,9 @@ $description = pg_fetch_result($result_info, 0, 5);
         <td>
           <b>Sequence identifier:</b> <?php echo $sequence_id; ?><br><br>
           <b>Specie:</b> <?php echo $genome_id; ?><br>
-          <b>Chromosome:</b> <?php echo $chromosome; ?><br>
+          <b>Chromosome:</b> <?php echo $chromosome; ?><br><br>
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
-
+        <b>Annotator:</b> <?php echo $annotator; ?><br> 
 
 
       <!-- display gene biotype -->
