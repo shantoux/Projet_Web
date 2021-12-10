@@ -49,8 +49,8 @@
     <link rel="stylesheet" type="text/css" href="./style.css" /s>
   </head>
 
+  <!-- display menu options depending of the user's role -->
   <body class="center">
-    <!-- display menu options depending of the user's role -->
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
@@ -75,7 +75,7 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="login.php">Disconnect</a>
-        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
+        <a class="role"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
     <!-- Display fancy box -->
@@ -100,7 +100,7 @@
           </div>";
         }
 
-        // retrieve date of now;
+        // retrieve date of now
         $query_time = "SELECT now();";
         $result_time = pg_query($db_conn, $query_time) or die('Query failed with exception: ' . pg_last_error());
         $current_date = pg_fetch_result($result_time, 0, 0);
@@ -171,7 +171,7 @@
 
             // display remove button
             echo '<form action="consult_annotation.php?sid=' . $annotation["sequence_id"] . '" method="post">';
-            echo '<td><input type="submit" name="remove" value="&#10008"></td>';
+            echo '<td><input class="button_neutral" type="submit" name="remove" value="&#10008"></td>';
             echo "</tr>";
           }
 

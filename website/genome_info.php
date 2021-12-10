@@ -46,10 +46,10 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
-        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
+        <a class="role"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
-
+    <!-- Display page title -->
     <h2 id="pagetitle">
       Genome information
     </h2>
@@ -86,7 +86,7 @@
               ?>
                 Nb of nucl. per line:
                 <input type="text" name="nb_nucl_per_line" maxlength="4" size="4" value="<?php echo $char_per_line; ?>">
-                <input type="submit" value="Update">
+                <input class="button_blue" type="submit" value="Update">
               </form>
             </th>
           </tr>

@@ -45,7 +45,7 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
-        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
+        <a class="role"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
       </div>
     <br>
 
@@ -406,7 +406,7 @@
           echo '</tbody>';
           echo '</table>';
         }
-        echo '<br><input type="submit" name="extracted" value="Extract selected sequences">';
+        echo '<br><input class="button_neutral" type="submit" name="extracted" value="Extract selected sequences">';
       ?>
     </div>
   </body>

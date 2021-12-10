@@ -40,14 +40,13 @@
             echo "<a href=\"./forum.php\">Forum</a>";
             echo "<a href=\"./user_list.php\">Users' List</a>";
           }
-
         ?>
         <a class="active" href="about.php">About</a>
         <a class="disc" href="disconnect.php">Disconnect</a>
-        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
+        <a class="role"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
-
+    <!-- Display page title -->
     <h2  id="pagetitle">The Web Programming Project</h2>
 
     This project conducted by passionnate <strong>AMI2B students</strong> from Université Paris-Saclay aims at providing every bioinformatics specialist with a <strong>brand new tool</strong> to investigate the meaning and structure of his sequences of interest.

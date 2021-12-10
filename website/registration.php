@@ -10,15 +10,18 @@
 </head>
 
 <body>
+
   <!-- display menu option -->
   <div class="topnav">
     <a href="disconnect.php">Back to login screen</a>
   </div>
 
+  <!-- Display message -->
   <div id="menu">
     Please register so you can join in on the fun !
   </div>
 
+  <!-- Registration form -->
   <div id="element1">
     <form action="./registration.php" method="post">
       <table class="center">
@@ -41,7 +44,7 @@
             <div>
               <label>Last name :<span style="color:red;">*</span></label>
           </td>
-          <td> <input type="text" name="lastname"> </td>
+          <td> <input type="text" required name="lastname"> </td>
         </tr>
 
         <tr>
@@ -49,7 +52,7 @@
             <div>
               <label>First name : <span style="color:red;">*</span></label>
           </td>
-          <td> <input type="text" name="firstname"> </td>
+          <td> <input type="text" required name="firstname"> </td>
         </tr>
 
         <tr>
@@ -63,7 +66,7 @@
         <tr>
           <td>
             <div>
-              <label>Role : </label>
+              <label> Role : </label>
           </td>
           <td><select name="role">
               <option value="Reader"> Reader </option>
@@ -73,7 +76,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan=2> <input type="submit" value="Submit" name="submit_registration"> </td>
+          <td colspan=2> <input class="button_ok" type="submit" value="Submit" name="submit_registration"> </td>
         </tr>
 
       </table>
@@ -110,7 +113,7 @@
       echo "<div class=\"alert_bad\">
               <span class=\"closebtn\"
               onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              Error during registration. The email ".$_POST["adress"]." already exists.
+              Error during registration. The email " . $_POST["adress"] . " already exists.
             </div>";
     } else {
       $result_insert = pg_insert($db_conn, 'database_projet.users', $values_user);
@@ -118,9 +121,12 @@
         echo "<div class=\"alert_good\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Registration succeeded, wait for validation by an admin.
+            Registration succeeded, you should have received an email from us.<br>
+            Now just wait for validation by an admin.
           </div>";
 
+        // Send email to confirm the registration was succesfull,
+        // the user know they put in the right email
         $to = $_POST["adress"]; // Send email to our user
         $subject = "Confirmation of registration"; // Give the email a subject
         $emessage = "Thank you for signing up for our platform.\n The administrator will review your application.\n Expect an update very soon!";
@@ -147,8 +153,6 @@
     }
   }
   ?>
-
-
 
 </body>
 

@@ -6,6 +6,7 @@
     echo '<script>location.href="login.php"</script>';
   }
 
+// import db functions
 include_once 'libphp/dbutils.php';
 connect_db();?>
 
@@ -51,13 +52,19 @@ connect_db();?>
     <!-- Display fancy box -->
     <div class="fancy_box" style="width:95%;">
 
+      <!-- Display page title -->
       <div id="pagetitle">
         Users list
       </div>
       <br><br>
 
       <?php
+
+      ///////////////////////////////////////////////////////////////////////////
+      //             Validate an account : Add a user to the database
+      //////////////////////////////////////////////////////////////////////////
       if(isset($_POST['submit'])){
+
         if($_POST['selected_action']=='validate'){
           $values_user = array();
           $values_user['status'] = 'validated';
@@ -65,7 +72,9 @@ connect_db();?>
           $condition = array();
           $condition['email']=$_GET['mail'];
 
+          //Update the database to add the user
           $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die ('Query failed with exception: ' . pg_last_error());
+
           if ($result_insert){
             echo "<br> <div class=\"alert_good\">
               <span class=\"closebtn\"
@@ -98,12 +107,14 @@ connect_db();?>
           }
         }
 
-        // Query to get ????????
-        $query_verif = "SELECT a.annotator FROM database_projet.annotations a WHERE a.annotator = '" .$_GET['mail']. "';";
-        $result = pg_query($db_conn, $query_verif) or die('Query failed with exception: ' . pg_last_error());
+        ///////////////////////////////////////////////////////////////////////////
+        //           Change the role of a user : cannot delete an annotator
+        //////////////////////////////////////////////////////////////////////////
 
-        // Query to retrieve the status of the user
-        $query_role = "SELECT u.role FROM database_projet.users u WHERE u.email = '" .$_GET['mail']. "';";
+        // Query to retrieve the status of the user the admin wants to remove
+        $query_role = "SELECT u.role
+        FROM database_projet.users u
+        WHERE u.email = '" .$_GET['mail']. "';";
         $result_role = pg_query($db_conn, $query_role) or die('Query failed with exception: ' . pg_last_error());
         $role = pg_fetch_result($result_role, 0,0);
 
@@ -116,7 +127,10 @@ connect_db();?>
           $condition = array();
           $condition['email']=$_GET['mail'];
 
-          $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition) or die ('Query failed with exception: ' . pg_last_error());
+          // Change the status of the user to Reader
+          $result_insert = pg_update($db_conn, 'database_projet.users', $values_user, $condition)
+          or die ('Query failed with exception: ' . pg_last_error());
+
           if ($result_insert){
             echo "<br> <div class=\"alert_good\">
               <span class=\"closebtn\"
@@ -129,15 +143,30 @@ connect_db();?>
               onclick=\"this.parentElement.style.display='none';\">&times;</span>
               Error : user role was not changed.</div><br>";
           }
+
+
+          ///////////////////////////////////////////////////////////////////////////
+          //             Remove a user or refuse a new account
+          //////////////////////////////////////////////////////////////////////////
+
         } else if ($_POST['selected_action']=='delete'){
-          $query_delete2 = "DELETE FROM database_projet.correspondents WHERE user_email = '" .$_GET['mail']. "';";
-          $result_delete2 = pg_query($db_conn, $query_delete2) or die('Query failed with exception: ' . pg_last_error());
+          // Delete user from the forum's correspondents list
+          $query_delete2 = "DELETE FROM database_projet.correspondents
+          WHERE user_email = '" .$_GET['mail']. "';";
+          $result_delete2 = pg_query($db_conn, $query_delete2)
+          or die('Query failed with exception: ' . pg_last_error());
 
-          $query_delete3 = "DELETE FROM database_projet.messages WHERE user_email = '" .$_GET['mail']. "';";
-          $result_delete3 = pg_query($db_conn, $query_delete3) or die('Query failed with exception: ' . pg_last_error());
+          //Delete user from the forum's messages
+          $query_delete3 = "DELETE FROM database_projet.messages
+          WHERE user_email = '" .$_GET['mail']. "';";
+          $result_delete3 = pg_query($db_conn, $query_delete3)
+          or die('Query failed with exception: ' . pg_last_error());
 
-          $query_delete = "DELETE FROM database_projet.users WHERE email = '" .$_GET['mail']. "';";
-          $result_delete = pg_query($db_conn, $query_delete) or die('Query failed with exception: ' . pg_last_error());
+          //Delete user from the user list
+          $query_delete = "DELETE FROM database_projet.users
+          WHERE email = '" .$_GET['mail']. "';";
+          $result_delete = pg_query($db_conn, $query_delete)
+          or die('Query failed with exception: ' . pg_last_error());
 
 
           if ($result_delete && $result_delete2 && $result_delete3){
@@ -154,6 +183,10 @@ connect_db();?>
         }
       }
       ?>
+
+      <!--///////////////////////////////////////////////////////////////////////////
+      //             Display table of all the users
+      //////////////////////////////////////////////////////////////////////////-->
 
       <div class="center">
         <?php
@@ -181,8 +214,12 @@ connect_db();?>
 
         //Display users waiting to be validated
         echo '<tbody>';
+        // Query to get all the users except the admin
         $query = "SELECT last_name, first_name, email, role, status, phone, pw, last_login
-        FROM database_projet.users WHERE status='waiting' ORDER BY role;";
+        FROM database_projet.users
+        WHERE status='waiting'
+        ORDER BY role;";
+
         $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
         if(pg_num_rows($result) > 0){
@@ -214,7 +251,7 @@ connect_db();?>
             echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
             echo '<option value="validate">Validate</option>';
             echo '<option value="delete">Delete</option>';
-            echo '</select><input type="submit" value="submit" name="submit">';
+            echo '</select><input class="button_blue" type="submit" value="Submit" name="submit">';
             echo '</td></form></tr>';
           }
         }
@@ -223,7 +260,9 @@ connect_db();?>
         //Display users already in database
         echo '<tbody>';
         $query = "SELECT last_name, first_name, email, role, status, phone, last_login
-        FROM database_projet.users WHERE status='validated' ORDER BY role;";
+        FROM database_projet.users
+        WHERE status='validated' AND email != 'bobby@gmail.com'
+        ORDER BY role;";
         $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
         if(pg_num_rows($result) > 0){
@@ -254,7 +293,7 @@ connect_db();?>
             echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
             echo '<option value="change">Change role to reader</option>';
             echo '<option value="delete">Delete</option>';
-            echo '</select><input type="submit" value="submit" name="submit">';
+            echo '</select><input class="button_blue" type="submit" value="Submit" name="submit">';
             echo '</td></form></tr>';
           }
         }

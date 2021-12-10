@@ -19,8 +19,8 @@
     <link rel="stylesheet" type="text/css" href="./style.css" /s>
   </head>
 
-  <body class="center">
     <!-- display menu options depending of the user's role -->
+  <body class="center">
     <div class="topnav">
         <a href="./search.php">New search</a>
         <?php
@@ -45,7 +45,7 @@
         ?>
         <a href="about.php">About</a>
         <a class="disc" href="login.php">Disconnect</a>
-        <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
+        <a class="role"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
     <!-- Display fancy box -->
@@ -116,7 +116,7 @@
         // add button to instanciate new conversation
         if (!isset($_POST["creating"])) {
           echo '<form action="forum.php" method = "post">';
-          echo '<input type="submit" value="Create new topic" name="creating" style="margin:20px 0px;">';
+          echo '<input class="button_ok" type="submit" value="Create new topic" name="creating" style="margin:20px 0px;">';
           echo '</form>';
         }
         // chose conversation participants and topic name if the topic instanciation button has been clicked
@@ -128,6 +128,7 @@
           // retrieve all validated users and display multiple-selection menu
           $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated' AND role != 'Reader';";
           $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
+
           echo 'multiple size = ' . pg_num_rows($result_users) . ' required>';
           while ($user = pg_fetch_array($result_users)) {
             // check if user is different from current user (who has no choice but to take part in the discussion)
@@ -137,7 +138,7 @@
           }
           echo '</select><br><br>';
           echo '<br><input type="text" id="name" name="topic_name" required> <label for="name">Chose topic name</label><br><br>';
-          echo '<br><br><input type="submit" value="Create" name="create">';
+          echo '<br><br><input class="button_ok" type="submit" value="Create" name="create">';
           echo '</form>';
         }
         // create the new topic if the Create button has been clicked
@@ -146,6 +147,7 @@
           // verify that a topic with this name is not already present
           $query_name = "SELECT name FROM database_projet.topics WHERE name = '" . $_POST['topic_name'] . "';";
           $result_name = pg_query($db_conn, $query_name) or die('Query failed with exception: ' . pg_last_error());
+          
           if (pg_num_rows($result_name) > 0) {
 
             // display alert message box
@@ -258,7 +260,7 @@
           echo '<td colspan="2" class="dark_cell">';
           echo '<form action="./forum.php?topic=' . urlencode($topic["name"]) . '" method = "post">';
           echo '<input type="text" name="message" size="100%">';
-          echo '<input type ="submit" value="Reply" name = "send_message">';
+          echo '<input class="button_neutral" type ="submit" value="Reply" name = "send_message">';
           echo '</form>';
           echo '</td>';
           echo '</tr>';

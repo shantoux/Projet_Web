@@ -23,6 +23,7 @@
     <!-- -->
 
     <?php
+    // import db functions
     include_once 'libphp/dbutils.php';
     connect_db(); // connexion to database
 
@@ -117,7 +118,7 @@
             <td> <input type="password" name="pass" value="cestmoibobby"> </td>
           </tr>
           <tr>
-            <td colspan=2> <input type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
+            <td colspan=2> <input class="button_ok" type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
           </tr>
         </table>
       </form>
