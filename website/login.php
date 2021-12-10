@@ -14,7 +14,7 @@
 <body class="center">
 
   <!-- Display fancy box -->
-  <div class="fancy_box" style="width:50%;margin=100px 0px;">
+  <div class="fancy_box" style="width:50%;">
 
     <!-- Page header -->
     <h1> Welcome to Bio Search Sequences </h1>
@@ -111,11 +111,11 @@
           <tr>
             <td> Login : </td>
             <!-- #TODO: unhardcode login and pw -->
-            <td> <input type="text" name="name" value="bobby@gmail.com"> </td>
+            <td> <input type="text" name="name"> </td>
           </tr>
           <tr>
             <td> Password : </td>
-            <td> <input type="password" name="pass" value="cestmoibobby"> </td>
+            <td> <input type="password" name="pass"> </td>
           </tr>
           <tr>
             <td colspan=2> <input class="button_ok" type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>

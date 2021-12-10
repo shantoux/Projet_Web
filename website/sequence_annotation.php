@@ -28,6 +28,7 @@ if (!isset($_SESSION['user'])) {
     if ($_SESSION['role'] == 'Validator') {
       echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+      echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
       echo "<a href=\"./consult_annotation.php\">Consult</a>";
       echo "<a href=\"./forum.php\">Forum</a>";
     }
@@ -144,7 +145,11 @@ if (!isset($_SESSION['user'])) {
 
   <div class="center">
 
-    <table class="table_type3">
+    <table class="table_type_seq_inf">
+      <colgroup>
+        <col span="1" style="width: 80%;">
+        <col span="1" style="width: 10%;">
+      </colgroup>
       <tr colspan=2>
         <td>
           <b>Sequence identifier:</b> <?php echo $sequence_id; ?><br><br>
@@ -159,7 +164,7 @@ if (!isset($_SESSION['user'])) {
               <b>Transcript biotype : </b><input type="text" name="gene_biotype" required value="<?php echo (isset($_POST['transcript_biotype'])) ? htmlspecialchars($_POST['transcript_biotype']) : $gene_biotype ?>"> <br><br>
               <b>Gene symbol : </b><input type="text" name="gene_symbol" required value="<?php echo (isset($_POST['gene_symbol'])) ? htmlspecialchars($_POST['gene_symbol']) : $gene_symbol ?>"> <br><br>
               <b>Description : </b><input type="text" name="description" required size = "40" value="<?php echo (isset($_POST['description'])) ? htmlspecialchars($_POST['description']) : $description ?>"> <br>
-            <?php elseif ($status == 'waiting') : ?>
+            <?php else: ?>
               <!-- display gene identifier -->
               <b>Gene identifier: </b> <?php echo $gene_id ?> <br>
 
@@ -179,28 +184,133 @@ if (!isset($_SESSION['user'])) {
         </td>
       </tr>
       <tr></tr>
+
+      <!-- Display nucleotidic sequence -->
       <tr>
         <td>
           Gene sequence<br>
-          <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $nt ?></textarea>
+          <div style="font-family:courier;border:solid 1px black;background-color:white;"><?php echo $nt;?></div>
         </td>
 
+        <!-- display button for automative blast alignment of the nucleotidic sequence -->
         <td>
-          <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">" ?>
-          <button type="button" class="button_neutral">Align with Blast</button>
-          </a>
+          <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $nt . "&type=nucl\" target=\"_blank\">"?>
+               <button class="button_neutral" type="button">Align with Blast</button>
+               </a>
         </td>
       </tr>
+
+      <!-- Display peptidic sequence -->
+
+      <?php
+      // we look for the known domains of the protein
+      $domains = array();
+
+      // retrieve the simple html dom functions (thank you very much to the original git creator!!!)
+      include_once 'libphp/simplehtmldom/simple_html_dom.php';
+
+      // build html element corresponding to the adress of the uniprot page of the protein
+      $adress = 'https://www.uniprot.org/uniprot/?query=' . $sequence_id . '&sort=score';
+      $html = file_get_html($adress);
+
+      // retrieve the Uniprot identifier of the protein with simple dom functions
+      $uniprot_protein_name = $html->find(".entryID", 0)->plaintext;
+
+      // use it to build the PFAM adress for the protein
+      $adress = 'https://pfam.xfam.org/protein/' . $uniprot_protein_name;
+
+      // retrieve the <tbody> element in which the domains are stored on the PFAM page
+      $t = file_get_html($adress);
+      $t = $t->find("table#imageKey.resultTable.details", 0);
+
+      // check if we find any domain
+      $no_children = true;
+
+      if (!is_null($t)) {
+        $no_children = false;
+      }
+
+      if (!$no_children) {
+        $t = $t->children(1);
+
+        // loop on all of its lines
+        for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
+
+          // retrieve the domains informations
+          $domain = array();
+          $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
+          $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
+          $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
+          $domains[$domain_index] = $domain;
+        }
+      }
+      ?>
 
       <tr>
         <td>
           Peptide sequence<br>
-          <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $prot; ?> </textarea>
+          <div style="font-family:courier;border:solid 1px black;background-color:white;">
+          <?php
+            // build list of background colors
+            $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
+
+            $last_domain_end = 0;
+
+            // loop on all domains
+            for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
+
+              // check if domain is known
+              if ($domains[$domain_ind]["name"] != "n/a") {
+
+                // display protein region since last domain
+                echo substr($prot, $last_domain_end, $domains[$domain_ind]["start_pos"] - $last_domain_end);
+
+                // display background colors based on domains
+                $color = $colors[$domain_ind % sizeof($colors)];
+                echo '<span style="background-color:' . $color . ';">';
+                echo substr($prot, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
+                echo '</span>';
+                $last_domain_end = $domains[$domain_ind]["end_pos"];
+              }
+            }
+            echo substr($prot, $last_domain_end);
+          ?>
+        </div>
         </td>
+
+        <!-- display button for automative blast alignment of the peptidic sequence -->
         <td>
-          <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
-          <button type="button" class="button_neutral">Align with Blast</button>
-          </a>
+          <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">"?>
+               <button class="button_neutral" type="button">Align with Blast</button>
+               </a>
+      </tr>
+      <tr colspan=2>
+        <td>
+          <?php
+
+            // display protein domain names
+            echo '<b> Found protein domains are:</b><br>';
+
+            $no_know_domain = true;
+
+            // loop on domain
+            for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
+
+              // check if domain is known
+              if ($domains[$domain_ind]["name"] != "n/a") {
+                $no_know_domain = false;
+                $color = $colors[$domain_ind % sizeof($colors)];
+                echo '<a href="https://pfam.xfam.org/family/' . $domains[$domain_ind]["name"] . '" style="background-color:' . $color . ';" target="_blank">';
+                echo $domains[$domain_ind]["name"];
+                echo '</a><br>';
+              }
+            }
+
+            if ($no_know_domain) {
+              echo "No domain found for this protein.";
+            }
+          ?>
+        </td>
       </tr>
 
       <tr>
@@ -219,7 +329,7 @@ if (!isset($_SESSION['user'])) {
   <h3 id="pageundertitle" class="center"> Past attempts </h3>
   <div id="element1">
     <?php
-    
+
     //Query to retrieve information about the annotator's last attempt to annotator
     //the same sequence they are annotating now
     $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status, a.assignation_date

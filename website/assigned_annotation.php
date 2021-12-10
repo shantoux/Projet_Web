@@ -30,6 +30,7 @@ if (!isset($_SESSION['user'])) {
     if ($_SESSION['role'] == 'Validator') {
       echo "<a class=\"active\" href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+      echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
       echo "<a href=\"./consult_annotation.php\">Consult</a>";
       echo "<a href=\"./forum.php\">Forum</a>";
     }
@@ -123,7 +124,6 @@ if (!isset($_SESSION['user'])) {
 
         </tbody>
       </table>
-
     </div>
 
     <!--////////////////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ if (!isset($_SESSION['user'])) {
         <?php
         //Query to retrieve informations about annotations that are not currently
         // assigned to the the logged-in annotator anymore
-        $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
+        $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date, a.annotator
             FROM database_projet.annotations a
             WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status!='assigned'
             ORDER BY assignation_date DESC;";
@@ -174,6 +174,7 @@ if (!isset($_SESSION['user'])) {
               $status = pg_fetch_result($result, $res_nb, 3);
               $attempt = pg_fetch_result($result, $res_nb, 4);
               $assignation_date = pg_fetch_result($result, $res_nb, 5);
+              $annotator = pg_fetch_result($result, $res_nb, 6);
               echo '<tr><td>';
               echo $genome_id;
               echo '</td><td>';

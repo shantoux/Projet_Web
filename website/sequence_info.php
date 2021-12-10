@@ -52,6 +52,7 @@
           if ($_SESSION['role'] == 'Validator'){
             echo "<a href=\"./assigned_annotation.php\">Annotate sequence</a>";
             echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+            echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
             echo "<a href=\"./consult_annotation.php\">Consult</a>";
             echo "<a href=\"./forum.php\">Forum</a>";
           }
@@ -208,9 +209,9 @@
         $t = $t->find("table#imageKey.resultTable.details", 0);
 
         // check if we find any domain
-        include_once 'libphp/simplehtmldom/HtmlNode.php';
         $no_children = true;
-        if (__isset($t)) {
+
+        if (!is_null($t)) {
           $no_children = false;
         }
 
