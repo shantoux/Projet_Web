@@ -167,57 +167,57 @@ connect_db(); ?>
   //                                 annotated by the annotator in charge of this sequence
   //------------------------------------------------------------------------------------------------------------->
 
-
-  <div id="element1">
-    <table class="table_type1">
-      <thead>
-        <tr>
-          <th>Génomes</th>
-          <th>Sequences</th>
-          <th>Annotator</th>
-          <th>Comments</th>
-          <th colspan=2>Action</th>
-        </tr>
-      </thead>
-
-      <tbody>
         <?php
 
         //Postgres query to get all the sequences that have a status of "waiting" in the annotations table, after annotation
         $query = "SELECT a.genome_id, a.sequence_id, a. comments, a.annotator, a.attempt FROM database_projet.annotations as a WHERE status = 'waiting' AND annotator != '".$_SESSION['user']."';";
         $result = pg_query($db_conn, $query);
-        if ($result != false) { //If the query succeeded
+        if ($result){
+          echo "<div id="element1">";
+          echo "<table class="table_type1">";
+          echo "<thead>";
+          echo "<tr>";
+          echo "<th>Génomes</th>";
+          echo "<th>Sequences</th>";
+          echo "<th>Annotator</th>";
+          echo "<th>Comments</th>";
+          echo "<th colspan=2>Action</th>";
+          echo "</tr>";
+          echo "</thead><tbody>";
 
-          //Display by a table all the attempts of annotations waiting to be validated
-          while ($rows = pg_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $rows["genome_id"] . "</td>";
-            echo '<td><a href="./sequence_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '&att=' .$rows['attempt'].'&annotator='. $rows["annotator"] .'">' . $rows["sequence_id"] . '</a></td>';
-            echo "<td>" . $rows["annotator"] . "</td>";
-            //The form returns to the same page, with the sequence_id and the genome_id in the url if a submit button in pressed (cf actions of the validator)
-            echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] .'&sid=' . $rows["sequence_id"] . '&att=' .$rows['attempt']. '&annotator=' . $rows["annotator"] . '" method = "post">';
-            echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
-            echo "<td>";
-            echo "<div style=\"float:left; width: 50%;\">";
-            echo '<input type="submit" name="Accept_button" value="Accept"></div>';
-            echo "<div style=\"float: left; width: auto;\">";
-            echo '<input type="submit" name="Reject_button" value="Reject"> </form> </div>';
-            echo "</td>";
-            echo "</tr>";
+          if ($result != false) { //If the query succeeded
+
+            //Display by a table all the attempts of annotations waiting to be validated
+            while ($rows = pg_fetch_array($result)) {
+              echo "<tr>";
+              echo "<td>" . $rows["genome_id"] . "</td>";
+              echo '<td><a href="./sequence_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows['sequence_id'] . '&att=' .$rows['attempt'].'&annotator='. $rows["annotator"] .'">' . $rows["sequence_id"] . '</a></td>';
+              echo "<td>" . $rows["annotator"] . "</td>";
+              //The form returns to the same page, with the sequence_id and the genome_id in the url if a submit button in pressed (cf actions of the validator)
+              echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] .'&sid=' . $rows["sequence_id"] . '&att=' .$rows['attempt']. '&annotator=' . $rows["annotator"] . '" method = "post">';
+              echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
+              echo "<td>";
+              echo "<div style=\"float:left; width: 50%;\">";
+              echo '<input type="submit" name="Accept_button" value="Accept"></div>';
+              echo "<div style=\"float: left; width: auto;\">";
+              echo '<input type="submit" name="Reject_button" value="Reject"> </form> </div>';
+              echo "</td>";
+              echo "</tr>";
+            }
+          } else {
+            echo "<tr><td colspan='3'>
+            Something went wrong with the query</td></tr>";
           }
+
         } else {
-          echo "<tr><td colspan='3'>
-          Something went wrong with the query</td></tr>";
+          # display message
+          echo "<div class=\"alert_neutral\">
+          There is no new sequences to attribute.</div>";
         }
+
+        echo "</tbody>";
+        echo "</table>";
+        echo "</div>";
+        echo "</body>";
+        echo "</html>";
         ?>
-      <tbody>
-    </table>
-
-  </div>
-
-
-
-
-</body>
-
-</html>
