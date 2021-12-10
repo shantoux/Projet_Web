@@ -80,7 +80,7 @@ if (!isset($_SESSION['user'])) {
     $values_annotations = array();
     $values_annotations['gene_id'] = $_POST["gene_id"];
     $values_annotations['gene_biotype'] = $_POST["gene_biotype"];
-    //$values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
+    $values_annotations['transcript_biotype'] = $_POST["transcript_biotype"];
     $values_annotations['gene_symbol'] = $_POST["gene_symbol"];
     $values_annotations['description'] = $_POST["description"];
     if (isset($_POST['send_annotation'])) {
