@@ -202,7 +202,7 @@ connect_db(); ?>
             echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] . '&att=' . $rows['attempt'] . '&annotator=' . $rows["annotator"] . '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
-            echo '<input class="button_ok" ype="submit" name="Accept_button" value="Accept">';
+            echo '<input class="button_ok" type="submit" name="Accept_button" value="Accept">';
             echo '<input class="button_red" type="submit" name="Reject_button" value="Reject"> </form>';
             echo "</td>";
             echo "</tr>";
