@@ -358,3 +358,17 @@ body {
   background-color: #4CAF50; /* Green */
   color: white;
 }
+
+.button_neutral{
+  background-color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 2px solid #FFC93C; /* Yellow */
+  transition-duration: 0.4s;
+  color: black;
+}
+
+.button_neutral:hover {
+  background-color: #FFC93C; /* Green */
+  color: white;
+}
