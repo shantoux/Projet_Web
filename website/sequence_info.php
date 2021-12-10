@@ -173,7 +173,7 @@
         <tr>
           <td>
             Gene sequence<br>
-            <div style="font-family:Consolas;border:solid 1px black;background-color:white;"><?php echo $gene_seq;?></div>
+            <div style="font-family:courier;border:solid 1px black;background-color:white;"><?php echo $gene_seq;?></div>
           </td>
 
           <!-- display button for automative blast alignment of the nucleotidic sequence -->
