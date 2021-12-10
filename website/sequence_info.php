@@ -209,7 +209,7 @@
 
         // cehck if we find any domain
         $no_children = true;
-        foreach($html->find('div.article') as $article) {
+        foreach($t->find('div.article') as $article) {
           $no_children = false;
           break;
         }
