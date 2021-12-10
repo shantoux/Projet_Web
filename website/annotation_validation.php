@@ -186,7 +186,7 @@ connect_db(); ?>
         echo "<th>Sequences</th>";
         echo "<th>Annotator</th>";
         echo "<th>Comments</th>";
-        echo "<th colspan=2>Action</th>";
+        echo "<th>Action</th>";
         echo "</tr>";
         echo "</thead><tbody>";
 
@@ -202,10 +202,8 @@ connect_db(); ?>
             echo '<td> <form action="annotation_validation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] . '&att=' . $rows['attempt'] . '&annotator=' . $rows["annotator"] . '" method = "post">';
             echo "<textarea id=\"" . $rows["sequence_id"] . "\" name=\"comments\" cols=\"40\" rows=\"3\" required>" . $rows['comments'] . "</textarea></td>";            # Validate / Refuse annotation
             echo "<td>";
-            echo "<div style=\"float: left;\">";
-            echo '<input class="button_ok" ype="submit" name="Accept_button" value="Accept"></div>';
-            echo "<div style=\"float: right;\">";
-            echo '<input class="button_red" type="submit" name="Reject_button" value="Reject"> </form> </div>';
+            echo '<input class="button_ok" ype="submit" name="Accept_button" value="Accept">';
+            echo '<input class="button_red" type="submit" name="Reject_button" value="Reject"> </form>';
             echo "</td>";
             echo "</tr>";
           }
