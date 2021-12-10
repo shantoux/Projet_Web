@@ -47,132 +47,137 @@
       <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
-    <h2 id="pagetitle"> Sequences annotation </h2>
-    <div id="element1">Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
-    <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.</div>
-    <br>
-    <br>
-    <h3 id="pageundertitle" class="center"> Sequences waiting to be annotated </h3>
-    <br>
+    <!-- Display fancy box -->
+    <div class="fancy_box" style="width:80%;">
 
-    <!-- Table to display sequences assignated for annotation -->
+      <div id="pagetitle"> Sequences annotation </div>
+      <div id="element1">Welcome to the annotations factory. Here you will find a list of sequences of which you have been assigned the annotation.
+      <br> Let's take a moment to <strong>Thank You!</strong> for your work, contributing to the annotation of the database is the best way to help us improve the quality of the search.</div>
+      <br>
+      <br>
+      <h3 id="pageundertitle" class="center"> Sequences waiting to be annotated </h3>
+      <br>
 
-    <div id="element1">
-      <table class="table_type1">
-          <?php
-          include_once 'libphp/dbutils.php';
-          connect_db();
-          $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator, a.assignation_date
-          FROM database_projet.annotations a
-          WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned'
-          ORDER BY assignation_date;";
-          $result = pg_query($db_conn, $query);
+      <!-- Table to display sequences assignated for annotation -->
 
-          if (pg_num_rows($result)>0){
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th>Assigned on</th>";
-            echo "<th>Genomes</th>";
-            echo "<th>Sequences</th>";
-            echo "<th>Action</th>";
-            echo "<th>Attempt</th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
+      <div id="element1">
+        <table class="table_type1">
+            <?php
+            include_once 'libphp/dbutils.php';
+            connect_db();
+            $query = "SELECT a.genome_id, a.sequence_id, a.attempt, a.annotator, a.assignation_date
+            FROM database_projet.annotations a
+            WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status='assigned'
+            ORDER BY assignation_date;";
+            $result = pg_query($db_conn, $query);
 
-            if ($result != false) {
-              while ($rows = pg_fetch_array($result)) {
-                echo "<tr>";
-                echo "<td>" . date('d-m-o H:i', strtotime($rows["assignation_date"])) . "</td>";
-                echo "<td>" . $rows["genome_id"] . "</td>";
-                echo '<td>' . $rows["sequence_id"] . '</td>';
-                # Review annotation
-                echo '<td> <input type="button" class="button_active" value="Annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'&att='.$rows['attempt'].'&annotator='.$rows['annotator'].'\';"/></td>';
-                echo '<td>' . $rows["attempt"] . '</td>';
-                echo "</tr>";
-              }
-            } else {
-              echo "<tr><td colspan='4'>Something went wrong with the query</td></tr>";
-            }
-          } else {
-            echo "<div class=\"alert_neutral\">
-            You were not assigned a sequence yet!</div>";
-          }
-          ?>
+            if (pg_num_rows($result)>0){
+              echo "<thead>";
+              echo "<tr>";
+              echo "<th>Assigned on</th>";
+              echo "<th>Genomes</th>";
+              echo "<th>Sequences</th>";
+              echo "<th>Action</th>";
+              echo "<th>Attempt</th>";
+              echo "</tr>";
+              echo "</thead>";
+              echo "<tbody>";
 
-        </tbody>
-      </table>
-
-    </div>
-
-    <br>
-    <h3 id="pageundertitle" class="center"> Sequences already annotated </h3>
-    <br>
-
-    <div id="element1">
-      <table class="table_type1">
-          <?php
-          $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
-          FROM database_projet.annotations a
-          WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status!='assigned'
-          ORDER BY assignation_date DESC;";
-          $result = pg_query($db_conn, $query);
-
-          if (pg_num_rows($result) >0){
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th>Genomes</th>";
-            echo "<th>Sequences</th>";
-            echo "<th>Validator's comment</th>";
-            echo "<th>Annotation status</th>";
-            echo "<th>Attempt</th>";
-            echo "<th>Assignation date</th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-
-            if ($result != false) {
-              for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
-                $genome_id = pg_fetch_result($result, $res_nb,0);
-                $seq_id = pg_fetch_result($result, $res_nb,1);
-                $comment = pg_fetch_result($result, $res_nb,2);
-                $status = pg_fetch_result($result, $res_nb,3);
-                $attempt = pg_fetch_result($result, $res_nb,4);
-                $assignation_date = pg_fetch_result($result, $res_nb,5);
-                echo '<tr><td>';
-                echo $genome_id;
-                echo '</td><td>';
-                echo $seq_id;
-                echo '</td><td>';
-                # Review annotation
-                echo $comment;
-                echo '</td>';
-                if($status == 'rejected'){
-                  echo '<td><span style="color:red;">';
-                  echo $status;
-                  echo '</span></td>';
-                } else {
-                  echo '<td>';
-                  echo $status;
-                  echo '</td>';
+              if ($result != false) {
+                while ($rows = pg_fetch_array($result)) {
+                  echo "<tr>";
+                  echo "<td>" . date('d-m-o H:i', strtotime($rows["assignation_date"])) . "</td>";
+                  echo "<td>" . $rows["genome_id"] . "</td>";
+                  echo '<td>' . $rows["sequence_id"] . '</td>';
+                  # Review annotation
+                  echo '<td> <input type="button" class="button_active" value="Annotate" onclick="location.href=\'sequence_annotation.php?gid=' . $rows['genome_id'] . '&sid=' . $rows["sequence_id"] .'&att='.$rows['attempt'].'&annotator='.$rows['annotator'].'\';"/></td>';
+                  echo '<td>' . $rows["attempt"] . '</td>';
+                  echo "</tr>";
                 }
-                echo '<td>';
-                echo $attempt;
-                echo '</td><td>';
-                echo date('d-m-o H:i', strtotime($assignation_date));
-                echo '</td></tr>';
+              } else {
+                echo "<tr><td colspan='4'>Something went wrong with the query</td></tr>";
               }
             } else {
-              echo "<tr><td colspan='4'>Something went wrong with the query</td></tr>";
+              echo "<div class=\"alert_neutral\">
+              You were not assigned a sequence yet!</div>";
             }
-          } else {
-            echo "<div class=\"alert_neutral\">
-            You do not have any previous work yet!</div>";
-          }
-          echo "</tbody>";
+            ?>
 
-          ?>
-      </table>
+          </tbody>
+        </table>
+
+      </div>
+
+      <br>
+      <h3 id="pageundertitle" class="center"> Sequences already annotated </h3>
+      <br>
+
+      <div id="element1">
+        <table class="table_type1">
+            <?php
+            $query = "SELECT a.genome_id, a.sequence_id, a.comments, a.status, a.attempt, a.assignation_date
+            FROM database_projet.annotations a
+            WHERE a.annotator ='" . $_SESSION['user'] . "' and a.status!='assigned'
+            ORDER BY assignation_date DESC;";
+            $result = pg_query($db_conn, $query);
+
+            if (pg_num_rows($result) >0){
+              echo "<thead>";
+              echo "<tr>";
+              echo "<th>Genomes</th>";
+              echo "<th>Sequences</th>";
+              echo "<th>Validator's comment</th>";
+              echo "<th>Annotation status</th>";
+              echo "<th>Attempt</th>";
+              echo "<th>Assignation date</th>";
+              echo "</tr>";
+              echo "</thead>";
+              echo "<tbody>";
+
+              if ($result != false) {
+                for ($res_nb = 0; $res_nb < pg_num_rows($result); $res_nb++){
+                  $genome_id = pg_fetch_result($result, $res_nb,0);
+                  $seq_id = pg_fetch_result($result, $res_nb,1);
+                  $comment = pg_fetch_result($result, $res_nb,2);
+                  $status = pg_fetch_result($result, $res_nb,3);
+                  $attempt = pg_fetch_result($result, $res_nb,4);
+                  $assignation_date = pg_fetch_result($result, $res_nb,5);
+                  echo '<tr><td>';
+                  echo $genome_id;
+                  echo '</td><td>';
+                  echo $seq_id;
+                  echo '</td><td>';
+                  # Review annotation
+                  echo $comment;
+                  echo '</td>';
+                  if($status == 'rejected'){
+                    echo '<td><span style="color:red;">';
+                    echo $status;
+                    echo '</span></td>';
+                  } else {
+                    echo '<td>';
+                    echo $status;
+                    echo '</td>';
+                  }
+                  echo '<td>';
+                  echo $attempt;
+                  echo '</td><td>';
+                  echo date('d-m-o H:i', strtotime($assignation_date));
+                  echo '</td></tr>';
+                }
+              } else {
+                echo "<tr><td colspan='4'>Something went wrong with the query</td></tr>";
+              }
+            } else {
+              echo "<div class=\"alert_neutral\">
+              You do not have any previous work yet!</div>";
+            }
+            echo "</tbody>";
+
+            ?>
+        </table>
+
+      </div>
 
     </div>
 
