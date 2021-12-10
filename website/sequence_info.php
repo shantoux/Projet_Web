@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
-  <body>
+  <body class="center">
 
     <?php
       // retrieve the sequence identifier through GET method

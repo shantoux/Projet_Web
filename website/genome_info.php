@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
-  <body>
+  <body class="center">
 
     <!-- display menu options depending of the user's role -->
     <div class="topnav">
