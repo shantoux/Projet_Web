@@ -209,7 +209,7 @@
 
         // check if we find any domain
         $no_children = true;
-        if (is_array($point1['return'])) {
+        if (is_array($t)) {
           $no_children = false;
         }
 
