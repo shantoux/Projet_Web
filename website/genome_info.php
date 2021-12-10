@@ -86,7 +86,7 @@
               ?>
                 Nb of nucl. per line:
                 <input type="text" name="nb_nucl_per_line" maxlength="4" size="4" value="<?php echo $char_per_line; ?>">
-                <input type="submit" value="Update">
+                <input class="button_blue" type="submit" value="Update">
               </form>
             </th>
           </tr>

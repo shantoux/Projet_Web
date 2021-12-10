@@ -214,7 +214,7 @@ connect_db();?>
             echo '<form action="./user_list.php?mail=' . $email . '"method="post"><select name="selected_action">';
             echo '<option value="validate">Validate</option>';
             echo '<option value="delete">Delete</option>';
-            echo '</select><input class="button_ok" type="submit" value="Submit" name="submit">';
+            echo '</select><input classbutton_blue" type="submit" value="Submit" name="submit">';
             echo '</td></form></tr>';
           }
         }
