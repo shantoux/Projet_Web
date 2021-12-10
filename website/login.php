@@ -14,99 +14,94 @@
 <body class="center">
 
   <!-- Display fancy box -->
-  <div class="fancy_box" style="width:40%; border-radius: 0px;">
+  <div class="fancy_box" style="width:50%;margin=100px 0px;">
 
     <!-- Page header -->
     <h1> Welcome to Bio Search Sequences </h1>
 
-  </div>
+    <!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
+    <!-- -->
 
-  <!-- Vérification de l'email, du mot de passe et du statut validé ou non de l'utilisateur pour accéder à la search page -->
-  <!-- -->
+    <?php
+    include_once 'libphp/dbutils.php';
+    connect_db(); // connexion to database
 
-  <?php
-  include_once 'libphp/dbutils.php';
-  connect_db(); // connexion to database
+    // check if connection button has been clicked
+    if (isset($_POST['submit'])){
 
-  // check if connection button has been clicked
-  if (isset($_POST['submit'])){
+      //Get email and password filled in the connexion form
+      $user_name = $_POST["name"];
+      $user_password = $_POST["pass"];
 
-    //Get email and password filled in the connexion form
-    $user_name = $_POST["name"];
-    $user_password = $_POST["pass"];
+      // retrieve the password for this user in the database
+      $query = "SELECT u.pw, u.status, u.role, u.first_name, u.last_name FROM database_projet.users u WHERE u.email = '" . $user_name . "';";
+      $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
-    // retrieve the password for this user in the database
-    $query = "SELECT u.pw, u.status, u.role, u.first_name, u.last_name FROM database_projet.users u WHERE u.email = '" . $user_name . "';";
-    $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
+      // check if an account exist with this email
+      if (pg_num_rows($result) > 0) {
 
-    // check if an account exist with this email
-    if (pg_num_rows($result) > 0) {
+        // build hashed pw
+        $hash = pg_fetch_result($result, 0, 0);
 
-      // build hashed pw
-      $hash = pg_fetch_result($result, 0, 0);
+        // check if user is validated by admin
+        $validated = pg_fetch_result($result, 0, 1) == 'validated';
 
-      // check if user is validated by admin
-      $validated = pg_fetch_result($result, 0, 1) == 'validated';
+        // check if hashed pw matches
+        if ((password_verify($user_password, $hash) || $user_password == pg_fetch_result($result, 0, 0)) && $validated) {
 
-      // check if hashed pw matches
-      if ((password_verify($user_password, $hash) || $user_password == pg_fetch_result($result, 0, 0)) && $validated) {
+          // Go to the search page
+          echo '<script>location.href="search.php"</script>';
 
-        // Go to the search page
-        echo '<script>location.href="search.php"</script>';
+          // If the user's status is "validated" (approved by the site's admin)
+          // Start a session and store variables email and role
+          session_start();
+          $_SESSION['user'] = $_POST['name'];
+          $_SESSION['role'] = pg_fetch_result($result, 0, 2);
+          $_SESSION['first_name'] = pg_fetch_result($result, 0, 3);
+          $_SESSION['last_name'] = pg_fetch_result($result, 0, 4);
 
-        // If the user's status is "validated" (approved by the site's admin)
-        // Start a session and store variables email and role
-        session_start();
-        $_SESSION['user'] = $_POST['name'];
-        $_SESSION['role'] = pg_fetch_result($result, 0, 2);
-        $_SESSION['first_name'] = pg_fetch_result($result, 0, 3);
-        $_SESSION['last_name'] = pg_fetch_result($result, 0, 4);
+          // update last login
+          $login_time = array();
+          $login_time['last_login'] = 'now()';
 
-        // update last login
-        $login_time = array();
-        $login_time['last_login'] = 'now()';
+          $condition = array();
+          $condition['email'] = $_POST['name'];
 
-        $condition = array();
-        $condition['email'] = $_POST['name'];
+          $update = pg_update($db_conn, 'database_projet.users', $login_time, $condition) or die('Query failed with exception: ' . pg_last_error());
 
-        $update = pg_update($db_conn, 'database_projet.users', $login_time, $condition) or die('Query failed with exception: ' . pg_last_error());
+        }
 
+        else if (!$validated) {
+
+          // display error message for un-validated account
+          echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Your account has not been validated by an admin yet.
+          </div>";
+        }
+
+        else {
+
+          // If pw do not match
+          echo "<div class=\"alert_bad\">
+          <span class=\"closebtn\"
+          onclick=\"this.parentElement.style.display='none';\">&times;</span>
+          Wrong Username or Password.</div>";
+
+        }
       }
 
-      else if (!$validated) {
-
-        // display error message for un-validated account
-        echo "<div class=\"alert_bad\">
-        <span class=\"closebtn\"
-        onclick=\"this.parentElement.style.display='none';\">&times;</span>
-        Your account has not been validated by an admin yet.
-        </div>";
-      }
-
+      // if no account have been found
       else {
-
-        // If pw do not match
         echo "<div class=\"alert_bad\">
         <span class=\"closebtn\"
         onclick=\"this.parentElement.style.display='none';\">&times;</span>
         Wrong Username or Password.</div>";
-
       }
     }
 
-    // if no account have been found
-    else {
-      echo "<div class=\"alert_bad\">
-      <span class=\"closebtn\"
-      onclick=\"this.parentElement.style.display='none';\">&times;</span>
-      Wrong Username or Password.</div>";
-    }
-  }
-
-  ?>
-
-  <!-- Display fancy box -->
-  <div class="fancy_box" style="width:50%;">
+    ?>
 
     <!-- Login form -->
     <div id="element1" style="margin:20px 0px">
