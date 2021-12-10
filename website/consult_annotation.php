@@ -78,114 +78,117 @@
         <a class="disc"><?php echo $_SESSION['first_name']?> - <?php echo $_SESSION['role']?> </a>
     </div>
 
-    <!-- Display page title -->
-    <h2 id="pagetitle">
-      Consult all assigned annotations
-    </h2>
+    <!-- Display fancy box -->
+    <div class="fancy_box" style="width:60%;">
 
-    <div class="center">
-      <br><br>
-    </div>
-
-    <?php
-      // display good alert if an annotation has been successfully removed
-      if ($update) {
-        echo "<br> <div class=\"alert_good\">
-          <span class=\"closebtn\"
-          onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Successfully removed assignation.
-        </div>";
-      }
-
-      // retrieve date of now;
-      $query_time = "SELECT now();";
-      $result_time = pg_query($db_conn, $query_time) or die('Query failed with exception: ' . pg_last_error());
-      $current_date = pg_fetch_result($result_time, 0, 0);
-
-      // retrieve all pending annotations
-      $query_annots = "SELECT genome_id, sequence_id, annotator, attempt, assignation_date
-      FROM database_projet.annotations
-      WHERE status = 'assigned' ORDER BY assignation_date ASC;";
-      $result_annots = pg_query($db_conn, $query_annots) or die('Query failed with exception: ' . pg_last_error());
-
-      //display table with all pending annotations
-      echo '<div id="element1">';
-
-      if (pg_num_rows($result_annots) > 0) {
-
-        // display first line
-        echo '<table class="table_type1">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th>Annotator</th><th>Genome</th><th>Sequence</th><th>Attempt number</th><th>Assignation date<br>of last attempt</th><th>Remove assignation</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo ' <tbody>';
-
-        // loop on all currently assigned annotation
-        while ($annotation = pg_fetch_array($result_annots)) {
-          echo "<tr>";
-
-          // display annotator
-          echo "<td>" . $annotation["annotator"] . "</td>";
-
-          // display genome name
-          echo '<td>' . $annotation["genome_id"] . '</td>';
-
-          // display sequence identifier
-          echo '<td>' . $annotation["sequence_id"] . '</td>';
-
-          // display attempts number with color accord
-          echo '<td>';
-          if ($annotation["attempt"] > 2 && $annotation["attempt"] < 5) {
-            echo '<span style="color:orange;">';
-          }
-          if ($annotation["attempt"] > 4) {
-            echo '<span style="color:red;">';
-          }
-          echo $annotation["attempt"];
-          if ($annotation["attempt"] > 2) {
-            echo '</span>';
-          }
-          echo '</td>';
-
-          // display assignation date
-          echo '<td>';
-          // compute time difference
-          $date_1 = new DateTime(substr($annotation["assignation_date"], 0, 19));
-          $date_2 = new DateTime(substr($current_date, 0, 19));
-          $interval = $date_1->diff($date_2);
-          $diff = $interval->format('%d');
-          // change color to red if assigned more than 2 weeks ago
-          if ($diff > 14) {
-            echo '<span style="color:red;">';
-          }
-          echo substr($annotation["assignation_date"], 0, 19);
-          if ($diff > 2) {
-            echo '</span>';
-          }
-          echo '</td>';
-
-          // display remove button
-          echo '<form action="consult_annotation.php?sid=' . $annotation["sequence_id"] . '" method="post">';
-          echo '<td><input type="submit" name="remove" value="&#10008"></td>';
-          echo "</tr>";
-        }
-
-        echo '</tbody>';
-        echo '</table>';
-
-      }
-
-      else {
-        echo "<div class=\"alert_neutral\">
-        There is no pending annotation.</div>";
-      }
-
-
-      ?>
-
+      <!-- Display page title -->
+      <div id="pagetitle">
+        Consult all assigned annotations
       </div>
 
+      <div class="center">
+        <br><br>
+      </div>
+
+      <?php
+        // display good alert if an annotation has been successfully removed
+        if ($update) {
+          echo "<br> <div class=\"alert_good\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Successfully removed assignation.
+          </div>";
+        }
+
+        // retrieve date of now;
+        $query_time = "SELECT now();";
+        $result_time = pg_query($db_conn, $query_time) or die('Query failed with exception: ' . pg_last_error());
+        $current_date = pg_fetch_result($result_time, 0, 0);
+
+        // retrieve all pending annotations
+        $query_annots = "SELECT genome_id, sequence_id, annotator, attempt, assignation_date
+        FROM database_projet.annotations
+        WHERE status = 'assigned' ORDER BY assignation_date ASC;";
+        $result_annots = pg_query($db_conn, $query_annots) or die('Query failed with exception: ' . pg_last_error());
+
+        //display table with all pending annotations
+        echo '<div id="element1">';
+
+        if (pg_num_rows($result_annots) > 0) {
+
+          // display first line
+          echo '<table class="table_type1">';
+          echo '<thead>';
+          echo '<tr>';
+          echo '<th>Annotator</th><th>Genome</th><th>Sequence</th><th>Attempt number</th><th>Assignation date<br>of last attempt</th><th>Remove assignation</th>';
+          echo '</tr>';
+          echo '</thead>';
+          echo ' <tbody>';
+
+          // loop on all currently assigned annotation
+          while ($annotation = pg_fetch_array($result_annots)) {
+            echo "<tr>";
+
+            // display annotator
+            echo "<td>" . $annotation["annotator"] . "</td>";
+
+            // display genome name
+            echo '<td>' . $annotation["genome_id"] . '</td>';
+
+            // display sequence identifier
+            echo '<td>' . $annotation["sequence_id"] . '</td>';
+
+            // display attempts number with color accord
+            echo '<td>';
+            if ($annotation["attempt"] > 2 && $annotation["attempt"] < 5) {
+              echo '<span style="color:orange;">';
+            }
+            if ($annotation["attempt"] > 4) {
+              echo '<span style="color:red;">';
+            }
+            echo $annotation["attempt"];
+            if ($annotation["attempt"] > 2) {
+              echo '</span>';
+            }
+            echo '</td>';
+
+            // display assignation date
+            echo '<td>';
+            // compute time difference
+            $date_1 = new DateTime(substr($annotation["assignation_date"], 0, 19));
+            $date_2 = new DateTime(substr($current_date, 0, 19));
+            $interval = $date_1->diff($date_2);
+            $diff = $interval->format('%d');
+            // change color to red if assigned more than 2 weeks ago
+            if ($diff > 14) {
+              echo '<span style="color:red;">';
+            }
+            echo substr($annotation["assignation_date"], 0, 19);
+            if ($diff > 2) {
+              echo '</span>';
+            }
+            echo '</td>';
+
+            // display remove button
+            echo '<form action="consult_annotation.php?sid=' . $annotation["sequence_id"] . '" method="post">';
+            echo '<td><input type="submit" name="remove" value="&#10008"></td>';
+            echo "</tr>";
+          }
+
+          echo '</tbody>';
+          echo '</table>';
+
+        }
+
+        else {
+          echo "<div class=\"alert_neutral\">
+          There is no pending annotation.</div>";
+        }
+
+
+        ?>
+
+      </div>
+    </div>
   </body>
 </html>
