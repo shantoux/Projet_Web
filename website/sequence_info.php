@@ -207,24 +207,26 @@
         $t = file_get_html($adress);
         $t = $t->find("table#imageKey.resultTable.details", 0);
 
-        set_error_handler(function($errno, $errstr){
-          if(stristr($errstr,'Invalid argument supplied for foreach()')){
-            return true;
+        // check if we find any domain
+        $no_children = true;
+
+        if (count($t->children()) > 0) {
+          $no_children = false;
+        }
+
+        if (!$no_children) {
+          $t = $t->children(1);
+
+          // loop on all of its lines
+          for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
+
+            // retrieve the domains informations
+            $domain = array();
+            $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
+            $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
+            $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
+            $domains[$domain_index] = $domain;
           }
-          return false;
-        });
-
-        $t = $t->children(1);
-
-        // loop on all of its lines
-        for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
-
-          // retrieve the domains informations
-          $domain = array();
-          $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
-          $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
-          $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
-          $domains[$domain_index] = $domain;
         }
         ?>
 
