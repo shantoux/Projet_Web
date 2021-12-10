@@ -14,7 +14,7 @@
 <body class="center">
 
   <!-- Display fancy box -->
-  <div class="fancy_box" style="width:50%;margin=100px 0px;">
+  <div class="fancy_box" style="width:50%;margin:100px 0px;">
 
     <!-- Page header -->
     <h1> Welcome to Bio Search Sequences </h1>

@@ -30,6 +30,7 @@ if (!isset($_SESSION['user'])) {
     if ($_SESSION['role'] == 'Validator') {
       echo "<a class=\"active\" href=\"./assigned_annotation.php\">Annotate sequence</a>";
       echo "<a href=\"./annotation_validation.php\">Validate annotation</a>";
+      echo "<a href=\"./annotation_attribution.php\">Attribute annotation</a>";
       echo "<a href=\"./consult_annotation.php\">Consult</a>";
       echo "<a href=\"./forum.php\">Forum</a>";
     }
