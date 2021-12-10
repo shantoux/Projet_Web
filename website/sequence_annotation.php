@@ -201,7 +201,7 @@ if (!isset($_SESSION['user'])) {
       </td>
       <td>
         <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
-        <button type="button">Align with Blast</button>
+        <button type="button" class="button_neutral">Align with Blast</button>
         </a>
     </tr>
 
