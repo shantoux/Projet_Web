@@ -14,13 +14,10 @@
 <body class="center">
 
   <!-- Display fancy box -->
-  <div class="fancy_box" style="width:40%;">
+  <div class="fancy_box" style="width:40%; border-radius: 0px;">
 
     <!-- Page header -->
     <h1> Welcome to Bio Search Sequences </h1>
-    <div id="menu">
-      Please log in and let's annotate!<br>
-    </div>
 
   </div>
 
@@ -112,7 +109,7 @@
   <div class="fancy_box" style="width:50%;">
 
     <!-- Login form -->
-    <div id="element1">
+    <div id="element1" style="margin:20px 0px">
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <table class="center">
           <tr>
