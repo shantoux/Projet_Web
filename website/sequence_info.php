@@ -210,7 +210,7 @@
         // check if we find any domain
         $no_children = true;
 
-        if (count($t->children()) > 0) {
+        if (!is_null($t)) {
           $no_children = false;
         }
 
