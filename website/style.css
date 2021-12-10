@@ -81,6 +81,20 @@ body {
   color: black;
 }
 
+.topnav a.role {
+  float: right;
+  color: #bdbdbd;
+  background-color: rgb(19, 19, 19);
+  text-align: center;
+  padding: 6px 8px;
+  text-decoration: none;
+  font-size: 17px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+
 /* The alert message box */
 .alert_bad {
   margin-left: auto;
@@ -111,12 +125,13 @@ body {
   margin-right: auto;
   width: 300px;
   padding: 20px;
-  background-color:#4F8E8D; /* Orange */
+  background-color: #4F8E8D; /*Orange */
   color: white;
   margin-bottom: 15px;
   margin-top: 15px;
   text-align: center;
 }
+
 
 /* The close button */
 .closebtn {
@@ -329,3 +344,17 @@ body {
   input:invalid {
     box-shadow: 0 0 5px 1px red;
   }
+
+.button_ok{
+  background-color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 2px solid #4CAF50;
+  transition-duration: 0.4s;
+  color: black;
+}
+
+.button_ok:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
