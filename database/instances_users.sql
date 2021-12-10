@@ -53,4 +53,14 @@ VALUES (
     'Reader',
     'validated');
 
+INSERT INTO users
+VALUES (
+  'removed_user@gmail.com',
+  'removed_user',
+  'Removed',
+  'User',
+  '0000000000',
+  'Validator',
+  'validated');
+
 end transaction;
