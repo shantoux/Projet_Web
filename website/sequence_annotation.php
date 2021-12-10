@@ -14,7 +14,6 @@ if (!isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Annotation </title>
     <link rel="stylesheet" type="text/css" href="./style.css" /s>
-    <script type="text/javascript" src="function.js"></script>
   </head>
 
   <body class="center">
