@@ -145,7 +145,11 @@ if (!isset($_SESSION['user'])) {
 
   <div class="center">
 
-    <table class="table_type3">
+    <table class="table_type_seq_inf">
+      <colgroup>
+        <col span="1" style="width: 80%;">
+        <col span="1" style="width: 10%;">
+      </colgroup>
       <tr colspan=2>
         <td>
           <b>Sequence identifier:</b> <?php echo $sequence_id; ?><br><br>
@@ -180,7 +184,7 @@ if (!isset($_SESSION['user'])) {
         </td>
       </tr>
       <tr></tr>
-      
+
       <!-- Display nucleotidic sequence -->
       <tr>
         <td>
