@@ -164,7 +164,7 @@
               echo '<span style="color:red;">';
             }
             echo substr($annotation["assignation_date"], 0, 19);
-            if ($diff > 2) {
+            if ($diff > 14) {
               echo '</span>';
             }
             echo '</td>';
