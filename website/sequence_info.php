@@ -204,20 +204,29 @@
         $adress = 'https://pfam.xfam.org/protein/' . $uniprot_protein_name;
 
         // retrieve the <tbody> element in which the domains are stored on the PFAM page
-        $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0);
-        echo sizeof($t->children) . '<br>';
+        $t = file_get_html($adress);
+        $t = $t->find("table#imageKey.resultTable.details", 0);
 
-        $t = $t->children(1);
+        // cehck if we find any domain
+        $no_children = true;
+        foreach($t as $article) {
+          $no_children = false;
+          break;
+        }
 
-        // loop on all of its lines
-        for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
+        if (!$no_children) {
+          $t = $t->children(1);
 
-          // retrieve the domains informations
-          $domain = array();
-          $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
-          $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
-          $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
-          $domains[$domain_index] = $domain;
+          // loop on all of its lines
+          for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
+
+            // retrieve the domains informations
+            $domain = array();
+            $domain["name"] = $t->children($domain_index)->children(1)->plaintext;
+            $domain["start_pos"] = $t->children($domain_index)->children(2)->plaintext;
+            $domain["end_pos"] = $t->children($domain_index)->children(3)->plaintext;
+            $domains[$domain_index] = $domain;
+          }
         }
         ?>
 
