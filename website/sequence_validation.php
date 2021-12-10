@@ -53,6 +53,26 @@ connect_db();
     Sequence Annotation Validation
   </h2>
 
+  <?php
+
+// Retrieve the information already in the database
+$genome_id = $_GET['gid'];
+$sequence_id = $_GET['sid'];
+$attempt = $_GET['att'];
+$annotator = $_GET['annotator'];
+
+$query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
+  FROM database_projet.gene g
+  WHERE g.sequence_id = '" . $sequence_id . "';";
+$result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
+$nt = pg_fetch_result($result2, 0, 0);
+$prot = pg_fetch_result($result2, 0, 1);
+$start = pg_fetch_result($result2, 0, 2);
+$end = pg_fetch_result($result2, 0, 3);
+$chromosome = pg_fetch_result($result2, 0, 4);
+
+?>
+
   
 
 
@@ -146,25 +166,7 @@ connect_db();
   }
   ?>
 
-<?php
 
-// Retrieve the information already in the database
-$genome_id = $_GET['gid'];
-$sequence_id = $_GET['sid'];
-$attempt = $_GET['att'];
-$annotator = $_GET['annotator'];
-
-$query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
-  FROM database_projet.gene g
-  WHERE g.sequence_id = '" . $sequence_id . "';";
-$result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
-$nt = pg_fetch_result($result2, 0, 0);
-$prot = pg_fetch_result($result2, 0, 1);
-$start = pg_fetch_result($result2, 0, 2);
-$end = pg_fetch_result($result2, 0, 3);
-$chromosome = pg_fetch_result($result2, 0, 4);
-
-?>
 
 <?php
 
