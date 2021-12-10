@@ -108,7 +108,7 @@ connect_db();?>
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        //           Change the role of a user : cannot delete an annotator
+        //           Change the role of a user or delete user
         //////////////////////////////////////////////////////////////////////////
 
         // Query to retrieve the status of the user the admin wants to remove
@@ -168,8 +168,16 @@ connect_db();?>
           $result_delete = pg_query($db_conn, $query_delete)
           or die('Query failed with exception: ' . pg_last_error());
 
+          $values_user = array();
+          $values_user['annotator'] = 'removed_user@gmail.com';
+          $condition = array();
+          $condition['annotator']=$_GET['mail'];
+          //Update the database to change to random user
+          $result_insert = pg_update($db_conn, 'database_projet.annotations', $values_user, $condition)
+          or die ('Query failed with exception: ' . pg_last_error());
 
-          if ($result_delete && $result_delete2 && $result_delete3){
+
+          if (($result_delete && $result_delete2 && $result_delete3) || $result_insert){
             echo "<br> <div class=\"alert_good\">
               <span class=\"closebtn\"
               onclick=\"this.parentElement.style.display='none';\">&times;</span>
