@@ -406,7 +406,7 @@
           echo '</tbody>';
           echo '</table>';
         }
-        echo '<br><input type="submit" name="extracted" value="Extract selected sequences">';
+        echo '<br><input class="button_neutral" type="submit" name="extracted" value="Extract selected sequences">';
       ?>
     </div>
   </body>
