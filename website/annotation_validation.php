@@ -199,7 +199,7 @@ connect_db(); ?>
               echo "<td>";
               echo "<div style=\"float:left; width: 50%;\">";
               echo '<input class="button_ok" ype="submit" name="Accept_button" value="Accept"></div>';
-              echo "<div style=\"float: left; width: auto;\">";
+              //echo "<div style=\"float: left; width: auto;\">";
               echo '<input class="button_red" type="submit" name="Reject_button" value="Reject"> </form> </div>';
               echo "</td>";
               echo "</tr>";
