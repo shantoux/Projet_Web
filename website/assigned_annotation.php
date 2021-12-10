@@ -191,6 +191,10 @@ if (!isset($_SESSION['user'])) {
                 echo '<td><span style="color:#696969;">';
                 echo $status;
                 echo '</td>';
+              } else {
+                echo '<td>';
+                echo $status;
+                echo '</td>';
               }
               echo '<td>';
               echo $attempt;
