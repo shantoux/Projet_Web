@@ -111,11 +111,11 @@
           <tr>
             <td> Login : </td>
             <!-- #TODO: unhardcode login and pw -->
-            <td> <input type="text" name="name" value="bobby@gmail.com"> </td>
+            <td> <input type="text" name="name"> </td>
           </tr>
           <tr>
             <td> Password : </td>
-            <td> <input type="password" name="pass" value="cestmoibobby"> </td>
+            <td> <input type="password" name="pass"> </td>
           </tr>
           <tr>
             <td colspan=2> <input class="button_ok" type="submit" value="Log in" name="submit" onsubmit="myButton.disabled=true; return true;"> </td>
