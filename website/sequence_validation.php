@@ -6,6 +6,9 @@ if (!isset($_SESSION['user'])) {
   echo '<script>location.href="login.php"</script>';
 }
 
+include_once 'libphp/dbutils.php';
+connect_db();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,44 +53,7 @@ if (!isset($_SESSION['user'])) {
     Sequence Annotation Validation
   </h2>
 
-  <?php
-
-  include_once 'libphp/dbutils.php';
-  connect_db();
-  // Retrieve the information already in the database
-  $genome_id = $_GET['gid'];
-  $sequence_id = $_GET['sid'];
-  $attempt = $_GET['att'];
-  $annotator = $_GET['annotator'];
-
-  $query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
-    FROM database_projet.gene g
-    WHERE g.sequence_id = '" . $sequence_id . "';";
-  $result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
-  $nt = pg_fetch_result($result2, 0, 0);
-  $prot = pg_fetch_result($result2, 0, 1);
-  $start = pg_fetch_result($result2, 0, 2);
-  $end = pg_fetch_result($result2, 0, 3);
-  $chromosome = pg_fetch_result($result2, 0, 4);
-
-  ?>
-
-  <?php
-
-
-
-  //Retrieve status of sequence annotation
-  $query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
-  FROM database_projet.annotations a
-  WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt =" . $attempt . " AND annotator ='".$annotator."' ;";
-  $result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
-  $status = pg_fetch_result($result_info, 0, 0);
-  $gene_id = pg_fetch_result($result_info, 0, 1);
-  $gene_biotype = pg_fetch_result($result_info, 0, 2);
-  $transcript_biotype = pg_fetch_result($result_info, 0, 3);
-  $gene_symbol = pg_fetch_result($result_info, 0, 4);
-  $description = pg_fetch_result($result_info, 0, 5);
-  ?>
+  
 
 
 <?php
@@ -180,6 +146,43 @@ if (!isset($_SESSION['user'])) {
   }
   ?>
 
+<?php
+
+// Retrieve the information already in the database
+$genome_id = $_GET['gid'];
+$sequence_id = $_GET['sid'];
+$attempt = $_GET['att'];
+$annotator = $_GET['annotator'];
+
+$query2 = "SELECT g.gene_seq, g.prot_seq, g.start_seq, g.end_seq, g.chromosome
+  FROM database_projet.gene g
+  WHERE g.sequence_id = '" . $sequence_id . "';";
+$result2 = pg_query($db_conn, $query2) or die('Query failed with exception: ' . pg_last_error());
+$nt = pg_fetch_result($result2, 0, 0);
+$prot = pg_fetch_result($result2, 0, 1);
+$start = pg_fetch_result($result2, 0, 2);
+$end = pg_fetch_result($result2, 0, 3);
+$chromosome = pg_fetch_result($result2, 0, 4);
+
+?>
+
+<?php
+
+
+
+//Retrieve status of sequence annotation
+$query_infos = "SELECT a.status, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description
+FROM database_projet.annotations a
+WHERE sequence_id = '" . $_GET['sid'] . "' AND attempt =" . $attempt . " AND annotator ='".$annotator."' ;";
+$result_info = pg_query($db_conn, $query_infos) or die('Query failed with exception: ' . pg_last_error());
+$status = pg_fetch_result($result_info, 0, 0);
+$gene_id = pg_fetch_result($result_info, 0, 1);
+$gene_biotype = pg_fetch_result($result_info, 0, 2);
+$transcript_biotype = pg_fetch_result($result_info, 0, 3);
+$gene_symbol = pg_fetch_result($result_info, 0, 4);
+$description = pg_fetch_result($result_info, 0, 5);
+?>
+
   <div class="center">
 
 
@@ -192,7 +195,7 @@ if (!isset($_SESSION['user'])) {
           <?php echo 'Sequence is ' . strlen($nt) . ' nucleotides long - it starts on position <b>' . $start . '</b> and ends on position <b>' . $end . '</b>.<br><br>'; ?>
 
 
-    <?php if ($status == 'waiting') : ?>
+
       <!-- display gene biotype -->
       <b>Gene identifier: </b> <?php echo $gene_id ?> <br><br>
 
@@ -208,7 +211,7 @@ if (!isset($_SESSION['user'])) {
       <!-- display description -->
       <b>Description: </b> <?php echo $description ?> <br><br>
       </td><td>
-      <?php if ($_SESSION['role'] == ('Validator' ||'Administrator') && $_SESSION['user']!=$annotator) : ?>
+      <?php if ($_SESSION['role'] == ('Validator' ||'Administrator') && $_SESSION['user']!=$annotator && $status != 'waiting') : ?>
         <form action="./sequence_validation.php?gid=<?php echo $genome_id ?>&sid=<?php echo $sequence_id ?>&att=<?php echo $attempt?>&annotator=<?php echo $annotator?>" method="post">
           <tr>
             <td>
@@ -246,7 +249,7 @@ if (!isset($_SESSION['user'])) {
           </a>
       </tr>
 
-    <?php endif; ?>
+
 
 
     </table>
