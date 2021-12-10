@@ -185,6 +185,8 @@ connect_db(); ?>
         echo "<th>Génomes</th>";
         echo "<th>Sequences</th>";
         echo "<th>Annotator</th>";
+        echo "<th>Attempt number</th>";
+        echo "<th>(Re)assignation date</th>";
         echo "<th>Comments</th>";
         echo "<th>Action</th>";
         echo "</tr>";
