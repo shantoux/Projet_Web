@@ -194,15 +194,71 @@ if (!isset($_SESSION['user'])) {
       </tr>
 
       <tr>
-        <td>
-          Peptide sequence<br>
-          <textarea id="seq" name="seq" rows="8" cols="80" readonly><?php echo $prot; ?> </textarea>
-        </td>
-        <td>
-          <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot . "&type=prot\" target=\"_blank\">" ?>
-          <button type="button" class="button_neutral">Align with Blast</button>
-          </a>
-      </tr>
+          <td>
+            Peptide sequence<br>
+            <div style="font-family:courier;border:solid 1px black;background-color:white;">
+            <?php
+              // build list of background colors
+              $colors = array("#ffe119", "#3cb44b", "#f58231", "#42d4f4", "#f032e6");
+
+              $last_domain_end = 0;
+
+              // loop on all domains
+              for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
+
+                // check if domain is known
+                if ($domains[$domain_ind]["name"] != "n/a") {
+
+                  // display protein region since last domain
+                  echo substr($prot_seq, $last_domain_end, $domains[$domain_ind]["start_pos"] - $last_domain_end);
+
+                  // display background colors based on domains
+                  $color = $colors[$domain_ind % sizeof($colors)];
+                  echo '<span style="background-color:' . $color . ';">';
+                  echo substr($prot_seq, $domains[$domain_ind]["start_pos"], $domains[$domain_ind]["end_pos"] - $domains[$domain_ind]["start_pos"]);
+                  echo '</span>';
+                  $last_domain_end = $domains[$domain_ind]["end_pos"];
+                }
+              }
+              echo substr($prot_seq, $last_domain_end);
+            ?>
+          </div>
+          </td>
+
+          <!-- display button for automative blast alignment of the peptidic sequence -->
+          <td>
+            <?php echo "<a href=\"./libphp/blastphp.php?seq=" . $prot_seq . "&type=prot\" target=\"_blank\">"?>
+                 <button class="button_neutral" type="button">Align with Blast</button>
+                 </a>
+        </tr>
+        <tr colspan=2>
+          <td>
+            <?php
+
+              // display protein domain names
+              echo '<b> Found protein domains are:</b><br>';
+
+              $no_know_domain = true;
+
+              // loop on domain
+              for ($domain_ind=0; $domain_ind<sizeof($domains); $domain_ind++) {
+
+                // check if domain is known
+                if ($domains[$domain_ind]["name"] != "n/a") {
+                  $no_know_domain = false;
+                  $color = $colors[$domain_ind % sizeof($colors)];
+                  echo '<a href="https://pfam.xfam.org/family/' . $domains[$domain_ind]["name"] . '" style="background-color:' . $color . ';" target="_blank">';
+                  echo $domains[$domain_ind]["name"];
+                  echo '</a><br>';
+                }
+              }
+
+              if ($no_know_domain) {
+                echo "No domain found for this protein.";
+              }
+            ?>
+          </td>
+        </tr>
 
       <tr>
         <?php if ($status == 'assigned') : ?>
