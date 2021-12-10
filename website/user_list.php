@@ -150,17 +150,53 @@ connect_db();?>
           //////////////////////////////////////////////////////////////////////////
 
         } else if ($_POST['selected_action']=='delete'){
-          // Delete user from the forum's correspondents list
-          $query_delete2 = "DELETE FROM database_projet.correspondents
-          WHERE user_email = '" .$_GET['mail']. "';";
-          $result_delete2 = pg_query($db_conn, $query_delete2)
+
+          $query_if_annotations = "SELECT a.annotator
+          FROM database_projet.annotations a
+          WHERE a.annotator = '" .$_GET['mail']. "';";
+          $result_if_annotations = pg_query($db_conn, $query_if_annotations)
           or die('Query failed with exception: ' . pg_last_error());
 
-          //Delete user from the forum's messages
-          $query_delete3 = "DELETE FROM database_projet.messages
-          WHERE user_email = '" .$_GET['mail']. "';";
-          $result_delete3 = pg_query($db_conn, $query_delete3)
-          or die('Query failed with exception: ' . pg_last_error());
+          if($result_if_annotations >0){
+            //change user in annotations table
+            $values_user = array();
+            $values_user['annotator'] = 'removed_user@gmail.com';
+            $condition = array();
+            $condition['annotator']=$_GET['mail'];
+            //Update the database to change to random user
+            $result_insert = pg_update($db_conn, 'database_projet.annotations', $values_user, $condition)
+            or die ('Query failed with exception: ' . pg_last_error());
+
+            // Delete user from the forum's correspondents list
+            $query_delete2 = "DELETE FROM database_projet.correspondents
+            WHERE user_email = '" .$_GET['mail']. "';";
+            $result_delete2 = pg_query($db_conn, $query_delete2)
+            or die('Query failed with exception: ' . pg_last_error());
+
+            //Delete user from the forum's messages
+            $query_delete3 = "DELETE FROM database_projet.messages
+            WHERE user_email = '" .$_GET['mail']. "';";
+            $result_delete3 = pg_query($db_conn, $query_delete3)
+            or die('Query failed with exception: ' . pg_last_error());
+
+            //Delete user from the user list
+            $query_delete = "DELETE FROM database_projet.users
+            WHERE email = '" .$_GET['mail']. "';";
+            $result_delete = pg_query($db_conn, $query_delete)
+            or die('Query failed with exception: ' . pg_last_error());
+
+            if (($result_delete && $result_delete2 && $result_delete3) || $result_insert){
+              echo "<br> <div class=\"alert_good\">
+                <span class=\"closebtn\"
+                onclick=\"this.parentElement.style.display='none';\">&times;</span>
+                User removed from the database.</div><br>";
+          } echo "<br> <div class=\"alert_bad\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            Error.</div><br>";
+
+
+        } else { // If the user never annotated anything
 
           //Delete user from the user list
           $query_delete = "DELETE FROM database_projet.users
@@ -168,25 +204,11 @@ connect_db();?>
           $result_delete = pg_query($db_conn, $query_delete)
           or die('Query failed with exception: ' . pg_last_error());
 
-          $values_user = array();
-          $values_user['annotator'] = 'removed_user@gmail.com';
-          $condition = array();
-          $condition['annotator']=$_GET['mail'];
-          //Update the database to change to random user
-          $result_insert = pg_update($db_conn, 'database_projet.annotations', $values_user, $condition)
-          or die ('Query failed with exception: ' . pg_last_error());
+          echo "<br> <div class=\"alert_good\">
+            <span class=\"closebtn\"
+            onclick=\"this.parentElement.style.display='none';\">&times;</span>
+            User removed from the database.</div><br>";
 
-
-          if (($result_delete && $result_delete2 && $result_delete3) || $result_insert){
-            echo "<br> <div class=\"alert_good\">
-              <span class=\"closebtn\"
-              onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              User removed from the database.</div><br>";
-          } else {
-            echo "<br> <div class=\"alert_bad\">
-              <span class=\"closebtn\"
-              onclick=\"this.parentElement.style.display='none';\">&times;</span>
-              Error.</div><br>";
           }
         }
       }
