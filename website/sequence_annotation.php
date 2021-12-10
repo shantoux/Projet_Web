@@ -234,9 +234,6 @@ if (!isset($_SESSION['user'])) {
       $result_attempts = pg_query($db_conn, $query_pastattempts);
       if (pg_num_rows($result_attempts) > 0) {
         echo '<table class="table_type1">';
-        echo '<colgroup>';
-        echo '<col style="width: 10%"><col style="width: 10%"><col style="width: 10%"><col style="width: 10%">';
-        echo '</colgroup>';
         echo '<thead>';
         echo '<tr>';
         echo '<th>(Re)assigned on</th><th>Attempt</th><th>Gene id</th><th>gene biotype</th><th>transcript_biotype</th><th>gene_symbol</th><th>description</th><th>Validator\'s comment</th>';
