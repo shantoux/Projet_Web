@@ -188,8 +188,8 @@ zefzefzefzef
                 echo '<td><span style="color:red;">';
                 echo $status;
                 echo '</span></td>';
-              } else {
-                echo '<td>';
+              } else if ($status == 'waiting') {
+                echo '<td><span style="color:#696969;">';
                 echo $status;
                 echo '</td>';
               }
