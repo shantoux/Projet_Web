@@ -227,7 +227,7 @@ if (!isset($_SESSION['user'])) {
     <h3 id="pageundertitle" class="center"> Past attempts </h3>
     <div id="element1">
       <?php
-      $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status
+      $query_pastattempts = "SELECT a.attempt, a.gene_id, a.gene_biotype, a.transcript_biotype, a.gene_symbol, a.description, a.comments, a.status, a.assignation_date
         FROM database_projet.annotations as a
         WHERE sequence_id ='" . $sequence_id . "'and status = 'rejected'
         ORDER BY attempt DESC;";
@@ -246,6 +246,7 @@ if (!isset($_SESSION['user'])) {
 
         while ($rows = pg_fetch_array($result_attempts)) {
           echo "<tr>";
+          echo "<td>" . $rows["assignation_date"] . "</td>";
           echo "<td>" . $rows["attempt"] . "</td>";
           echo '<td>' . $rows["gene_id"] . '</td>';
           echo '<td>' . $rows["gene_biotype"] . '</td>';
