@@ -313,14 +313,12 @@ if (!isset($_SESSION['user'])) {
         </td>
       </tr>
 
-      <tr colspan=2>
-        <td>
+      <tr>
         <?php if ($status == 'assigned') : ?>
-          <td align='center'> <input class="button_ok" type="submit" value="Send" name="send_annotation" style="margin-left:auto;margin-right:auto;">
-            <input class="button_blue" type="submit" value="Save" name="save_annotation" style="margin-left:auto;margin-right:auto;">
+          <td align='center'> <input class="button_ok" type="submit" value="Send" name="send_annotation">
+            <input class="button_blue" type="submit" value="Save" name="save_annotation">
           </td>
         <?php endif; ?>
-        </td>
       </tr>
       </form>
 
