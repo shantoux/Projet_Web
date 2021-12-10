@@ -214,8 +214,12 @@ connect_db();?>
 
         //Display users waiting to be validated
         echo '<tbody>';
+        // Query to get all the users except the admin
         $query = "SELECT last_name, first_name, email, role, status, phone, pw, last_login
-        FROM database_projet.users WHERE status='waiting' ORDER BY role;";
+        FROM database_projet.users WHERE status='waiting' ORDER BY role
+        EXCEPT (SELECT last_name, first_name, email, role, status, phone, pw, last_login
+        FROM database_projet.users WHERE email = 'bobby@gmail.com');";
+
         $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
         if(pg_num_rows($result) > 0){
