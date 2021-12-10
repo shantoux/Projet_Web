@@ -204,7 +204,11 @@
         $adress = 'https://pfam.xfam.org/protein/' . $uniprot_protein_name;
 
         // retrieve the <tbody> element in which the domains are stored on the PFAM page
-        $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0)->children(1);
+        $t = file_get_html($adress)->find("table#imageKey.resultTable.details", 0);
+
+        echo $t . '<br>';
+
+        $t = $t->children(1);
 
         // loop on all of its lines
         for ($domain_index=0; $domain_index<sizeof($t->children); $domain_index++) {
