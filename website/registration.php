@@ -73,7 +73,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan=2> <input type="submit" value="Submit" name="submit_registration"> </td>
+          <td colspan=2> <input class= "button_ok" type="submit" value="Submit" name="submit_registration"> </td>
         </tr>
 
       </table>
