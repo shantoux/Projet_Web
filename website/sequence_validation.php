@@ -111,7 +111,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
 
       mail($to, $subject, $emessage, implode("\r\n", $headers));
       echo "<div class=\"alert_good\">
-      Annotation validated! An email was sent to the annotator. Redirection to validation page ...</div>";
+      Annotation <b>validated</b>! <br>An email was sent to the annotator. <br>Redirection to validation page ...</div>";
       echo '<meta http-equiv = "refresh" content = " 2 ; url = annotation_validation.php"/>';
 
     } else {
@@ -165,7 +165,7 @@ $chromosome = pg_fetch_result($result2, 0, 4);
       mail($to, $subject, $emessage, implode("\r\n", $headers));
 
       echo "<div class=\"alert_neutral\">
-      Annotation successfully rejected. Redirection to validation page ...</div>";
+      Annotation successfully <b>rejected</b>.<br> Redirection to validation page ...</div>";
       echo '<meta http-equiv = "refresh" content = " 2 ; url = annotation_validation.php"/>';
 
     } else {

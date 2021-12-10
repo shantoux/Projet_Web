@@ -79,7 +79,7 @@ connect_db(); ?>
       echo "<br> <div class=\"alert_good\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Annotation <b>validated<b>. An email was sent to the annotator.
+          Annotation <b>validated</b>. <br>An email was sent to the annotator.
         </div>";
 
       $to = $_GET["annotator"]; // Send email to the annotator
@@ -134,7 +134,7 @@ connect_db(); ?>
       echo "<br> <div class=\"alert_good\">
           <span class=\"closebtn\"
           onclick=\"this.parentElement.style.display='none';\">&times;</span>
-          Annotation successfully <b>rejected<b>.
+          Annotation successfully <b>rejected</b>.
         </div>";
 
     //----------------Send an email to the annotator, informing them of the decision
