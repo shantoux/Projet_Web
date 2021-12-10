@@ -105,7 +105,7 @@ if (!isset($_SESSION['user'])) {
         echo "<br> <div class=\"alert_good\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Your annotation has been sent ! Redirection to Annotate Sequence page ...
+            Annotation <b>sent<b> ! Redirection to Annotate Sequence page ...
           </div>";
         echo '<meta http-equiv = "refresh" content = " 2 ; url = assigned_annotation.php"/>';
 
@@ -115,7 +115,7 @@ if (!isset($_SESSION['user'])) {
         echo "<br> <div class=\"alert_good\">
             <span class=\"closebtn\"
             onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            Your annotation has been saved ! Redirection to Annotate Sequence page ...
+            Annotation saved ! Redirection to Annotate Sequence page ...
           </div>";
           echo '<meta http-equiv = "refresh" content = " 2 ; url = assigned_annotation.php"/>';
 
