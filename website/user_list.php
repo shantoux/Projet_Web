@@ -288,7 +288,7 @@ connect_db();?>
         echo '<tbody>';
         $query = "SELECT last_name, first_name, email, role, status, phone, last_login
         FROM database_projet.users
-        WHERE status='validated' AND email != 'bobby@gmail.com'
+        WHERE status='validated' AND email != 'bobby@gmail.com' AND email != 'removed_user@gmail.com'
         ORDER BY role;";
         $result = pg_query($db_conn, $query) or die('Query failed with exception: ' . pg_last_error());
 
