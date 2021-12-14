@@ -80,7 +80,6 @@
           $query_correspondents = "SELECT c.user_email
           FROM database_projet.correspondents c, database_projet.messages m
           WHERE c.topic_name = m.topic_name
-          AND c.user_email != 'removed_user@gmail.com'
           AND m.topic_name = '".$new_message['topic_name']."'
           EXCEPT (SELECT u.email FROM database_projet.users u WHERE u.email = '".$_SESSION['user']."');";
           $result = pg_query($db_conn, $query_correspondents) or die('Query failed with exception: ' . pg_last_error());
@@ -128,7 +127,11 @@
           echo '<form action="forum.php" method = "post">';
           echo '<select name="selected_users[]" ';
           // retrieve all validated users and display multiple-selection menu
-          $query_users = "SELECT email, last_name, first_name, role FROM database_projet.users WHERE status = 'validated' AND role != 'Reader';";
+          $query_users = "SELECT email, last_name, first_name, role
+          FROM database_projet.users
+          WHERE status = 'validated'
+          AND role != 'Reader'
+          AND email != 'removed_user@gmail.com';";
           $result_users = pg_query($db_conn, $query_users) or die('Query failed with exception: ' . pg_last_error());
 
           echo 'multiple size = ' . pg_num_rows($result_users) . ' required>';
