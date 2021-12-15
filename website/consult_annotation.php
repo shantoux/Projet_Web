@@ -173,6 +173,7 @@
             // display remove button
             echo '<form action="consult_annotation.php?sid=' . $annotation["sequence_id"] . '" method="post">';
             echo '<td><input class="button_neutral" type="submit" name="remove" value="&#10008"></td>';
+            echo '</form>';
             echo "</tr>";
           }
 
